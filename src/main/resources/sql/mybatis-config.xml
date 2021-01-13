@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration
+ 		 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ 		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+  						
+<!--	mybatis-config.xml :: MyBatis Framework  MetaData -->
+<configuration>
+
+	<!-- 기타 설정정보 :: [MyBatis_Home]/mybatis-3.2.1.pdf 참조 -->
+	<settings>
+		<setting name="callSettersOnNulls" value="false"/>
+	</settings>	
+	
+	<!-- FQCN(Full Qualified Class Name) Alias(별칭관리) -->
+	<typeAliases>
+		<typeAlias alias="user" type="com.teulda.service.domain.User" />
+		<typeAlias alias="bookmark" type="com.teulda.service.domain.Bookmark" />
+		<typeAlias alias="chat" type="com.teulda.service.domain.Chat" />
+		<typeAlias alias="chatUser" type="com.teulda.service.domain.ChatUser" />
+		<typeAlias alias="comment" type="com.teulda.service.domain.Comment" />
+		<typeAlias alias="diary" type="com.teulda.service.domain.Diary" />
+		<typeAlias alias="hashTag" type="com.teulda.service.domain.HashTag" />
+		<typeAlias alias="landmark" type="com.teulda.service.domain.Landmark" />
+		<typeAlias alias="post" type="com.teulda.service.domain.Post" />
+		<typeAlias alias="report" type="com.teulda.service.domain.Report" />
+		<typeAlias alias="review" type="com.teulda.service.domain.Review" />
+		<typeAlias alias="subscribe" type="com.teulda.service.domain.Subscribe" />
+		<typeAlias alias="search" type="com.teulda.common.Search" />
+		<typeAlias alias="group" type="com.teulda.common.Group" />
+		<typeAlias alias="photo" type="com.teulda.common.Photo" />
+	</typeAliases>
+	
+	 <!-- SQL Definition :: file include -->
+	<mappers>
+		<mapper resource="sql/UserMapper.xml"/>
+		<mapper resource="sql/DiaryMapper.xml"/>
+		<mapper resource="sql/PhotoMapper.xml"/>
+		<mapper resource="sql/PostMapper.xml"/>
+		<mapper resource="sql/CommunityMapper.xml"/>
+		<mapper resource="sql/ReviewMapper.xml"/>
+		<mapper resource="sql/ChatMapper.xml"/>
+	</mappers>
+
+</configuration>

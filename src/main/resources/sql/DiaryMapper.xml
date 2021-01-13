@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PurchaseMapper">
+
+
+	<resultMap id="purchaseSelectMap" type="com.model2.mvc.service.domain.Purchase">
+		<result property="tranNo"					column="tran_no"			jdbcType="NUMERIC" />
+		<result property="purchaseProd.prodNo"		column="prod_no"			jdbcType="NUMERIC" />
+		<result property="purchaseProd.prodName"	column="prod_name"			jdbcType="VARCHAR" />
+		<result property="purchaseProd.price"		column="price"				jdbcType="NUMERIC" />
+		<result property="purchaseProd.regDate"		column="reg_date"			jdbcType="NUMERIC" />
+		<result property="buyer.userId"				column="buyer_id"			jdbcType="VARCHAR" />
+		<result property="buyer.userName"			column="user_name"			jdbcType="VARCHAR" />
+		<result property="buyer.phone"				column="cell_phone"			jdbcType="VARCHAR" />
+		<result property="paymentOption"			column="payment_option"		jdbcType="VARCHAR" />
+		<result property="receiverName"				column="receiver_name"		jdbcType="VARCHAR" />
+		<result property="receiverPhone"			column="receiver_phone"		jdbcType="VARCHAR" />
+		<result property="divyAddr"					column="demailaddr"			jdbcType="VARCHAR" />
+		<result property="divyRequest"				column="dlvy_request"		jdbcType="VARCHAR" />
+		<result property="tranCode"					column="tran_status_code"	jdbcType="VARCHAR" />
+		<result property="orderDate"				column="order_data"			jdbcType="DATE" />
+		<result property="divyDate"					column="dlvy_date"			jdbcType="DATE" />
+	</resultMap>
+	
+	
+	<!-- SQL : INSERT -->
+	<insert	id="addPurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
+		INSERT
+		INTO	transaction(tran_no, prod_no, buyer_id, payment_option, receiver_name, 
+							receiver_phone, demailaddr, dlvy_request, tran_status_code, 
+							order_data, dlvy_date)
+		VALUES	(SEQ_transaction_tran_no.NEXTVAL, #{purchaseProd.prodNo}, #{buyer.userId}, 
+					#{paymentOption:VARCHAR}, #{receiverName:VARCHAR}, #{receiverPhone:VARCHAR}, 
+					#{divyAddr:VARCHAR}, #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, 
+					SYSDATE, #{divyDate:DATE})
+	</insert>
+	 
+	<!-- SQL : SELECT ONE -->
+	<select	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
+		SELECT
+		tran_no, prod_no, buyer_id, payment_option, receiver_name, 
+		receiver_phone, demailaddr, dlvy_request, tran_status_code, 
+		order_data, dlvy_date 
+		FROM transaction
+		WHERE tran_no = #{value}
+	</select>
+	
+	<!-- SQL : UPDATE -->
+	<update	id="updatePurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
+		UPDATE transaction
+	   	<set>
+	   		<!-- payment_option 	= #{paymentOption},  -->
+			receiver_name	= #{receiverName}, 
+			receiver_phone 	= #{receiverPhone}, 
+			demailaddr		= #{divyAddr}, 
+			dlvy_request	= #{divyRequest}, 
+			dlvy_date		= #{divyDate} 
+		</set>
+		WHERE tran_no = #{tranNo}
+	</update>
+	
+	<!-- SQL : UPDATE TranCode -->
+	<update	id="updateTranCode"	parameterType="map" >
+		UPDATE transaction
+	   	<set>
+	   		tran_status_code	= #{tranCode}, 
+		</set>
+		WHERE tran_no = #{tranNo}
+	</update>
+	
+	<!-- SQL : REMOVE -->
+	<delete id="removePurchase"	parameterType="int">
+	 	DELETE
+	 	FROM transaction
+	 	WHERE tran_no = #{value}
+	</delete>
+	
+	<!-- SQL : SELECT Purchase LIST -->
+	<select	id="getPurchaseList"	parameterType="map"	resultMap="purchaseSelectMap">
+		SELECT *
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
+		  					FROM transaction, users 
+							WHERE user_id = buyer_id 
+							AND buyer_id = #{buyerId}
+							ORDER BY tran_no DESC) inner_table	
+				WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	</select>
+
+	<!-- SQL : SELECT Sale LIST -->
+	<select	id="getSaleList"	parameterType="com.model2.mvc.common.Search"	resultMap="purchaseSelectMap">
+		SELECT *
+		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
+	  				FROM(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
+						price, image_file, reg_date, tran_no, tran_status_code 
+						FROM product p, transaction t
+						<where>
+						p.prod_no = t.prod_no
+						<if test="searchCondition != null">
+							<choose>
+								<when test="searchCondition == 0 and searchKeyword !='' ">
+									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 1 and searchKeyword !='' ">
+					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 2 and searchKeyword !='' ">
+					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						ORDER BY tran_no DESC) inner_table
+				WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	</select>
+	
+	<!-- SQL : SELECT PURCHASE ROW Count -->
+	<select	id="getPurchaseTotalCount"	parameterType="map"	resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
+						FROM transaction, users 
+						<where>
+						user_id = buyer_id 
+						AND buyer_id = #{buyerId}
+						<if test="searchCondition != null">
+							<choose>
+								<when test="searchCondition == 0 and searchKeyword !='' ">
+									AND prod_no LIKE '%'||#{search.searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 1 and searchKeyword !='' ">
+					 				AND prod_name LIKE '%'||#{search.searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 2 and searchKeyword !='' ">
+					 				AND price LIKE '%'||#{search.searchKeyword}||'%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						) countTable						
+	</select>
+
+	<!-- SQL : SELECT SALE ROW Count -->
+	<select	id="getSaleTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
+						price, image_file, reg_date, tran_no, tran_status_code 
+						FROM product p, transaction t
+						<where>
+						p.prod_no = t.prod_no
+						<if test="searchCondition != null">
+							<choose>
+								<when test="searchCondition == 0 and searchKeyword !='' ">
+									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 1 and searchKeyword !='' ">
+					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 2 and searchKeyword !='' ">
+					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
+								</when>
+							</choose>
+						</if>
+						</where>
+						) countTable						
+	</select>
+
+</mapper>
