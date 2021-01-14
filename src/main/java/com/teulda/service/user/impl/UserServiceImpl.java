@@ -15,6 +15,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void checkEmail(String email) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void checkPhone(String phone) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean checkIdDuplication(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public boolean checkEmailDuplication(String email) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
@@ -33,13 +51,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User loginUser(User user) throws Exception {
+	public User login(User user) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User getUser(String userId) throws Exception {
+	public User logout(User user) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getUser(String nickName) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -57,9 +81,53 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void updateUserStatus(User user) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public boolean checkDuplication(String userId) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void updateUserStatus(String status) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reportUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Map<String, Object> getUserBlackList(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getReportList(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteReport(User user) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }

@@ -17,10 +17,7 @@ public class User {
 		private String status;//상태
 		private Date statusDate;//상태변경날짜
 		private int reportCount;	//신고당한횟수
-		/////////////// EL 적용 위해 추가된 Field ///////////
-		//private String phone1;
-		//private String phone2;
-		//private String phone3;
+
 		public String getNickName() {
 			return nickName;
 		}
