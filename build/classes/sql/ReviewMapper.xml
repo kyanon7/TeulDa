@@ -4,79 +4,61 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="PurchaseMapper">
+<mapper namespace="ReviewMapper">
 
 
-	<resultMap id="purchaseSelectMap" type="com.model2.mvc.service.domain.Purchase">
-		<result property="tranNo"					column="tran_no"			jdbcType="NUMERIC" />
-		<result property="purchaseProd.prodNo"		column="prod_no"			jdbcType="NUMERIC" />
-		<result property="purchaseProd.prodName"	column="prod_name"			jdbcType="VARCHAR" />
-		<result property="purchaseProd.price"		column="price"				jdbcType="NUMERIC" />
-		<result property="purchaseProd.regDate"		column="reg_date"			jdbcType="NUMERIC" />
-		<result property="buyer.userId"				column="buyer_id"			jdbcType="VARCHAR" />
-		<result property="buyer.userName"			column="user_name"			jdbcType="VARCHAR" />
-		<result property="buyer.phone"				column="cell_phone"			jdbcType="VARCHAR" />
-		<result property="paymentOption"			column="payment_option"		jdbcType="VARCHAR" />
-		<result property="receiverName"				column="receiver_name"		jdbcType="VARCHAR" />
-		<result property="receiverPhone"			column="receiver_phone"		jdbcType="VARCHAR" />
-		<result property="divyAddr"					column="demailaddr"			jdbcType="VARCHAR" />
-		<result property="divyRequest"				column="dlvy_request"		jdbcType="VARCHAR" />
-		<result property="tranCode"					column="tran_status_code"	jdbcType="VARCHAR" />
-		<result property="orderDate"				column="order_data"			jdbcType="DATE" />
-		<result property="divyDate"					column="dlvy_date"			jdbcType="DATE" />
+	<resultMap id="reviewSelectMap" type="com.teulda.service.domain.Review">
+		<result property="reviewNo"			column="review_id"		jdbcType="NUMERIC" />
+		<result property="nickName"			column="nickname"		jdbcType="VARCHAR" />
+		<result property="reviewPlace"		column="review_addr"	jdbcType="VARCHAR" />
+		<result property="reviewContents"	column="content"		jdbcType="VARCHAR" />
+		<result property="reviewPhoto"		column="review_photo"	jdbcType="VARCHAR" />
+		<result property="reviewDate"		column="review_date"	jdbcType="DATE" />
+		<result property="star"				column="star"			jdbcType="VARCHAR" />
+		<result property="isAllowed"		column="is_allowed"		jdbcType="VARCHAR" />
 	</resultMap>
 	
 	
 	<!-- SQL : INSERT -->
-	<insert	id="addPurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
+	<insert	id="addReview"	parameterType="com.teulda.service.domain.Review" >
 		INSERT
-		INTO	transaction(tran_no, prod_no, buyer_id, payment_option, receiver_name, 
-							receiver_phone, demailaddr, dlvy_request, tran_status_code, 
-							order_data, dlvy_date)
-		VALUES	(SEQ_transaction_tran_no.NEXTVAL, #{purchaseProd.prodNo}, #{buyer.userId}, 
-					#{paymentOption:VARCHAR}, #{receiverName:VARCHAR}, #{receiverPhone:VARCHAR}, 
-					#{divyAddr:VARCHAR}, #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, 
-					SYSDATE, #{divyDate:DATE})
+		INTO	review(review_id, nickname, review_addr, content, review_photo, 
+							review_date, star, is_allowed)
+		VALUES	(seq_review_review_id.NEXTVAL, #{nickName}, #{reviewPlace}, 
+					#{reviewContents:VARCHAR}, #{reviewPhoto:VARCHAR}, SYSDATE, 
+					#{star:VARCHAR}, #{isAllowed:VARCHAR})
 	</insert>
 	 
 	<!-- SQL : SELECT ONE -->
-	<select	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
+	<select	id="getReview"	parameterType="int"	resultMap="reviewSelectMap">
 		SELECT
-		tran_no, prod_no, buyer_id, payment_option, receiver_name, 
-		receiver_phone, demailaddr, dlvy_request, tran_status_code, 
-		order_data, dlvy_date 
-		FROM transaction
-		WHERE tran_no = #{value}
+		review_id, nickname, review_addr, content, 
+		review_photo, review_date, star, is_allowed 
+		FROM review
+		WHERE review_id = #{value}
 	</select>
 	
 	<!-- SQL : UPDATE -->
-	<update	id="updatePurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
-		UPDATE transaction
+	<update	id="updateReview"	parameterType="com.teulda.service.domain.Review" >
+		UPDATE review
 	   	<set>
-	   		<!-- payment_option 	= #{paymentOption},  -->
-			receiver_name	= #{receiverName}, 
-			receiver_phone 	= #{receiverPhone}, 
+			nickname		= #{nickname}, 
+			review_addr 	= #{reviewPlace}, 
 			demailaddr		= #{divyAddr}, 
-			dlvy_request	= #{divyRequest}, 
-			dlvy_date		= #{divyDate} 
+			content			= #{reviewContents}, 
+			review_photo	= #{reviewPhoto},
+			review_date		= #{reviewDate},
+			star			= #{star},
+			is_allowed		= #{isAllowed}
 		</set>
-		WHERE tran_no = #{tranNo}
+		WHERE review_id = #{reviewNo}
 	</update>
 	
-	<!-- SQL : UPDATE TranCode -->
-	<update	id="updateTranCode"	parameterType="map" >
-		UPDATE transaction
-	   	<set>
-	   		tran_status_code	= #{tranCode}, 
-		</set>
-		WHERE tran_no = #{tranNo}
-	</update>
-	
-	<!-- SQL : REMOVE -->
-	<delete id="removePurchase"	parameterType="int">
+	<!-- SQL : DELETE -->
+	<delete id="deleteReview"	parameterType="int">
 	 	DELETE
-	 	FROM transaction
-	 	WHERE tran_no = #{value}
+	 	FROM review
+	 	WHERE review_id = #{value}
 	</delete>
 	
 	<!-- SQL : SELECT Purchase LIST -->
