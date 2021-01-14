@@ -1,5 +1,24 @@
 package com.teulda.service.review;
 
-public interface ReviewDao {
+import java.util.List;
 
+import com.teulda.common.Search;
+import com.teulda.service.domain.Review;
+
+public interface ReviewDao {
+	
+	//	INSERT
+	public void addReview(Review review) throws Exception;
+	
+	//	SELECT ONE
+	public Review getReview(int reviewNo) throws Exception;
+
+	//	SELECT LIST
+	public List<Review> getReviewList(Search search) throws Exception;
+	
+	//	UPDATE
+	public void updateReview(Review review) throws Exception;
+	
+	//	DELETE
+	public void deleteReview(int reviewNo) throws Exception;
 }

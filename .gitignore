@@ -4,6 +4,7 @@
 
 ### Java ###
 
+/build/
 *.class
 
 # Eclipse
@@ -24,3 +25,4 @@
 # *.zip
 # *.tar.gz
 # *.rar
+
