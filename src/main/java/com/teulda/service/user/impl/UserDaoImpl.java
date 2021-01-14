@@ -75,11 +75,7 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
-	@Override
-	public int getTotalCount(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	@Override
 	public void deleteReport(User user) throws Exception {

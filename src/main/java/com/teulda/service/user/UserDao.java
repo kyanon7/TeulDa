@@ -34,8 +34,6 @@ public interface UserDao {
 	
 	public void deleteReport(User user) throws Exception ;
 	
-	public int getTotalCount(Search search) throws Exception ;
-	
 	public void changeStatus(User user) throws Exception ;
 	
 }
