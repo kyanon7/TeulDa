@@ -10,16 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+//import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.teulda.common.Search;
+//import com.teulda.common.Search;
 import com.teulda.service.domain.User;
 import com.teulda.service.user.UserService;
 
-@WebAppConfiguration
+//@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-
-//==> Meta-Data wiring
 @ContextConfiguration	(locations = {	"classpath:config/context-common.xml",//pageSize?
 																	"classpath:config/context-aspect.xml",//접점(포인트컷)
 																	"classpath:config/context-mybatis.xml",//마이바티스

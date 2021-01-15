@@ -10,37 +10,37 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(User user) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void checkEmail(String email) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void checkPhone(String phone) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public boolean checkEmailDuplication(String email) throws Exception {
-		// TODO Auto-generated method stub
+	
 		return false;
 	}
 
 	@Override
 	public boolean checkPhoneDuplication(String phone) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean checkNicknameDuplication(String nickName) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
