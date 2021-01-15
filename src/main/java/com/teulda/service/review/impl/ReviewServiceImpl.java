@@ -28,7 +28,6 @@ public class ReviewServiceImpl implements ReviewService {
     	this.reviewDao = reviewDao;
     }
 
-	@Override
     public void addReview(Review review) throws Exception {
     	reviewDao.addReview(review);
     }
