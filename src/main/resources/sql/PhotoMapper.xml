@@ -4,7 +4,7 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="PhotoMapper">
+ <mapper namespace="PhotoMapper">
 
 
 	<resultMap id="photoSelectMap" type="com.teulda.common.Photo">
@@ -24,7 +24,7 @@
 	
 	
 	<!-- SQL : INSERT -->
-	<insert	id="addPurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
+	<!-- <insert	id="addPurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
 		INSERT
 		INTO	transaction(tran_no, prod_no, buyer_id, payment_option, receiver_name, 
 							receiver_phone, demailaddr, dlvy_request, tran_status_code, 
@@ -34,22 +34,22 @@
 					#{divyAddr:VARCHAR}, #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, 
 					SYSDATE, #{divyDate:DATE})
 	</insert>
-	 
+	  -->
 	<!-- SQL : SELECT ONE -->
-	<select	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
+	<!-- <select	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
 		SELECT
 		tran_no, prod_no, buyer_id, payment_option, receiver_name, 
 		receiver_phone, demailaddr, dlvy_request, tran_status_code, 
 		order_data, dlvy_date 
 		FROM transaction
 		WHERE tran_no = #{value}
-	</select>
+	</select> -->
 	
 	<!-- SQL : UPDATE -->
-	<update	id="updatePurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
+	<!-- <update	id="updatePurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
 		UPDATE transaction
 	   	<set>
-	   		<!-- payment_option 	= #{paymentOption},  -->
+	   		payment_option 	= #{paymentOption}, 
 			receiver_name	= #{receiverName}, 
 			receiver_phone 	= #{receiverPhone}, 
 			demailaddr		= #{divyAddr}, 
@@ -57,26 +57,26 @@
 			dlvy_date		= #{divyDate} 
 		</set>
 		WHERE tran_no = #{tranNo}
-	</update>
+	</update> -->
 	
 	<!-- SQL : UPDATE TranCode -->
-	<update	id="updateTranCode"	parameterType="map" >
+	<!-- <update	id="updateTranCode"	parameterType="map" >
 		UPDATE transaction
 	   	<set>
 	   		tran_status_code	= #{tranCode}, 
 		</set>
 		WHERE tran_no = #{tranNo}
-	</update>
+	</update> -->
 	
 	<!-- SQL : REMOVE -->
-	<delete id="removePurchase"	parameterType="int">
+	<!-- <delete id="removePurchase"	parameterType="int">
 	 	DELETE
 	 	FROM transaction
 	 	WHERE tran_no = #{value}
-	</delete>
+	</delete> -->
 	
 	<!-- SQL : SELECT Purchase LIST -->
-	<select	id="getPurchaseList"	parameterType="map"	resultMap="purchaseSelectMap">
+	<!-- <select	id="getPurchaseList"	parameterType="map"	resultMap="purchaseSelectMap">
 		SELECT *
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
 	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
@@ -86,10 +86,10 @@
 							ORDER BY tran_no DESC) inner_table	
 				WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	</select>
+	</select> -->
 
 	<!-- SQL : SELECT Sale LIST -->
-	<select	id="getSaleList"	parameterType="com.model2.mvc.common.Search"	resultMap="purchaseSelectMap">
+	<!-- <select	id="getSaleList"	parameterType="com.model2.mvc.common.Search"	resultMap="purchaseSelectMap">
 		SELECT *
 		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
 	  				FROM(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
@@ -114,10 +114,10 @@
 						ORDER BY tran_no DESC) inner_table
 				WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	</select>
+	</select> -->
 	
 	<!-- SQL : SELECT PURCHASE ROW Count -->
-	<select	id="getPurchaseTotalCount"	parameterType="map"	resultType="int">
+	<!-- <select	id="getPurchaseTotalCount"	parameterType="map"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
 						FROM transaction, users 
@@ -139,10 +139,10 @@
 						</if>
 						</where>
 						) countTable						
-	</select>
+	</select> -->
 
 	<!-- SQL : SELECT SALE ROW Count -->
-	<select	id="getSaleTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
+	<!-- <select	id="getSaleTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
 						price, image_file, reg_date, tran_no, tran_status_code 
@@ -164,6 +164,6 @@
 						</if>
 						</where>
 						) countTable						
-	</select>
+	</select> -->
 
 </mapper>
