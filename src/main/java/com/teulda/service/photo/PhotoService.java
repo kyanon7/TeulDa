@@ -26,6 +26,12 @@ public interface PhotoService {
 	//그룹조회 list
 	public Map<String, Object> getGroupList(Search search) throws Exception;
 	
+	//앨범이름변경
+	public void updateGroupName(Group group) throws Exception;
+	
+	//사진 앨범이동
+	public void updateGroupNo(Group group) throws Exception;
+	
 	//사진 삭제 플래그처리(삭제, 복구)
 	public void updatePhotoStatus(Photo photo) throws Exception;
 	
