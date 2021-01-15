@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-//import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 //import com.teulda.common.Search;
 import com.teulda.service.domain.User;
