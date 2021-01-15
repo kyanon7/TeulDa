@@ -36,6 +36,9 @@ public class DiaryServiceTest {
 	public void testAddDiary() throws Exception {
 		
 		Diary diary = new Diary();
+		diary.setTitle("제주도에 왔어요!");
+		diary.setLocation("제주도 돌하르방 앞에서");
+		//diary.setLatitude("59");
 		
 	}
 
