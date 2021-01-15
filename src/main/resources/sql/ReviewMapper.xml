@@ -9,7 +9,7 @@
 
 	<resultMap id="reviewSelectMap" type="com.teulda.service.domain.Review">
 		<result property="reviewNo"			column="review_id"		jdbcType="NUMERIC" />
-		<result property="nickName"			column="nickname"		jdbcType="VARCHAR" />
+		<result property="nickname"			column="nickname"		jdbcType="VARCHAR" />
 		<result property="reviewPlace"		column="review_addr"	jdbcType="VARCHAR" />
 		<result property="reviewContents"	column="content"		jdbcType="VARCHAR" />
 		<result property="reviewPhoto"		column="review_photo"	jdbcType="VARCHAR" />
@@ -24,7 +24,7 @@
 		INSERT
 		INTO	review(review_id, nickname, review_addr, content, review_photo, 
 							review_date, star, is_allowed)
-		VALUES	(seq_review_review_id.NEXTVAL, #{nickName}, #{reviewPlace}, 
+		VALUES	(seq_review_review_id.NEXTVAL, #{nickname}, #{reviewPlace}, 
 					#{reviewContents:VARCHAR}, #{reviewPhoto:VARCHAR}, #{reviewDate:TIMESTAMP}, 
 					#{star:VARCHAR}, #{isAllowed:VARCHAR})
 	</insert>
@@ -44,7 +44,6 @@
 	   	<set>
 			nickname		= #{nickname}, 
 			review_addr 	= #{reviewPlace}, 
-			demailaddr		= #{divyAddr}, 
 			content			= #{reviewContents}, 
 			review_photo	= #{reviewPhoto},
 			review_date		= #{reviewDate},
