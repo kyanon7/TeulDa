@@ -4,26 +4,22 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="PurchaseMapper">
+<mapper namespace="PhotoMapper">
 
 
-	<resultMap id="purchaseSelectMap" type="com.model2.mvc.service.domain.Purchase">
-		<result property="tranNo"					column="tran_no"			jdbcType="NUMERIC" />
-		<result property="purchaseProd.prodNo"		column="prod_no"			jdbcType="NUMERIC" />
-		<result property="purchaseProd.prodName"	column="prod_name"			jdbcType="VARCHAR" />
-		<result property="purchaseProd.price"		column="price"				jdbcType="NUMERIC" />
-		<result property="purchaseProd.regDate"		column="reg_date"			jdbcType="NUMERIC" />
-		<result property="buyer.userId"				column="buyer_id"			jdbcType="VARCHAR" />
-		<result property="buyer.userName"			column="user_name"			jdbcType="VARCHAR" />
-		<result property="buyer.phone"				column="cell_phone"			jdbcType="VARCHAR" />
-		<result property="paymentOption"			column="payment_option"		jdbcType="VARCHAR" />
-		<result property="receiverName"				column="receiver_name"		jdbcType="VARCHAR" />
-		<result property="receiverPhone"			column="receiver_phone"		jdbcType="VARCHAR" />
-		<result property="divyAddr"					column="demailaddr"			jdbcType="VARCHAR" />
-		<result property="divyRequest"				column="dlvy_request"		jdbcType="VARCHAR" />
-		<result property="tranCode"					column="tran_status_code"	jdbcType="VARCHAR" />
-		<result property="orderDate"				column="order_data"			jdbcType="DATE" />
-		<result property="divyDate"					column="dlvy_date"			jdbcType="DATE" />
+	<resultMap id="photoSelectMap" type="com.teulda.common.Photo">
+		<result property="photoId"				column="photo_id"				jdbcType="NUMERIC" />
+		<result property="photoGroupId"			column="photo_group_id"			jdbcType="NUMERIC" />
+		<result property="postId"				column="postId"					jdbcType="NUMERIC" />
+		<result property="diaryId"				column="diary_id"				jdbcType="NUMERIC" />
+		<result property="photoName"			column="photo_name"				jdbcType="VARCHAR" />
+		<result property="photoAddr"			column="photo_addr"				jdbcType="VARCHAR" />
+		<result property="latitude"				column="latitude"				jdbcType="VARCHAR" />
+		<result property="longitude"			column="longitude"				jdbcType="VARCHAR" />
+		<result property="photoDate"			column="photo_date"				jdbcType="DATE" />
+		<result property="deleteDate"			column="delete_date"			jdbcType="DATE" />
+		<result property="description"			column="description"			jdbcType="VARCHAR" />
+		<result property="diaryPhotoType"		column="diary_photo_type"		jdbcType="VARCHAR" />
 	</resultMap>
 	
 	
