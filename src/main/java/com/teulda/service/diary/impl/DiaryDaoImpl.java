@@ -43,8 +43,7 @@ public class DiaryDaoImpl implements DiaryDao {
 
 	@Override
 	public Diary getDiary(int diaryNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return (Diary) sqlSession.selectOne("DiaryMapper.getDiary" , diaryNo);
 	}
 
 	@Override

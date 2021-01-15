@@ -10,3 +10,10 @@ values (seq_diary_diary_id.nextval, '제목', '서울시 강서구', '36.541235'
                             from groups
                             where nickname='king주원' and group_name = 'default2'),
         '달러', 20000, 30000, 40000, 50000, 60000, 'f');
+        
+// get diary 연습 예제
+
+select * 
+from diary
+where diary_id = 10006
+
