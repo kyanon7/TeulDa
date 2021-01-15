@@ -30,7 +30,7 @@ public class PhotoServiceTest {
 		
 		System.out.println("ㅎㅇ");
 //		photo.setPhotoNo(photoNo);
-		photo.setPhotoGroupNo(10012);
+		photo.setPhotoGroupNo(10013);
 //		photo.setPostNo(postNo);
 //		photo.setDiaryNo(diaryNo);
 		photo.setPhotoName("testName");
