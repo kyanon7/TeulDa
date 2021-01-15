@@ -10,13 +10,13 @@ import com.teulda.service.post.PostDao;
 public class PostDaoImpl implements PostDao {
 
 	@Override
-	public void insertPost(Post post) throws Exception {
+	public void addPost(Post post) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Post findPost(int postNo) throws Exception {
+	public Post getPost(int postNo) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,7 +40,7 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public void insertComment(Comment comment) throws Exception {
+	public void addComment(Comment comment) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

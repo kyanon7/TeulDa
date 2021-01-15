@@ -27,12 +27,12 @@ public interface PostService {
 	public void addComment(Comment commnet) throws Exception;
 	
 	//댓글 수정
-	public void updateComment(int commentNo) throws Exception;
+	public void updateComment(Comment comment) throws Exception;
 	
 	//댓글 삭제
 	public void deleteComment(int commentNo) throws Exception;
 	
-	//나의 댓글 목록 조회
+	//댓글 목록 조회
 	public Map<String, Object> getCommentList(Search search) throws Exception;
 	
 }
