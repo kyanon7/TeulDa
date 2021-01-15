@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-
 	@Override
 	public boolean checkEmailDuplication(String email) throws Exception {
 		// TODO Auto-generated method stub
