@@ -66,7 +66,7 @@ CREATE TABLE users (
 	birth					DATE,
 	user_photo				VARCHAR2(100),
 	update_status_date		DATE,
-	is_public				CHAR(1)			DEFAULT 't',
+	is_public				CHAR(1),
 	status					CHAR(1)			DEFAULT 0,
 	role						CHAR(1)			DEFAULT 1,
 	PRIMARY KEY(nickname)
@@ -111,8 +111,8 @@ CREATE TABLE diary (
 	diary_id				NUMBER				NOT NULL,
 	title					VARCHAR2(100)		NOT NULL,
 	diary_addr			VARCHAR2(300)		NOT NULL,
-	latitude				VARCHAR2(30)		NOT NULL,
-	longitude			VARCHAR2(30)		NOT NULL,
+	latitude				NUMBER		NOT NULL,
+	longitude			NUMBER		NOT NULL,
 	diary_date			DATE				NOT NULL,
 	last_update_date		DATE,
 	origin_nick			VARCHAR2(50)		NOT NULL	REFERENCES users(nickname),
@@ -131,7 +131,7 @@ CREATE TABLE diary (
 	food_bill				NUMBER,
 	tour_bill				NUMBER,
 	shop_bill				NUMBER,
-	is_public				CHAR(1)				DEFAULT 't',
+	is_public				CHAR(1),
 	PRIMARY KEY(diary_id)
 );
 
@@ -213,8 +213,8 @@ CREATE TABLE photo (
 	diary_id				NUMBER		REFERENCES diary(diary_id),
 	photo_name			VARCHAR2(100)	NOT NULL,
 	photo_addr			VARCHAR2(300),
-	latitude				VARCHAR2(30),
-	longitude			VARCHAR2(30),
+	latitude				NUMBER,
+	longitude			NUMBER,
 	photo_date			DATE,
 	delete_date			DATE,
 	description			VARCHAR2(100),
@@ -347,3 +347,5 @@ VALUES (seq_groups_group_id.nextval, 'default2', 'king정인', null, 2);
 INSERT
 INTO groups (group_id, group_name, nickname, delete_date, group_type)
 VALUES (seq_groups_group_id.nextval, 'default3', 'king정인', null, 3);
+
+commit;

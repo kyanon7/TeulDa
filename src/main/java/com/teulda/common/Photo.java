@@ -10,8 +10,8 @@ public class Photo {
 	private int diaryNo; // 기록 No - 기록 사진
 	private String photoName; // 사진 파일명 - 앨범 사진
 	private String photoAddr; // 사진 찍은 위치 - 앨범 사진
-	private String latitude; // 위도 - 앨범 사진
-	private String longitude; // 경도 - 앨범 사진
+	private Double latitude; // 위도 - 앨범 사진
+	private Double longitude; // 경도 - 앨범 사진
 	private Date photoDate; // 사진 찍은 날짜 - 앨범 사진
 	private Date deleteDate; // 사진 삭제 날짜 - 앨범 사진
 	private String description; // 설명 - 기록 사진
@@ -65,19 +65,19 @@ public class Photo {
 		this.photoAddr = photoAddr;
 	}
 
-	public String getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 

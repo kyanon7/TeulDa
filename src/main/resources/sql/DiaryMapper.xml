@@ -17,7 +17,7 @@
 		<result property="nickname"				column="origin_nick"		jdbcType="VARCHAR" />
 		<result property="startDate"			column="start_date"			jdbcType="DATE" />
 		<result property="endDate"				column="end_date"			jdbcType="DATE" />
-		<result property="content"				column="content"			jdbcType="VARCHAR" />
+		<result property="content"				column="content"			jdbcType="LONGVARCHAR" />
 		<result property="thumbnail"			column="thumbnail"			jdbcType="VARCHAR" />
 		<result property="viewCount"			column="view_count"			jdbcType="NUMERIC" />
 		<result property="deleteDate"			column="delete_date"		jdbcType="DATE" />
@@ -32,5 +32,23 @@
 		<result property="shopBill"				column="shop_bill"			jdbcType="NUMERIC" />
 		<result property="isPublic"				column="is_public"			jdbcType="CHAR" />
 	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addDiary"		parameterType="diary">
+	insert 
+	into diary (diary_id, title, diary_addr, latitude, longitude, diary_date, 
+				origin_nick, start_date, end_date, 
+            	content, thumbnail, group_id,
+            	currency, trans_bill, room_bill, 
+            	food_bill, tour_bill, shop_bill, is_public)
+            	
+	values 	(seq_diary_diary_id.nextval, #{title}, #{location}, #{latitude}, #{longitude}, sysdate, 
+			#{nickname}, #{startDate}, #{endDate}, 
+        	#{content:LONGVARCHAR}, #{thumbnail:VARCHAR},  (select group_id
+                            								from groups	
+                            								where nickname = #{nickname} and group_name = 'default2'),
+        	#{currency:VARCHAR}, #{transBill:NUMERIC}, #{roomBill:NUMERIC}, 
+        	#{foodBill:NUMERIC}, #{tourBill:NUMERIC}, #{shopBill:NUMERIC}, #{isPublic})
+	</insert>
 
 </mapper>

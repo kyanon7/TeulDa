@@ -13,7 +13,7 @@
 		<result property="reviewPlace"		column="review_addr"	jdbcType="VARCHAR" />
 		<result property="reviewContents"	column="content"		jdbcType="VARCHAR" />
 		<result property="reviewPhoto"		column="review_photo"	jdbcType="VARCHAR" />
-		<result property="reviewDate"		column="review_date"	jdbcType="DATE" />
+		<result property="reviewDate"		column="review_date"	jdbcType="TIMESTAMP" />
 		<result property="star"				column="star"			jdbcType="VARCHAR" />
 		<result property="isAllowed"		column="is_allowed"		jdbcType="VARCHAR" />
 	</resultMap>
@@ -25,7 +25,7 @@
 		INTO	review(review_id, nickname, review_addr, content, review_photo, 
 							review_date, star, is_allowed)
 		VALUES	(seq_review_review_id.NEXTVAL, #{nickName}, #{reviewPlace}, 
-					#{reviewContents:VARCHAR}, #{reviewPhoto:VARCHAR}, SYSDATE, 
+					#{reviewContents:VARCHAR}, #{reviewPhoto:VARCHAR}, #{reviewDate:TIMESTAMP}, 
 					#{star:VARCHAR}, #{isAllowed:VARCHAR})
 	</insert>
 	 

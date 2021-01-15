@@ -32,7 +32,7 @@ public class Diary { // 기록
 	private double foodBill; // 식비
 	private double tourBill; // 관광비
 	private double shopBill; // 쇼핑비
-	private boolean isPublic; // 공개/비공개
+	private char isPublic; // 공개 : t / 비공개 : f
 	private List<String> hashTagList; // 해시태그
 	// private List<HashTag> hashTagList;
 	private List<String> photoList; // 사진 파일명 여러개
@@ -238,11 +238,11 @@ public class Diary { // 기록
 		this.shopBill = shopBill;
 	}
 
-	public boolean isPublic() {
+	public char getIsPublic() {
 		return isPublic;
 	}
 
-	public void setPublic(boolean isPublic) {
+	public void setIsPublic(char isPublic) {
 		this.isPublic = isPublic;
 	}
 

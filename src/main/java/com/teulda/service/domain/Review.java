@@ -1,6 +1,6 @@
 package com.teulda.service.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Review {
     private int reviewNo;
@@ -8,7 +8,7 @@ public class Review {
     private String reviewPlace;
     private String reviewContents;
     private String reviewPhoto;
-    private Date reviewDate;
+    private Timestamp reviewDate;
     private int star;
     private char isAllowed;
     
@@ -42,10 +42,10 @@ public class Review {
 	public void setReviewPhoto(String reviewPhoto) {
 		this.reviewPhoto = reviewPhoto;
 	}
-	public Date getReviewDate() {
+	public Timestamp getReviewDate() {
 		return reviewDate;
 	}
-	public void setReviewDate(Date reviewDate) {
+	public void setReviewDate(Timestamp reviewDate) {
 		this.reviewDate = reviewDate;
 	}
 	public int getStar() {
