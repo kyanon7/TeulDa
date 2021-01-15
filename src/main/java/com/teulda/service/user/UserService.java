@@ -12,18 +12,16 @@ public interface UserService {
 	public void checkEmail(String email) throws Exception ;
 	
 	public void checkPhone(String phone) throws Exception ;
-	
-	public boolean checkIdDuplication(String email) throws Exception;
 
-	public boolean checkEmailDuplication(String email) throws Exception;
+	public boolean checkEmailDuplication(String email) throws Exception;//이메일 중복체크
 	
-	public boolean checkPhoneDuplication(String phone) throws Exception;
+	public boolean checkPhoneDuplication(String phone) throws Exception;//전화번호 중복체크
 	
-	public boolean checkNicknameDuplication(String nickName) throws Exception;
+	public boolean checkNicknameDuplication(String nickName) throws Exception;//닉네임 중복체크
 	
-	public User login(User user) throws Exception;
+	public User login(User user) throws Exception;//로그인
 	
-	public User logout(User user) throws Exception;
+	public User logout(User user) throws Exception;//로그아웃
 	
 	public User getUser(String nickName) throws Exception;
 	
