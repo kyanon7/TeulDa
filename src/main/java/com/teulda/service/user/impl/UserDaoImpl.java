@@ -26,9 +26,8 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
-	
 	@Override
-	public User getUser(String userId) throws Exception {
+	public User getUser(String NickName) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -75,19 +74,13 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
-
-
 	@Override
 	public void deleteReport(User user) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void changeStatus(User user) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 }

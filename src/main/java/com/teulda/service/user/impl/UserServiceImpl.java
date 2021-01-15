@@ -26,11 +26,6 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	@Override
-	public boolean checkIdDuplication(String email) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public boolean checkEmailDuplication(String email) throws Exception {

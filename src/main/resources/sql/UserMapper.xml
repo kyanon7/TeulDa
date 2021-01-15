@@ -168,6 +168,6 @@
 						</if>
 						</where>
 						) countTable						
-	</select>
+	</select> 
 
 </mapper>
