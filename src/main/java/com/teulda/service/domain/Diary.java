@@ -3,7 +3,7 @@ package com.teulda.service.domain;
 import java.util.Date;
 import java.util.List;
 
-public class Diary { // 기록 
+public class Diary { // 기록
 
 	private int diaryNo; // 기록 No (스크랩 한 기록 No)
 	private String title; // 제목
@@ -18,12 +18,14 @@ public class Diary { // 기록
 	private String content; // 글 내용
 	private String thumbnail; // 사진 파일명
 	private int viewCount; // 조회수
+
 	private int bookmarkCount; // 북마크 횟수 - DB엔 칼럼 없음
-	private int scrabCount; // 스크랩 횟수 - DB엔 칼럼 없음
+	private int scrapCount; // 스크랩 횟수 - DB엔 칼럼 없음
+
 	private Date deleteDate; // 삭제일자
-	private String scrabNickname; // 스크랩한 회원 닉네임
-	private Date scrabDate; // 스크랩 한 날짜
-	private int GroupNo; // 기록일때 기록 그룹 No, 스크랩일때 스크랩 그룹 No
+	private String scrapNickname; // 스크랩한 회원 닉네임
+	private Date scrapDate; // 스크랩 한 날짜
+	private int groupNo; // 기록일때 기록 그룹 No, 스크랩일때 스크랩 그룹 No
 	private String currency; // 통화 (화폐)
 	private double transBill; // 교통비
 	private double roomBill; // 숙박비
@@ -148,12 +150,12 @@ public class Diary { // 기록
 		this.bookmarkCount = bookmarkCount;
 	}
 
-	public int getScrabCount() {
-		return scrabCount;
+	public int getScrapCount() {
+		return scrapCount;
 	}
 
-	public void setScrabCount(int scrabCount) {
-		this.scrabCount = scrabCount;
+	public void setScrapCount(int scrapCount) {
+		this.scrapCount = scrapCount;
 	}
 
 	public Date getDeleteDate() {
@@ -164,28 +166,28 @@ public class Diary { // 기록
 		this.deleteDate = deleteDate;
 	}
 
-	public String getScrabNickname() {
-		return scrabNickname;
+	public String getScrapNickname() {
+		return scrapNickname;
 	}
 
-	public void setScrabNickname(String scrabNickname) {
-		this.scrabNickname = scrabNickname;
+	public void setScrapNickname(String scrapNickname) {
+		this.scrapNickname = scrapNickname;
 	}
 
-	public Date getScrabDate() {
-		return scrabDate;
+	public Date getScrapDate() {
+		return scrapDate;
 	}
 
-	public void setScrabDate(Date scrabDate) {
-		this.scrabDate = scrabDate;
+	public void setScrapDate(Date scrapDate) {
+		this.scrapDate = scrapDate;
 	}
 
 	public int getGroupNo() {
-		return GroupNo;
+		return groupNo;
 	}
 
 	public void setGroupNo(int groupNo) {
-		GroupNo = groupNo;
+		this.groupNo = groupNo;
 	}
 
 	public String getCurrency() {
@@ -266,10 +268,11 @@ public class Diary { // 기록
 				+ ", longitude=" + longitude + ", writeDate=" + writeDate + ", updateDate=" + updateDate + ", nickname="
 				+ nickname + ", startDate=" + startDate + ", endDate=" + endDate + ", content=" + content
 				+ ", thumbnail=" + thumbnail + ", viewCount=" + viewCount + ", bookmarkCount=" + bookmarkCount
-				+ ", scrabCount=" + scrabCount + ", deleteDate=" + deleteDate + ", scrabNickname=" + scrabNickname
-				+ ", scrabDate=" + scrabDate + ", GroupNo=" + GroupNo + ", currency=" + currency + ", transBill="
+				+ ", scrapCount=" + scrapCount + ", deleteDate=" + deleteDate + ", scrapNickname=" + scrapNickname
+				+ ", scrapDate=" + scrapDate + ", groupNo=" + groupNo + ", currency=" + currency + ", transBill="
 				+ transBill + ", roomBill=" + roomBill + ", foodBill=" + foodBill + ", tourBill=" + tourBill
 				+ ", shopBill=" + shopBill + ", isPublic=" + isPublic + ", hashTagList=" + hashTagList + ", photoList="
 				+ photoList + "]";
 	}
+
 }

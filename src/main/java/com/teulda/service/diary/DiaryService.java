@@ -19,7 +19,7 @@ public interface DiaryService {
 	public Diary getDiary(int diaryNo) throws Exception;
 
 	// 기록 목록 리스트
-	public Map<String, Object> getDiaryList(Search search) throws Exception;
+	public Map<String, Object> getDiaryList(Search search, String nickname) throws Exception;
 
 	// 기록 수정
 	public void updateDiary(Diary diary) throws Exception;
