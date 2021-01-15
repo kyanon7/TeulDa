@@ -1,7 +1,11 @@
 //insertPhoto
 INSERT 
 INTO photo ( photo_id, photo_group_id, post_id, diary_id, photo_name, photo_addr, latitude, longitude, photo_date, delete_date, description, diary_photo_type )
-VALUES ( seq_photo_photo_id.nextval, #{photoGroupId}, #{postId}, #{diaryId}, #{photoName : VARCHAR}, #{photoAddr : VARCHAR}, #{latitude : VARCHAR}, #{longitude : VARCHAR}, #{photoDate : DATE}, #{deleteDate : DATE}, #{description : VARCHAR}, #{diaryPhotoType : VARCHAR});
+VALUES ( seq_photo_photo_id.nextval, 
+(select group_id 
+from groups
+where nickname='${nickname}' and group_name = 'default2')
+, #{postId}, #{diaryId}, #{photoName : VARCHAR}, #{photoAddr : VARCHAR}, #{latitude : VARCHAR}, #{longitude : VARCHAR}, #{photoDate : DATE}, #{deleteDate : DATE}, #{description : VARCHAR}, #{diaryPhotoType : VARCHAR});
 
 
 //insertGroups

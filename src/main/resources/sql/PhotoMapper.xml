@@ -14,15 +14,41 @@
 		<result property="diaryId"				column="diary_id"				jdbcType="NUMERIC" />
 		<result property="photoName"			column="photo_name"				jdbcType="VARCHAR" />
 		<result property="photoAddr"			column="photo_addr"				jdbcType="VARCHAR" />
-		<result property="latitude"				column="latitude"				jdbcType="VARCHAR" />
-		<result property="longitude"			column="longitude"				jdbcType="VARCHAR" />
+		<result property="latitude"				column="latitude"				jdbcType="NUMERIC" />
+		<result property="longitude"			column="longitude"				jdbcType="NUMERIC" />
 		<result property="photoDate"			column="photo_date"				jdbcType="DATE" />
 		<result property="deleteDate"			column="delete_date"			jdbcType="DATE" />
 		<result property="description"			column="description"			jdbcType="VARCHAR" />
 		<result property="diaryPhotoType"		column="diary_photo_type"		jdbcType="VARCHAR" />
 	</resultMap>
 	
+	<resultMap id="groupSelectMap" type="com.teulda.common.Group">
+		<result property="groupId"		column="group_id"		jdbcType="NUMERIC"/>
+		<result	property="groupName"	column="group_name"		jdbcType="VARCHAR"/>
+		<result	property="nickname"		column="nickname"		jdbcType="VARCHAR"/>
+		<result	property="deleteDate"	column="delete_date"	jdbcType="DATE"/>
+		<result	property="groupType"	column="group_type"		jdbcType="VARCHAR"/>
+	</resultMap>
 	
+	
+	<!-- SQL : INSERT PHOTO -->
+	<insert id="addPhoto"	parameterType="com.teulda.common.Photo">
+		INSERT 
+		INTO photo ( photo_id, photo_group_id, post_id, diary_id, photo_name, photo_addr, latitude, longitude, photo_date, delete_date, description, diary_photo_type )
+		VALUES ( seq_photo_photo_id.nextval, 
+		(select group_id 
+		from groups
+		where nickname='${nickname}' and group_name = 'default2')
+		, #{postId}, #{diaryId}, #{photoName : VARCHAR}, #{photoAddr : VARCHAR}, #{latitude : VARCHAR}, #{longitude : VARCHAR}, #{photoDate : DATE}, #{deleteDate : DATE}, #{description : VARCHAR}, #{diaryPhotoType : VARCHAR});
+	</insert>
+	
+	
+	<!-- SQL : INSERT PHOTO -->
+	<insert id="addGroup"	parameterType="com.teulda.common.Group">
+		INSERT 
+		INTO group ( group_id, group_name, nickname, delete_date, groupType)
+		VALUES ( seq_groups_group_id.nextval, #{group_name : VARCHAR}, #{nickname : VARCHAR}, null, 1)
+	</insert>
 	<!-- SQL : INSERT -->
 	<!-- <insert	id="addPurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
 		INSERT
