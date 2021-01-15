@@ -33,10 +33,10 @@
 	
 	 <!-- SQL Definition :: file include -->
 	<mappers>
-		<!-- <mapper resource="sql/UserMapper.xml"/> -->
-		<!-- <mapper resource="sql/DiaryMapper.xml"/> -->
-		<!-- <mapper resource="sql/PhotoMapper.xml"/> -->
-		<!-- <mapper resource="sql/PostMapper.xml"/> -->
+		<mapper resource="sql/UserMapper.xml"/>
+		<mapper resource="sql/DiaryMapper.xml"/>
+		<mapper resource="sql/PhotoMapper.xml"/>
+		<mapper resource="sql/PostMapper.xml"/>
 		<!-- <mapper resource="sql/CommunityMapper.xml"/> -->
 		<mapper resource="sql/ReviewMapper.xml"/>
 		<!-- <mapper resource="sql/ChatMapper.xml"/> -->

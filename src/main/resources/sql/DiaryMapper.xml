@@ -17,7 +17,7 @@
 		<result property="nickname"				column="origin_nick"		jdbcType="VARCHAR" />
 		<result property="startDate"			column="start_date"			jdbcType="DATE" />
 		<result property="endDate"				column="end_date"			jdbcType="DATE" />
-		<result property="content"				column="content"			jdbcType="LONG" />
+		<result property="content"				column="content"			jdbcType="VARCHAR" />
 		<result property="thumbnail"			column="thumbnail"			jdbcType="VARCHAR" />
 		<result property="viewCount"			column="view_count"			jdbcType="NUMERIC" />
 		<result property="deleteDate"			column="delete_date"		jdbcType="DATE" />
