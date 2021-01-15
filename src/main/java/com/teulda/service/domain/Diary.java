@@ -1,6 +1,6 @@
 package com.teulda.service.domain;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class Diary { // 기록
@@ -13,8 +13,8 @@ public class Diary { // 기록
 	private Date writeDate; // 작성일
 	private Date updateDate; // 마지막 수정일
 	private String nickname; // 원글 작성자
-	private Date startDate; // 여행 시작날짜
-	private Date endDate; // 여행 종료날짜
+	private String startDate; // 여행 시작날짜
+	private String endDate; // 여행 종료날짜
 	private String content; // 글 내용
 	private String thumbnail; // 사진 파일명
 	private int viewCount; // 조회수
@@ -102,19 +102,19 @@ public class Diary { // 기록
 		this.nickname = nickname;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

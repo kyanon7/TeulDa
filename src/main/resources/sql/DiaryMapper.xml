@@ -10,8 +10,8 @@
 		<result property="diaryNo"				column="diary_id"			jdbcType="NUMERIC" />
 		<result property="title"				column="title"				jdbcType="VARCHAR" />
 		<result property="location"				column="diary_addr"			jdbcType="VARCHAR" />
-		<result property="latitude"				column="latitude"			jdbcType="VARCHAR" />
-		<result property="longitude"			column="longitude"			jdbcType="VARCHAR" />
+		<result property="latitude"				column="latitude"			jdbcType="NUMERIC" />
+		<result property="longitude"			column="longitude"			jdbcType="NUMERIC" />
 		<result property="writeDate"			column="diary_date"			jdbcType="DATE" />
 		<result property="updateDate"			column="last_update_date"	jdbcType="DATE" />
 		<result property="nickname"				column="origin_nick"		jdbcType="VARCHAR" />
@@ -35,14 +35,14 @@
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addDiary"		parameterType="diary">
-	insert 
-	into diary (diary_id, title, diary_addr, latitude, longitude, diary_date, 
+	INSERT 
+	INTO DIARY (diary_id, title, diary_addr, latitude, longitude, diary_date, 
 				origin_nick, start_date, end_date, 
             	content, thumbnail, group_id,
             	currency, trans_bill, room_bill, 
             	food_bill, tour_bill, shop_bill, is_public)
             	
-	values 	(seq_diary_diary_id.nextval, #{title}, #{location}, #{latitude}, #{longitude}, sysdate, 
+	VALUES 	(seq_diary_diary_id.nextval, #{title}, #{location}, #{latitude}, #{longitude}, SYSDATE, 
 			#{nickname}, #{startDate}, #{endDate}, 
         	#{content:LONGVARCHAR}, #{thumbnail:VARCHAR},  (select group_id
                             								from groups	
@@ -50,5 +50,12 @@
         	#{currency:VARCHAR}, #{transBill:NUMERIC}, #{roomBill:NUMERIC}, 
         	#{foodBill:NUMERIC}, #{tourBill:NUMERIC}, #{shopBill:NUMERIC}, #{isPublic})
 	</insert>
+	
+	<!-- SQL : SELECT ONE -->
+	<select 	id="getDiary"	parameterType="int"	resultMap="diarySelectMap">
+		SELECT * 
+		FROM diary
+		WHERE diary_id = ${diaryNo}
+	</select>
 
 </mapper>
