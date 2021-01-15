@@ -11,32 +11,26 @@
 		<result property="nickName"					column="nickname"			jdbcType="VARCHAR" />
 		<result property="email"		column="email"			jdbcType="VARCHAR" />
 		<result property="password"	column="password"			jdbcType="VARCHAR" />
-		<result property="phone"		column="phone_number"				jdbcType="VARCHAR" />
-		<result property="birth"		column="birth"			jdbcType="DATE" />
-		<result property="address"				column="address"			jdbcType="VARCHAR" />
-		<result property="likePlace"			column="user_name"			jdbcType="VARCHAR" />
-		<result property="buyer.phone"				column="cell_phone"			jdbcType="VARCHAR" />
-		<result property="paymentOption"			column="payment_option"		jdbcType="VARCHAR" />
-		<result property="receiverName"				column="receiver_name"		jdbcType="VARCHAR" />
-		<result property="receiverPhone"			column="receiver_phone"		jdbcType="VARCHAR" />
-		<result property="divyAddr"					column="demailaddr"			jdbcType="VARCHAR" />
-		<result property="divyRequest"				column="dlvy_request"		jdbcType="VARCHAR" />
-		<result property="tranCode"					column="tran_status_code"	jdbcType="VARCHAR" />
-		<result property="orderDate"				column="order_data"			jdbcType="DATE" />
-		<result property="divyDate"					column="dlvy_date"			jdbcType="DATE" />
+		<result property="name"		column="user_name"				jdbcType="VARCHAR" />
+		<result property="phone"		column="phone_number"			jdbcType="VARCHAR" />
+		<result property="address"			column="user_addr"			jdbcType="VARCHAR" />
+		<result property="likePlace"				column="like_addr"			jdbcType="VARCHAR" />
+		<result property="birth"				column="birth"			jdbcType="DATE" />
+		<result property="profilePhoto"				column="user_photo"		jdbcType="VARCHAR" />
+		<result property="statusDate"			column="update_status_date"		jdbcType="VARCHAR" />
+		<result property="isPublic"					column="is_public"			jdbcType="CHAR" />
+		<result property="status"				column="status"			jdbcType="CHAR" />
+		<result property="role"				column="role"		jdbcType="CHAR" />
 	</resultMap>
 	
 	
 	<!-- SQL : INSERT -->
 	<insert	id="addUser"	parameterType="com.teulda.service.domain.User" >
 		INSERT
-		INTO	transaction(tran_no, prod_no, buyer_id, payment_option, receiver_name, 
-							receiver_phone, demailaddr, dlvy_request, tran_status_code, 
-							order_data, dlvy_date)
-		VALUES	(SEQ_transaction_tran_no.NEXTVAL, #{userProd.prodNo}, #{buyer.userId}, 
-					#{paymentOption:VARCHAR}, #{receiverName:VARCHAR}, #{receiverPhone:VARCHAR}, 
-					#{divyAddr:VARCHAR}, #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, 
-					SYSDATE, #{divyDate:DATE})
+		INTO users( nickname , email , password , name , phone_number, user_addr, like_addr, birth, user_photo, 
+							update_status_date, is_public, status, role)
+		VALUES	 (	#{nickName} , #{email} , #{password} , #{name}, #{phone:VARCHAR}, #{address:VARCHAR},
+							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{isPublic:CHAR} ,'0','0')
 	</insert>
 	 
 	<!-- SQL : SELECT ONE -->

@@ -10,12 +10,14 @@ public class User {
 		private String password;//비밀번호
 		private String name;//이름
 		private String phone;//휴대전화번호(중복불가)
-		private Date birth;//생일
 		private String address;//거주지
 		private String likePlace;//관심지역
+		private Date birth;//생일
 		private String profilePhoto;//프로필사진
-		private String status;//상태
 		private Date statusDate;//상태변경날짜
+		private String status;//상태
+		private String isPublic;
+		private String role;
 		private int reportCount;	//신고당한횟수
 
 		public String getNickName() {
@@ -84,11 +86,23 @@ public class User {
 		public void setStatusDate(Date statusDate) {
 			this.statusDate = statusDate;
 		}
+		public String getRole() {
+			return role;
+		}
+		public void setRole(String role) {
+			this.role = role;
+		}
 		public int getReportCount() {
 			return reportCount;
 		}
 		public void setReportCount(int reportCount) {
 			this.reportCount = reportCount;
+		}
+		public String getIsPublic() {
+			return isPublic;
+		}
+		public void setIsPublic(String isPublic) {
+			this.isPublic = isPublic;
 		}
 		
 		@Override
@@ -96,8 +110,9 @@ public class User {
 			return "User [nickName=" + nickName + ", email=" + email + ", password=" + password + ", name=" + name
 					+ ", phone=" + phone + ", birth=" + birth + ", address=" + address + ", likePlace=" + likePlace
 					+ ", profilePhoto=" + profilePhoto + ", status=" + status + ", statusDate=" + statusDate
-					+ ", reportCount=" + reportCount + "]";
+					+ ", role=" + role+ ", reportCount=" + reportCount + "]";
 		}
+
 
 //미완
 }
