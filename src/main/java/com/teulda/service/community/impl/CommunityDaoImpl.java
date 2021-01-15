@@ -9,8 +9,8 @@ import com.teulda.service.domain.Bookmark;
 public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
-	public void insertBookmark(Bookmark bookmark) throws Exception {
-		// TODO Auto-generated method stub
+	public void addBookmark(Bookmark bookmark) throws Exception {
+		
 		
 	}
 
@@ -24,6 +24,12 @@ public class CommunityDaoImpl implements CommunityDao {
 	public List<Bookmark> getBookmarkList(Search search) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getTotalCount(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

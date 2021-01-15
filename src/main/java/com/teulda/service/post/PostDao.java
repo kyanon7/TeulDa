@@ -30,7 +30,7 @@ public interface PostDao {
 	public void updateComment(Comment comment) throws Exception;
 	
 	//	COMMENT DELETE
-	public void deleteComment(int commnetNo) throws Exception;
+	public void deleteComment(int commentNo) throws Exception;
 	
 	//	COMMENT SELECT LIST
 	public List<Comment> getCommentList(Search search) throws Exception;

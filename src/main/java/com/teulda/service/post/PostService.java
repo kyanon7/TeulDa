@@ -24,7 +24,7 @@ public interface PostService {
 	public void deletePost(int postNo) throws Exception;
 	
 	//댓글 작성
-	public void addComment(Comment commnet) throws Exception;
+	public void addComment(Comment comment) throws Exception;
 	
 	//댓글 수정
 	public void updateComment(Comment comment) throws Exception;
