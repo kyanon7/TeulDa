@@ -1,56 +1,68 @@
 package com.teulda.service.user.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.teulda.common.Search;
 import com.teulda.service.domain.User;
+import com.teulda.service.user.UserDao;
 import com.teulda.service.user.UserService;
 
+
+@Service("UserServiceImpl")
 public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	@Qualifier("userDaoImpl")
+	private UserDao userDao;
 
 	@Override
 	public void addUser(User user) throws Exception {
-		
-		
+		userDao.addUser(user);
 	}
 
-	@Override
+	//@Override
 	public void checkEmail(String email) throws Exception {
 		
 		
 	}
 
-	@Override
+	//@Override
 	public void checkPhone(String phone) throws Exception {
 		
 		
 	}
 
-	@Override
+	//@Override
 	public boolean checkEmailDuplication(String email) throws Exception {
 	
 		return false;
 	}
 
-	@Override
+	//@Override
 	public boolean checkPhoneDuplication(String phone) throws Exception {
 		
 		return false;
 	}
 
-	@Override
+	//@Override
 	public boolean checkNicknameDuplication(String nickName) throws Exception {
 		
 		return false;
 	}
 
-	@Override
+	//@Override
 	public User login(User user) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	//@Override
 	public User logout(User user) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
@@ -74,13 +86,13 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	@Override
+	//@Override
 	public void updateUserStatus(User user) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	//@Override
 	public boolean checkDuplication(String userId) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
@@ -121,6 +133,42 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	//@Override
+	//public void updateUserStatus(String status) throws Exception {
+		// TODO Auto-generated method stub
+		
+	//}
+
+	//@Override
+	//public void deleteUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		
+	//}
+
+	//@Override
+	//public void reportUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		
+	//}
+
+	//@Override
+	//public Map<String, Object> getUserBlackList(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		//return null;
+	//}
+
+	//@Override
+	//public Map<String, Object> getReportList(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		//return null;
+	//}
+
+	//@Override
+	//public void deleteReport(User user) throws Exception {
+		// TODO Auto-generated method stub
+		
+	//}
 
 	
 
