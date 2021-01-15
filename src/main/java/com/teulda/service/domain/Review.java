@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Review {
     private int reviewNo;
-    private String nickName;
+    private String nickname;
     private String reviewPlace;
     private String reviewContents;
     private String reviewPhoto;
@@ -18,11 +18,11 @@ public class Review {
 	public void setReviewNo(int reviewNo) {
 		this.reviewNo = reviewNo;
 	}
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getReviewPlace() {
 		return reviewPlace;
@@ -63,7 +63,7 @@ public class Review {
 	
 	@Override
 	public String toString() {
-		return "Review [reviewNo=" + reviewNo + ", nickName=" + nickName + ", reviewPlace=" + reviewPlace
+		return "Review [reviewNo=" + reviewNo + ", nickname=" + nickname + ", reviewPlace=" + reviewPlace
 				+ ", reviewContents=" + reviewContents + ", reviewPhoto=" + reviewPhoto + ", reviewDate=" + reviewDate
 				+ ", star=" + star + ", isAllowed=" + isAllowed + "]";
 	}
