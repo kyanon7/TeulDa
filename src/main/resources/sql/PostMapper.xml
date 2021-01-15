@@ -4,15 +4,15 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="PurchaseMapper">
+<mapper namespace="PostMapper">
 
 
-	<resultMap id="purchaseSelectMap" type="com.model2.mvc.service.domain.Purchase">
+	<resultMap id="postSelectMap" type="com.teulda.service.domain.Post">
 		<result property="tranNo"					column="tran_no"			jdbcType="NUMERIC" />
-		<result property="purchaseProd.prodNo"		column="prod_no"			jdbcType="NUMERIC" />
-		<result property="purchaseProd.prodName"	column="prod_name"			jdbcType="VARCHAR" />
-		<result property="purchaseProd.price"		column="price"				jdbcType="NUMERIC" />
-		<result property="purchaseProd.regDate"		column="reg_date"			jdbcType="NUMERIC" />
+		<result property="postProd.prodNo"		column="prod_no"			jdbcType="NUMERIC" />
+		<result property="postProd.prodName"	column="prod_name"			jdbcType="VARCHAR" />
+		<result property="postProd.price"		column="price"				jdbcType="NUMERIC" />
+		<result property="postProd.regDate"		column="reg_date"			jdbcType="NUMERIC" />
 		<result property="buyer.userId"				column="buyer_id"			jdbcType="VARCHAR" />
 		<result property="buyer.userName"			column="user_name"			jdbcType="VARCHAR" />
 		<result property="buyer.phone"				column="cell_phone"			jdbcType="VARCHAR" />
@@ -28,19 +28,19 @@
 	
 	
 	<!-- SQL : INSERT -->
-	<insert	id="addPurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
+	<insert	id="addpost"	parameterType="com.teulda.service.domain.Post" >
 		INSERT
 		INTO	transaction(tran_no, prod_no, buyer_id, payment_option, receiver_name, 
 							receiver_phone, demailaddr, dlvy_request, tran_status_code, 
 							order_data, dlvy_date)
-		VALUES	(SEQ_transaction_tran_no.NEXTVAL, #{purchaseProd.prodNo}, #{buyer.userId}, 
+		VALUES	(SEQ_transaction_tran_no.NEXTVAL, #{postProd.prodNo}, #{buyer.userId}, 
 					#{paymentOption:VARCHAR}, #{receiverName:VARCHAR}, #{receiverPhone:VARCHAR}, 
 					#{divyAddr:VARCHAR}, #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, 
 					SYSDATE, #{divyDate:DATE})
 	</insert>
 	 
 	<!-- SQL : SELECT ONE -->
-	<select	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
+	<select	id="getpost"	parameterType="int"	resultMap="postSelectMap">
 		SELECT
 		tran_no, prod_no, buyer_id, payment_option, receiver_name, 
 		receiver_phone, demailaddr, dlvy_request, tran_status_code, 
@@ -50,7 +50,7 @@
 	</select>
 	
 	<!-- SQL : UPDATE -->
-	<update	id="updatePurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
+	<update	id="updatepost"	parameterType="com.teulda.service.domain.Post" >
 		UPDATE transaction
 	   	<set>
 	   		<!-- payment_option 	= #{paymentOption},  -->
@@ -73,14 +73,14 @@
 	</update>
 	
 	<!-- SQL : REMOVE -->
-	<delete id="removePurchase"	parameterType="int">
+	<delete id="removepost"	parameterType="int">
 	 	DELETE
 	 	FROM transaction
 	 	WHERE tran_no = #{value}
 	</delete>
 	
-	<!-- SQL : SELECT Purchase LIST -->
-	<select	id="getPurchaseList"	parameterType="map"	resultMap="purchaseSelectMap">
+	<!-- SQL : SELECT post LIST -->
+	<select	id="getpostList"	parameterType="map"	resultMap="postSelectMap">
 		SELECT *
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
 	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
@@ -93,7 +93,7 @@
 	</select>
 
 	<!-- SQL : SELECT Sale LIST -->
-	<select	id="getSaleList"	parameterType="com.model2.mvc.common.Search"	resultMap="purchaseSelectMap">
+	<select	id="getSaleList"	parameterType="com.teulda.common.Search"	resultMap="postSelectMap">
 		SELECT *
 		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
 	  				FROM(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
@@ -120,8 +120,8 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
 	
-	<!-- SQL : SELECT PURCHASE ROW Count -->
-	<select	id="getPurchaseTotalCount"	parameterType="map"	resultType="int">
+	<!-- SQL : SELECT post ROW Count -->
+	<select	id="getpostTotalCount"	parameterType="map"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
 						FROM transaction, users 
@@ -146,7 +146,7 @@
 	</select>
 
 	<!-- SQL : SELECT SALE ROW Count -->
-	<select	id="getSaleTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
+	<select	id="getSaleTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
 						price, image_file, reg_date, tran_no, tran_status_code 

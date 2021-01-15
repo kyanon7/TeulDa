@@ -11,7 +11,7 @@ public interface CommunityService {
 	public void addBookmark(Bookmark bookmark) throws Exception;
 	
 	//북마크 삭제
-	public void deleteBookmark(int bookMark) throws Exception;
+	public void deleteBookmark(int bookmark) throws Exception;
 	
 	//북마크 목록 조회
 	public Map<String, Object> getBookmarkList(Search search) throws Exception;
