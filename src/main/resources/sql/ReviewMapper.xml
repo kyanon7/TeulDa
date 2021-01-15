@@ -61,7 +61,6 @@
 	 	WHERE review_id = #{value}
 	</delete>
 	
-	<!-- SQL : SELECT Purchase LIST -->
 	<!-- <select	id="getReviewList"	parameterType="map"	resultMap="reviewSelectMap">
 		SELECT *
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
@@ -85,11 +84,11 @@
 								r.reviewNo = ? -->
 								<if test="searchCondition != null">
 									<choose>
-										<when test="searchCondition == 1 and searchKeyword !='' ">
+										<when test="searchCondition == 0 and searchKeyword !='' ">
 											AND LOWER(r.review_addr) LIKE '%'||#{searchKeyword}||'%'
 											ORDER BY r.review_addr ASC) inner_table
 										</when>
-										<when test="searchCondition == 2 and searchKeyword !='' ">
+										<when test="searchCondition == 1 and searchKeyword !='' ">
 											AND r.star &lt;= #{searchKeyword}
 											ORDER BY r.star ASC) inner_table
 										</when>
