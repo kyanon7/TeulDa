@@ -62,7 +62,7 @@
 	</delete>
 	
 	<!-- SQL : SELECT Purchase LIST -->
-	<select	id="getPurchaseList"	parameterType="map"	resultMap="purchaseSelectMap">
+	<!-- <select	id="getReviewList"	parameterType="map"	resultMap="reviewSelectMap">
 		SELECT *
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
 	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
@@ -72,70 +72,48 @@
 							ORDER BY tran_no DESC) inner_table	
 				WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	</select>
+	</select> -->
 
-	<!-- SQL : SELECT Sale LIST -->
-	<select	id="getSaleList"	parameterType="com.model2.mvc.common.Search"	resultMap="purchaseSelectMap">
+	<!-- SQL : SELECT Review LIST -->
+	<select	id="getReviewList"	parameterType="com.teulda.common.Search"	resultMap="reviewSelectMap">
 		SELECT *
 		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
-	  				FROM(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
-						price, image_file, reg_date, tran_no, tran_status_code 
-						FROM product p, transaction t
-						<where>
-						p.prod_no = t.prod_no
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						ORDER BY tran_no DESC) inner_table
+	  				FROM(SELECT	r.review_id, r.nickname, r.review_addr, r.content, 
+								r.review_photo, r.review_date, r.star, r.is_allowed
+								FROM review r
+								<!-- <where>
+								r.reviewNo = ? -->
+								<if test="searchCondition != null">
+									<choose>
+										<when test="searchCondition == 1 and searchKeyword !='' ">
+											AND LOWER(r.review_addr) LIKE '%'||#{searchKeyword}||'%'
+											ORDER BY r.review_addr ASC) inner_table
+										</when>
+										<when test="searchCondition == 2 and searchKeyword !='' ">
+											AND r.star &lt;= #{searchKeyword}
+											ORDER BY r.star ASC) inner_table
+										</when>
+										<otherwise>
+											ORDER BY r.review_addr DESC) inner_table
+										</otherwise>
+									</choose>
+									
+								</if>
+						<!-- </where> -->
+						<!-- ORDER BY review_date DESC) inner_table -->
 				WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
 	
-	<!-- SQL : SELECT PURCHASE ROW Count -->
-	<select	id="getPurchaseTotalCount"	parameterType="map"	resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
-						FROM transaction, users 
-						<where>
-						user_id = buyer_id 
-						AND buyer_id = #{buyerId}
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND prod_no LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND prod_name LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND price LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						) countTable						
-	</select>
-
 	<!-- SQL : SELECT SALE ROW Count -->
-	<select	id="getSaleTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
+	<!-- <select	id="getSaleTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
-						price, image_file, reg_date, tran_no, tran_status_code 
-						FROM product p, transaction t
-						<where>
-						p.prod_no = t.prod_no
-						<if test="searchCondition != null">
+	  	FROM	(SELECT	r.review_id, r.nickname, r.review_addr, r.content, 
+						r.review_photo, r.review_date, r.star, r.is_allowed
+						FROM review r -->
+						<!-- <where>
+						r.reviewNo = ? -->
+						<!-- <if test="searchCondition != null">
 							<choose>
 								<when test="searchCondition == 0 and searchKeyword !='' ">
 									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
@@ -149,7 +127,7 @@
 							</choose>
 						</if>
 						</where>
-						) countTable						
-	</select>
+						) countTable
+	</select> -->
 
 </mapper>
