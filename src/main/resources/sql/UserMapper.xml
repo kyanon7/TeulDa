@@ -14,7 +14,7 @@
 		<result property="phone"		column="phone_number"				jdbcType="VARCHAR" />
 		<result property="birth"		column="birth"			jdbcType="DATE" />
 		<result property="address"				column="address"			jdbcType="VARCHAR" />
-		<result property="buyer.userName"			column="user_name"			jdbcType="VARCHAR" />
+		<result property="likePlace"			column="user_name"			jdbcType="VARCHAR" />
 		<result property="buyer.phone"				column="cell_phone"			jdbcType="VARCHAR" />
 		<result property="paymentOption"			column="payment_option"		jdbcType="VARCHAR" />
 		<result property="receiverName"				column="receiver_name"		jdbcType="VARCHAR" />
@@ -28,7 +28,7 @@
 	
 	
 	<!-- SQL : INSERT -->
-	<insert	id="addUser"	parameterType="com.teulda.mvc.service.domain.User" >
+	<insert	id="addUser"	parameterType="com.teulda.service.domain.User" >
 		INSERT
 		INTO	transaction(tran_no, prod_no, buyer_id, payment_option, receiver_name, 
 							receiver_phone, demailaddr, dlvy_request, tran_status_code, 
@@ -50,7 +50,7 @@
 	</select>
 	
 	<!-- SQL : UPDATE -->
-	<update	id="updateUser"	parameterType="com.teulda.mvc.service.domain.User" >
+	<update	id="updateUser"	parameterType="com.teulda.service.domain.User" >
 		UPDATE transaction
 	   	<set>
 	   		<!-- payment_option 	= #{paymentOption},  -->
@@ -93,7 +93,7 @@
 	</select>
 
 	<!-- SQL : SELECT Sale LIST -->
-	<select	id="getSaleList"	parameterType="com.teulda.mvc.common.Search"	resultMap="userSelectMap">
+	<select	id="getSaleList"	parameterType="com.teulda.common.Search"	resultMap="userSelectMap">
 		SELECT *
 		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
 	  				FROM(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
@@ -146,7 +146,7 @@
 	</select>
 
 	<!-- SQL : SELECT SALE ROW Count -->
-	<select	id="getSaleTotalCount"	parameterType="com.teulda.mvc.common.Search"	resultType="int">
+	<select	id="getSaleTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
 						price, image_file, reg_date, tran_no, tran_status_code 
