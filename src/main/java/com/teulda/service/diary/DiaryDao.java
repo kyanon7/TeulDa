@@ -19,10 +19,10 @@ public interface DiaryDao {
 	public Diary getDiary(int diaryNo) throws Exception;
 
 	// SELECT LIST
-	public List<Diary> getDiaryList(Search search) throws Exception;
+	public List<Diary> getDiaryList(Search search, String nickname) throws Exception;
 
 	// 게시판 Page 처리를 위한 전체 Row(totalCount) return
-	public int getDiaryCount(Search search) throws Exception;
+	public int getDiaryCount(String nickname) throws Exception;
 
 	// UPDATE (기록 수정)
 	public void updateDiary(Diary diary) throws Exception;
