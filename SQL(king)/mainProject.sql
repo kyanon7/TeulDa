@@ -124,7 +124,7 @@ CREATE TABLE diary (
 	delete_date			DATE,
 	scrap_nick			VARCHAR2(50)		REFERENCES users(nickname),
 	scrap_date			DATE,
-	group_id				NUMBER				REFERENCES groups(group_id),
+	group_id				NUMBER				REFERENCES groups(group_id), //NOT NULL
 	currency				VARCHAR2(20),
 	trans_bill			NUMBER,
 	room_bill			NUMBER,

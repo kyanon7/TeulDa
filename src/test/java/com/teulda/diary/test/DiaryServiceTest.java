@@ -1,11 +1,13 @@
 package com.teulda.diary.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
@@ -19,7 +21,10 @@ import com.teulda.service.domain.Diary;
  * ㅇ @Test : 테스트 실행 소스 지정
  */
 
+@RunWith(SpringJUnit4ClassRunner.class)
+
 //==> Meta-Data 를 다양하게 Wiring 하자...
+//@ContextConfiguration(locations = { "classpath:config/context-*.xml" })
 @ContextConfiguration	(locations = {	"classpath:config/context-common.xml",
 										"classpath:config/context-aspect.xml",
 										"classpath:config/context-mybatis.xml",
@@ -38,8 +43,24 @@ public class DiaryServiceTest {
 		Diary diary = new Diary();
 		diary.setTitle("제주도에 왔어요!");
 		diary.setLocation("제주도 돌하르방 앞에서");
-		//diary.setLatitude("59");
+		diary.setLatitude(59.684153857);
+		diary.setLongitude(128.875156);
+		diary.setNickname("king주원");
+		diary.setStartDate("21-01-15");
+		diary.setEndDate("21-01-16");
+		diary.setContent("한라봉 천혜향 레드향을 먹었다네요");
+		diary.setThumbnail("hanrabong.jpg");
+		diary.setGroupNo(10025);
+		diary.setCurrency("달러");
+		diary.setIsPublic('t');
 		
+		System.out.println("실행?");
+		System.out.println(diary);
+		diaryService.addDiary(diary);
+		System.out.println("실행?2");
+		
+//		diaryService.getDiary(10006);
+//		Assert.assertEquals("제목", diary.getTitle());
 	}
 
 }

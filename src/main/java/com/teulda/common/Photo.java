@@ -16,7 +16,8 @@ public class Photo {
 	private Date deleteDate; // 사진 삭제 날짜 - 앨범 사진
 	private String description; // 설명 - 기록 사진
 	private String diaryPhotoType; // 기록 : D / 기념품 : S - 기록 사진
-
+	private String nickname;
+	
 	public int getPhotoNo() {
 		return photoNo;
 	}
@@ -113,12 +114,22 @@ public class Photo {
 		this.diaryPhotoType = diaryPhotoType;
 	}
 
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	@Override
 	public String toString() {
 		return "Photo [photoNo=" + photoNo + ", photoGroupNo=" + photoGroupNo + ", postNo=" + postNo + ", diaryNo="
 				+ diaryNo + ", photoName=" + photoName + ", photoAddr=" + photoAddr + ", latitude=" + latitude
 				+ ", longitude=" + longitude + ", photoDate=" + photoDate + ", deleteDate=" + deleteDate
-				+ ", description=" + description + ", diaryPhotoType=" + diaryPhotoType + "]";
+				+ ", description=" + description + ", diaryPhotoType=" + diaryPhotoType + ", nickname=" + nickname
+				+"]";
 	}
 
 }
