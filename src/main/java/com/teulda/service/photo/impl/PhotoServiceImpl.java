@@ -90,6 +90,18 @@ public class PhotoServiceImpl implements PhotoService {
 		photoDao.deletePhoto(nickname);
 		
 	}
+
+	@Override
+	public void updateGroupName(Group group) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateGroupNo(Group group) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }
