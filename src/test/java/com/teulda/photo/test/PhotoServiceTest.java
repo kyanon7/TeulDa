@@ -1,5 +1,6 @@
 package com.teulda.photo.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +24,17 @@ public class PhotoServiceTest {
 	private PhotoService photoService;
 	
 	//사진등록
-	@Test
+	//@Test
 	public void testAddPhoto() throws Exception{
 		
 		Photo photo = new Photo();
 		
 		System.out.println("ㅎㅇ");
 //		photo.setPhotoNo(photoNo);
-		photo.setPhotoGroupNo(10013);
+		photo.setPhotoGroupNo(10018);
 //		photo.setPostNo(postNo);
 //		photo.setDiaryNo(diaryNo);
-		photo.setPhotoName("testName");
+		photo.setPhotoName("testName2");
 		photo.setPhotoAddr("testAddr");
 		photo.setLatitude(00.0000);
 		photo.setLongitude(00.0000);
@@ -55,7 +56,7 @@ public class PhotoServiceTest {
 		
 		System.out.println("디버깅용");
 //		group.setGroupNo(groupNo);
-		group.setGroupName("testGroup");
+		group.setGroupName("testGroup3");
 		group.setNickname("king정인");
 //		group.setDeleteDate(deleteDate);
 //		group.setGroupType(groupType);
@@ -63,4 +64,98 @@ public class PhotoServiceTest {
 		System.out.println(group);
 		photoService.addGroup(group);
 	}
+	
+	//사진조회
+	//@Test
+	public void testGetPhoto() throws Exception{
+		
+		Photo photo = photoService.getPhoto(10000);
+		
+		System.out.println("디버깅용");
+		
+		Assert.assertEquals(10012, photo.getPhotoGroupNo());
+		Assert.assertEquals(0, photo.getPostNo());
+		Assert.assertEquals(0, photo.getDiaryNo());
+		Assert.assertEquals("testName", photo.getPhotoName());
+		Assert.assertEquals("testAddr", photo.getPhotoAddr());
+//		Assert.assertEquals(0.0, photo.getLatitude());
+//		Assert.assertEquals(0.0, photo.getLongitude());
+		Assert.assertEquals(null, photo.getPhotoDate());
+		Assert.assertEquals(null, photo.getDeleteDate());
+		Assert.assertEquals(null, photo.getDescription());
+		Assert.assertEquals(null, photo.getDiaryPhotoType());
+		
+		System.out.println("Assert 종료");
+	}
+	
+	//그룹조회
+	//@Test
+	public void testGetGroup() throws Exception{
+		
+		Group group = photoService.getGroup(10015);
+		
+		System.out.println("디버깅용");
+		
+		Assert.assertEquals(10015, group.getGroupNo());
+		Assert.assertEquals("testGroup", group.getGroupName());
+		Assert.assertEquals("king정인", group.getNickname());
+		Assert.assertEquals(null, group.getDeleteDate());
+		Assert.assertEquals("1", group.getGroupType());
+	}
+	
+	//사진앨범 변경
+	//@Test
+	public void testUpdateGroupNo() throws Exception{
+		
+		Photo photo = photoService.getPhoto(10000);
+		System.out.println("photoGroupNo 수정 전 : "+photo);
+		
+		photo.setPhotoGroupNo(10015);
+		System.out.println("photoGroupNo 수정 후 : "+photo);
+		
+		photoService.updateGroupNo(photo);
+	}
+	
+	//앨범이름 변경
+	//@Test
+	public void testUpdateGroupName() throws Exception{
+		
+		Group group = photoService.getGroup(10015);
+		System.out.println("GroupName 수정 전 : " +group);
+		
+		group.setGroupName("수정한 GroupName");
+		System.out.println("GroupName 수정 후 : "+group);
+		
+		photoService.updateGroupName(group);
+	}
+	
+	//사진삭제 플래그처리
+	//@Test
+	public void testUpdatePhotoStatus() throws Exception{
+		
+		Photo photo = photoService.getPhoto(10000);
+		System.out.println(photo);
+		
+		photoService.updatePhotoStatus(photo);
+	}
+	
+	//앨범삭제 플래그처리(앨범에 있는 사진 포함)
+	//@Test
+	public void testUpdateGroupStatus() throws Exception{
+		
+		Group group = photoService.getGroup(10018);
+		System.out.println(group);
+		
+		photoService.updateGroupStatus(group);
+		photoService.updateGroupPhotoStatus(group);
+	}
+	
+	//사진영구 삭제(휴지통 비우기)
+	//@Test
+	public void testDeletePhoto() throws Exception{
+		
+		photoService.deletePhoto("king정인");
+		photoService.deleteGroup("king정인");
+	}
+	
 }
