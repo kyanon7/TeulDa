@@ -55,7 +55,7 @@
 	<select 	id="getDiary"	parameterType="int"	resultMap="diarySelectMap">
 		SELECT * 
 		FROM diary
-		WHERE diary_id = ${diaryNo}
+		WHERE diary_id = #{diaryNo}
 	</select>
 
 </mapper>

@@ -59,8 +59,8 @@ public class DiaryServiceTest {
 		diaryService.addDiary(diary);
 		System.out.println("실행?2");
 		
-//		diaryService.getDiary(10006);
-//		Assert.assertEquals("제목", diary.getTitle());
+		Diary diary2 = diaryService.getDiary(10018);
+		Assert.assertEquals("제목", diary2.getTitle());
 	}
 
 }
