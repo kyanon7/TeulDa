@@ -31,6 +31,11 @@
 		<typeAlias alias="photo" type="com.teulda.common.Photo" />
 	</typeAliases>
 	
+	<!-- Oracle 에서 Long 타입 가져오기 위한 Handler (Long타입 데이터 select 할 때 필요)-->
+	<typeHandlers>
+        <typeHandler handler="com.teulda.common.handler.CLOBHandler" javaType="String" jdbcType="LONGVARCHAR"/>
+    </typeHandlers>
+	
 	 <!-- SQL Definition :: file include -->
 	<mappers>
 		<mapper resource="sql/UserMapper.xml"/>
