@@ -1,5 +1,8 @@
 package com.teulda.photo.test;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
+import com.teulda.common.Search;
 import com.teulda.service.photo.PhotoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -92,11 +96,11 @@ public class PhotoServiceTest {
 	//@Test
 	public void testGetGroup() throws Exception{
 		
-		Group group = photoService.getGroup(10015);
+		Group group = photoService.getGroup(10016);
 		
 		System.out.println("디버깅용");
 		
-		Assert.assertEquals(10015, group.getGroupNo());
+		Assert.assertEquals(10016, group.getGroupNo());
 		Assert.assertEquals("testGroup", group.getGroupName());
 		Assert.assertEquals("king정인", group.getNickname());
 		Assert.assertEquals(null, group.getDeleteDate());
@@ -156,6 +160,43 @@ public class PhotoServiceTest {
 		
 		photoService.deletePhoto("king정인");
 		photoService.deleteGroup("king정인");
+	}
+	
+	//사진목록 & 갯수
+	//@Test
+	public void testGetPhotoList() throws Exception{
+		
+		Group group = new Group();
+		group.setNickname("king정인");
+		group.setGroupNo(10016);
+		
+		System.out.println("Junit Test : "+group);
+		
+		Map<String, Object> map = photoService.getPhotoList(group);
+		
+		List<Object> list = (List<Object>)map.get("photoList");
+		System.out.println("photoList : "+list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("totalCount : "+totalCount);
+	}
+	
+	//앨범목록 & 갯수
+	//@Test
+	public void testGetGroupList() throws Exception{
+		
+		Group group = new Group();
+		group.setNickname("king정인");
+		
+		System.out.println("Junit Test : "+group);
+		
+		Map<String, Object> map = photoService.getGroupList(group);
+		
+		List<Object> list = (List<Object>)map.get("groupList");
+		System.out.println("groupList : "+list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println("totalCount : "+totalCount);
 	}
 	
 }

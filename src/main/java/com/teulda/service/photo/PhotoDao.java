@@ -15,8 +15,11 @@ public interface PhotoDao {
 	//사진조회 => 완료
 	public Photo getPhoto(int photoNo) throws Exception;
 	
-	//사진조회list
-	public List<Photo> getPhotoList(Search search) throws Exception;
+	//사진조회list => 완료
+	public List<Photo> getPhotoList(Group group) throws Exception;
+	
+	//photoTotalCount => 완료
+	public int getPhotoTotalCount(Group group) throws Exception;
 	
 	//앨범등록 => 완료
 	public void addGroup(Group group) throws Exception;
@@ -24,8 +27,11 @@ public interface PhotoDao {
 	//앨범조회 => 완료
 	public Group getGroup(int groupNo) throws Exception;
 	
-	//앨범조회list
-	public List<Photo> getGroupList(Search search) throws Exception;
+	//앨범조회list => 완료
+	public List<Group> getGroupList(Group group) throws Exception;
+	
+	//groupTotalCount => 완료
+	public int getGroupTotalCount(Group group) throws Exception;
 	
 	//앨범이름 변경 => 완료
 	public void updateGroupName(Group group) throws Exception;
