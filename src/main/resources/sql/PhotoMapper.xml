@@ -138,7 +138,7 @@
 		(SELECT 
 		p.photo_id
 		FROM photo p, groups g
-		WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo})
+		WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo} AND g.group_type = 1)
 	</update>
 
 
@@ -150,7 +150,7 @@
 		WHERE delete_date IS NOT NULL AND photo_group_id IN 
 		(SELECT group_id
 		FROM groups
-		WHERE nickname = #{value} AND delete_date IS NOT NULL)
+		WHERE nickname = #{value} AND delete_date IS NOT NULL AND group_type = 1)
 		AND photo_group_id IS NOT NULL
 	</delete>
 	
@@ -160,7 +160,60 @@
 		FROM groups
 		WHERE delete_date IS NOT NULL AND group_type = 1 AND nickname = #{value}
 	</delete>
-
+	
+	
+	
+	<!-- SQL : SELECT PhotoTotalCount(사진갯수, 삭제처리한 사진갯수) -->
+	<select id="getPhotoTotalCount" parameterType="com.teulda.common.Group" resultType="int">
+		SELECT
+		count(*)
+		FROM photo
+		WHERE photo_group_id IN 
+		(SELECT
+		g.group_id
+		FROM groups g, photo p
+		WHERE g.group_id = p.photo_group_id AND g.nickname = #{nickname} AND g.group_id = #{groupNo} AND g.group_type = '1')
+		<if test="deleteDate != null">
+			AND delete_date IS NOT NULL
+		</if>
+	</select>
+	
+	<!-- SQL : SELECT PhotoList(앨범에 맞는 사진조회, 삭제처리한 사진list 조회) -->
+	<select id="getPhotoList" parameterType="com.teulda.common.Group" resultMap="photoSelectMap">
+		SELECT
+		photo_id, photo_group_id, photo_name, photo_addr, latitude, longitude, photo_date, delete_date
+		FROM photo
+		WHERE photo_group_id IN 
+		(SELECT
+		g.group_id
+		FROM groups g, photo p
+		WHERE g.group_id = p.photo_group_id AND g.nickname = #{nickname} AND g.group_id = #{groupNo} AND g.group_type = '1')
+		<if test="deleteDate != null">
+			AND delete_date IS NOT NULL
+		</if>
+	</select>
+	
+	<!-- SQL : SELECT GroupTotalCount(앨범갯수, 삭제처리한 앨범갯수) -->
+	<select id="getGroupTotalCount" parameterType="com.teulda.common.Group" resultType="int">
+		SELECT
+		count(*)
+		FROM groups
+		WHERE nickname = #{nickname} AND group_type = '1'
+		<if test="deleteDate != null">
+			AND delete_date IS NOT NULL
+		</if>
+	</select>
+	
+	<!-- SQL : SELECT GroupList(내 사진앨범 조회, 삭제처리한 앨범list 조회) -->
+	<select id="getGroupList" parameterType="com.teulda.common.Group" resultMap="groupSelectMap">
+		SELECT
+		group_id, group_name, nickname, delete_date, group_type
+		FROM groups
+		WHERE nickname = #{nickname} AND group_type = '1'
+		<if test="deleteDate != null">
+			AND delete_date IS NOT NULL
+		</if>
+	</select>
 
 	<!-- SQL : SELECT Purchase LIST -->
 	<!-- <select	id="getPurchaseList"	parameterType="map"	resultMap="purchaseSelectMap">

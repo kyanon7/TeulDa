@@ -1,5 +1,7 @@
 package com.teulda.service.photo.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +45,19 @@ public class PhotoServiceImpl implements PhotoService {
 		return photoDao.getPhoto(photoNo);
 	}
 
-	//사진조회 list
+	//사진조회 list => 완료
 	@Override
-	public Map<String, Object> getPhotoList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> getPhotoList(Group group) throws Exception {
+		
+		List<Photo> photoList = photoDao.getPhotoList(group);
+		int totalCount = photoDao.getPhotoTotalCount(group);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("photoList", photoList);
+		map.put("totalCount", totalCount);
+		
+		return map;
 	}
-
 	//그룹생성 => 완료
 	@Override
 	public void addGroup(Group group) throws Exception {
@@ -63,11 +71,18 @@ public class PhotoServiceImpl implements PhotoService {
 		return photoDao.getGroup(groupNo);
 	}
 
-	//그룹조회 list
+	//그룹조회 list => 완료
 	@Override
-	public Map<String, Object> getGroupList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> getGroupList(Group group) throws Exception {
+		
+		List<Group> groupList = photoDao.getGroupList(group);
+		int totalCount = photoDao.getGroupTotalCount(group);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("groupList", groupList);
+		map.put("totalCount", totalCount);
+		
+		return map;
 	}
 
 	//사진이름 변경 => 완료
@@ -118,5 +133,7 @@ public class PhotoServiceImpl implements PhotoService {
 		photoDao.deleteGroup(nickname);
 		
 	}
+
+	
 	
 }

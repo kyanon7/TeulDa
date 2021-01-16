@@ -14,8 +14,8 @@ public interface PhotoService {
 	//사진조회(nickname으로 구분, group_type = 1(사진그룹)) => 완료
 	public Photo getPhoto(int photoNo) throws Exception;
 	
-	//사진조회 list
-	public Map<String, Object> getPhotoList(Search search) throws Exception;
+	//사진조회 list => 완료
+	public Map<String, Object> getPhotoList(Group group) throws Exception;
 	
 	//그룹생성(group_type = 1) => 완료
 	public void addGroup(Group group) throws Exception;
@@ -23,8 +23,8 @@ public interface PhotoService {
 	//그룹조회 => 완료
 	public Group getGroup(int groupNo) throws Exception;
 	
-	//그룹조회 list
-	public Map<String, Object> getGroupList(Search search) throws Exception;
+	//그룹조회 list => 완료
+	public Map<String, Object> getGroupList(Group group) throws Exception;
 	
 	//앨범이름 변경 => 완료
 	public void updateGroupName(Group group) throws Exception;

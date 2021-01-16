@@ -43,11 +43,18 @@ public class PhotoDaoImpl implements PhotoDao {
 		return sqlSession.selectOne("PhotoMapper.getPhoto", photoNo);
 	}
 
-	//getList
+	//getList => 완료
 	@Override
-	public List<Photo> getPhotoList(Search search) throws Exception {
+	public List<Photo> getPhotoList(Group group) throws Exception {
 		
-		return sqlSession.selectList("PhotoMapper.getPhotoList", search);
+		return sqlSession.selectList("PhotoMapper.getPhotoList", group);
+	}
+	
+	//photoTotalCount => 완료
+	@Override
+	public int getPhotoTotalCount(Group group) throws Exception {
+		
+		return sqlSession.selectOne("PhotoMapper.getPhotoTotalCount", group);
 	}
 
 	//앨범등록 => 완료
@@ -64,11 +71,18 @@ public class PhotoDaoImpl implements PhotoDao {
 		return sqlSession.selectOne("PhotoMapper.getGroup", groupNo);
 	}
 
-	//getList
+	//getList => 완료
 	@Override
-	public List<Photo> getGroupList(Search search) throws Exception {
+	public List<Group> getGroupList(Group group) throws Exception {
 		
-		return sqlSession.selectList("PhotoMapper.selectGroupList", search);
+		return sqlSession.selectList("PhotoMapper.getGroupList", group);
+	}
+	
+	//groupTotalCount => 완료
+	@Override
+	public int getGroupTotalCount(Group group) throws Exception {
+		
+		return sqlSession.selectOne("PhotoMapper.getGroupTotalCount", group);
 	}
 	
 	//앨범명 수정 => 완료
@@ -119,4 +133,6 @@ public class PhotoDaoImpl implements PhotoDao {
 		sqlSession.delete("PhotoMapper.deleteGroup", nickname);
 		
 	}
+
+	
 }
