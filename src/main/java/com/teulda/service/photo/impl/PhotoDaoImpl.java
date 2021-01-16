@@ -1,6 +1,6 @@
 package com.teulda.service.photo.impl;
 
-import java.util.Map;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,67 +29,94 @@ public class PhotoDaoImpl implements PhotoDao {
 		System.out.println(getClass()+" : default Constructor call");
 	}
 
-	//insert
+	//사진등록 => 완료
 	@Override
 	public void addPhoto(Photo photo) throws Exception {
 		sqlSession.insert("PhotoMapper.addPhoto",photo);
 		
 	}
 	
-	//get
+	//사진조회 => 완료
 	@Override
-	public Photo getPhoto(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Photo getPhoto(int photoNo) throws Exception {
+		
+		return sqlSession.selectOne("PhotoMapper.getPhoto", photoNo);
 	}
 
 	//getList
 	@Override
-	public Map<String, Object> getPhotoList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Photo> getPhotoList(Search search) throws Exception {
+		
+		return sqlSession.selectList("PhotoMapper.getPhotoList", search);
 	}
 
-	//insert
+	//앨범등록 => 완료
 	@Override
 	public void addGroup(Group group) throws Exception {
 		sqlSession.insert("PhotoMapper.addGroup", group);
 		
 	}
 
-	//get
+	//사진조회 => 완료
 	@Override
-	public Group getGroup(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Group getGroup(int groupNo) throws Exception {
+		
+		return sqlSession.selectOne("PhotoMapper.getGroup", groupNo);
 	}
 
 	//getList
 	@Override
-	public Map<String, Object> getGroupList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Photo> getGroupList(Search search) throws Exception {
+		
+		return sqlSession.selectList("PhotoMapper.selectGroupList", search);
+	}
+	
+	//앨범명 수정 => 완료
+	@Override
+	public void updateGroupName(Group group) throws Exception {
+		sqlSession.update("PhotoMapper.updateGroupName", group);
+		
 	}
 
-	//update
+	//사진앨범 이동 => 완료
+	@Override
+	public void updateGroupNo(Photo photo) throws Exception {
+		sqlSession.update("PhotoMapper.updateGroupNo", photo);
+		
+	}
+	
+	//사진삭제 플래그처리 => 완료
 	@Override
 	public void updatePhotoStatus(Photo photo) throws Exception {
-		sqlSession.update("PhotoMapper.updatePhoto", photo);
+		sqlSession.update("PhotoMapper.updatePhotoStatus", photo);
 		
 	}
 
-	//update
+	//앨범삭제 플래그처리 => 완료
 	@Override
 	public void updateGroupStatus(Group group) throws Exception {
-		sqlSession.update("PhotoMapper.updateGroup", group);
+		sqlSession.update("PhotoMapper.updateGroupStatus", group);
 		
 	}
 
-	//delete
+	//앨범 삭제 시 앨범안에 있는 사진 플래그처리 => 완료
+	@Override
+	public void updateGroupPhotoStatus(Group group) throws Exception {
+		sqlSession.update("PhotoMapper.updateGroupPhotoStatus", group);
+		
+	}
+		
+	//사진휴지통 영구삭제(사진) => 완료
 	@Override
 	public void deletePhoto(String nickname) throws Exception {
 		sqlSession.delete("PhotoMapper.deletePhoto", nickname);
 		
 	}
-	
+
+	//사진휴지통 영구삭제(앨범&앨범 안에 있는 사진) => 완료
+	@Override
+	public void deleteGroup(String nickname) throws Exception {
+		sqlSession.delete("PhotoMapper.deleteGroup", nickname);
+		
+	}
 }

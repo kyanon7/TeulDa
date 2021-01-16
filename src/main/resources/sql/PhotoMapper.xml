@@ -31,10 +31,11 @@
 	</resultMap>
 	 
 	
-	<!-- SQL : INSERT PHOTO -->
+	<!-- SQL : INSERT PHOTO 사진등록 -->
 	<insert id="addPhoto"	parameterType="com.teulda.common.Photo">
 		INSERT 
-		INTO photo ( photo_id, photo_group_id, post_id, diary_id, photo_name, photo_addr, latitude, longitude, photo_date, delete_date, description, diary_photo_type )
+		INTO photo ( photo_id, photo_group_id, post_id, diary_id, photo_name, photo_addr, 
+					 latitude, longitude, photo_date, delete_date, description, diary_photo_type )
 		VALUES ( seq_photo_photo_id.nextval, 
 		(select group_id 
 		from groups
@@ -42,65 +43,125 @@
 		null, null, '${photoName}', '${photoAddr}', ${latitude}, ${longitude}, null, null, null, null)
 	</insert>
 	
-	
-	<!-- SQL : INSERT PHOTO -->
+	<!-- SQL : INSERT PHOTO 앨범등록 -->
 	<insert id="addGroup"	parameterType="com.teulda.common.Group">
 		INSERT 
 		INTO groups ( group_id, group_name, nickname, delete_date, group_type)
 		VALUES ( seq_groups_group_id.nextval, '${groupName}', '${nickname}', null, '1')
 	</insert>
-	<!-- SQL : INSERT -->
-	<!-- <insert	id="addPurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
-		INSERT
-		INTO	transaction(tran_no, prod_no, buyer_id, payment_option, receiver_name, 
-							receiver_phone, demailaddr, dlvy_request, tran_status_code, 
-							order_data, dlvy_date)
-		VALUES	(SEQ_transaction_tran_no.NEXTVAL, #{purchaseProd.prodNo}, #{buyer.userId}, 
-					#{paymentOption:VARCHAR}, #{receiverName:VARCHAR}, #{receiverPhone:VARCHAR}, 
-					#{divyAddr:VARCHAR}, #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, 
-					SYSDATE, #{divyDate:DATE})
-	</insert>
-	  -->
-	<!-- SQL : SELECT ONE -->
-	<!-- <select	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
+	
+	
+	
+	<!-- SQL : SELECT ONE (실질적으로 사용은 안할 듯) -->
+	<select id="getPhoto" parameterType="int" resultMap="photoSelectMap">
 		SELECT
-		tran_no, prod_no, buyer_id, payment_option, receiver_name, 
-		receiver_phone, demailaddr, dlvy_request, tran_status_code, 
-		order_data, dlvy_date 
-		FROM transaction
-		WHERE tran_no = #{value}
-	</select> -->
+		photo_id, photo_group_id, post_id, diary_id, photo_name, photo_addr, 
+		latitude, longitude, photo_date, delete_date, description, diary_photo_type
+		FROM photo
+		WHERE photo_id = #{value}
+	</select>
 	
-	<!-- SQL : UPDATE -->
-	<!-- <update	id="updatePurchase"	parameterType="com.model2.mvc.service.domain.Purchase" >
-		UPDATE transaction
-	   	<set>
-	   		payment_option 	= #{paymentOption}, 
-			receiver_name	= #{receiverName}, 
-			receiver_phone 	= #{receiverPhone}, 
-			demailaddr		= #{divyAddr}, 
-			dlvy_request	= #{divyRequest}, 
-			dlvy_date		= #{divyDate} 
+	<!-- SQL : SELECT ONE (실질적으로 사용은 안할 듯) -->
+	<select id="getGroup" parameterType="int" resultMap="groupSelectMap">
+		SELECT
+		group_id, group_name, nickname, delete_date, group_type
+		FROM groups
+		WHERE group_id = #{value} AND group_type = 1
+	</select>
+	
+	
+	
+	<!-- SQL : UPDATE GroupName 앨범명 수정 -->
+	<update id="updateGroupName" parameterType="com.teulda.common.Group">
+		UPDATE groups
+		<set>
+			group_name = #{groupName}
 		</set>
-		WHERE tran_no = #{tranNo}
-	</update> -->
+		WHERE group_id = #{groupNo}
+	</update>
 	
-	<!-- SQL : UPDATE TranCode -->
-	<!-- <update	id="updateTranCode"	parameterType="map" >
-		UPDATE transaction
-	   	<set>
-	   		tran_status_code	= #{tranCode}, 
+	<!-- SQL : UPDATE GroupId 사진앨범 변경 -->
+	<update id="updateGroupNo" parameterType="com.teulda.common.Photo">
+		UPDATE photo
+		<set>
+			photo_group_id = #{photoGroupNo}
 		</set>
-		WHERE tran_no = #{tranNo}
-	</update> -->
+		WHERE photo_id = #{photoNo}
+	</update>
 	
-	<!-- SQL : REMOVE -->
-	<!-- <delete id="removePurchase"	parameterType="int">
-	 	DELETE
-	 	FROM transaction
-	 	WHERE tran_no = #{value}
-	</delete> -->
+	<!-- SQL : UDPATE PhotoStatus(단일 사진) 삭제, 복구 -->
+	<update id="updatePhotoStatus" parameterType="com.teulda.common.Photo">
+		UPDATE photo
+		<set>
+			<choose>
+				<when test="deleteDate != null">
+					delete_date = null
+				</when>
+				<otherwise>
+					delete_date = sysdate
+				</otherwise>
+			</choose>
+		</set>
+		WHERE photo_id = #{photoNo}
+	</update>
 	
+	<!-- SQL : UPDATE GroupStatus(단일 앨범) 삭제, 복구 -->
+	<update id="updateGroupStatus" parameterType="com.teulda.common.Group">
+		UPDATE groups
+		<set>
+			<choose>
+				<when test="deleteDate != null">
+					delete_date = null
+				</when>
+				<otherwise>
+					delete_date = sysdate
+				</otherwise>
+			</choose>
+		</set>
+		WHERE group_id = #{groupNo} AND group_type = 1
+	</update>
+	
+	<!-- SQL : UPDATE GroupPhotoStatus(앨범 안에 있는 사진) 삭제, 복구 -->
+	<update id="updateGroupPhotoStatus" parameterType="com.teulda.common.Group">
+		UPDATE photo
+		<set>
+			<choose>
+				<when test="deleteDate != null">
+					delete_date = null
+				</when>
+				<otherwise>
+					delete_date = sysdate
+				</otherwise>
+			</choose>
+		</set>
+		WHERE photo_id IN
+		(SELECT 
+		p.photo_id
+		FROM photo p, groups g
+		WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo})
+	</update>
+
+
+	<!-- SQL : DELETE Photo 완전삭제(휴지통) -->
+	<!-- delete_date가 null이 아닌 나의 모든 사진과 앨범, 앨범에 들어있는 사진들 삭제 -->
+	<delete id="deletePhoto" parameterType="String">
+		DELETE
+		FROM photo
+		WHERE delete_date IS NOT NULL AND photo_group_id IN 
+		(SELECT group_id
+		FROM groups
+		WHERE nickname = #{value} AND delete_date IS NOT NULL)
+		AND photo_group_id IS NOT NULL
+	</delete>
+	
+	<!-- SQL : DELETE Group 완전삭제(휴지통) -->
+	<delete id="deleteGroup" parameterType="String">
+		DELETE
+		FROM groups
+		WHERE delete_date IS NOT NULL AND group_type = 1 AND nickname = #{value}
+	</delete>
+
+
 	<!-- SQL : SELECT Purchase LIST -->
 	<!-- <select	id="getPurchaseList"	parameterType="map"	resultMap="purchaseSelectMap">
 		SELECT *
