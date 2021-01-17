@@ -17,13 +17,19 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
+	
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+	
+	public UserDaoImpl() {
+		System.out.println(this.getClass());
+	}
+
 
 	@Override
 	public void addUser(User user) throws Exception {
-		// TODO Auto-generated method stub
+		sqlSession.insert("UserMapper.addUser", user);
 		
 	}
 
@@ -40,16 +46,12 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUser(String NickName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUser(String nickName) throws Exception {
+		
+		return (User) sqlSession.selectOne("UserMapper.getUser" , nickName);
 	}
 
-	@Override
-	public List<User> getUserList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public void updateUser(User user) throws Exception {
@@ -64,8 +66,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void deleteUser(User user) throws Exception {
-		// TODO Auto-generated method stub
+	public void deleteUser(String nickName) throws Exception {
+		sqlSession.delete("UserMapper.deleteUser", nickName);
 		
 	}
 
@@ -91,6 +93,12 @@ public class UserDaoImpl implements UserDao {
 	public void deleteReport(User user) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<User> getUserList(Search search, String nickName) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

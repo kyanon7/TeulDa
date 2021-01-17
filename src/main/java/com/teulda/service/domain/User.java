@@ -12,13 +12,13 @@ public class User {
 		private String phone;//휴대전화번호(중복불가)
 		private String address;//거주지
 		private String likePlace;//관심지역
-		private Date birth;//생일
+		private String birth;//생일
 		private String profilePhoto;//프로필사진
 		private Date statusDate;//상태변경날짜
-		private String status;//상태
-		private String isPublic;
-		private String role;
-		private int reportCount;	//신고당한횟수
+		private char status;//상태
+		private char isPublic;//공개/비공개여부
+		private char role;//역할
+		private int reportCount;//신고당한횟수
 
 		public String getNickName() {
 			return nickName;
@@ -50,10 +50,10 @@ public class User {
 		public void setPhone(String phone) {
 			this.phone = phone;
 		}
-		public Date getBirth() {
+		public String getBirth() {
 			return birth;
 		}
-		public void setBirth(Date birth) {
+		public void setBirth(String birth) {
 			this.birth = birth;
 		}
 		public String getAddress() {
@@ -74,10 +74,10 @@ public class User {
 		public void setProfilePhoto(String profilePhoto) {
 			this.profilePhoto = profilePhoto;
 		}
-		public String getStatus() {
+		public char getStatus() {
 			return status;
 		}
-		public void setStatus(String status) {
+		public void setStatus(char status) {
 			this.status = status;
 		}
 		public Date getStatusDate() {
@@ -86,10 +86,10 @@ public class User {
 		public void setStatusDate(Date statusDate) {
 			this.statusDate = statusDate;
 		}
-		public String getRole() {
+		public char getRole() {
 			return role;
 		}
-		public void setRole(String role) {
+		public void setRole(char role) {
 			this.role = role;
 		}
 		public int getReportCount() {
@@ -98,11 +98,11 @@ public class User {
 		public void setReportCount(int reportCount) {
 			this.reportCount = reportCount;
 		}
-		public String getIsPublic() {
+		public char getIsPublic() {
 			return isPublic;
 		}
-		public void setIsPublic(String isPublic) {
-			this.isPublic = isPublic;
+		public void setIsPublic(char c) {
+			this.isPublic = c;
 		}
 		
 		@Override

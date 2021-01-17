@@ -34,26 +34,22 @@
 	</insert>
 	 
 	<!-- SQL : SELECT ONE -->
-	<select	id="getUser"	parameterType="int"	resultMap="userSelectMap">
+	<select	id="getUser"	parameterType="string"	resultMap="userSelectMap">
 		SELECT
-		tran_no, prod_no, buyer_id, payment_option, receiver_name, 
-		receiver_phone, demailaddr, dlvy_request, tran_status_code, 
-		order_data, dlvy_date 
-		FROM transaction
-		WHERE tran_no = #{value}
+		FROM users
+		WHERE nickname = #{nickName}
 	</select>
 	
 	<!-- SQL : UPDATE -->
 	<update	id="updateUser"	parameterType="com.teulda.service.domain.User" >
-		UPDATE transaction
+		UPDATE users
 	   	<set>
-	   		<!-- payment_option 	= #{paymentOption},  -->
-			receiver_name	= #{receiverName}, 
-			receiver_phone 	= #{receiverPhone}, 
-			demailaddr		= #{divyAddr}, 
-			dlvy_request	= #{divyRequest}, 
-			dlvy_date		= #{divyDate} 
-		</set>
+	   		nickname 	= #{nickName} ,
+			cell_phone	= #{phone},
+			addr 				= #{addr} ,
+			email				=	#{email}
+	   	</set>
+	   	WHERE user_id = #{userId}
 		WHERE tran_no = #{tranNo}
 	</update>
 	
@@ -67,10 +63,10 @@
 	</update>
 	
 	<!-- SQL : REMOVE -->
-	<delete id="removeUser"	parameterType="int">
+	<delete id="delsteUser"	parameterType="com.teulda.service.domain.User">
 	 	DELETE
-	 	FROM transaction
-	 	WHERE tran_no = #{value}
+	 	FROM users
+	 	WHERE nickname = #{nickName}
 	</delete>
 	
 	<!-- SQL : SELECT User LIST -->

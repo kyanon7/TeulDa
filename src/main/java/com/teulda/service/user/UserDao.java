@@ -18,13 +18,13 @@ public interface UserDao {
 	
 	public User getUser(String NickName) throws Exception ;//유저정보 조회
 
-	public List<User> getUserList(Search search) throws Exception ;//유저목록 조회
+	public List<User> getUserList(Search search, String nickName) throws Exception ;//유저목록 조회
 
 	public void updateUser(User user) throws Exception ;//유저정보 수정
 	
 	public void updateUserStatus(String status) throws Exception ;//유저상태 수정
 	
-	public void deleteUser(User user) throws Exception ;//유저탈퇴(삭제)
+	public void deleteUser(String nickName) throws Exception ;//유저탈퇴(삭제)
 	
 	public void reportUser(User user) throws Exception ;//신고
 	
@@ -33,6 +33,7 @@ public interface UserDao {
 	public List<User> getReportList(Search search) throws Exception ;//신고목록조회
 	
 	public void deleteReport(User user) throws Exception ;//신고내역삭제
+
 	
 	//public void changeStatus(User user) throws Exception ;///
 	
