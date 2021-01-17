@@ -9,11 +9,11 @@ public class Post {
 	private String postTitle; //게시글 제목
 	private String postContents; //게시글 제목
 	private Date postDate; //게시글 작성일자
-	private String postCategory; //게시글 유형
-	private List<String> photo; //게시글 사진
+	private char postCategory; //게시글 유형
 	private int viewCount; //조회수
 	private String nickName; //게시글작성자 닉네임
-	private List<String> comment; //댓글
+	private List<String> commentList; //댓글
+	private List<String> photoList; //게시글 사진
 	
 	
 	public int getPostNo() {
@@ -48,20 +48,20 @@ public class Post {
 		this.postDate = postDate;
 	}
 	
-	public String getPostCategory() {
+	public char getPostCategory() {
 		return postCategory;
 	}
 	
-	public void setPostCategory(String postCategory) {
+	public void setPostCategory(char postCategory) {
 		this.postCategory = postCategory;
 	}
 	
 	public List<String> getPhoto() {
-		return photo;
+		return photoList;
 	}
 	
-	public void setPhoto(List<String> photo) {
-		this.photo = photo;
+	public void setPhoto(List<String> photoList) {
+		this.photoList = photoList;
 	}
 	
 	public int getViewCount() {
@@ -81,23 +81,18 @@ public class Post {
 	}
 	
 	public List<String> getComment() {
-		return comment;
+		return commentList;
 	}
 	
-	public void setComment(List<String> comment) {
-		this.comment = comment;
+	public void setComment(List<String> commentList) {
+		this.commentList = commentList;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Post [postNo=" + postNo + ", postTitle=" + postTitle + ", postContents=" + postContents + ", postDate="
-				+ postDate + ", postCategory=" + postCategory + ", photo=" + photo + ", viewCount=" + viewCount
-				+ ", nickName=" + nickName + ", comment=" + comment + "]";
+				+ postDate + ", postCategory=" + postCategory + ", viewCount=" + viewCount + ", nickName=" + nickName
+				+ ", commentList=" + commentList + ", photoList=" + photoList + "]";
 	}
 	
-	
-	
-	
-
 }

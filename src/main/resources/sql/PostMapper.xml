@@ -17,142 +17,48 @@
 		<result property="postCategory"				column="post_type"			jdbcType="CHAR" />
 	</resultMap>
 	
+	<resultMap id="commentSelectMap" type="com.teulda.service.domain.Comment">
+		<result property="commentNo"				column="comment_id"			jdbcType="NUMERIC" />
+		<result property="postNo"					column="post_id"			jdbcType="NUMERIC" />
+		<result property="commentContents"			column="content"			jdbcType="VARCHAR" />
+		<result property="commentDate"				column="comment_date"		jdbcType="DATE" />
+		<result property="nickName"					column="nickname"			jdbcType="VARCHAR" />
+	</resultMap>
 	
-	<!-- SQL : INSERT -->
-	<insert	id="addpost"	parameterType="com.teulda.service.domain.Post" >
+	
+	<!-- SQL : POST INSERT -->
+	<insert	id="addPost"	parameterType="post" >
 		INSERT
-		INTO	post(post_id, nickname, title, content, post_date, view_count, post_type)
-		VALUES	(seq_post_post_id.NEXTVAL, #{nickname}, #{postTitle:VARCHAR}, #{postContents:VARCHAR}, SYSDATE, #{viewCount:NUMERIC},
-				#{postCategory:CHAR})
+		INTO POST (post_id, nickname, title, content, post_date, view_count, post_type)
+		VALUES	(seq_post_post_id.nextval, #{nickname}, #{postTitle:VARCHAR}, 
+				#{postContents:VARCHAR}, SYSDATE, #{viewCount}, #{postCategory:CHAR})
 	</insert>
 	 
-	<!-- SQL : SELECT ONE -->
-	<select	id="getpost"	parameterType="int"	resultMap="postSelectMap">
+	<!-- SQL : POST SELECT ONE -->
+	<select	id="getPost"	parameterType="int"	resultMap="postSelectMap">
 		SELECT
-		post_id, nickname, title, content, post_date, view_count, post_type
+		*
 		FROM post
-		WHERE post_id = #{value}
+		WHERE post_id = #{postNo}
 	</select>
 	
-	<!-- SQL : UPDATE -->
-	<update	id="updatepost"	parameterType="com.teulda.service.domain.Post" >
-		UPDATE transaction
-	   	<set>
-	   		<!-- payment_option 	= #{paymentOption},  -->
-			receiver_name	= #{receiverName}, 
-			receiver_phone 	= #{receiverPhone}, 
-			demailaddr		= #{divyAddr}, 
-			dlvy_request	= #{divyRequest}, 
-			dlvy_date		= #{divyDate} 
-		</set>
-		WHERE tran_no = #{tranNo}
+	<!-- SQL : POST UPDATE -->
+	<update	id="updatePost"	parameterType="com.teulda.service.domain.Post" >
+		UPDATE post
+			<set>
+				nickname		=#{nickname},
+				title			=#{postTitle},
+				content			=#{postContents},
+				post_type		=#{postCategory}
+			</set>
+			WHERE post_id = #{postNo}
 	</update>
 	
-	<!-- SQL : UPDATE TranCode -->
-	<update	id="updateTranCode"	parameterType="map" >
-		UPDATE transaction
-	   	<set>
-	   		tran_status_code	= #{tranCode}, 
-		</set>
-		WHERE tran_no = #{tranNo}
-	</update>
-	
-	<!-- SQL : REMOVE -->
-	<delete id="removepost"	parameterType="int">
+	<!-- SQL : POST DELETE -->
+	<delete id="deletePost"	parameterType="int">
 	 	DELETE
-	 	FROM transaction
-	 	WHERE tran_no = #{value}
+	 	FROM post
+	 	WHERE post_id = #{postNo}
 	</delete>
 	
-	<!-- SQL : SELECT post LIST -->
-	<select	id="getpostList"	parameterType="map"	resultMap="postSelectMap">
-		SELECT *
-		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
-		  					FROM transaction, users 
-							WHERE user_id = buyer_id 
-							AND buyer_id = #{buyerId}
-							ORDER BY tran_no DESC) inner_table	
-				WHERE ROWNUM &lt;= #{search.endRowNum} )
-		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	</select>
-
-	<!-- SQL : SELECT Sale LIST -->
-	<select	id="getSaleList"	parameterType="com.teulda.common.Search"	resultMap="postSelectMap">
-		SELECT *
-		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
-	  				FROM(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
-						price, image_file, reg_date, tran_no, tran_status_code 
-						FROM product p, transaction t
-						<where>
-						p.prod_no = t.prod_no
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						ORDER BY tran_no DESC) inner_table
-				WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	</select>
-	
-	<!-- SQL : SELECT post ROW Count -->
-	<select	id="getpostTotalCount"	parameterType="map"	resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
-						FROM transaction, users 
-						<where>
-						user_id = buyer_id 
-						AND buyer_id = #{buyerId}
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND prod_no LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND prod_name LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND price LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						) countTable						
-	</select>
-
-	<!-- SQL : SELECT SALE ROW Count -->
-	<select	id="getSaleTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
-						price, image_file, reg_date, tran_no, tran_status_code 
-						FROM product p, transaction t
-						<where>
-						p.prod_no = t.prod_no
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						) countTable						
-	</select>
-
 </mapper>
