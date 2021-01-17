@@ -80,16 +80,12 @@ public class DiaryDaoImpl implements DiaryDao {
 	}
 
 	@Override
-	
 	public void updateDiary(Diary diary) throws Exception {
-		// TODO Auto-generated method stub
-
+		sqlSession.update("DiaryMapper.updateDiary", diary);
 	}
 
 	@Override
 	public void updateDiaryStatus(Diary diary) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
