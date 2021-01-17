@@ -15,7 +15,7 @@ public class Photo {
 	private Date photoDate; // 사진 찍은 날짜 - 앨범 사진
 	private Date deleteDate; // 사진 삭제 날짜 - 앨범 사진
 	private String description; // 설명 - 기록 사진
-	private String diaryPhotoType; // 기록 : D / 기념품 : S - 기록 사진
+	private char diaryPhotoType; // 기록 : d / 기념품 : s - 기록 사진
 	private String nickname;
 	
 	public int getPhotoNo() {
@@ -106,11 +106,11 @@ public class Photo {
 		this.description = description;
 	}
 
-	public String getDiaryPhotoType() {
+	public char getDiaryPhotoType() {
 		return diaryPhotoType;
 	}
 
-	public void setDiaryPhotoType(String diaryPhotoType) {
+	public void setDiaryPhotoType(char diaryPhotoType) {
 		this.diaryPhotoType = diaryPhotoType;
 	}
 

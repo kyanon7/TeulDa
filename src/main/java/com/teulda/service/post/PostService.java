@@ -7,9 +7,6 @@ import com.teulda.service.domain.Comment;
 import com.teulda.service.domain.Post;
 
 public interface PostService {
-	
-	//게시글 목록 조회
-	public Map<String, Object> getPostList(Search search) throws Exception;
 
 	//게시글 조회
 	public Post getPost(int postNo) throws Exception;
@@ -32,7 +29,12 @@ public interface PostService {
 	//댓글 삭제
 	public void deleteComment(int commentNo) throws Exception;
 	
+	//게시글 목록 조회
+	public Map<String, Object> getPostList(Search search) throws Exception;
+		
 	//댓글 목록 조회
 	public Map<String, Object> getCommentList(Search search) throws Exception;
+	
+	
 	
 }

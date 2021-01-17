@@ -103,29 +103,4 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
 	
-	<!-- SQL : SELECT SALE ROW Count -->
-	<!-- <select	id="getSaleTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM	(SELECT	r.review_id, r.nickname, r.review_addr, r.content, 
-						r.review_photo, r.review_date, r.star, r.is_allowed
-						FROM review r -->
-						<!-- <where>
-						r.reviewNo = ? -->
-						<!-- <if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						) countTable
-	</select> -->
-
 </mapper>

@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.teulda.common.Group;
+import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.diary.DiaryDao;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
+import com.teulda.service.domain.HashTag;
 
 @Service("diaryServiceImpl")
 public class DiaryServiceImpl implements DiaryService {
@@ -31,9 +33,40 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 	
 	@Override
-	// 기록 등록을 위한 비즈니스 수행
+	// 기록 등록을 위한 비즈니스 수행 (+ 기록에 포함된 해시태그 등록, 사진 등록) 
 	public void addDiary(Diary diary) throws Exception {
-		diaryDao.addDiary(diary);
+		
+		diaryDao.addDiary(diary); // diary DB 생성 
+		
+		// 해시태그 등록
+		List <HashTag> hashTagList = diary.getHashTagList();
+		
+		for (int i = 0; i < hashTagList.size(); i++) {
+			HashTag hashTag = hashTagList.get(i);
+			hashTag.setNickname(diary.getNickname()); // 닉네임으로 최신 기록번호 찾기 위해 넣어줌 
+			diaryDao.addHashTag(hashTag); // 해시태그가 DB에 저장됨 
+		}
+		
+		/*
+		for (HashTag hashTag : hashTagList) {
+			hashTag.setNickname(diary.getNickname());
+			diaryDao.addHashTag(hashTag);
+		}
+		*/
+		
+		// 사진 이름 등록
+		List <Photo> photoList = diary.getPhotoList();
+		
+		for (int i = 0; i < photoList.size(); i++) {
+			Photo photo = photoList.get(i);
+			photo.setNickname(diary.getNickname()); // 닉네임으로 최신 기록번호 찾기 위해 넣어줌 
+			photo.setDiaryPhotoType('s'); // 기념품 사진 
+			if (photo.getDescription() == null) { // 설명이 없으면 
+				photo.setDiaryPhotoType('d'); // 기록 사진
+			} 
+			diaryDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨 
+		}
+		
 	}
 
 	@Override
@@ -43,9 +76,12 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	// 기록 조회를 위한 비즈니스 수행
+	// 기록 조회(+ 해시태그 조회, 사진 조회)를 위한 비즈니스 수행
 	public Diary getDiary(int diaryNo) throws Exception {
-		return diaryDao.getDiary(diaryNo); // 해시태그는 어떡하지? 
+		Diary diary = diaryDao.getDiary(diaryNo); 
+		diary.setHashTagList(diaryDao.getHashTagList(diaryNo));
+		diary.setPhotoList(diaryDao.getPhotoList(diaryNo));
+		return diary;
 	}
 
 	@Override
@@ -64,9 +100,19 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	// 기록 수정을 위한 비즈니스 수행 
+	// 기록 수정을 위한 비즈니스 수행 (+ 해시태그 새로 생성, 사진 추가) 
 	public void updateDiary(Diary diary) throws Exception {
-		diaryDao.updateDiary(diary);
+		
+		diaryDao.updateDiary(diary); // 기록 수정 
+
+		// 새로 생성한 해시태그 등록
+		List <HashTag> hashTagList = diary.getHashTagList();
+		
+		for (int i = 0; i < hashTagList.size(); i++) {
+			HashTag hashTag = hashTagList.get(i); 
+			hashTag.setDiaryNo(diary.getDiaryNo()); // 기록번호가 정해져 있으니 넣어줌 
+			diaryDao.addHashTag(hashTagList.get(i)); // 해시태그가 DB에 저장됨 
+		}
 	}
 
 	@Override

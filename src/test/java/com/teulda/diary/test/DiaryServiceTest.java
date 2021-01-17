@@ -1,5 +1,8 @@
 package com.teulda.diary.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +12,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.teulda.common.Group;
+import com.teulda.common.Photo;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
+import com.teulda.service.domain.HashTag;
 
 /*
  *	FileName :  DiaryServiceTest.java
@@ -37,30 +43,123 @@ public class DiaryServiceTest {
 	@Qualifier("diaryServiceImpl")
 	private DiaryService diaryService;
 	
-	@Test
+	//@Test
 	public void testAddDiary() throws Exception {
 		
 		Diary diary = new Diary();
 		diary.setTitle("제주도에 왔어요!");
-		diary.setLocation("제주도 돌하르방 앞에서");
-		diary.setLatitude(59.684153857);
-		diary.setLongitude(128.875156);
-		diary.setNickname("king주원");
-		diary.setStartDate("21-01-15");
-		diary.setEndDate("21-01-16");
-		diary.setContent("한라봉 천혜향 레드향을 먹었다네요");
+		diary.setLocation("제주도 돌하르방 앞에서"); // Google Map 주소 받아옴
+		diary.setLatitude(59.684153857); // Google Map 위도 좌표 
+		diary.setLongitude(128.875156); // Google Map 경도 좌표 
+		diary.setNickname("king주원"); // 구현시 닉네임은 세션 사용해서 뽑아옴
+		diary.setStartDate("2021-01-15");
+		diary.setEndDate("2021-01-17");
+		diary.setContent("한라봉 천혜향 레드향을 먹었다네요"); // 내용 
 		diary.setThumbnail("hanrabong.jpg");
-		diary.setGroupNo(10025);
 		diary.setCurrency("달러");
-		diary.setIsPublic('t');
+		diary.setIsPublic('t'); // 공개 
 		
-		System.out.println("실행?");
+		// ========= 해시태그 =============
+		HashTag hashTag1 = new HashTag();
+		hashTag1.setHashTagName("겨울여행");
+		
+		HashTag hashTag2 = new HashTag();
+		hashTag2.setHashTagName("제주도여행");
+		
+		List<HashTag> hashTagList = new ArrayList<HashTag>();
+		hashTagList.add(hashTag1);
+		hashTagList.add(hashTag2);
+		
+		diary.setHashTagList(hashTagList);
+		// ===============================
+		
+		// ============= 사진 =============
+		Photo photo1 = new Photo();
+		photo1.setPhotoName("a.jpg");
+		photo1.setDescription("눈온다!");
+		
+		Photo photo2 = new Photo();
+		photo2.setPhotoName("b.jpg");
+		
+		List<Photo> photoList = new ArrayList<Photo>();
+		photoList.add(photo1);
+		photoList.add(photo2);
+		
+		diary.setPhotoList(photoList);
+		// ===============================
+	
 		System.out.println(diary);
 		diaryService.addDiary(diary);
-		System.out.println("실행?2");
 		
-		Diary diary2 = diaryService.getDiary(10018);
-		Assert.assertEquals("제목", diary2.getTitle());
+		Diary diary2 = diaryService.getDiary(10042);
+		Assert.assertEquals("제주도에 왔어요!", diary2.getTitle());
+	}
+	
+	//@Test
+	public void testAddDiaryGroup() throws Exception {
+		
+		Group group = new Group();
+		group.setGroupName("겨울여행");
+		group.setNickname("king주원");
+		
+		diaryService.addDiaryGroup(group);
+	}
+	
+	//@Test
+	public void testGetDiary() throws Exception {
+		Diary diary2 = diaryService.getDiary(10042);
+		Assert.assertEquals("제주도에 왔어요!", diary2.getTitle());
+	}
+	
+	@Test
+	public void testUpdateDiary() throws Exception {
+		Diary diary = new Diary();
+		diary.setDiaryNo(10038);
+		diary.setTitle("변경한 제목!");
+		diary.setLocation("광안대교 앞에서"); // Google Map 주소 받아옴
+		diary.setLatitude(60.684153857); // Google Map 위도 좌표 
+		diary.setLongitude(130.875156); // Google Map 경도 좌표  
+		diary.setStartDate("21-01-17");
+		diary.setEndDate("21-01-18");
+		diary.setContent("요트를 탔다네요"); // 내용 
+		diary.setThumbnail("yoyo.jpg");
+		diary.setCurrency("원화");
+		diary.setIsPublic('f'); // 비공개 
+		
+		// ========= 해시태그 =============
+		HashTag hashTag1 = new HashTag();
+		hashTag1.setHashTagName("겨울바다");
+		
+		HashTag hashTag2 = new HashTag();
+		hashTag2.setHashTagName("제주도바다");
+		
+		List<HashTag> hashTagList = new ArrayList<HashTag>();
+		hashTagList.add(hashTag1);
+		hashTagList.add(hashTag2);
+		
+		diary.setHashTagList(hashTagList);
+		// ===============================
+//		
+//		// ============= 사진 =============
+//		Photo photo1 = new Photo();
+//		photo1.setPhotoName("a.jpg");
+//		photo1.setDescription("눈온다!");
+//		
+//		Photo photo2 = new Photo();
+//		photo2.setPhotoName("b.jpg");
+//		
+//		List<Photo> photoList = new ArrayList<Photo>();
+//		photoList.add(photo1);
+//		photoList.add(photo2);
+//		
+//		diary.setPhotoList(photoList);
+//		// ===============================
+	
+		System.out.println(diary);
+		diaryService.updateDiary(diary);
+		
+		Diary diary2 = diaryService.getDiary(10038);
+		Assert.assertEquals("변경한 제목!", diary2.getTitle());
 	}
 
 }

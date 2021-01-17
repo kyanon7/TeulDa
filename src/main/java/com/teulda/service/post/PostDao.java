@@ -19,10 +19,7 @@ public interface PostDao {
 	
 	//	POST DELETE
 	public void deletePost(int postNo) throws Exception;
-	
-	//	POST SELECT LIST
-	public List <Post> getPostList(Search search) throws Exception;
-	
+
 	//	COMMENT INSERT
 	public void addComment(Comment comment) throws Exception;
 	
@@ -37,7 +34,14 @@ public interface PostDao {
 	//원래는 getMycommnetList인데 이거 getCommentList로 바꿈 게시글에서 댓끌 리스트로
 	//그냥 내댓글보기 이걸로 써서 하면 될듯 이름만 바뀜 
 	
-	//게시판 page, 게시글에 댓글page, 내 게시글, 댓글보기에서 page
-	public int getTotalCount(Search search) throws Exception;
+	//	POST SELECT LIST
+	public List <Post> getPostList(Search search) throws Exception;
+	
+	//게시판 page, 
+	public int getPostTotalCount(Search search) throws Exception;
+	
+	//댓글 목록
+	public int getCommentTotalCount(Search search) throws Exception;
+	
 	
 }
