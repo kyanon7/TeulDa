@@ -41,9 +41,11 @@ public class ReviewServiceImpl implements ReviewService {
     public Map<String, Object> getReviewList(Search search) throws Exception {
         
     	List<Review> list = reviewDao.getReviewList(search);
-    	Map<String, Object> map = new HashMap<String, Object>();
+    	int totalCount = reviewDao.getTotalCount(search);
     	
+    	Map<String, Object> map = new HashMap<String, Object>();
     	map.put("list", list);
+    	map.put("totalCount", Integer.valueOf(totalCount));
     	
     	return map;
     }
