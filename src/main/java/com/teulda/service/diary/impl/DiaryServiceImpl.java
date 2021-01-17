@@ -100,9 +100,19 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	// 기록 수정을 위한 비즈니스 수행 
+	// 기록 수정을 위한 비즈니스 수행 (+ 해시태그 새로 생성, 사진 추가) 
 	public void updateDiary(Diary diary) throws Exception {
-		diaryDao.updateDiary(diary);
+		
+		diaryDao.updateDiary(diary); // 기록 수정 
+
+		// 새로 생성한 해시태그 등록
+		List <HashTag> hashTagList = diary.getHashTagList();
+		
+		for (int i = 0; i < hashTagList.size(); i++) {
+			HashTag hashTag = hashTagList.get(i); 
+			hashTag.setDiaryNo(diary.getDiaryNo()); // 기록번호가 정해져 있으니 넣어줌 
+			diaryDao.addHashTag(hashTagList.get(i)); // 해시태그가 DB에 저장됨 
+		}
 	}
 
 	@Override

@@ -77,6 +77,7 @@
 	INSERT
 	INTO HASHTAG (hashtag_id, diary_id, hashtag_name)
 	VALUES (seq_hashtag_hashtag_id.nextval, 
+				<if test="diaryNo == 0">
             	(SELECT diary_id 
             	FROM
             	(SELECT * 
@@ -84,6 +85,10 @@
             	where origin_nick = #{nickname}
             	ORDER BY diary_id DESC)
             	WHERE ROWNUM = 1),
+            	</if>
+            	<if test="diaryNo != 0">
+            	#{diaryNo},
+            	</if>
         	#{hashTagName})
 	</insert>
 	
@@ -129,5 +134,27 @@
 	FROM PHOTO
 	WHERE diary_id = #{diaryNo}
 	</select> 
+	
+	<!-- SQL : UPDATE -->
+	<update	id="updateDiary"	parameterType="diary">
+	UPDATE diary
+	SET title = #{title},
+    	diary_addr = #{location},
+    	latitude = #{latitude},
+    	longitude = #{longitude},
+    	last_update_date = SYSDATE, 
+    	start_date = #{startDate},
+    	end_date = #{endDate},
+    	content = #{content:LONGVARCHAR},
+    	thumbnail = #{thumbnail:VARCHAR},
+    	currency = #{currency:VARCHAR},
+    	trans_bill = #{transBill:NUMERIC},
+    	room_bill = #{roomBill:NUMERIC},
+    	food_bill = #{foodBill:NUMERIC},
+    	tour_bill = #{tourBill:NUMERIC},
+    	shop_bill = #{shopBill:NUMERIC},
+    	is_public = #{isPublic}
+	WHERE diary_id = #{diaryNo}
+	</update>
 
 </mapper>

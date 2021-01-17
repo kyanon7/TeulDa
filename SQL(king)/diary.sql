@@ -74,3 +74,24 @@ where diary_id = 10040
 SELECT * 
 FROM PHOTO
 WHERE diary_id = 10041
+
+// update diary
+
+UPDATE diary
+SET title = '변경한 기록 제목!',
+    diary_addr = '부산 광안리',
+    latitude = 59.6784712535,
+    longitude = 946.5845321,
+    last_update_date = sysdate, 
+    start_date = '21-01-17',
+    end_date = '21-01-18',
+    content = '변경한 기록 내용~~!!',
+    thumbnail = 'update.jpg',
+    currency = '위안',
+    trans_bill = '10000',
+    room_bill = '20000',
+    food_bill = '30000',
+    tour_bill = '40000',
+    shop_bill = '50000',
+    is_public = 'f'
+WHERE diary_id = 10038
