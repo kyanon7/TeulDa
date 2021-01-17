@@ -51,4 +51,9 @@ public class ReviewDaoImpl implements ReviewDao {
 	public void deleteReview(int reviewNo) throws Exception {
 		sqlSession.delete("ReviewMapper.deleteReview", reviewNo);
 	}
+
+	@Override
+	public int getTotalCount(Search search) throws Exception {
+		return sqlSession.selectOne("ReviewMapper.getTotalCount", search);
+	}
 }

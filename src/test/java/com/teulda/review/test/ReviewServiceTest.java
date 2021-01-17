@@ -10,9 +10,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.teulda.common.Page;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Review;
 import com.teulda.service.review.ReviewService;
@@ -29,7 +31,15 @@ public class ReviewServiceTest {
 	@Qualifier("reviewServiceImpl")
 	private ReviewService reviewService;
 	
-	int no = 10027;
+//	@Value("#{commonProperties['pageUnit']}")
+	@Value("#{commonProperties['pageUnit'] ?: 3}")
+	int pageUnit;
+	
+//	@Value("#{commonProperties['pageSize']}")
+	@Value("#{commonProperties['pageSize'] ?: 2}")
+	int pageSize;
+	
+	int no = 10007;
 	
 	//@Test
 	public void testAddReview() throws Exception{
@@ -126,11 +136,27 @@ public class ReviewServiceTest {
 		System.out.println(reviewService.getReview(no));
 	}
 	
+	@Test
 	public void testGetReviewList() throws Exception{
 		
 		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(pageSize);
+		search.setSearchCondition("0");
+		search.setSearchKeyword("매디");
+		search.setSearchSorting(null);
 		
 		Map<String, Object> map = reviewService.getReviewList(search);
-		List<Object> list = (List<Object>)map.get("list"); 
+		List<Object> list = (List<Object>)map.get("list");
+		Assert.assertEquals(1, list.size());
+		System.out.println(list.size());
+		
+		System.out.println(list);
+		Integer totalCount = (Integer)map.get("totalCount");
+		System.out.println(totalCount);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
 	}
 }

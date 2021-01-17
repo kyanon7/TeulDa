@@ -22,5 +22,4 @@ public interface ReviewService {
     //  후기 삭제
     public void deleteReview(int reviewNo) throws Exception;
 
-
 }

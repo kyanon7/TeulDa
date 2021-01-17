@@ -21,4 +21,7 @@ public interface ReviewDao {
 	
 	//	DELETE
 	public void deleteReview(int reviewNo) throws Exception;
+	
+	//	PAGINATION
+	public int getTotalCount(Search search) throws Exception; 
 }
