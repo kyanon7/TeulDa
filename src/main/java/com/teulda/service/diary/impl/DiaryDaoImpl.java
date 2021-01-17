@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.teulda.common.Group;
+import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.diary.DiaryDao;
 import com.teulda.service.domain.Diary;
+import com.teulda.service.domain.HashTag;
 
 //==> 기록관리 DAO CRUD 구현
 //데이터베이스와 직접적인 통신을 담당하는 퍼시스턴스 계층을 담당할 DiaryDao 인터페이스 구현 
@@ -36,14 +38,33 @@ public class DiaryDaoImpl implements DiaryDao {
 	}
 
 	@Override
+	public void addHashTag(HashTag hashTag) throws Exception {
+		sqlSession.insert("DiaryMapper.addHashTag", hashTag);
+	}
+	
+	@Override
+	public void addPhoto(Photo photo) throws Exception {
+		sqlSession.insert("DiaryMapper.addPhoto", photo);
+	}
+	
+	@Override
 	public void addDiaryGroup(Group group) throws Exception {
-		// TODO Auto-generated method stub
-
+		sqlSession.insert("DiaryMapper.addDiaryGroup", group);
 	}
 
 	@Override
 	public Diary getDiary(int diaryNo) throws Exception {
 		return (Diary) sqlSession.selectOne("DiaryMapper.getDiary" , diaryNo);
+	}
+	
+	@Override
+	public List<HashTag> getHashTagList(int diaryNo) throws Exception {
+		return sqlSession.selectList("DiaryMapper.getHashTagList", diaryNo);
+	}
+	
+	@Override
+	public List<Photo> getPhotoList(int diaryNo) throws Exception {
+		return sqlSession.selectList("DiaryMapper.getPhotoList", diaryNo);
 	}
 
 	@Override

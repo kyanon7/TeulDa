@@ -3,6 +3,8 @@ package com.teulda.service.domain;
 import java.sql.Date;
 import java.util.List;
 
+import com.teulda.common.Photo;
+
 public class Diary { // 기록
 
 	private int diaryNo; // 기록 No (스크랩 한 기록 No)
@@ -33,10 +35,10 @@ public class Diary { // 기록
 	private double tourBill; // 관광비
 	private double shopBill; // 쇼핑비
 	private char isPublic; // 공개 : t / 비공개 : f
-	private List<String> hashTagList; // 해시태그
-	// private List<HashTag> hashTagList;
-	private List<String> photoList; // 사진 파일명 여러개
-	// private List<Photo> photoList;
+	// private List<String> hashTagList; // 해시태그
+	private List<HashTag> hashTagList;
+	// private List<String> photoList; // 사진 파일명 여러개
+	private List<Photo> photoList;
 
 	public int getDiaryNo() {
 		return diaryNo;
@@ -246,19 +248,19 @@ public class Diary { // 기록
 		this.isPublic = isPublic;
 	}
 
-	public List<String> getHashTagList() {
+	public List<HashTag> getHashTagList() {
 		return hashTagList;
 	}
 
-	public void setHashTagList(List<String> hashTagList) {
+	public void setHashTagList(List<HashTag> hashTagList) {
 		this.hashTagList = hashTagList;
 	}
 
-	public List<String> getPhotoList() {
+	public List<Photo> getPhotoList() {
 		return photoList;
 	}
 
-	public void setPhotoList(List<String> photoList) {
+	public void setPhotoList(List<Photo> photoList) {
 		this.photoList = photoList;
 	}
 

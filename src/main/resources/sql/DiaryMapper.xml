@@ -33,6 +33,27 @@
 		<result property="isPublic"				column="is_public"			jdbcType="CHAR" />
 	</resultMap>
 	
+	<resultMap id="hashTagSelectMap" type="com.teulda.service.domain.HashTag">
+		<result property="hashTagNo"			column="hashtag_id"			jdbcType="NUMERIC" />
+		<result property="diaryNo"				column="diary_id"			jdbcType="NUMERIC" />
+		<result property="hashTagName"			column="hashtag_name"		jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="photoSelectMap" type="com.teulda.common.Photo">
+		<result property="photoNo"				column="photo_id"			jdbcType="NUMERIC" />
+		<result property="diaryNo"				column="diary_id"			jdbcType="NUMERIC" />
+		<result property="photoName"			column="photo_name"			jdbcType="VARCHAR" />
+		<result property="description"			column="description"		jdbcType="VARCHAR" />
+		<result property="diaryPhotoType"		column="diary_photo_type"	jdbcType="CHAR" />
+	</resultMap>
+	
+	<resultMap id="groupSelectMap" type="com.teulda.common.Group">
+		<result property="groupNo"		column="group_id"		jdbcType="NUMERIC"/>
+		<result	property="groupName"	column="group_name"		jdbcType="VARCHAR"/>
+		<result	property="nickname"		column="nickname"		jdbcType="VARCHAR"/>
+		<result	property="groupType"	column="group_type"		jdbcType="VARCHAR"/>
+	</resultMap>
+	
 	<!-- SQL : INSERT -->
 	<insert 	id="addDiary"		parameterType="diary">
 	INSERT 
@@ -51,11 +72,62 @@
         	#{foodBill:NUMERIC}, #{tourBill:NUMERIC}, #{shopBill:NUMERIC}, #{isPublic})
 	</insert>
 	
+	<!-- SQL : INSERT -->
+	<insert 	id="addHashTag"		parameterType="hashTag">
+	INSERT
+	INTO HASHTAG (hashtag_id, diary_id, hashtag_name)
+	VALUES (seq_hashtag_hashtag_id.nextval, 
+            	(SELECT diary_id 
+            	FROM
+            	(SELECT * 
+            	FROM diary 
+            	where origin_nick = #{nickname}
+            	ORDER BY diary_id DESC)
+            	WHERE ROWNUM = 1),
+        	#{hashTagName})
+	</insert>
+	
+	<!-- SQL : INSERT --> <!-- 추후 수정 -->
+	<insert 	id="addPhoto"		parameterType="photo">
+	INSERT
+	INTO PHOTO (photo_id, diary_id, 
+            	photo_name, description, diary_photo_type)
+	VALUES (seq_photo_photo_id.nextval, (SELECT diary_id 
+                                    	FROM
+                                    	(SELECT * 
+                                    	FROM diary 
+                                    	where origin_nick = #{nickname}
+                                    	ORDER BY diary_id DESC)
+                                   		WHERE ROWNUM = 1),
+        	#{photoName}, #{description:VARCHAR}, #{diaryPhotoType})
+	</insert>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addDiaryGroup"		parameterType="group">
+	INSERT 
+	INTO groups (group_id, group_name, nickname, group_type)
+	VALUES (seq_groups_group_id.nextval, #{groupName}, #{nickname}, '2')
+	</insert>
+	
 	<!-- SQL : SELECT ONE -->
 	<select 	id="getDiary"	parameterType="int"	resultMap="diarySelectMap">
-		SELECT * 
-		FROM diary
-		WHERE diary_id = #{diaryNo}
+	SELECT * 
+	FROM DIARY
+	WHERE diary_id = #{diaryNo}
 	</select>
+	
+	<!-- SQL : SELECT LIST -->
+	<select  id="getHashTagList"  parameterType="int"	resultMap="hashTagSelectMap">
+	SELECT * 
+	FROM HASHTAG
+	WHERE diary_id = #{diaryNo}
+	</select> 
+	
+	<!-- SQL : SELECT LIST -->
+	<select  id="getPhotoList"  parameterType="int"	resultMap="photoSelectMap">
+	SELECT * 
+	FROM PHOTO
+	WHERE diary_id = #{diaryNo}
+	</select> 
 
 </mapper>
