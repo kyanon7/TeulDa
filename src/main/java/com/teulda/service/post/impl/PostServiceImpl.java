@@ -35,59 +35,51 @@ import com.teulda.service.post.PostService;
 	@Override
 	public Map<String, Object> getPostList(Search search) throws Exception {
 		List<Post> list = postDao.getPostList(search);
-		int totalCount = postDao.getTotalCount(search);
+		int totalCount = postDao.getPostTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("totalCount", new Integer(totalCount));
-		
 		
 		return map;
 	}
 
 	@Override
 	public Post getPost(int postNo) throws Exception {
-		
 		return postDao.getPost(postNo);
 	}
 
 	@Override
 	public void addPost(Post post) throws Exception {
-		
 		postDao.addPost(post);	
 	}
 
 	@Override
 	public void updatePost(Post post) throws Exception {
-		
 		postDao.updatePost(post);
 		
 	}
 
 	@Override
 	public void deletePost(int postNo) throws Exception {
-		
 		postDao.deletePost(postNo);
 		
 	}
 
 	@Override
 	public void addComment(Comment comment) throws Exception {
-		
 		postDao.addComment(comment);
 		
 	}
 
 	@Override
 	public void updateComment(Comment comment) throws Exception {
-		
 		postDao.updateComment(comment);
 		
 	}
 
 	@Override
 	public void deleteComment(int commentNo) throws Exception {
-		
 		postDao.deleteComment(commentNo);
 		
 	}
@@ -96,7 +88,7 @@ import com.teulda.service.post.PostService;
 	public Map<String, Object> getCommentList(Search search) throws Exception {
 		
 		List<Comment> list = postDao.getCommentList(search);
-		int totalCount = postDao.getTotalCount(search);
+		int totalCount = postDao.getCommentTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);

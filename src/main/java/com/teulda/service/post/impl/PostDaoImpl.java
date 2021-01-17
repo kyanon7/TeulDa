@@ -62,33 +62,39 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public void addComment(Comment comment) throws Exception {
 		
-		sqlSession.insert("CommentMapper.addComment", comment);
+		sqlSession.insert("PostMapper.addComment", comment);
 		
 	}
 
 	@Override
 	public void updateComment(Comment comment) throws Exception {
 		
-		sqlSession.update("CommentMapper.updateComment", comment);
+		sqlSession.update("PostMapper.updateComment", comment);
 	}
 
 	@Override
 	public void deleteComment(int commentNo) throws Exception {
 		
-		sqlSession.delete("CommentMappepr.deleteComment", commentNo);
+		sqlSession.delete("PostMappepr.deleteComment", commentNo);
 		
 	}
 
 	@Override
 	public List<Comment> getCommentList(Search search) throws Exception {
 		
-		return sqlSession.selectList("CommentMapper.getCommentList", search);
+		return sqlSession.selectList("PostMapper.getCommentList", search);
 	}
 
 	@Override
-	public int getTotalCount(Search search) throws Exception {
-	
-		return sqlSession.selectOne("PostMapper.getTotalCount", search);
+	public int getPostTotalCount(Search search) throws Exception {
+		
+		return sqlSession.selectOne("PostMapper.getPostTotalCount", search);
+	}
+
+	@Override
+	public int getCommentTotalCount(Search search) throws Exception {
+		
+		return sqlSession.selectOne("PostMapper.getCommentTotalCount", search);
 	}
 
 }
