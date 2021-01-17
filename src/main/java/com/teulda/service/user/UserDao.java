@@ -34,7 +34,7 @@ public interface UserDao {
 	
 	public void deleteReport(User user) throws Exception ;//신고내역삭제
 	
-	//public void changeStatus(User user) throws Exception ;//
+	//public void changeStatus(User user) throws Exception ;///
 	
 }
 
