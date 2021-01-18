@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Comment;
 import com.teulda.service.domain.Post;
@@ -75,12 +76,12 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public void deleteComment(int commentNo) throws Exception {
 		
-		sqlSession.delete("PostMappepr.deleteComment", commentNo);
+		sqlSession.delete("PostMapper.deleteComment", commentNo);
 		
 	}
 
 	@Override
-	public List<Comment> getCommentList(Search search) throws Exception {
+	public List<Comment> getMycommentList(Search search, String nickname) throws Exception {
 		
 		return sqlSession.selectList("PostMapper.getCommentList", search);
 	}
@@ -95,6 +96,25 @@ public class PostDaoImpl implements PostDao {
 	public int getCommentTotalCount(Search search) throws Exception {
 		
 		return sqlSession.selectOne("PostMapper.getCommentTotalCount", search);
+	}
+
+	@Override
+	public void addPhoto(Photo photo) throws Exception {
+		
+		sqlSession.insert("PhotoMapper.addPhoto", photo);
+		
+	}
+
+	@Override
+	public List<Comment> getCommentList(int postNo) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Photo> getPhotoList(int postNo) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

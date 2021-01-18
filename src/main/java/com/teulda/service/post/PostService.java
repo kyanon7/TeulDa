@@ -29,12 +29,13 @@ public interface PostService {
 	//댓글 삭제
 	public void deleteComment(int commentNo) throws Exception;
 	
-	//게시글 목록 조회
-	public Map<String, Object> getPostList(Search search) throws Exception;
+	//각각의 게시글 목록 보기 (그러기위해서 뒤에 char postCategory를 넣어줌!)
+	public Map<String, Object> getPostList(Search search, char postCategory) throws Exception;
 		
-	//댓글 목록 조회
-	public Map<String, Object> getCommentList(Search search) throws Exception;
-	
+	//댓글 목록 조회(나의 댓글을 보기위해서 목록을 뽑은다음에 닉네임으로 나의 댓글을 볼수있게 설정함), (그리고 내 댓글보기랑 게시글 열람할때 댓글 보는걸 합쳣음)
+	//sql에 if문을 써서 
+	public Map<String, Object> getCommentList(Search search, String nickname, int postNo) throws Exception;
+
 	
 	
 }
