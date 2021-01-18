@@ -12,23 +12,24 @@ import com.teulda.common.Search;
 import com.teulda.service.community.CommunityDao;
 import com.teulda.service.community.CommunityService;
 import com.teulda.service.domain.Bookmark;
+import com.teulda.service.domain.Diary;
 
-//	@Service("communityServiceImpl")
+	@Service("communityServiceImpl")
 	public class CommunityServiceImpl implements CommunityService {
 
-//		//setter 인젝션	
-//		@Autowired
-//		@Qualifier("communityDaoImpl")
-//		private CommunityDao communityDao;
-//		
-//		public void setCommunityDao(CommunityDao communityDao){
-//			this.communityDao = communityDao;
-//		}
-//		
-//		//디버깅을 위한
-//		public CommunityServiceImpl() {  
-//			System.out.println(this.getClass());
-//		}
+		//setter 인젝션	
+		@Autowired
+		@Qualifier("communityDaoImpl")
+		private CommunityDao communityDao;
+		
+		public void setCommunityDao(CommunityDao communityDao){
+			this.communityDao = communityDao;
+		}
+		
+		//디버깅을 위한
+		public CommunityServiceImpl() {  
+			System.out.println(this.getClass());
+		}
 	
 	
 	@Override
@@ -56,6 +57,14 @@ import com.teulda.service.domain.Bookmark;
 //		
 //		return map;
 		return null;
+	}
+
+	//스크랩 등록
+	@Override
+	public void addScrap(Diary diary) throws Exception {
+		
+		communityDao.addScrap(diary);
+		
 	}
 
 }

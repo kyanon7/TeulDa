@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.teulda.common.Search;
 import com.teulda.service.domain.Bookmark;
+import com.teulda.service.domain.Diary;
 
 public interface CommunityDao {
 
@@ -18,5 +19,8 @@ public interface CommunityDao {
 	
 	// LIST TOTALCOUNT
 	public int getTotalCount(Search search) throws Exception;
+	
+	// INSERT Scrap
+	public void addScrap(Diary diary) throws Exception;
 	
 }
