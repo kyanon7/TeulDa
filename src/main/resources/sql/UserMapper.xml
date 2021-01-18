@@ -24,47 +24,55 @@
 	</resultMap>
 	
 	
-	<!-- SQL : INSERT -->
+	<!-- SQL : INSERT 회원추가-->
 	<insert	id="addUser"	parameterType="com.teulda.service.domain.User" >
 		INSERT
-		INTO users( nickname , email , password , name , phone_number, user_addr, like_addr, birth, user_photo, 
-							update_status_date, is_public, status, role)
+		INTO users( nickname , email , password , user_name , phone_number, user_addr, like_addr, birth, user_photo, 
+		update_status_date, is_public, status, role)
 		VALUES	 (	#{nickName} , #{email} , #{password} , #{name}, #{phone:VARCHAR}, #{address:VARCHAR},
-							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{isPublic:CHAR} ,'0','0')
+							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{statusDate:VARCHAR}, #{isPublic:CHAR} ,'0','0')
 	</insert>
 	 
-	<!-- SQL : SELECT ONE -->
-	<select	id="getUser"	parameterType="string"	resultMap="userSelectMap">
-		SELECT
+	<!-- SQL : SELECT ONE 회원정보상세조회-->
+	<select	id="getUser"	 parameterType="com.teulda.service.domain.User"	 resultMap="userSelectMap">
+		SELECT *
 		FROM users
 		WHERE nickname = #{nickName}
 	</select>
 	
-	<!-- SQL : UPDATE -->
+	<!-- SQL : UPDATE 회원정보 업데이트 -->
 	<update	id="updateUser"	parameterType="com.teulda.service.domain.User" >
 		UPDATE users
 	   	<set>
-	   		nickname 	= #{nickName} ,
-			cell_phone	= #{phone},
-			addr 				= #{addr} ,
-			email				=	#{email}
+	   		nickname 	= #{nickName:VARCHAR} ,
+			email	= #{email:VARCHAR},
+			password				= #{password:VARCHAR} ,
+			user_name				=	#{name:VARCHAR},
+			phone_number				=	#{phone:VARCHAR},
+			user_addr				=	#{address:VARCHAR},
+			like_addr				=	#{likePlace:VARCHAR},
+			birth				=	#{birth:VARCHAR},
+			user_photo				=	#{profilePhoto:VARCHAR},
+			update_status_date				=	#{statusDate:VARCHAR},
+			is_public				=	#{isPublic:CHAR},
+			status				=	#{status:CHAR},
+			role				=	#{role:CHAR}
 	   	</set>
-	   	WHERE user_id = #{userId}
-		WHERE tran_no = #{tranNo}
+	   	WHERE nickname = #{nickName}
 	</update>
 	
-	<!-- SQL : UPDATE TranCode -->
-	<update	id="updateTranCode"	parameterType="map" >
+	<!--  SQL : UPDATE TranCode 
+	<update	id="updateStatus"	parameterType="map" >
 		UPDATE transaction
 	   	<set>
 	   		tran_status_code	= #{tranCode}, 
 		</set>
 		WHERE tran_no = #{tranNo}
-	</update>
+	</update> -->
 	
-	<!-- SQL : REMOVE -->
-	<delete id="delsteUser"	parameterType="com.teulda.service.domain.User">
-	 	DELETE
+	<!-- SQL : REMOVE 회원삭제-->
+	<delete id="deleteUser"	parameterType="com.teulda.service.domain.User">
+	 	DELETE 
 	 	FROM users
 	 	WHERE nickname = #{nickName}
 	</delete>
@@ -82,39 +90,37 @@
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 	</select>
 
-	<!-- SQL : SELECT Sale LIST -->
-	<select	id="getSaleList"	parameterType="com.teulda.common.Search"	resultMap="userSelectMap">
-		SELECT *
-		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
-	  				FROM(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
-						price, image_file, reg_date, tran_no, tran_status_code 
-						FROM product p, transaction t
-						<where>
-						p.prod_no = t.prod_no
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						ORDER BY tran_no DESC) inner_table
-				WHERE ROWNUM &lt;= #{endRowNum} )
+	<!-- SQL : SELECT LIST -->
+	<select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT nickname , user_name , email
+											FROM users
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				user_id = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				user_name = #{searchKeyword}
+													</if>
+												</where>
+											</if>
+											ORDER BY user_id ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	</select>
+	 </select>
+	 
+	 
+	 
+
+
 	
 	<!-- SQL : SELECT PURCHASE ROW Count -->
 	<select	id="getUserTotalCount"	parameterType="map"	resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
-						FROM transaction, users 
+	  	FROM	(SELECT 
+						FROM 
 						<where>
 						user_id = buyer_id 
 						AND buyer_id = #{buyerId}
