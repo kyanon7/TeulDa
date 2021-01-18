@@ -78,7 +78,7 @@
 	</delete>
 	
 	<!-- SQL : SELECT User LIST -->
-	<select	id="getUserList"	parameterType="map"	resultMap="userSelectMap">
+	<!-- select	id="getUserList"	parameterType="map"	resultMap="userSelectMap">
 		SELECT *
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
 	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
@@ -88,10 +88,10 @@
 							ORDER BY tran_no DESC) inner_table	
 				WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	</select>
+	</select-->
 
 	<!-- SQL : SELECT LIST -->
-	<select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
+	<!-- <select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT nickname , user_name , email
@@ -109,7 +109,7 @@
 											ORDER BY user_id ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>
+	 </select>-->
 	 
 	 
 	 
@@ -117,7 +117,7 @@
 
 	
 	<!-- SQL : SELECT PURCHASE ROW Count -->
-	<select	id="getUserTotalCount"	parameterType="map"	resultType="int">
+	<!-- <select	id="getUserTotalCount"	parameterType="map"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM	(SELECT 
 						FROM 
@@ -139,10 +139,10 @@
 						</if>
 						</where>
 						) countTable						
-	</select>
+	</select>-->
 
 	<!-- SQL : SELECT SALE ROW Count -->
-	<select	id="getSaleTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
+	<!-- <select	id="getSaleTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
 						price, image_file, reg_date, tran_no, tran_status_code 
@@ -164,6 +164,6 @@
 						</if>
 						</where>
 						) countTable						
-	</select> 
+	</select>  -->
 
 </mapper>

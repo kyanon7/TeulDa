@@ -32,7 +32,7 @@ public class UserServiceTest {
 	private UserService userService;
 	
 	//유저등록
-		//@Test
+		@Test
 		public void testAddUser() throws Exception {
 			
 			System.out.println("debug");
@@ -106,7 +106,7 @@ public class UserServiceTest {
 		}
 		//완
 		
-		@Test
+		//@Test
 				public void testUpdateUser() throws Exception{
 					
 					System.out.println("debug");
