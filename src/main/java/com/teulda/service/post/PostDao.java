@@ -43,13 +43,15 @@ public interface PostDao {
 	public List<Comment> getMycommentList(Search search, String nickname) throws Exception;
 	
 	//	POST SELECT LIST
-	public List <Post> getPostList(Search search) throws Exception;
+	public List <Post> getPostList(Search search, char postCategory) throws Exception;
 	
 	//게시판 page, 
-	public int getPostTotalCount(Search search) throws Exception;
+	public int getPostTotalCount(char postCategory) throws Exception;
 	
 	//댓글 목록
-	public int getCommentTotalCount(Search search) throws Exception;
+	public int getMycommentTotalCount(String nickname) throws Exception;
 	
+	//게시글 조회수
+	public void updaatePostViewCount(int postNo) throws Exception;
 	
 }
