@@ -1,5 +1,7 @@
 package com.teulda.diary.test;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +113,7 @@ public class DiaryServiceTest {
 		Assert.assertEquals("제주도에 왔어요!", diary2.getTitle());
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateDiary() throws Exception {
 		Diary diary = new Diary();
 		diary.setDiaryNo(10038);
@@ -126,7 +128,13 @@ public class DiaryServiceTest {
 		diary.setCurrency("원화");
 		diary.setIsPublic('f'); // 비공개 
 		
-		// ========= 해시태그 =============
+		// 기존 해시태그 삭제
+		diaryService.deleteHashTag(10023);
+		
+		// 기존 사진 삭제 (기념품 사진일듯)
+		diaryService.deletePhoto(10007);
+		
+		// ========= 해시태그 추가 등록 =============
 		HashTag hashTag1 = new HashTag();
 		hashTag1.setHashTagName("겨울바다");
 		
@@ -139,27 +147,49 @@ public class DiaryServiceTest {
 		
 		diary.setHashTagList(hashTagList);
 		// ===============================
-//		
-//		// ============= 사진 =============
-//		Photo photo1 = new Photo();
-//		photo1.setPhotoName("a.jpg");
-//		photo1.setDescription("눈온다!");
-//		
-//		Photo photo2 = new Photo();
-//		photo2.setPhotoName("b.jpg");
-//		
-//		List<Photo> photoList = new ArrayList<Photo>();
-//		photoList.add(photo1);
-//		photoList.add(photo2);
-//		
-//		diary.setPhotoList(photoList);
-//		// ===============================
+		
+		// ============= 사진 추가 등록 =============
+		Photo photo1 = new Photo();
+		photo1.setPhotoName("test1.jpg");
+		photo1.setDescription("눈온다!");
+		
+		Photo photo2 = new Photo();
+		photo2.setPhotoName("test2.jpg");
+		
+		List<Photo> photoList = new ArrayList<Photo>();
+		photoList.add(photo1);
+		photoList.add(photo2);
+		
+		diary.setPhotoList(photoList);
+		// ===============================
 	
 		System.out.println(diary);
 		diaryService.updateDiary(diary);
 		
 		Diary diary2 = diaryService.getDiary(10038);
 		Assert.assertEquals("변경한 제목!", diary2.getTitle());
+	}
+	
+	//@Test 
+	// 다이어리 복원 & 다이어리 삭제 (휴지통 이동) 
+	public void testUpdateDiaryStatus() throws Exception {
+		
+		Diary diary = diaryService.getDiary(10038); // 다이어리 가져옴
+		diaryService.updateDiaryStatus(diary);
+		
+		Diary diary2 = diaryService.getDiary(10038);
+		System.out.println(diary2);
+	}
+	
+	@Test 
+	public void testUpdateDiaryGroup() throws Exception {
+		
+		Diary diary = diaryService.getDiary(10038); // 다이어리 가져옴
+		diary.setGroupNo(10041);
+		diaryService.updateDiaryGroup(diary);
+		
+		Diary diary2 = diaryService.getDiary(10038);
+		System.out.println(diary2);
 	}
 
 }

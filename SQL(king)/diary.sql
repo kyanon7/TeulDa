@@ -95,3 +95,46 @@ SET title = '변경한 기록 제목!',
     shop_bill = '50000',
     is_public = 'f'
 WHERE diary_id = 10038
+
+// delete hashtag 
+
+delete 
+from hashtag
+where hashtag_id = 10022
+
+// delete photo
+
+delete
+from photo
+where photo_id = 10000
+
+// update diary status
+
+update diary
+set delete_date = sysdate
+where diary_id = 10038;
+
+// update diary group
+
+update diary
+set group_id = 10040
+where diary_id = 10038;
+
+// delete diary 
+// (diary delete 하기 전에 해시태그, 사진 부터 지워야 함)
+
+delete 
+from diary
+where diary_id = 10038
+
+// delete hashtag use diary no
+
+delete 
+from hashtag
+where diary_id = 10038
+
+// delete photo use diary no
+
+delete 
+from photo
+where diary_id = 10038

@@ -97,13 +97,18 @@
 	INSERT
 	INTO PHOTO (photo_id, diary_id, 
             	photo_name, description, diary_photo_type)
-	VALUES (seq_photo_photo_id.nextval, (SELECT diary_id 
+	VALUES (seq_photo_photo_id.nextval, <if test="diaryNo == 0">
+										(SELECT diary_id 
                                     	FROM
                                     	(SELECT * 
                                     	FROM diary 
                                     	where origin_nick = #{nickname}
                                     	ORDER BY diary_id DESC)
                                    		WHERE ROWNUM = 1),
+                                   		</if>
+                                   		<if test="diaryNo != 0">
+                                   		#{diaryNo},
+            							</if>
         	#{photoName}, #{description:VARCHAR}, #{diaryPhotoType})
 	</insert>
 	
@@ -156,5 +161,56 @@
     	is_public = #{isPublic}
 	WHERE diary_id = #{diaryNo}
 	</update>
+	
+	<!-- SQL : UPDATE -->
+	<update	id="updateDiaryStatus"	parameterType="diary">
+	UPDATE diary
+	<set>
+		<choose>
+			<when test="deleteDate != null">
+			delete_date = null
+			</when>
+			<otherwise>
+			delete_date = SYSDATE
+			</otherwise>
+		</choose>
+	</set>
+	WHERE diary_id = #{diaryNo}
+	</update>
+	
+	<!-- SQL : UPDATE -->
+	<update	id="updateDiaryGroup"	parameterType="diary">
+	UPDATE diary
+	SET group_id = #{groupNo}
+	WHERE diary_id = #{diaryNo}
+	</update>
+	
+	<!-- SQL : DELETE -->
+	<delete 	id="deleteDiary"  parameterType="int" >
+	DELETE
+	FROM diary
+	WHERE diary_id = #{diaryNo}
+	</delete>
+	
+	<!-- SQL : DELETE -->
+	<delete 	id="deleteHashTagUseDiaryNo"  parameterType="int" >
+	DELETE
+	FROM diary
+	WHERE diary_id = #{diaryNo}
+	</delete>
+	
+	<!-- SQL : DELETE -->
+	<delete 	id="deleteHashTag"  parameterType="int" >
+	DELETE
+	FROM hashtag
+	WHERE hashtag_id = #{hashTagNo} 
+	</delete>
+	
+	<!-- SQL : DELETE -->
+	<delete 	id="deletePhoto"  parameterType="int" >
+	DELETE
+	FROM photo
+	WHERE photo_id = #{photoNo}
+	</delete>
 
 </mapper>
