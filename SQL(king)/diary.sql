@@ -75,6 +75,12 @@ SELECT *
 FROM PHOTO
 WHERE diary_id = 10041
 
+// get diary group list
+
+select group_id, group_name
+from groups
+where nickname = 'king주원' and group_type = 2;
+
 // update diary
 
 UPDATE diary

@@ -128,7 +128,7 @@
 	
 	<!-- SQL : SELECT LIST -->
 	<select  id="getHashTagList"  parameterType="int"	resultMap="hashTagSelectMap">
-	SELECT * 
+	SELECT hashtag_id, diary_id, hashtag_name
 	FROM HASHTAG
 	WHERE diary_id = #{diaryNo}
 	</select> 
@@ -138,6 +138,13 @@
 	SELECT * 
 	FROM PHOTO
 	WHERE diary_id = #{diaryNo}
+	</select> 
+	
+	<!-- SQL : SELECT LIST -->
+	<select  id="getDiaryGroupList"  parameterType="String"	resultMap="groupSelectMap">
+	SELECT group_id, group_name
+	FROM groups
+	WHERE nickname = #{nickname} and group_type = 2 
 	</select> 
 	
 	<!-- SQL : UPDATE -->
@@ -195,7 +202,14 @@
 	<!-- SQL : DELETE -->
 	<delete 	id="deleteHashTagUseDiaryNo"  parameterType="int" >
 	DELETE
-	FROM diary
+	FROM hashtag
+	WHERE diary_id = #{diaryNo}
+	</delete>
+	
+	<!-- SQL : DELETE -->
+	<delete 	id="deletePhotoUseDiaryNo"  parameterType="int" >
+	DELETE
+	FROM photo
 	WHERE diary_id = #{diaryNo}
 	</delete>
 	
