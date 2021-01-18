@@ -1,4 +1,4 @@
-package com.teulda.service.post.impl;
+ package com.teulda.service.post.impl;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public List<Post> getPostList(Search search) throws Exception {
+	public List<Post> getPostList(Search search, char postCategory) throws Exception {
 		
 		return sqlSession.selectList("PostMapper.getPostList", search);
 	}
@@ -83,19 +83,19 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public List<Comment> getMycommentList(Search search, String nickname) throws Exception {
 		
-		return sqlSession.selectList("PostMapper.getCommentList", search);
+		return sqlSession.selectList("PostMapper.getMycommentList", search);
 	}
 
 	@Override
-	public int getPostTotalCount(Search search) throws Exception {
+	public int getPostTotalCount(char postCategory) throws Exception {
 		
-		return sqlSession.selectOne("PostMapper.getPostTotalCount", search);
+		return sqlSession.selectOne("PostMapper.getPostTotalCount", postCategory);
 	}
 
 	@Override
-	public int getCommentTotalCount(Search search) throws Exception {
+	public int getMycommentTotalCount(String nickname) throws Exception {
 		
-		return sqlSession.selectOne("PostMapper.getCommentTotalCount", search);
+		return sqlSession.selectOne("PostMapper.getCommentTotalCount", nickname);
 	}
 
 	@Override
@@ -115,6 +115,12 @@ public class PostDaoImpl implements PostDao {
 	public List<Photo> getPhotoList(int postNo) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updaatePostViewCount(int postNo) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
