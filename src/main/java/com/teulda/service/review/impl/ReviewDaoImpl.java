@@ -36,6 +36,11 @@ public class ReviewDaoImpl implements ReviewDao {
 	public Review getReview(int reviewNo) throws Exception {
 		return sqlSession.selectOne("ReviewMapper.getReview", reviewNo);
 	}
+	
+	@Override
+	public int getLastMyReview(String nickname) throws Exception {
+		return sqlSession.selectOne("ReviewMapper.lastMyReview", nickname);
+	}
 
 	@Override
 	public List<Review> getReviewList(Search search) throws Exception {
@@ -56,4 +61,5 @@ public class ReviewDaoImpl implements ReviewDao {
 	public int getTotalCount(Search search) throws Exception {
 		return sqlSession.selectOne("ReviewMapper.getTotalCount", search);
 	}
+
 }

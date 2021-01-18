@@ -12,6 +12,9 @@ public interface ReviewDao {
 	
 	//	SELECT ONE
 	public Review getReview(int reviewNo) throws Exception;
+	
+	//	SELECT LAST ONE
+	public int getLastMyReview(String nickname) throws Exception;
 
 	//	SELECT LIST
 	public List<Review> getReviewList(Search search) throws Exception;

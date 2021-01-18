@@ -38,6 +38,14 @@
 		WHERE review_id = #{value}
 	</select>
 	
+	<!-- SQL : LAST ONE -->
+	<select id="lastMyReview" parameterType="String" resultType="int">
+		SELECT
+		MAX(review_id)
+		FROM review
+		WHERE nickname = #{value}
+	</select>
+	
 	<!-- SQL : UPDATE -->
 	<update	id="updateReview"	parameterType="com.teulda.service.domain.Review" >
 		UPDATE review
@@ -60,18 +68,6 @@
 	 	WHERE review_id = #{value}
 	</delete>
 	
-	<!-- <select	id="getReviewList"	parameterType="map"	resultMap="reviewSelectMap">
-		SELECT *
-		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
-		  					FROM transaction, users 
-							WHERE user_id = buyer_id 
-							AND buyer_id = #{buyerId}
-							ORDER BY tran_no DESC) inner_table	
-				WHERE ROWNUM &lt;= #{search.endRowNum} )
-		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	</select> -->
-
 	<!-- SQL : SELECT Review LIST -->
 	<select	id="getReviewList"	parameterType="com.teulda.common.Search"	resultMap="reviewSelectMap">
 		SELECT *
@@ -81,26 +77,51 @@
 								FROM review r
 								<!-- <where>
 								r.reviewNo = ? -->
-								<if test="searchCondition != null">
-									<choose>
-										<when test="searchCondition == 0 and searchKeyword !='' ">
-											AND LOWER(r.review_addr) LIKE '%'||#{searchKeyword}||'%'
-											ORDER BY r.review_addr ASC) inner_table
-										</when>
-										<when test="searchCondition == 1 and searchKeyword !='' ">
-											AND r.star &lt;= #{searchKeyword}
-											ORDER BY r.star ASC) inner_table
-										</when>
-										<otherwise>
-											ORDER BY r.review_addr DESC) inner_table
-										</otherwise>
-									</choose>
-									
-								</if>
+								<choose>
+									<when test="searchCondition != null">
+										<choose>
+											<when test="searchCondition == 0 and searchKeyword !='' ">
+												AND LOWER(r.review_addr) LIKE '%'||#{searchKeyword}||'%'
+												ORDER BY r.review_addr ASC) inner_table
+											</when>
+											<when test="searchCondition == 1 and searchKeyword !='' ">
+												AND r.star &lt;= #{searchKeyword}
+												ORDER BY r.star ASC) inner_table
+											</when>
+											<otherwise>
+												ORDER BY r.review_addr DESC) inner_table
+											</otherwise>
+										</choose>
+									</when>
+									<otherwise>
+										ORDER BY r.review_addr DESC) inner_table
+									</otherwise>
+								</choose>
 						<!-- </where> -->
 						<!-- ORDER BY review_date DESC) inner_table -->
 				WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
+
+	<!-- SQL : SELECT ROW Count -->
+	<select	id="getTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
+		SELECT COUNT(*)
+		FROM	(SELECT r.review_id, r.nickname, r.review_addr, r.content, 
+						r.review_photo, r.review_date, r.star, r.is_allowed
+						FROM review r
+					  <where>
+						<if test="searchCondition != null">
+							<choose>
+								<when test="searchCondition == 0 and searchKeyword !='' ">
+									AND LOWER(r.review_addr) LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 1 and searchKeyword !='' ">
+									AND r.star &lt;= #{searchKeyword}
+								</when>
+							</choose>
+						</if>
+					  </where>
+					  ) countTable						
+  	</select>
 	
 </mapper>

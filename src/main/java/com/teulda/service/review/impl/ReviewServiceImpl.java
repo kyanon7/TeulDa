@@ -27,7 +27,8 @@ public class ReviewServiceImpl implements ReviewService {
     public void setReviewDao(ReviewDao reviewDao) {
     	this.reviewDao = reviewDao;
     }
-
+    
+    @Override
     public void addReview(Review review) throws Exception {
     	reviewDao.addReview(review);
     }
@@ -36,6 +37,11 @@ public class ReviewServiceImpl implements ReviewService {
     public Review getReview(int reviewNo) throws Exception {
         return reviewDao.getReview(reviewNo);
     }
+    
+	@Override
+	public int getLastMyReview(String nickname) throws Exception {
+		return reviewDao.getLastMyReview(nickname);
+	}
 
     @Override
     public Map<String, Object> getReviewList(Search search) throws Exception {
