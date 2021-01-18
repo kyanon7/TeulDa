@@ -73,7 +73,7 @@ public class Search {
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
 				+ searchKeyword + ", pageSize=" + pageSize + ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum
-				+ ", searchSorting=" + searchSorting + ", nickname=" + "]";
+				+ ", searchSorting=" + searchSorting + "]";
 	}
 
 }

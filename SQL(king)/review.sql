@@ -8,13 +8,21 @@ INSERT INTO review(review_id, nickname, review_addr, content, review_photo, revi
 			'여기가 어딘지는 몰라도 재미있는 곳 같다. 맛있는 것도 많구만', 'uuid!fileNamegg', 
 			SYSDATE, 4, 't')
 
-	
+
 <!-- SQL : SELECT ONE -->
 <select	id="getReview"	parameterType="int"	resultMap="reviewSelectMap">
 	
 SELECT review_id, nickname, review_addr, content, review_photo, review_date, star, is_allowed 
 FROM review
 WHERE review_id = 10003
+
+
+<!-- SQL : LAST ONE -->
+<select id="lastMyReview" parameterType="String" resultType="int">
+
+SELECT MAX(review_id)
+FROM review
+WHERE nickname = 'king성영'
 
 
 <!-- SQL : UPDATE -->
@@ -51,33 +59,9 @@ WHERE row_seq
 BETWEEN 1 AND 5
 
 
-	<!-- SQL : SELECT Review LIST -->
-	<select	id="getReviewList"	parameterType="com.teulda.common.Search"	resultMap="reviewSelectMap">
-		SELECT *
-		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
-	  				FROM(SELECT	r.review_id, r.nickname, r.review_addr, r.content, 
-								r.review_photo, r.review_date, r.star, r.is_allowed
-								FROM review r
-								<!-- <where>
-								r.reviewNo = ? -->
-								<if test="searchCondition != null">
-									<choose>
-										<when test="searchCondition == 0 and searchKeyword !='' ">
-											AND LOWER(r.review_addr) LIKE '%'||#{searchKeyword}||'%'
-											ORDER BY r.review_addr ASC) inner_table
-										</when>
-										<when test="searchCondition == 1 and searchKeyword !='' ">
-											AND r.star &lt;= #{searchKeyword}
-											ORDER BY r.star ASC) inner_table
-										</when>
-										<otherwise>
-											ORDER BY r.review_addr DESC) inner_table
-										</otherwise>
-									</choose>
-									
-								</if>
-						<!-- </where> -->
-						<!-- ORDER BY review_date DESC) inner_table -->
-				WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	</select>
+<!-- SQL : SELECT ROW Count -->
+<select	id="getTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
+
+SELECT COUNT(*) FROM(
+	SELECT r.review_id, r.nickname, r.review_addr, r.content, r.review_photo, r.review_date, r.star, r.is_allowed
+		FROM review r) countTable

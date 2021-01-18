@@ -1,5 +1,6 @@
 package com.teulda.review.test;
 
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,12 +32,12 @@ public class ReviewServiceTest {
 	@Qualifier("reviewServiceImpl")
 	private ReviewService reviewService;
 	
-//	@Value("#{commonProperties['pageUnit']}")
-	@Value("#{commonProperties['pageUnit'] ?: 3}")
+	@Value("#{commonProperties['pageUnit']}")
+//	@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
 	
-//	@Value("#{commonProperties['pageSize']}")
-	@Value("#{commonProperties['pageSize'] ?: 2}")
+	@Value("#{commonProperties['pageSize']}")
+//	@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
 	int no = 10007;
@@ -89,6 +90,41 @@ public class ReviewServiceTest {
 	}
 	
 	//@Test
+	public void testGetMyLastReview() throws Exception{
+		
+		
+		Review kevinsReview = new Review();
+		kevinsReview.setNickname("king제현");
+		int nextNo = reviewService.getLastMyReview(kevinsReview.getNickname())+1;
+	    kevinsReview.setReviewNo(nextNo);
+		kevinsReview.setReviewPlace("미쿡 할리우드에서의 한때");
+		kevinsReview.setReviewContents(
+	    				"LA, 할리우드, 세계적인 영화들이 탄생하는 그곳. 나는 여기에서 나만의 영화를 찍으러 왔다. 삐뽀삐뽀 노래를 흥얼거리고 싶지만 내 노래를 훔쳐들으려고 하는 못된 놈이 있어서 당분간은 자제하고 있다. 하지만 오늘만큼은 참을 수 없어 삐뽀삐뽀~");
+		kevinsReview.setReviewPhoto("uuidfilename1826542");
+	    Timestamp dateTime = Timestamp.valueOf(LocalDateTime.now().withNano(0));
+	    kevinsReview.setReviewDate(dateTime);
+	    kevinsReview.setStar(5);
+	    kevinsReview.setIsAllowed('t');
+	    
+	    System.out.println(kevinsReview);
+	    reviewService.addReview(kevinsReview);
+	    
+	    int lastNo = reviewService.getLastMyReview(kevinsReview.getNickname());
+	    Review lastReview = reviewService.getReview(lastNo);
+	    
+//	    Assert.assertEquals(kevinsReview, reviewService.getReview(lastNo));
+	    Assert.assertEquals(kevinsReview.getReviewNo(), lastReview.getReviewNo());
+	    Assert.assertEquals(kevinsReview.getNickname(), lastReview.getNickname());
+	    Assert.assertEquals(kevinsReview.getReviewPlace(), lastReview.getReviewPlace());
+		Assert.assertEquals(kevinsReview.getReviewContents(), lastReview.getReviewContents());
+		Assert.assertEquals(kevinsReview.getReviewPhoto(), lastReview.getReviewPhoto());
+		Assert.assertEquals(kevinsReview.getReviewDate(), lastReview.getReviewDate());
+		Assert.assertEquals(kevinsReview.getStar(),lastReview.getStar());
+		Assert.assertEquals(kevinsReview.getIsAllowed(), lastReview.getIsAllowed());
+	    										
+	}
+	
+	//@Test
 	public void testUpdateReview() throws Exception{
 		
 		Review reviewGod = reviewService.getReview(no);
@@ -136,19 +172,19 @@ public class ReviewServiceTest {
 		System.out.println(reviewService.getReview(no));
 	}
 	
-	@Test
+	//@Test
 	public void testGetReviewList() throws Exception{
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(pageSize);
-		search.setSearchCondition("0");
+		search.setSearchCondition("3");
 		search.setSearchKeyword("매디");
 		search.setSearchSorting(null);
 		
 		Map<String, Object> map = reviewService.getReviewList(search);
 		List<Object> list = (List<Object>)map.get("list");
-		Assert.assertEquals(1, list.size());
+		Assert.assertEquals(5, list.size());
 		System.out.println(list.size());
 		
 		System.out.println(list);

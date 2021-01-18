@@ -12,6 +12,9 @@ public interface ReviewService {
 
     //  후기 조회
     public Review getReview(int reviewNo) throws Exception;
+    
+    //	내가 마지막으로 쓴 후기 번호
+    public int getLastMyReview(String nickname) throws Exception;
 
     //  후기 목록 조회
     public Map<String, Object> getReviewList(Search search) throws Exception;
