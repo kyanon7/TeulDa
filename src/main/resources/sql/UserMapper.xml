@@ -17,7 +17,7 @@
 		<result property="likePlace"				column="like_addr"			jdbcType="VARCHAR" />
 		<result property="birth"				column="birth"			jdbcType="DATE" />
 		<result property="profilePhoto"				column="user_photo"		jdbcType="VARCHAR" />
-		<result property="statusDate"			column="update_status_date"		jdbcType="VARCHAR" />
+		<result property="statusDate"			column="update_status_date"		jdbcType="DATE" />
 		<result property="isPublic"					column="is_public"			jdbcType="CHAR" />
 		<result property="status"				column="status"			jdbcType="CHAR" />
 		<result property="role"				column="role"		jdbcType="CHAR" />
@@ -44,19 +44,19 @@
 	<update	id="updateUser"	parameterType="com.teulda.service.domain.User" >
 		UPDATE users
 	   	<set>
-	   		nickname 	= #{nickName:VARCHAR} ,
-			email	= #{email:VARCHAR},
-			password				= #{password:VARCHAR} ,
-			user_name				=	#{name:VARCHAR},
-			phone_number				=	#{phone:VARCHAR},
-			user_addr				=	#{address:VARCHAR},
-			like_addr				=	#{likePlace:VARCHAR},
-			birth				=	#{birth:VARCHAR},
-			user_photo				=	#{profilePhoto:VARCHAR},
-			update_status_date				=	#{statusDate:VARCHAR},
-			is_public				=	#{isPublic:CHAR},
-			status				=	#{status:CHAR},
-			role				=	#{role:CHAR}
+	   		nickname 	= #{nickName} ,
+			email	= #{email},
+			password				= #{password} ,
+			user_name				=	#{name},
+			phone_number				=	#{phone},
+			user_addr				=	#{address},
+			like_addr				=	#{likePlace},
+			birth				=	#{birth},
+			user_photo				=	#{profilePhoto},
+			update_status_date				=	SYSDATE,
+			is_public				=	#{isPublic},
+			status				=	#{status},
+			role				=	#{role}
 	   	</set>
 	   	WHERE nickname = #{nickName}
 	</update>

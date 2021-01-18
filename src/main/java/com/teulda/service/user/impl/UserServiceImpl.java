@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUser(String nickName) throws Exception {
-		// TODO Auto-generated method stub
+
 		return userDao.getUser(nickName);
 	}
 

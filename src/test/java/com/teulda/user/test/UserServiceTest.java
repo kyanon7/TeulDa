@@ -32,7 +32,7 @@ public class UserServiceTest {
 	private UserService userService;
 	
 	//유저등록
-		@Test
+		//@Test
 		public void testAddUser() throws Exception {
 			
 			System.out.println("debug");
@@ -106,25 +106,45 @@ public class UserServiceTest {
 		}
 		//완
 		
-		//@Test
+				//@Test
 				public void testUpdateUser() throws Exception{
 					
-					System.out.println("debug");
+					User user = new User();
 					
-					User user = userService.getUser("testNick");
+					user = userService.getUser("testNick");
 					
-					System.out.println("debug");
 					System.out.println(user);//확인
-					System.out.println("debug");
-					
-					user.setNickName("change2");
-					//user.setPhone("777-7777-7777");
-					//user.setEmail("change@change.com");
+				
+					user.setNickName("testNick");
+					user.setPhone("777-7777-7777");
+					user.setEmail("change@change.com");
+					user.setPassword("testPasswd");
+					user.setName("SCOTT");
+					user.setBirth("2000-01-01");
+					user.setAddress("대한민국 서울");
+					user.setLikePlace("대한민국 부산");
+					user.setProfilePhoto("username.png");
+					user.setStatus('0');
+					user.setStatusDate(null);
+					user.setIsPublic('t');
+					user.setRole('0');
 					
 					userService.updateUser(user);
 					
-					user = userService.getUser("change");
+					System.out.println("debug");
+					
+					User change = userService.getUser("testNick");
+					System.out.println(change);//확인
+					
+					System.out.println("debug");
 			
 				}
+				//완
 		
+				//@Test
+				public void testgetUserList() throws Exception{
+					
+					System.out.println("debug");
+			
+				}
 }
