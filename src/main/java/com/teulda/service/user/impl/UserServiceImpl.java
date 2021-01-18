@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUser(String nickName) throws Exception {
-		// TODO Auto-generated method stub
+		userDao.deleteUser(nickName);
 		
 	}
 

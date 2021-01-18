@@ -32,7 +32,7 @@ public class UserServiceTest {
 	private UserService userService;
 	
 	//유저등록
-		@Test
+		//@Test
 		public void testAddUser() throws Exception {
 			
 			System.out.println("debug");
@@ -48,7 +48,9 @@ public class UserServiceTest {
 			user.setLikePlace("대한민국 부산");
 			user.setProfilePhoto("username.png");
 			user.setStatus('0');
+			user.setStatusDate(null);
 			user.setIsPublic('t');
+			user.setRole('0');
 			
 			System.out.println(user);
 			userService.addUser(user);
@@ -57,7 +59,7 @@ public class UserServiceTest {
 
 			System.out.println(user);
 
-			Assert.assertEquals("testNcik", user.getNickName());
+			Assert.assertEquals("testNick", user.getNickName());
 			Assert.assertEquals("corud1130@gmail.com", user.getEmail());
 			Assert.assertEquals("testPasswd", user.getPassword());
 			Assert.assertEquals("SCOTT", user.getName());
@@ -67,33 +69,62 @@ public class UserServiceTest {
 			Assert.assertEquals("대한민국 부산", user.getLikePlace());
 
 		}
-		
+		//완
 		
 		//@Test
 		public void testGetUser() throws Exception{
 			
+			System.out.println("debug");
+			
 			User user = userService.getUser("testNick");
 			
 			System.out.println("debug");
-			System.out.println(user);
+			System.out.println(user);//확인
+			System.out.println("debug");
 			
-			Assert.assertEquals("testNcik", user.getNickName());
+			Assert.assertEquals("testNick", user.getNickName());
 			Assert.assertEquals("corud1130@gmail.com", user.getEmail());
 			Assert.assertEquals("testPasswd", user.getPassword());
 			Assert.assertEquals("SCOTT", user.getName());
 			Assert.assertEquals("111-2222-3333", user.getPhone());
-			Assert.assertEquals("2000-01-01", user.getBirth());
+			//Assert.assertEquals("2000-01-01", user.getBirth());
 			Assert.assertEquals("대한민국 서울", user.getAddress());
 			Assert.assertEquals("대한민국 부산", user.getLikePlace());
 
 		}
-	
+		//완
 
 		//@Test
 		public void testDeleteUser() throws Exception{
 			
 			System.out.println("debug");
-			userService.deleteUser("testNcik");
+			User user = userService.getUser("testNick");
+			userService.deleteUser("testNick");
+			Assert.assertNotNull(user);
+			System.out.println(user);
 			
 		}
+		//완
+		
+		@Test
+				public void testUpdateUser() throws Exception{
+					
+					System.out.println("debug");
+					
+					User user = userService.getUser("testNick");
+					
+					System.out.println("debug");
+					System.out.println(user);//확인
+					System.out.println("debug");
+					
+					user.setNickName("change2");
+					//user.setPhone("777-7777-7777");
+					//user.setEmail("change@change.com");
+					
+					userService.updateUser(user);
+					
+					user = userService.getUser("change");
+			
+				}
+		
 }
