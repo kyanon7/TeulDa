@@ -142,9 +142,18 @@ public class UserServiceTest {
 				//완
 		
 				//@Test
-				public void testgetUserList() throws Exception{
-					
-					System.out.println("debug");
-			
-				}
+				/*
+				 * public void testGetUserList() throws Exception{
+				 * 
+				 * System.out.println("debug");
+				 * 
+				 * Search search = new Search();
+				 * 
+				 * Map<String, Object> map = userService.getUserList(search); List<Object> list
+				 * = (List<Object>)map.get("list");
+				 * 
+				 * Integer totalCount = (Integer)map.get("totalCount");
+				 * 
+				 * }
+				 */
 }
