@@ -86,12 +86,12 @@ public class DiaryDaoImpl implements DiaryDao {
 
 	@Override
 	public void updateDiaryStatus(Diary diary) throws Exception {
+		sqlSession.update("DiaryMapper.updateDiaryStatus", diary);
 	}
 
 	@Override
 	public void updateDiaryGroup(Diary diary) throws Exception {
-		// TODO Auto-generated method stub
-
+		sqlSession.update("DiaryMapper.updateDiaryGroup", diary);
 	}
 
 	@Override
@@ -102,8 +102,26 @@ public class DiaryDaoImpl implements DiaryDao {
 
 	@Override
 	public void deleteDiary(int diaryNo) throws Exception {
-		// TODO Auto-generated method stub
-
+		sqlSession.delete("DiaryMapper.deleteDiary", diaryNo);
+	}
+	
+	@Override
+	public void deleteHashTagUseDiaryNo(int diaryNo) throws Exception {
+		sqlSession.delete("DiaryMapper.deleteHashTagUseDiaryNo", diaryNo);
+	}
+	
+	@Override
+	public void deletePhotoUseDiaryNo(int diaryNo) throws Exception {
+		sqlSession.delete("DiaryMapper.deletePhotoUseDiaryNo", diaryNo);
+	}
+	
+	@Override
+	public void deleteHashTag(int hashTagNo) throws Exception {
+		sqlSession.delete("DiaryMapper.deleteHashTag", hashTagNo);
 	}
 
+	@Override
+	public void deletePhoto(int photoNo) throws Exception {
+		sqlSession.delete("DiaryMapper.deletePhoto", photoNo);
+	}
 }

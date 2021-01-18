@@ -50,7 +50,19 @@ public interface DiaryDao {
 	// UPDATE (기록 조회수 증가)
 	public void updateDiaryViewCount(int diaryNo) throws Exception;
 
-	// DELETE
+	// DELETE (기록 영구삭제)
 	public void deleteDiary(int diaryNo) throws Exception;
+	
+	// DELETE (기록 영구삭제할때 기록번호로 포함된 해시태그 싹 다 찾아서 삭제)
+	public void deleteHashTagUseDiaryNo(int diaryNo) throws Exception;
+	
+	// DELETE (기록 영구삭제할때 기록번호로 포함된 사진 싹 다 찾아서 삭제)
+	public void deletePhotoUseDiaryNo(int diaryNo) throws Exception;
+	
+	// DELETE (해시태그 번호로 해시태그 삭제 - ajax로 바로 삭제)
+	public void deleteHashTag(int hashTagNo) throws Exception;
+	
+	// DELETE (사진 번호로 사진 삭제 - ajax로 바로 삭제)
+	public void deletePhoto(int photoNo) throws Exception;
 
 }

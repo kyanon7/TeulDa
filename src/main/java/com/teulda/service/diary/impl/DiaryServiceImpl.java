@@ -100,7 +100,7 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	// 기록 수정을 위한 비즈니스 수행 (+ 해시태그 새로 생성, 사진 추가) 
+	// 기록 수정을 위한 비즈니스 수행 (+ 해시태그 새로 생성, 사진 새로 추가) 
 	public void updateDiary(Diary diary) throws Exception {
 		
 		diaryDao.updateDiary(diary); // 기록 수정 
@@ -112,6 +112,19 @@ public class DiaryServiceImpl implements DiaryService {
 			HashTag hashTag = hashTagList.get(i); 
 			hashTag.setDiaryNo(diary.getDiaryNo()); // 기록번호가 정해져 있으니 넣어줌 
 			diaryDao.addHashTag(hashTagList.get(i)); // 해시태그가 DB에 저장됨 
+		}
+		
+		// 새로 첨부한 사진 등록 (기념품 사진일듯) 
+		List<Photo> photoList = diary.getPhotoList();
+
+		for (int i = 0; i < photoList.size(); i++) {
+			Photo photo = photoList.get(i);
+			photo.setDiaryNo(diary.getDiaryNo()); // 기록번호가 정해져 있으니 넣어줌 
+			photo.setDiaryPhotoType('s'); // 기념품 사진
+			if (photo.getDescription() == null) { // 설명이 없으면
+				photo.setDiaryPhotoType('d'); // 기록 사진
+			}
+			diaryDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨
 		}
 	}
 
@@ -130,7 +143,21 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	// 기록 영구삭제를 위한 비즈니스 수행 
 	public void deleteDiary(int diaryNo) throws Exception {
+		diaryDao.deleteHashTagUseDiaryNo(diaryNo);
+		diaryDao.deletePhotoUseDiaryNo(diaryNo);
 		diaryDao.deleteDiary(diaryNo);
+	}
+	
+	// 해시태그 번호로 해시태그 삭제를 위한 비즈니스 수행 
+	@Override
+	public void deleteHashTag(int hashTagNo) throws Exception {
+		diaryDao.deleteHashTag(hashTagNo);
+	}
+	
+	// 기록 사진 삭제를 위한 비즈니스 수행
+	@Override
+	public void deletePhoto(int photoNo) throws Exception {
+		diaryDao.deletePhoto(photoNo);
 	}
 
 	@Override
