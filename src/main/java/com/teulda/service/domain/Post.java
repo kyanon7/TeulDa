@@ -3,6 +3,8 @@ package com.teulda.service.domain;
 import java.util.Date;
 import java.util.List;
 
+import com.teulda.common.Photo;
+
 public class Post {
 	
 	private int postNo; //게시글 번호
@@ -11,10 +13,9 @@ public class Post {
 	private Date postDate; //게시글 작성일자
 	private char postCategory; //게시글 유형
 	private int viewCount; //조회수
-	private String nickName; //게시글작성자 닉네임
-	private List<String> commentList; //댓글
-	private List<String> photoList; //게시글 사진
-	
+	private String nickname; //게시글작성자 닉네임
+	private List<Comment> commentList; //댓글
+	private List<Photo> photoList; //게시글 사진
 	
 	public int getPostNo() {
 		return postNo;
@@ -56,14 +57,6 @@ public class Post {
 		this.postCategory = postCategory;
 	}
 	
-	public List<String> getPhoto() {
-		return photoList;
-	}
-	
-	public void setPhoto(List<String> photoList) {
-		this.photoList = photoList;
-	}
-	
 	public int getViewCount() {
 		return viewCount;
 	}
@@ -73,25 +66,33 @@ public class Post {
 	}
 	
 	public String getNickname() {
-		return nickName;
+		return nickname;
 	}
 	
-	public void setNickname(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
-	public List<String> getComment() {
+	public List<Comment> getCommentList() {
 		return commentList;
 	}
 	
-	public void setComment(List<String> commentList) {
+	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
 	}
-
+	
+	public List<Photo> getPhotoList() {
+		return photoList;
+	}
+	
+	public void setPhotoList(List<Photo> photoList) {
+		this.photoList = photoList;
+	}
+	
 	@Override
 	public String toString() {
 		return "Post [postNo=" + postNo + ", postTitle=" + postTitle + ", postContents=" + postContents + ", postDate="
-				+ postDate + ", postCategory=" + postCategory + ", viewCount=" + viewCount + ", nickName=" + nickName
+				+ postDate + ", postCategory=" + postCategory + ", viewCount=" + viewCount + ", nickName=" + nickname
 				+ ", commentList=" + commentList + ", photoList=" + photoList + "]";
 	}
 	

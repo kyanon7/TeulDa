@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Comment;
 import com.teulda.service.domain.Post;
@@ -33,7 +34,7 @@ import com.teulda.service.post.PostService;
 	
 	//게시글 리스트 토탈카운트를 map에 저장
 	@Override
-	public Map<String, Object> getPostList(Search search) throws Exception {
+	public Map<String, Object> getPostList(Search search, char postCategory) throws Exception {
 		List<Post> list = postDao.getPostList(search);
 		int totalCount = postDao.getPostTotalCount(search);
 		
@@ -48,10 +49,28 @@ import com.teulda.service.post.PostService;
 	public Post getPost(int postNo) throws Exception {
 		return postDao.getPost(postNo);
 	}
-
+	
+	//게시글 등록 +댓글 +사진(썸머노트를 쓰면 db에는 서버경로만 저장되고 사진등은 서버에저장된다.)
 	@Override
 	public void addPost(Post post) throws Exception {
+		
 		postDao.addPost(post);	
+		
+		List<Comment> commentList = post.getCommentList();
+		
+		for(int i =0; i<commentList.size(); i++) {
+			Comment comment = commentList.get(i);
+			comment.setPostNo(comment.getPostNo());
+			postDao.addComment(comment);
+		}
+		
+		List <Photo> photoList = post.getPhotoList();
+		
+		for (int i = 0; i < photoList.size(); i++) {
+			Photo photo = photoList.get(i);
+			photo.setPostNo(post.getPostNo()); //게시글 번호로 찾기위해서
+			postDao.addPhoto(photo);
+		}
 	}
 
 	@Override
@@ -85,9 +104,9 @@ import com.teulda.service.post.PostService;
 	}
 
 	@Override
-	public Map<String, Object> getCommentList(Search search) throws Exception {
+	public Map<String, Object> getCommentList(Search search, String nickname, int postNo) throws Exception {
 		
-		List<Comment> list = postDao.getCommentList(search);
+		List<Comment> list = postDao.getMycommentList(search, nickname);
 		int totalCount = postDao.getCommentTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

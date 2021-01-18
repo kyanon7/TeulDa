@@ -2,6 +2,7 @@ package com.teulda.service.post;
 
 import java.util.List;
 
+import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Comment;
 import com.teulda.service.domain.Post;
@@ -10,6 +11,9 @@ public interface PostDao {
 	
 	//	POST INSERT
 	public void addPost(Post post) throws Exception;
+	
+	// PHOTO INSERT
+	public void addPhoto(Photo photo) throws Exception;
 	
 	//	POST SELECT ONE
 	public Post getPost(int postNo) throws Exception;
@@ -29,10 +33,14 @@ public interface PostDao {
 	//	COMMENT DELETE
 	public void deleteComment(int commentNo) throws Exception;
 	
-	//	COMMENT SELECT LIST
-	public List<Comment> getCommentList(Search search) throws Exception;
-	//원래는 getMycommnetList인데 이거 getCommentList로 바꿈 게시글에서 댓끌 리스트로
-	//그냥 내댓글보기 이걸로 써서 하면 될듯 이름만 바뀜 
+	//COMMENT SELECT LIST
+	public List<Comment> getCommentList(int postNo) throws Exception;
+	
+	//COMMENT SELECT LIST
+	public List<Photo> getPhotoList(int postNo) throws Exception;
+	
+	//	MY COMMENT SELECT LIST
+	public List<Comment> getMycommentList(Search search, String nickname) throws Exception;
 	
 	//	POST SELECT LIST
 	public List <Post> getPostList(Search search) throws Exception;
