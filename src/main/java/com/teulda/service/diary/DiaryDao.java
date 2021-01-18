@@ -31,11 +31,14 @@ public interface DiaryDao {
 	
 	// SELECT LIST
 	public List<Photo> getPhotoList(int diaryNo) throws Exception;
+	
+	// SELECT LIST 
+	public List<Group> getDiaryGroupList(String nickname) throws Exception;
 
-	// SELECT LIST
+	// SELECT LIST - 해야됨 
 	public List<Diary> getDiaryList(Search search, String nickname) throws Exception;
 
-	// 게시판 Page 처리를 위한 전체 Row(totalCount) return
+	// 게시판 Page 처리를 위한 전체 Row(totalCount) return - 해야됨  
 	public int getDiaryCount(String nickname) throws Exception;
 
 	// UPDATE (기록 수정)
@@ -47,7 +50,7 @@ public interface DiaryDao {
 	// UPDATE (기록 그룹 수정 - 그룹 옮김)
 	public void updateDiaryGroup(Diary diary) throws Exception;
 
-	// UPDATE (기록 조회수 증가)
+	// UPDATE (기록 조회수 증가) - 해야됨 
 	public void updateDiaryViewCount(int diaryNo) throws Exception;
 
 	// DELETE (기록 영구삭제)

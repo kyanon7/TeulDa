@@ -1,5 +1,6 @@
 package com.teulda.service.diary;
 
+import java.util.List;
 import java.util.Map;
 
 import com.teulda.common.Group;
@@ -18,6 +19,9 @@ public interface DiaryService {
 	// 기록 조회 - 완료
 	public Diary getDiary(int diaryNo) throws Exception;
 
+	// 기록 그룹 목록 리스트 (사용자가 어떤 그룹에 넣을지 선택할때 그룹 목록 리스트 필요할듯) 
+	public List<Group> getDiaryGroupList(String nickname) throws Exception;
+	
 	// 기록 목록 리스트
 	public Map<String, Object> getDiaryList(Search search, String nickname) throws Exception;
 
@@ -27,10 +31,10 @@ public interface DiaryService {
 	// 기록 상태 변경 - 복원하거나, 삭제해서 휴지통 안에 넣거나! - 완료 
 	public void updateDiaryStatus(Diary diary) throws Exception;
 
-	// 기록 그룹 변경
+	// 기록 그룹 변경 - 완료
 	public void updateDiaryGroup(Diary diary) throws Exception;
 
-	// 기록 영구삭제
+	// 기록 영구삭제 - 완료
 	public void deleteDiary(int diaryNo) throws Exception;
 	
 	// 해시태그 삭제 (기록 수정시 사용) - ajax 이용 할 듯? RestController - 완료 

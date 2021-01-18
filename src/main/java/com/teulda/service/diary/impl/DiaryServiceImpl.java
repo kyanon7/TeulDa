@@ -83,6 +83,11 @@ public class DiaryServiceImpl implements DiaryService {
 		diary.setPhotoList(diaryDao.getPhotoList(diaryNo));
 		return diary;
 	}
+	
+	@Override
+	public List<Group> getDiaryGroupList(String nickname) throws Exception {
+		return diaryDao.getDiaryGroupList(nickname);
+	}
 
 	@Override
 	// 내 기록 목록 보기를 위한 비즈니스 수행
@@ -154,7 +159,7 @@ public class DiaryServiceImpl implements DiaryService {
 		diaryDao.deleteHashTag(hashTagNo);
 	}
 	
-	// 기록 사진 삭제를 위한 비즈니스 수행
+	// 사진 번호로 기록 사진 삭제를 위한 비즈니스 수행
 	@Override
 	public void deletePhoto(int photoNo) throws Exception {
 		diaryDao.deletePhoto(photoNo);

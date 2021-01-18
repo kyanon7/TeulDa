@@ -1,7 +1,5 @@
 package com.teulda.diary.test;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
@@ -109,7 +106,7 @@ public class DiaryServiceTest {
 	
 	//@Test
 	public void testGetDiary() throws Exception {
-		Diary diary2 = diaryService.getDiary(10042);
+		Diary diary2 = diaryService.getDiary(10046);
 		Assert.assertEquals("제주도에 왔어요!", diary2.getTitle());
 	}
 	
@@ -181,7 +178,7 @@ public class DiaryServiceTest {
 		System.out.println(diary2);
 	}
 	
-	@Test 
+	//@Test 
 	public void testUpdateDiaryGroup() throws Exception {
 		
 		Diary diary = diaryService.getDiary(10038); // 다이어리 가져옴
@@ -191,5 +188,16 @@ public class DiaryServiceTest {
 		Diary diary2 = diaryService.getDiary(10038);
 		System.out.println(diary2);
 	}
-
+	
+	//@Test 
+	public void testDeleteDiary() throws Exception {
+		
+		diaryService.deleteDiary(10043);
+	}
+	
+	//@Test 
+	public void testGetDiaryGroupList() throws Exception {
+		List<Group> diaryGroupList = diaryService.getDiaryGroupList("king주원");
+		System.out.println(diaryGroupList);
+	}
 }

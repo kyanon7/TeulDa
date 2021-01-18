@@ -19,15 +19,15 @@ import com.teulda.service.domain.HashTag;
 
 @Repository("diaryDaoImpl")
 public class DiaryDaoImpl implements DiaryDao {
-	
+
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
-	
+
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-	
+
 	public DiaryDaoImpl() {
 		System.out.println(this.getClass());
 	}
@@ -41,12 +41,12 @@ public class DiaryDaoImpl implements DiaryDao {
 	public void addHashTag(HashTag hashTag) throws Exception {
 		sqlSession.insert("DiaryMapper.addHashTag", hashTag);
 	}
-	
+
 	@Override
 	public void addPhoto(Photo photo) throws Exception {
 		sqlSession.insert("DiaryMapper.addPhoto", photo);
 	}
-	
+
 	@Override
 	public void addDiaryGroup(Group group) throws Exception {
 		sqlSession.insert("DiaryMapper.addDiaryGroup", group);
@@ -54,17 +54,22 @@ public class DiaryDaoImpl implements DiaryDao {
 
 	@Override
 	public Diary getDiary(int diaryNo) throws Exception {
-		return (Diary) sqlSession.selectOne("DiaryMapper.getDiary" , diaryNo);
+		return (Diary) sqlSession.selectOne("DiaryMapper.getDiary", diaryNo);
 	}
-	
+
 	@Override
 	public List<HashTag> getHashTagList(int diaryNo) throws Exception {
 		return sqlSession.selectList("DiaryMapper.getHashTagList", diaryNo);
 	}
-	
+
 	@Override
 	public List<Photo> getPhotoList(int diaryNo) throws Exception {
 		return sqlSession.selectList("DiaryMapper.getPhotoList", diaryNo);
+	}
+
+	@Override
+	public List<Group> getDiaryGroupList(String nickname) throws Exception {
+		return sqlSession.selectList("DiaryMapper.getDiaryGroupList", nickname);
 	}
 
 	@Override
@@ -104,17 +109,17 @@ public class DiaryDaoImpl implements DiaryDao {
 	public void deleteDiary(int diaryNo) throws Exception {
 		sqlSession.delete("DiaryMapper.deleteDiary", diaryNo);
 	}
-	
+
 	@Override
 	public void deleteHashTagUseDiaryNo(int diaryNo) throws Exception {
 		sqlSession.delete("DiaryMapper.deleteHashTagUseDiaryNo", diaryNo);
 	}
-	
+
 	@Override
 	public void deletePhotoUseDiaryNo(int diaryNo) throws Exception {
 		sqlSession.delete("DiaryMapper.deletePhotoUseDiaryNo", diaryNo);
 	}
-	
+
 	@Override
 	public void deleteHashTag(int hashTagNo) throws Exception {
 		sqlSession.delete("DiaryMapper.deleteHashTag", hashTagNo);
