@@ -197,6 +197,7 @@ public class PhotoServiceTest {
 		
 		Integer totalCount = (Integer)map.get("totalCount");
 		System.out.println("totalCount : "+totalCount);
+		
 	}
 	
 }
