@@ -41,8 +41,11 @@ public interface DiaryDao {
 	// 게시판 Page 처리를 위한 Row(totalCount) return 
 	public int getMyDiaryCount(Search search, String nickname, char isDelete) throws Exception;
 	
-	// SELECT LIST - 해야됨 
+	// SELECT LIST
 	public List<Diary> getDiaryList(Search search) throws Exception;
+	
+	// 게시판 Page 처리를 위한 Row(totalCount) return 
+	public int getDiaryCount(Search search) throws Exception;
 
 	// UPDATE (기록 수정)
 	public void updateDiary(Diary diary) throws Exception;

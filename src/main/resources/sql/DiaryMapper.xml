@@ -190,6 +190,34 @@
        		) countTable
 	</select>
 	
+	<!-- SQL : SELECT LIST --> <!-- 추후 Search 조건 추가하기 -->
+	<!-- 통합검색에서 보이는 기록 리스트는 공개 기록이여야 하며, 삭제일자가 없어야 하며, 스크랩된 기록이 아니여야 한다 -->
+	<select  id="getDiaryList"  parameterType="search"	resultMap="diarySelectMap">
+	SELECT *
+	FROM 	(SELECT inner_table.*, rownum as row_seq
+        	 FROM    (SELECT    diary_id, title, diary_addr, diary_date, 
+                            	origin_nick, start_date, end_date,
+                            	content, thumbnail, view_count
+                	 FROM diary
+               	 	 WHERE is_public = 't' and delete_date is null and scrap_nick is null
+               	 	 <!-- 추후 정렬 조건 추가하기 -->
+               	 	 ) inner_table
+      		WHERE ROWNUM &lt; = #{endRowNum})
+	WHERE row_seq between #{startRowNum} and #{endRowNum}
+	</select> 
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	<select  id="getDiaryCount"  parameterType="search"	 resultType="int">
+	SELECT COUNT(*)
+	FROM (SELECT    diary_id, title, diary_addr, diary_date, 
+                	origin_nick, start_date, end_date,
+                	content, thumbnail, view_count
+      	  FROM diary
+      	  WHERE is_public = 't' and delete_date is null and scrap_nick is null 
+     	  <!-- 추후 정렬 조건 추가하기 -->
+     	  ) countTable 
+	</select>
+	
 	<!-- SQL : UPDATE -->
 	<update	id="updateDiary"	parameterType="diary">
 	UPDATE diary

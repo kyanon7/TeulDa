@@ -189,3 +189,25 @@ from ( select  diary_id, title, diary_addr, latitude, longitude,
                 content, delete_date, thumbnail, group_id
         from diary
         where origin_nick = 'king주원' and delete_date is null ) countTable
+        
+// get diary list (통합검색시 보여지는 리스트)를 한 페이지에 보이는 것만 찾아오게끔 함
+
+select * 
+from ( select inner_table.*, rownum as row_seq
+        from    (select     diary_id, title, diary_addr, diary_date, 
+                            origin_nick, start_date, end_date,
+                            content, thumbnail, view_count
+                from diary
+                where is_public = 't' and delete_date is null and scrap_nick is null ) inner_table
+      where rownum <= 5 )
+where row_seq between 1 and 5;
+
+// get diary count
+
+select count(*)
+from (select    diary_id, title, diary_addr, diary_date, 
+                origin_nick, start_date, end_date,
+                content, thumbnail, view_count
+      from diary
+      where is_public = 't' and delete_date is null and scrap_nick is null 
+     ) countTable 

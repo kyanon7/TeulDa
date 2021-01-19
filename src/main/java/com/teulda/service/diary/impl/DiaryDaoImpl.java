@@ -98,8 +98,12 @@ public class DiaryDaoImpl implements DiaryDao {
 	
 	@Override
 	public List<Diary> getDiaryList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("DiaryMapper.getDiaryList", search);
+	}
+	
+	@Override
+	public int getDiaryCount(Search search) throws Exception {
+		return sqlSession.selectOne("DiaryMapper.getDiaryCount", search);
 	}
 
 	@Override

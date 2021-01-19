@@ -104,10 +104,17 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 	
 	@Override
-	// 모든 기록 목록 보기를 위한 비즈니스 수행
+	// 통합검색에서 기록 목록 보기를 위한 비즈니스 수행
 	public Map<String, Object> getDiaryList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		List <Diary> diaryList = diaryDao.getDiaryList(search);
+		
+		map.put("diaryList", diaryList);
+		map.put("diaryTotalCount", new Integer(diaryDao.getDiaryCount(search)));
+		
+		return map;
 	}
 
 	@Override
