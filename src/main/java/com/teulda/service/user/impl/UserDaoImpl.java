@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.teulda.common.Search;
+import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
 import com.teulda.service.user.UserDao;
 
@@ -29,30 +30,25 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void addUser(User user) throws Exception {
-		sqlSession.insert("UserMapper.addUser", user);
-		
+		sqlSession.insert("UserMapper.addUser", user);	
 	}
 
 	@Override
 	public void checkEmail(String email) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void checkPhone(String phone) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public User getUser(String nickName) throws Exception {
-		
 		return (User) sqlSession.selectOne("UserMapper.getUser" , nickName);
 	}
 
 	
-
 	@Override
 	public void updateUser(User user) throws Exception {
 		sqlSession.update("UserMapper.updateUser", user);
@@ -61,45 +57,55 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void updateUserStatus(String status) throws Exception {
-		// TODO Auto-generated method stub
+		sqlSession.update("UserMapper.updateUserStatus", status);
 		
 	}
 
 	@Override
 	public void deleteUser(String nickName) throws Exception {
-		sqlSession.delete("UserMapper.deleteUser", nickName);
-		
+		sqlSession.delete("UserMapper.deleteUser", nickName);	
+	}
+	
+	@Override
+	public List<User> getUserList(Search search) throws Exception {
+		return sqlSession.selectList("UserMapper.getUserList", search);
 	}
 
 	@Override
-	public void reportUser(User user) throws Exception {
-		// TODO Auto-generated method stub
+	public int getTotalCount(Search search) {
+		return sqlSession.selectOne("UserMapper.getTotalCount", search);
+	}
+
+	@Override
+	public void addReport(Report report) throws Exception {
+		sqlSession.insert("UserMapper.addReport", report);
+		
+	}
+	
+	@Override
+	public Report getReport(String targetNick) throws Exception {
+		return (Report) sqlSession.selectOne("UserMapper.getReport" , targetNick);
+	}
+	
+	@Override
+	public void deleteReport(String targetNick) throws Exception {
+		sqlSession.delete("UserMapper.deleteReport", targetNick);	
 		
 	}
 
 	@Override
 	public List<User> getUserBlackList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("UserMapper.getUserBlackList", search);
 	}
 
 	@Override
-	public List<User> getReportList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Report> getReportList(Search search) throws Exception {
+		return sqlSession.selectList("UserMapper.getReportList", search);
 	}
 
-	@Override
-	public void deleteReport(User user) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public List<User> getUserList(Search search, String nickName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
 
 	
 

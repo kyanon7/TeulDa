@@ -4,11 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.teulda.common.Search;
+import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
 import com.teulda.service.user.UserDao;
 import com.teulda.service.user.UserService;
@@ -32,15 +37,45 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void addUser(User user) throws Exception {
 		userDao.addUser(user);
-	}
+	}//유저추가 완
 
-	//@Override
+	@Override
 	public void checkEmail(String email) throws Exception {
 		userDao.checkEmail(email);
 	}
+	
+	@Override
+	public boolean checkEmailDuplication(String email) throws Exception {
+		boolean result=true;
+			User user=userDao.getUser(email);
+			if(user != null) {
+				result=false;
+			}
+			return result;
+	}
+
+	@Override
+	public boolean checkPhoneDuplication(String phone) throws Exception {
+		boolean result=true;
+			User user=userDao.getUser(phone);
+			if(user != null) {
+				result=false;
+			}
+			return result;
+	}
+
+	@Override
+	public boolean checkNicknameDuplication(String nickName) throws Exception {
+		boolean result=true;
+		User user=userDao.getUser(nickName);
+		if(user != null) {
+			result=false;
+		}
+		return result;
+	}
 
 	
-	//@Override
+	@Override
 	public User login(User user) throws Exception {
 		User dbUser=userDao.getUser(user.getEmail());
 
@@ -51,26 +86,11 @@ public class UserServiceImpl implements UserService {
 		return dbUser;
 	}
 
-	//@Override
-	public User logout(User user) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public User getUser(String nickName) throws Exception {
 
 		return userDao.getUser(nickName);
-	}
-
-	@Override
-	public Map<String, Object> getUserList(Search search, String nickName) throws Exception {
-		 	
-		Map<String, Object> map = new HashMap <String, Object>();
-		List <User> userList = userDao.getUserList(search, nickName);
-		
-		map.put("list", userList);
-		return map;
 	}
 
 	@Override
@@ -85,12 +105,6 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	//@Override
-	public boolean checkDuplication(String userEmail) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	@Override
 	public void updateUserStatus(String status) throws Exception {
 		// TODO Auto-generated method stub
@@ -103,21 +117,16 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	@Override
-	public void reportUser(User user) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public Map<String, Object> getUserBlackList(Search search) throws Exception {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public Map<String, Object> getReportList(Search search) throws Exception {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -133,22 +142,45 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+
 	@Override
-	public boolean checkEmailDuplication(String email) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+	public Map<String, Object> getUserList(Search search) throws Exception {
+			
+    	List<User> list= userDao.getUserList(search);
+		int totalCount = userDao.getTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}//유저 리스트화, 유저 토탈 저장
+
+	@Override
+	public User logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		HttpSession session=request.getSession();	
+		session.invalidate();
+		
+		return null;
 	}
 
 	@Override
-	public boolean checkPhoneDuplication(String phone) throws Exception {
+	public void addReport(Report report) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean checkNicknameDuplication(String nickName) throws Exception {
+	public void getReport(int reportNo) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		
+	}
+
+	@Override
+	public void deleteReport(int reportNo) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 	//@Override

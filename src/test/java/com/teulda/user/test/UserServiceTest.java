@@ -14,6 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 
 import com.teulda.common.Search;
+import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
 import com.teulda.service.user.UserService;
 
@@ -47,7 +48,7 @@ public class UserServiceTest {
 			user.setAddress("대한민국 서울");
 			user.setLikePlace("대한민국 부산");
 			user.setProfilePhoto("username.png");
-			user.setStatus('0');
+			//user.setStatus('0');
 			user.setStatusDate(null);
 			user.setIsPublic('t');
 			user.setRole('0');
@@ -83,7 +84,7 @@ public class UserServiceTest {
 			System.out.println("debug");
 			
 			Assert.assertEquals("testNick", user.getNickName());
-			Assert.assertEquals("corud1130@gmail.com", user.getEmail());
+			Assert.assertEquals("change@change.com", user.getEmail());
 			Assert.assertEquals("testPasswd", user.getPassword());
 			Assert.assertEquals("SCOTT", user.getName());
 			Assert.assertEquals("111-2222-3333", user.getPhone());
@@ -97,7 +98,7 @@ public class UserServiceTest {
 		//@Test
 		public void testDeleteUser() throws Exception{
 			
-			System.out.println("debug");
+			System.out.println("유저삭제 디버깅");
 			User user = userService.getUser("testNick");
 			userService.deleteUser("testNick");
 			Assert.assertNotNull(user);
@@ -124,7 +125,7 @@ public class UserServiceTest {
 					user.setAddress("대한민국 서울");
 					user.setLikePlace("대한민국 부산");
 					user.setProfilePhoto("username.png");
-					user.setStatus('0');
+					//user.setStatus('0');
 					user.setStatusDate(null);
 					user.setIsPublic('t');
 					user.setRole('0');
@@ -142,18 +143,44 @@ public class UserServiceTest {
 				//완
 		
 				//@Test
-				/*
-				 * public void testGetUserList() throws Exception{
-				 * 
-				 * System.out.println("debug");
-				 * 
-				 * Search search = new Search();
-				 * 
-				 * Map<String, Object> map = userService.getUserList(search); List<Object> list
-				 * = (List<Object>)map.get("list");
-				 * 
-				 * Integer totalCount = (Integer)map.get("totalCount");
-				 * 
-				 * }
-				 */
+				 public void testGetUserList() throws Exception{
+				 
+					 System.out.println("유저리스트 디버깅");
+					 
+					 Search search = new Search();
+					 search.setCurrentPage(1);
+					 search.setPageSize(3);
+					 Map<String, Object> map = userService.getUserList(search); 
+					 List<Object> list= (List<Object>)map.get("list");
+					 
+					 Integer totalCount = (Integer)map.get("totalCount");
+					 
+					 System.out.println(list);//확인
+					 System.out.println(totalCount);//확인
+					 
+					  }
+				 //대략완
+				//신고등록
+					//@Test
+					public void testAddReport() throws Exception {
+						
+						System.out.println("debug");
+					
+						Report report = new Report();
+						
+						report.setReportNo(10030);
+						report.setReportDate(null);
+						report.setReason("테스트테스트");
+						report.setReportPhoto(null);
+						report.setReporterNick("king성영");
+						report.setTargetNick("king제현");
+						report.setReportType("욕설");
+						
+						userService.addReport(report);		
+
+						System.out.println(report);
+
+					}
+				 
+				
 }

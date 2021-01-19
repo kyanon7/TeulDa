@@ -7,6 +7,7 @@ public class Report {
 	private int reportNo;//신고 No
 	private Date reportDate;//신고 날짜
 	private String reportType;//신고유형
+	private String Reason;//신고사유
 	private String reportPhoto;//신고자료(사진)
 	private String reporterNick;//신고한 유저 닉네임
 	private String targetNick;//신고당한 유저 닉네임
@@ -48,6 +49,12 @@ public class Report {
 	public void setTargetNick(String targetNick) {
 		this.targetNick = targetNick;
 	}
+	public String getReason() {
+		return Reason;
+	}
+	public void setReason(String reason) {
+		Reason = reason;
+	}
 
 	
 	//값반환 확인
@@ -55,6 +62,7 @@ public class Report {
 	
 		return "ReportVO : [reportNo]" + reportNo
 				+ "[reportDate]" + reportDate+ "[reportType]" + reportType + "[reportPhoto]" + reportPhoto
-				+ "[reporterNick]" + reporterNick + "[targetNick]" +targetNick;
+				+ "[reporterNick]" + reporterNick + "[targetNick]" +targetNick+"[Reason]"+Reason;
 	}
+	
 }
