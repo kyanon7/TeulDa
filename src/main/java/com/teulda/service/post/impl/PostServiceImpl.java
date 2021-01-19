@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Comment;
+import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Post;
 import com.teulda.service.post.PostDao;
 import com.teulda.service.post.PostService;
@@ -41,7 +42,7 @@ import com.teulda.service.post.PostService;
 		List <Post>  postList = postDao.getPostList(search, postCategory);
 		
 		map.put("list", postList);
-		map.put("totalCount", new Integer(postDao.getPostTotalCount(postCategory)));
+		map.put("totalCount", new Integer(postDao.getPostTotalCount(search, postCategory)));
 	 
 		return map;
 	}
@@ -121,7 +122,7 @@ import com.teulda.service.post.PostService;
 		List <Comment> myCommetList = postDao.getMycommentList(search, nickname);
 		
 		map.put("list", myCommetList);
-		map.put("totalCount", new Integer(postDao.getMycommentTotalCount(nickname)));
+		map.put("totalCount", new Integer(postDao.getMycommentTotalCount(search, nickname)));
 		
 		return map;
 
@@ -133,6 +134,17 @@ import com.teulda.service.post.PostService;
 //		map.put("totalCount", new Integer(totalCount));
 //				
 //		return map;
+	}
+
+	@Override
+	public List<Comment> getCommentList(int postNo) throws Exception {
+		return postDao.getCommentList(postNo);
+	}
+
+	@Override
+	public void updatePostViewCount(int postNo) throws Exception {
+		postDao.updatePostViewCount(postNo);
+		
 	}
 
 //	@Override

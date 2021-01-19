@@ -80,6 +80,7 @@
 		SELECT * 
 		FROM COMMENTS
 		WHERE post_id = #{value}
+		ORDER BY comment_id DESC
 	</select>
 	
 	<!-- <select  id="getPhotoList"  parameterType="int"	resultMap="photoSelectMap">
@@ -109,7 +110,39 @@
 		SELECT * 
 		FROM POST
 		WHERE post_type = #{postCategory}
+		ORDER BY post_id DESC
 	</select>
+	
+	<select  id="getPostTotalCount"  parameterType="search"	 resultType="int">
+	SELECT COUNT(*)
+	FROM (SELECT    post_id, nickname, title, content, post_date, view_count, post_type
+      	  FROM POST) countTable 
+	</select>
+	
+	<select  id="getMycommentList"  parameterType="search"	 resultType="string">
+	SELECT *
+	FROM COMMENTS
+	WHERE nickname = #{nickname}
+	ORDER BY comment_id DESC
+	</select>
+	
+	<select  id="getMycommentTotalCount"  parameterType="search"	 resultType="int">
+	SELECT COUNT(*)
+	FROM (SELECT    comment_id, post_id, content, comment_date, nickname
+      	  FROM COMMENTS) countTable 
+	</select>
+	
+	<update	id="updatePostViewCount"	parameterType="int">
+	UPDATE POST
+	SET view_count = view_count + 1
+	WHERE post_id = #{postNo}
+	</update>
+	
+	<delete id="deleteCommentUsePostNo" parameterType="int">
+		DELETE
+		FROM COMMENTS
+		WHERE post_id = #{postNo}
+	</delete>
 	
 	
 	

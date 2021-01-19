@@ -98,13 +98,25 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public int getPostTotalCount(char postCategory) throws Exception {
-		return sqlSession.selectOne("PostMapper.getPostTotalCount", postCategory);
+	public int getPostTotalCount(Search search, char postCategory) throws Exception {
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("search", search);
+		map.put("postCategory", postCategory);
+		
+		return sqlSession.selectOne("PostMapper.getPostTotalCount", map);
 	}
 
 	@Override
-	public int getMycommentTotalCount(String nickname) throws Exception {
-		return sqlSession.selectOne("PostMapper.getCommentTotalCount", nickname);
+	public int getMycommentTotalCount(Search search, String nickname) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("search", search);
+		map.put("nickname", nickname);
+				
+		return sqlSession.selectOne("PostMapper.getMycommentTotalCount", map);
 	}
 
 //	@Override
@@ -115,6 +127,7 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public List<Comment> getCommentList(int postNo) throws Exception {
+				
 		return sqlSession.selectList("PostMapper.getCommentList", postNo);
 	}
 
@@ -140,6 +153,12 @@ public class PostDaoImpl implements PostDao {
 		sqlSession.delete("PostMapper.deleteCommentUsePostNo", postNo);
 		
 	}
+
+	@Override
+	public int getCommentTotalCount(int postNo) throws Exception {
+		return sqlSession.selectOne("PostMapper.getCommentTotalCount",postNo);
+}
+
 
 //	@Override
 //	public void deletePhotoUsePostNo(int postNo) throws Exception {

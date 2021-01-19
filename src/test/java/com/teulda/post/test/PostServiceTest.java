@@ -75,14 +75,13 @@ import com.teulda.service.post.PostService;
 			Assert.assertEquals("king제현", post1.getNickname());	
 		}
 		
-		//여기에 commentList 넣어야 할듯
+		
 		//@Test
 		public void testgetPost() throws Exception{
 			
-			Post post1 = postService.getPost(10034);
+			Post post1 = postService.getPost(10033);
 		    System.out.println(post1);
-		    
-		  
+
 		    Assert.assertEquals("돌아간다 신난다", post1.getPostTitle());
 			Assert.assertEquals("당황스럽네?", post1.getPostContents());
 			Assert.assertEquals('1', post1.getPostCategory());
@@ -92,10 +91,10 @@ import com.teulda.service.post.PostService;
 		//@Test
 		public void testupdatePost() throws Exception{
 			
-			Post post1 = postService.getPost(10034);
+			Post post1 = postService.getPost(10032);
 			System.out.println("post1 : "+post1);
 			
-			Assert.assertEquals(10034, post1.getPostNo());
+			Assert.assertEquals(10032, post1.getPostNo());
 			Assert.assertEquals("돌아간다 신난다", post1.getPostTitle());
 			Assert.assertEquals("당황스럽네?", post1.getPostContents());
 			Assert.assertEquals('1', post1.getPostCategory());
@@ -103,35 +102,17 @@ import com.teulda.service.post.PostService;
 			
 			Post post = new Post();
 			
-			post.setPostNo(10034);
+			post.setPostNo(10032);
 			post.setPostTitle("이번에는");
 			post.setPostContents("댓글도 수정할수있게 넣었어");
 			post.setPostCategory('0');
 			post.setNickname("king주원");
-			
-			Comment comment1 = new Comment();
-			comment1.setCommentContents("제에에에발 한번에 되면 안되겠니?");
-			
-			Comment comment2 = new Comment();
-			comment2.setCommentContents("내말좀 들어줄래??");
-			
-			postService.addComment(comment1); 
-			postService.addComment(comment2);
-			
-			List<Comment> commentList = new ArrayList<Comment>();
-			
-			commentList.add(comment1);
-			System.out.println(comment1);
-			commentList.add(comment2);
-			System.out.println(comment2);
-			
-			post.setCommentList(commentList);
 
 			postService.updatePost(post);
-			Post post2 = postService.getPost(10034);
+			Post post2 = postService.getPost(10032);
 			System.out.println(post2);
 			
-			Assert.assertEquals(10034, post2.getPostNo());
+			Assert.assertEquals(10032, post2.getPostNo());
 			Assert.assertEquals("이번에는", post2.getPostTitle());
 			Assert.assertEquals("댓글도 수정할수있게 넣었어", post2.getPostContents());
 			Assert.assertEquals('0', post2.getPostCategory());
@@ -205,21 +186,30 @@ import com.teulda.service.post.PostService;
 			Search search = new Search();
 			search.setCurrentPage(1);
 			search.setPageSize(5);
-			search.setSearchCondition("3");
-			search.setSearchKeyword(null);
-			search.setSearchSorting(null);
 			
 			Map<String, Object> map = postService.getPostList(search, '1');
-			List<Object> list = (List<Object>)map.get("list");
+			System.out.println(map);
+		}
+		
+		//@Test
+		public void testGetCommentList() throws Exception{
+			List<Comment> commentList = postService.getCommentList(10033);
+		}
+		
+		//@Test
+		//이거 sql 한번 물어보기
+		public void testGetMyCommentList() throws Exception{
+			Search search = new Search();
+			search.setCurrentPage(1);
+			search.setPageSize(5);
 			
-			Assert.assertEquals(5, list.size());
-			System.out.println(list.size());
+			Map<String, Object> map = postService.getMycommentList(search, "king제현");
+			System.out.println(map);
+		}
+		
+		//@Test
+		public void testUpdatePostViewCount() throws Exception{
 			
-			System.out.println(list);
-			Integer totalCount = (Integer)map.get("totalCount");
-			System.out.println(totalCount);
-			
-			Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), 12, 5);
-			System.out.println(resultPage);
+			postService.updatePostViewCount(10035);
 		}
 }
