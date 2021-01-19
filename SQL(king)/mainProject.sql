@@ -16,18 +16,18 @@ DROP SEQUENCE seq_chat_room_chatroom_id;
 
 
 
-CREATE SEQUENCE seq_groups_group_id		 		INCREMENT BY 1 START WITH 10000;
+CREATE SEQUENCE seq_groups_group_id		 			INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_users_user_id					INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_report_report_id				INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_diary_diary_id					INCREMENT BY 1 START WITH 10000;
-CREATE SEQUENCE seq_hashtag_hashtag_id			INCREMENT BY 1 START WITH 10000;
+CREATE SEQUENCE seq_hashtag_hashtag_id				INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_review_review_id				INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_bookmark_bookmark_id			INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_subscribe_subscribe_id			INCREMENT BY 1 START WITH 10000;
-CREATE SEQUENCE seq_stamp_stamp_id				INCREMENT BY 1 START WITH 10000;
+CREATE SEQUENCE seq_stamp_stamp_id					INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_post_post_id					INCREMENT BY 1 START WITH 10000;
-CREATE SEQUENCE seq_comment_comment_id			INCREMENT BY 1 START WITH 10000;
-CREATE SEQUENCE seq_photo_photo_id				INCREMENT BY 1 START WITH 10000;
+CREATE SEQUENCE seq_comment_comment_id				INCREMENT BY 1 START WITH 10000;
+CREATE SEQUENCE seq_photo_photo_id					INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_chat_room_chatroom_id			INCREMENT BY 1 START WITH 10000;
 
 
@@ -68,7 +68,7 @@ CREATE TABLE users (
 	update_status_date		DATE,
 	is_public				CHAR(1),
 	status					CHAR(1)			DEFAULT 0,
-	role						CHAR(1)			DEFAULT 1,
+	role					CHAR(1)			DEFAULT 1,
 	PRIMARY KEY(nickname)
 );
 
@@ -86,7 +86,7 @@ ADD CONSTRAINT USERS_UK2 UNIQUE
 //그룹 테이블
 
 CREATE TABLE groups (
-	group_id			NUMBER				NOT NULL,
+	group_id		NUMBER				NOT NULL,
 	group_name		VARCHAR2(30)		NOT NULL,
 	nickname		VARCHAR2(50)		NOT NULL	REFERENCES users(nickname),
 	delete_date		DATE,
@@ -97,41 +97,41 @@ CREATE TABLE groups (
 //신고 테이블
 CREATE TABLE report (
 	report_id			NUMBER			NOT NULL,
-	report_date		DATE			NOT NULL,
+	report_date			DATE			NOT NULL,
 	report_photo		VARCHAR2(100),
-	reason			VARCHAR2(100)	NOT NULL,
+	reason				VARCHAR2(100)	NOT NULL,
 	reporter_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
-	target_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
-	report_type		VARCHAR2(20)	NOT NULL,
+	target_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	report_type			VARCHAR2(20)	NOT NULL,
 	PRIMARY KEY(report_id)
 );
 
 //기록 테이블
 CREATE TABLE diary (
-	diary_id				NUMBER				NOT NULL,
-	title					VARCHAR2(100)		NOT NULL,
+	diary_id			NUMBER				NOT NULL,
+	title				VARCHAR2(100)		NOT NULL,
 	diary_addr			VARCHAR2(300)		NOT NULL,
-	latitude				NUMBER		NOT NULL,
-	longitude			NUMBER		NOT NULL,
+	latitude			NUMBER				NOT NULL,
+	longitude			NUMBER				NOT NULL,
 	diary_date			DATE				NOT NULL,
-	last_update_date		DATE,
+	last_update_date	DATE,
 	origin_nick			VARCHAR2(50)		NOT NULL	REFERENCES users(nickname),
-	start_date			DATE				NOT NULL,
-	end_date			DATE				NOT NULL,
+	start_date			VARCHAR2(20)		NOT NULL,
+	end_date			VARCHAR2(20)		NOT NULL,
 	content				LONG,
 	thumbnail			VARCHAR2(100),
 	view_count			NUMBER,
 	delete_date			DATE,
-	scrap_nick			VARCHAR2(50)		REFERENCES users(nickname),
+	scrap_nick			VARCHAR2(50)					REFERENCES users(nickname),
 	scrap_date			DATE,
-	group_id				NUMBER				REFERENCES groups(group_id),
-	currency				VARCHAR2(20),
+	group_id			NUMBER							REFERENCES groups(group_id),
+	currency			VARCHAR2(20),
 	trans_bill			NUMBER,
 	room_bill			NUMBER,
-	food_bill				NUMBER,
-	tour_bill				NUMBER,
-	shop_bill				NUMBER,
-	is_public				CHAR(1),
+	food_bill			NUMBER,
+	tour_bill			NUMBER,
+	shop_bill			NUMBER,
+	is_public			CHAR(1),
 	PRIMARY KEY(diary_id)
 );
 
@@ -185,13 +185,13 @@ CREATE TABLE stamp (
 
 //게시글 테이블
 CREATE TABLE post (
-	post_id		NUMBER			NOT NULL,
-	nickname	VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	post_id			NUMBER			NOT NULL,
+	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
 	title			VARCHAR2(100)	NOT NULL,
-	content		LONG,
-	post_date	DATE			NOT NULL,
-	view_count	NUMBER,
-	post_type	CHAR(1)			NOT NULL,
+	content			LONG,
+	post_date		DATE			NOT NULL,
+	view_count		NUMBER,
+	post_type		CHAR(1)			NOT NULL,
 	PRIMARY KEY(post_id)
 );
 
@@ -208,16 +208,16 @@ CREATE TABLE comments (
 //사진 테이블
 CREATE TABLE photo (
 	photo_id				NUMBER			NOT NULL,
-	photo_group_id		NUMBER		REFERENCES groups(group_id),
-	post_id				NUMBER		REFERENCES post(post_id),
-	diary_id				NUMBER		REFERENCES diary(diary_id),
-	photo_name			VARCHAR2(100)	NOT NULL,
-	photo_addr			VARCHAR2(300),
+	photo_group_id			NUMBER			REFERENCES groups(group_id),
+	post_id					NUMBER			REFERENCES post(post_id),
+	diary_id				NUMBER			REFERENCES diary(diary_id),
+	photo_name				VARCHAR2(100)	NOT NULL,
+	photo_addr				VARCHAR2(300),
 	latitude				NUMBER,
-	longitude			NUMBER,
-	photo_date			DATE,
-	delete_date			DATE,
-	description			VARCHAR2(100),
+	longitude				NUMBER,
+	photo_date				DATE,
+	delete_date				DATE,
+	description				VARCHAR2(100),
 	diary_photo_type		CHAR(1),
 	PRIMARY KEY(photo_id)
 );
@@ -228,12 +228,12 @@ CREATE TABLE photo (
 
 //채팅방 테이블
 CREATE TABLE chat_room (	
-	chatroom_id		NUMBER			NOT NULL,
+	chatroom_id			NUMBER			NOT NULL,
 	title				VARCHAR2(100)	NOT NULL,
-	max				NUMBER			NOT NULL,
+	max					NUMBER			NOT NULL,
 	total				NUMBER			NOT NULL,
-	is_allowed		CHAR(1)			NOT NULL,
-	head_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	is_allowed			CHAR(1)			NOT NULL,
+	head_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),	
 	PRIMARY KEY(chatroom_id)
 );
 
