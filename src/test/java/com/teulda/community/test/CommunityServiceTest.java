@@ -38,4 +38,12 @@ public class CommunityServiceTest {
 
 		System.out.println("Scrap 끝!!"); // test 종료
 	}
+	
+	//스크랩한 기록 조회
+	//@Test
+	public void testGetScrap() throws Exception{
+		
+		Diary diary = diaryService.getDiary(10017);
+		System.out.println(diary);
+	}
 }

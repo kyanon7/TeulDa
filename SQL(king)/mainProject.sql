@@ -120,7 +120,7 @@ CREATE TABLE diary (
 	end_date			VARCHAR2(20)		NOT NULL,
 	content				LONG,
 	thumbnail			VARCHAR2(100),
-	view_count			NUMBER,
+	view_count			NUMBER				DEFAULT 0,
 	delete_date			DATE,
 	scrap_nick			VARCHAR2(50)					REFERENCES users(nickname),
 	scrap_date			DATE,
@@ -190,7 +190,7 @@ CREATE TABLE post (
 	title			VARCHAR2(100)	NOT NULL,
 	content			LONG,
 	post_date		DATE			NOT NULL,
-	view_count		NUMBER,
+	view_count		NUMBER			DEFAULT 0,
 	post_type		CHAR(1)			NOT NULL,
 	PRIMARY KEY(post_id)
 );

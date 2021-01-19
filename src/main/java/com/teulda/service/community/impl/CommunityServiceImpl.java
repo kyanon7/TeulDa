@@ -1,6 +1,5 @@
 package com.teulda.service.community.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.community.CommunityDao;
 import com.teulda.service.community.CommunityService;
 import com.teulda.service.domain.Bookmark;
 import com.teulda.service.domain.Diary;
+import com.teulda.service.domain.HashTag;
 
 	@Service("communityServiceImpl")
 	public class CommunityServiceImpl implements CommunityService {
@@ -64,6 +65,36 @@ import com.teulda.service.domain.Diary;
 	public void addScrap(Diary diary) throws Exception {
 		
 		communityDao.addScrap(diary);
+		
+		// 해시태그 등록
+				List <HashTag> hashTagList = diary.getHashTagList();
+				
+				for (int i = 0; i < hashTagList.size(); i++) {
+					HashTag hashTag = hashTagList.get(i);
+					hashTag.setNickname(diary.getNickname()); // 닉네임으로 최신 기록번호 찾기 위해 넣어줌 
+					communityDao.addHashTag(hashTag); // 해시태그가 DB에 저장됨 
+				}
+				
+				/*
+				for (HashTag hashTag : hashTagList) {
+					hashTag.setNickname(diary.getNickname());
+					diaryDao.addHashTag(hashTag);
+				}
+				*/
+				
+				// 사진 이름 등록
+				List <Photo> photoList = diary.getPhotoList();
+				
+				for (int i = 0; i < photoList.size(); i++) {
+					Photo photo = photoList.get(i);
+					photo.setNickname(diary.getNickname()); // 닉네임으로 최신 기록번호 찾기 위해 넣어줌 
+					photo.setDiaryPhotoType('s'); // 기념품 사진 
+					if (photo.getDescription() == null) { // 설명이 없으면 
+						photo.setDiaryPhotoType('d'); // 기록 사진
+					} 
+					communityDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨 
+				}
+
 		
 	}
 

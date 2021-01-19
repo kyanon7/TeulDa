@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.community.CommunityDao;
 import com.teulda.service.domain.Bookmark;
 import com.teulda.service.domain.Diary;
+import com.teulda.service.domain.HashTag;
 
 @Repository("communityDaoImpl")
 public class CommunityDaoImpl implements CommunityDao {
@@ -61,6 +63,16 @@ public class CommunityDaoImpl implements CommunityDao {
 		
 		sqlSession.insert("CommunityMapper.addScrap", diary);
 		
+	}
+	
+	@Override
+	public void addHashTag(HashTag hashTag) throws Exception {
+		sqlSession.insert("DiaryMapper.addHashTag", hashTag);
+	}
+
+	@Override
+	public void addPhoto(Photo photo) throws Exception {
+		sqlSession.insert("DiaryMapper.addPhoto", photo);
 	}
 
 }
