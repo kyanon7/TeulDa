@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.runner.RunWith;
@@ -12,7 +13,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.teulda.common.Group;
+import com.teulda.common.Page;
 import com.teulda.common.Photo;
+import com.teulda.common.Search;
+import com.teulda.service.domain.Comment;
 import com.teulda.service.domain.Post;
 import com.teulda.service.post.PostService;
 
@@ -35,45 +40,46 @@ import com.teulda.service.post.PostService;
 		public void testaddPost() throws Exception{
 					
 			Post post = new Post();
-			
-			post.setPostNo(10008);
+		
 			post.setPostTitle("돌아간다 신난다");
 			post.setPostContents("당황스럽네?");
 			post.setPostCategory('1');
 			post.setNickname("king제현");
 			
-			//사진 리스트
-			Photo photo1 = new Photo();
-			photo1.setPhotoName("당황스럽.jpg");
-			
-			Photo photo2 = new Photo();
-			photo2.setPhotoName("안당황스럽.jpg");
-			
-			List<Photo> photoList = new ArrayList<Photo>();
-			photoList.add(photo1);
-			photoList.add(photo2);
-			
-			post.setPhotoList(photoList);
-			//
-			
+			System.out.println("1");
+//			//사진 리스트
+//			Photo photo1 = new Photo();
+//			photo1.setPhotoName("당황스럽.jpg");
+//			
+//			Photo photo2 = new Photo();
+//			photo2.setPhotoName("안당황스럽.jpg");
+//			
+//			List<Photo> photoList = new ArrayList<Photo>();
+//			photoList.add(photo1);
+//			photoList.add(photo2);
+//			
+//			post.setPhotoList(photoList);
+//			//
+			System.out.println("2");
 			System.out.println(post);
 			postService.addPost(post);
 			
-			System.out.println("2");
-			Post post1 = postService.getPost(10008);
+			System.out.println("3");
+			Post post1 = postService.getPost(10028);
 			System.out.println("post1 : "+post1);
 			
-			System.out.println("3");
+			System.out.println("4");
 			Assert.assertEquals("돌아간다 신난다", post1.getPostTitle());
 			Assert.assertEquals("당황스럽네?", post1.getPostContents());
 			Assert.assertEquals('1', post1.getPostCategory());
 			Assert.assertEquals("king제현", post1.getNickname());	
 		}
 		
+		//여기에 commentList 넣어야 할듯
 		//@Test
 		public void testgetPost() throws Exception{
 			
-			Post post1 = postService.getPost(10004);
+			Post post1 = postService.getPost(10034);
 		    System.out.println(post1);
 		    
 		  
@@ -86,10 +92,10 @@ import com.teulda.service.post.PostService;
 		//@Test
 		public void testupdatePost() throws Exception{
 			
-			Post post1 = postService.getPost(10005);
+			Post post1 = postService.getPost(10034);
 			System.out.println("post1 : "+post1);
 			
-			Assert.assertEquals(10005, post1.getPostNo());
+			Assert.assertEquals(10034, post1.getPostNo());
 			Assert.assertEquals("돌아간다 신난다", post1.getPostTitle());
 			Assert.assertEquals("당황스럽네?", post1.getPostContents());
 			Assert.assertEquals('1', post1.getPostCategory());
@@ -97,38 +103,123 @@ import com.teulda.service.post.PostService;
 			
 			Post post = new Post();
 			
-			post.setPostNo(10005);
-			post.setPostTitle("신난다 돌아간다");
-			post.setPostContents("이게 됬음 좋겠네?");
-			post.setPostCategory('2');
+			post.setPostNo(10034);
+			post.setPostTitle("이번에는");
+			post.setPostContents("댓글도 수정할수있게 넣었어");
+			post.setPostCategory('0');
 			post.setNickname("king주원");
 			
+			Comment comment1 = new Comment();
+			comment1.setCommentContents("제에에에발 한번에 되면 안되겠니?");
+			
+			Comment comment2 = new Comment();
+			comment2.setCommentContents("내말좀 들어줄래??");
+			
+			postService.addComment(comment1); 
+			postService.addComment(comment2);
+			
+			List<Comment> commentList = new ArrayList<Comment>();
+			
+			commentList.add(comment1);
+			System.out.println(comment1);
+			commentList.add(comment2);
+			System.out.println(comment2);
+			
+			post.setCommentList(commentList);
+
 			postService.updatePost(post);
-			Post post2 = postService.getPost(10005);
+			Post post2 = postService.getPost(10034);
 			System.out.println(post2);
 			
-			Assert.assertEquals(10005, post2.getPostNo());
-			Assert.assertEquals("신난다 돌아간다", post2.getPostTitle());
-			Assert.assertEquals("이게 됬음 좋겠네?", post2.getPostContents());
-			Assert.assertEquals('2', post2.getPostCategory());
+			Assert.assertEquals(10034, post2.getPostNo());
+			Assert.assertEquals("이번에는", post2.getPostTitle());
+			Assert.assertEquals("댓글도 수정할수있게 넣었어", post2.getPostContents());
+			Assert.assertEquals('0', post2.getPostCategory());
 			Assert.assertEquals("king주원", post2.getNickname());	
 		}
 		
 		//@Test
 		public void testDeletePost() throws Exception{
 			
-			System.out.println(postService.getPost(10005));
-			postService.deletePost(10005);
+			System.out.println(postService.getPost(10034));
+			postService.deletePost(10034);
 			
-			System.out.println(postService.getPost(10005));
+		}
+				
+		//@Test
+		public void testaddComment() throws Exception{
+			
+			Comment comment = new Comment();
+			
+			comment.setPostNo(10033);
+			comment.setCommentContents("댓글이 제대로 달려야 당황하지 않을텐데,,,");
+			comment.setNickname("king제현");
+			
+			System.out.println(comment);
+				
+			Comment comment2 = new Comment();
+
+			comment2.setPostNo(10033);
+			comment2.setCommentContents("댓글을 또 다는데 되겠지?");
+			comment2.setNickname("king제현");
+			System.out.println(comment2);
+			
+			System.out.println("1");
+			postService.addComment(comment); 
+			postService.addComment(comment2);
+			
+			List<Comment> commentList = new ArrayList<Comment>();
+			
+			commentList.add(comment);
+			System.out.println(comment);
+			commentList.add(comment2);
+			System.out.println(comment2);
+			
+			Post post = new Post();
+			post.setCommentList(commentList);
+			System.out.println("2");
+			
+			post = postService.getPost(10033);	
+			System.out.println(post);
+		}
+		
+		//@Test
+		public void testdeleteComment() throws Exception{
+			
+			postService.deleteComment(10001);
+		}
+		
+		//@Test
+		public void testupdateComment() throws Exception{
+			
+			Comment comment = new Comment();
+			
+			comment.setCommentNo(10002);
+			comment.setCommentContents("이번에는 한번에 가자 ");
+			postService.updateComment(comment);
 		}
 		
 		//@Test
 		public void testGetPostList() throws Exception{
+		 
+			Search search = new Search();
+			search.setCurrentPage(1);
+			search.setPageSize(5);
+			search.setSearchCondition("3");
+			search.setSearchKeyword(null);
+			search.setSearchSorting(null);
 			
+			Map<String, Object> map = postService.getPostList(search, '1');
+			List<Object> list = (List<Object>)map.get("list");
 			
+			Assert.assertEquals(5, list.size());
+			System.out.println(list.size());
+			
+			System.out.println(list);
+			Integer totalCount = (Integer)map.get("totalCount");
+			System.out.println(totalCount);
+			
+			Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), 12, 5);
+			System.out.println(resultPage);
 		}
-		
-		
-	
 }

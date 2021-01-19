@@ -38,8 +38,7 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public Post getPost(int postNo) throws Exception {
-		
-		return (Post)sqlSession.selectOne("PostMapper.getPost",postNo);
+		return sqlSession.selectOne("PostMapper.getPost",postNo);
 	}
 
 	@Override
@@ -108,21 +107,21 @@ public class PostDaoImpl implements PostDao {
 		return sqlSession.selectOne("PostMapper.getCommentTotalCount", nickname);
 	}
 
-	@Override
-	public void addPhoto(Photo photo) throws Exception {
-		sqlSession.insert("PhotoMapper.addPhoto", photo);
-		
-	}
+//	@Override
+//	public void addPhoto(Photo photo) throws Exception {
+//		sqlSession.insert("PhotoMapper.addPhoto", photo);
+//		
+//	}
 
 	@Override
 	public List<Comment> getCommentList(int postNo) throws Exception {
 		return sqlSession.selectList("PostMapper.getCommentList", postNo);
 	}
 
-	@Override
-	public List<Photo> getPhotoList(int postNo) throws Exception {
-		return sqlSession.selectList("PostMapper.getPhotoList", postNo);
-	}
+//	@Override
+//	public List<Photo> getPhotoList(int postNo) throws Exception {
+//		return sqlSession.selectList("PostMapper.getPhotoList", postNo);
+//	}
 
 	@Override
 	public void updatePostViewCount(int postNo) throws Exception {
@@ -130,11 +129,11 @@ public class PostDaoImpl implements PostDao {
 		
 	}
 
-	@Override
-	public void deletePhoto(int photoNo) throws Exception {
-		sqlSession.delete("PostMapper.deletePhoto", photoNo);
-		
-	}
+//	@Override
+//	public void deletePhoto(int photoNo) throws Exception {
+//		sqlSession.delete("PostMapper.deletePhoto", photoNo);
+//		
+//	}
 
 	@Override
 	public void deleteCommentUsePostNo(int postNo) throws Exception {
@@ -142,10 +141,10 @@ public class PostDaoImpl implements PostDao {
 		
 	}
 
-	@Override
-	public void deletePhotoUsePostNo(int postNo) throws Exception {
-		sqlSession.delete("PostMapper.deletePhotoUsePostNo", postNo);
-		
-	}
+//	@Override
+//	public void deletePhotoUsePostNo(int postNo) throws Exception {
+//		sqlSession.delete("PostMapper.deletePhotoUsePostNo", postNo);
+//		
+//	}
 
 }

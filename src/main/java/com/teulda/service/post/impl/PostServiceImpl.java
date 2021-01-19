@@ -50,7 +50,7 @@ import com.teulda.service.post.PostService;
 	public Post getPost(int postNo) throws Exception {
 		Post post = postDao.getPost(postNo);
 		post.setCommentList(postDao.getCommentList(postNo));
-		post.setPhotoList(postDao.getPhotoList(postNo));
+		//post.setPhotoList(postDao.getPhotoList(postNo));
 		return post;
 	}
 	
@@ -60,13 +60,13 @@ import com.teulda.service.post.PostService;
 		
 		postDao.addPost(post);	// 포스트 디비 생성
 		
-		List <Photo> photoList = post.getPhotoList();
-		
-		for (int i = 0; i < photoList.size(); i++) {
-			Photo photo = photoList.get(i);
-			photo.setNickname(post.getNickname()); //게시글 번호로 찾기위해서
-			postDao.addPhoto(photo);
-		}
+//		List <Photo> photoList = post.getPhotoList();
+//		
+//		for (int i = 0; i < photoList.size(); i++) {
+//			Photo photo = photoList.get(i);
+//			photo.setNickname(post.getNickname()); //게시글 번호로 찾기위해서
+//			postDao.addPhoto(photo);
+//		}
 	}
 
 	@Override
@@ -75,19 +75,19 @@ import com.teulda.service.post.PostService;
 		postDao.updatePost(post);
 		
 		//새로 생성한 사진 등록
-		List <Photo> photoList = post.getPhotoList();
-		
-		for (int i = 0; i < photoList.size(); i++) {
-			Photo photo = photoList.get(i);
-			photo.setNickname(post.getNickname()); //게시글 번호로 찾기위해서
-			postDao.addPhoto(photo);
-		}
+//		List <Photo> photoList = post.getPhotoList();
+//		
+//		for (int i = 0; i < photoList.size(); i++) {
+//			Photo photo = photoList.get(i);
+//			photo.setNickname(post.getNickname()); //게시글 번호로 찾기위해서
+//			postDao.addPhoto(photo);
+//		}
 		
 	}
 
 	@Override
 	public void deletePost(int postNo) throws Exception {
-		postDao.deletePhoto(postNo);
+		//postDao.deletePhoto(postNo);
 		postDao.deleteComment(postNo);
 		postDao.deletePost(postNo);
 		
@@ -135,10 +135,10 @@ import com.teulda.service.post.PostService;
 //		return map;
 	}
 
-	@Override
-	public void deletePhoto(int photoNo) throws Exception {
-		postDao.deletePhoto(photoNo);
-		
-	}
+//	@Override
+//	public void deletePhoto(int photoNo) throws Exception {
+//		postDao.deletePhoto(photoNo);
+//		
+//	}
 
 }

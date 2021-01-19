@@ -13,7 +13,7 @@
 		<result property="postContents"				column="content"			jdbcType="VARCHAR" />
 		<result property="postDate"					column="post_date"			jdbcType="DATE" />
 		<result property="viewCount"				column="view_count"			jdbcType="NUMERIC" />
-		<result property="nickName"					column="nickname"			jdbcType="VARCHAR" />
+		<result property="nickname"					column="nickname"			jdbcType="VARCHAR" />
 		<result property="postCategory"				column="post_type"			jdbcType="CHAR" />
 	</resultMap>
 	
@@ -22,14 +22,14 @@
 		<result property="postNo"					column="post_id"			jdbcType="NUMERIC" />
 		<result property="commentContents"			column="content"			jdbcType="VARCHAR" />
 		<result property="commentDate"				column="comment_date"		jdbcType="DATE" />
-		<result property="nickName"					column="nickname"			jdbcType="VARCHAR" />
+		<result property="nickname"					column="nickname"			jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<resultMap id="photoSelectMap" type="com.teulda.common.Photo">
+<!-- 	<resultMap id="photoSelectMap" type="com.teulda.common.Photo">
 		<result property="photoNo"				column="photo_id"			jdbcType="NUMERIC" />
 		<result property="postNo"				column="post_id"			jdbcType="NUMERIC" />
 		<result property="photoName"			column="photo_name"			jdbcType="VARCHAR" />
-	</resultMap>
+	</resultMap> -->
 	
 	
 	<!-- SQL : POST INSERT -->
@@ -40,42 +40,11 @@
 				#{postContents:VARCHAR}, SYSDATE, #{viewCount}, #{postCategory:CHAR})
 	</insert>
 	
-	<insert id="addComment"	parameterType="comment">
+	<insert id="addComment"	parameterType="com.teulda.service.domain.Comment">
 		INSERT
-		INTO COMMENT (comment_id, post_id, content)
-		VALUES (seq_hashtag_hashtag_id.nextval,
-									<if test="postNo == 0">
-            						(SELECT post_id 
-            						FROM
-            						(SELECT * 
-            						FROM post 
-            						where origin_nick = #{nickname}
-            						ORDER BY post_id DESC)
-            						WHERE ROWNUM = 1),
-									</if>
-            						<if test="postNo != 0">
-            						#{postNo},
-            						</if>
-        							#{commentName})
-	</insert>
-	
-	<insert id="addPhoto"	parameterType="photo">
-		INSERT
-		INTO PHOTO (photo_id, post_id, photo_name)
-		VALUES (seq_photo_photo_id.nextval, <if test="postNo == 0">
-										(SELECT post_id 
-                                    	FROM
-                                    	(SELECT * 
-                                    	FROM post 
-                                    	where origin_nick = #{nickname}
-                                    	ORDER BY post_id DESC)
-                                   		WHERE ROWNUM = 1),
-                                   		</if>
-                                   		<if test="postNo != 0">
-                                   		#{postNo},
-            							</if>
-        								#{photoName}
-	
+		INTO COMMENTS (comment_id, post_id, content, comment_date, nickname)
+		VALUES (seq_comment_comment_id.nextval, #{postNo}, #{commentContents:VARCHAR}, 
+				SYSDATE, #{nickname:VARCHAR})     				
 	</insert>
 	 
 	<!-- SQL : POST SELECT ONE -->
@@ -83,7 +52,7 @@
 		SELECT
 		*
 		FROM post
-		WHERE post_id = #{postNo}
+		WHERE post_id = #{value}
 	</select>
 	
 	<!-- SQL : POST UPDATE -->
@@ -96,52 +65,74 @@
 				post_type		=#{postCategory}
 			</set>
 			WHERE post_id = #{postNo}
+			<!-- 객체에서 값을 불러올때는 postNo 그대로 써주고 그냥 값만 불러올때는 value를 써줘야해 -->
 	</update>
 	
 	<!-- SQL : POST DELETE -->
 	<delete id="deletePost"	parameterType="int">
 	 	DELETE
-	 	FROM post
-	 	WHERE post_id = #{postNo}
+	 	FROM POST
+	 	WHERE post_id = #{value}
 	</delete>
 	
 	<!-- SQL : SELECT LIST -->
 	<select  id="getCommentList"  parameterType="int"	resultMap="commentSelectMap">
 		SELECT * 
-		FROM COMMENT
-		WHERE post_id = #{postNo}
+		FROM COMMENTS
+		WHERE post_id = #{value}
 	</select>
 	
-	<select  id="getPhotoList"  parameterType="int"	resultMap="photoSelectMap">
+	<!-- <select  id="getPhotoList"  parameterType="int"	resultMap="photoSelectMap">
 		SELECT * 
 		FROM PHOTO
 		WHERE post_id = #{postNo}
-	</select> 
+	</select>  -->
 	
-	<delete id="deleteCommentUsePostNo" parameterType="int">
+	<delete id="deleteComment" parameterType="int">
 		DELETE
-		FROM COMMENT
-		WHERE post_id  = #{postNo}
+		FROM COMMENTS
+		WHERE comment_id  = #{value}
 	</delete>
 	
-	<delete id="deletePhotoUsePostNo" parameterType="int">
+	
+	<update	id="updateComment"	parameterType="com.teulda.service.domain.Comment" >
+		UPDATE COMMENTS
+			<set>
+				content			=#{commentContents}
+			</set>
+			WHERE comment_id = #{commentNo}
+			<!-- 객체에서 값을 불러올때는 postNo 그대로 써주고 그냥 값만 불러올때는 value를 써줘야해 -->
+	</update>
+	
+	<!-- 이거 받을때 서비스 임플에서 map으로 받아야되  -->
+	<select  id="getPostList"  parameterType="map"	resultMap="postSelectMap">
+		SELECT * 
+		FROM POST
+		WHERE post_type = #{postCategory}
+	</select>
+	
+	
+	
+<!-- 	<delete id="deletePhotoUsePostNo" parameterType="int">
 		DELETE
 		FROM PHOTO
 		WHERE post_id  = #{postNo}
-	</delete>
+	</delete> -->
 	
-	<delete 	id="deleteComment"  parameterType="int" >
+<!-- 	<delete 	id="deleteComment"  parameterType="int" >
 		DELETE
-		FROM COMMENT
+		FROM COMMENTS
 		WHERE comment_id = #{commentNo} 
-	</delete>
+	</delete> -->
 	
 	<!-- SQL : DELETE -->
-	<delete 	id="deletePhoto"  parameterType="int" >
+	<!-- <delete 	id="deletePhoto"  parameterType="int" >
 		DELETE
 		FROM PHOTO
 		WHERE photo_id = #{photoNo}
-	</delete>
+	</delete> -->
+	
+	
 	
 
 </mapper>

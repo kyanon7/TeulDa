@@ -12,8 +12,8 @@ public interface PostDao {
 	//	POST INSERT
 	public void addPost(Post post) throws Exception;
 	
-	// PHOTO INSERT
-	public void addPhoto(Photo photo) throws Exception;
+//	// PHOTO INSERT
+//	public void addPhoto(Photo photo) throws Exception;
 	
 	//	POST SELECT ONE
 	public Post getPost(int postNo) throws Exception;
@@ -34,13 +34,13 @@ public interface PostDao {
 	public void deleteComment(int commentNo) throws Exception;
 	
 	// PHOTO DELETE(ajax)
-	public void deletePhoto(int photoNo) throws Exception;
+	//public void deletePhoto(int photoNo) throws Exception;
 	
 	//COMMENT SELECT LIST
 	public List<Comment> getCommentList(int postNo) throws Exception;
 	
 	//COMMENT SELECT LIST
-	public List<Photo> getPhotoList(int postNo) throws Exception;
+	//public List<Photo> getPhotoList(int postNo) throws Exception;
 	
 	//	MY COMMENT SELECT LIST
 	public List<Comment> getMycommentList(Search search, String nickname) throws Exception;
@@ -61,6 +61,6 @@ public interface PostDao {
 	public void deleteCommentUsePostNo(int postNo) throws Exception;
 	
 	//기록번호 포함된 사진 삭제
-	public void deletePhotoUsePostNo(int postNo) throws Exception;
+	//public void deletePhotoUsePostNo(int postNo) throws Exception;
 	
 }
