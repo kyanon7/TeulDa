@@ -80,7 +80,7 @@ public class Post {
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
 	}
-	
+
 	public List<Photo> getPhotoList() {
 		return photoList;
 	}

@@ -4,21 +4,21 @@ import java.sql.Date;
 
 public class Comment {
 	
-	private int commnetNo; //댓글번호
+	private int commentNo; //댓글번호
 	private int postNo; //게시글 번호
 	private String commentContents; //댓글내용
 	private Date commentDate; //댓글 작성일자
-	private String nickName; //댓글작성자
+	private String nickname; //댓글작성자
 	
 	
-	public int getCommnetNo() {
-		return commnetNo;
+	public int getCommentNo() {
+		return commentNo;
 	}
-	
-	public void setCommnetNo(int commnetNo) {
-		this.commnetNo = commnetNo;
+
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
 	}
-	
+
 	public int getPostNo() {
 		return postNo;
 	}
@@ -43,19 +43,19 @@ public class Comment {
 		this.commentDate = commentDate;
 	}
 	
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 	
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "Comment [commnetNo=" + commnetNo + ", postNo=" + postNo + ", commentContents=" + commentContents
-				+ ", commentDate=" + commentDate + ", nickName=" + nickName + "]";
+		return "Comment [commentNo=" + commentNo + ", postNo=" + postNo + ", commentContents=" + commentContents
+				+ ", commentDate=" + commentDate + ", nickname=" + nickname + "]";
 	}
 
 }
