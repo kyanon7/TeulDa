@@ -68,7 +68,7 @@
 	 	WHERE review_id = #{value}
 	</delete>
 	
-	<!-- SQL : SELECT Review LIST -->
+	<!-- SQL : SELECT REVIEW LIST -->
 	<select	id="getReviewList"	parameterType="com.teulda.common.Search"	resultMap="reviewSelectMap">
 		SELECT *
 		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
@@ -103,7 +103,7 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
 
-	<!-- SQL : SELECT ROW Count -->
+	<!-- SQL : SELECT ROW COUNT -->
 	<select	id="getTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
 		SELECT COUNT(*)
 		FROM	(SELECT r.review_id, r.nickname, r.review_addr, r.content, 

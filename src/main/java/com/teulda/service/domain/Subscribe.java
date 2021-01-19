@@ -1,19 +1,19 @@
 package com.teulda.service.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Subscribe {
-    private int SubscribeNo;
+    private int subscribeNo;
     private String subNickname;
     private String subTargetNickname;
-    private Date subscribeDate;
+    private Timestamp subscribeDate;
 
     public int getSubscribeNo() {
-        return SubscribeNo;
+        return subscribeNo;
     }
 
     public void setSubscribeNo(int subscribeNo) {
-        SubscribeNo = subscribeNo;
+        this.subscribeNo = subscribeNo;
     }
 
     public String getSubNickname() {
@@ -32,17 +32,17 @@ public class Subscribe {
         this.subTargetNickname = subTargetNickname;
     }
 
-    public Date getSubscribeDate() {
+    public Timestamp getSubscribeDate() {
         return subscribeDate;
     }
 
-    public void setSubscribeDate(Date subscribeDate) {
+    public void setSubscribeDate(Timestamp subscribeDate) {
         this.subscribeDate = subscribeDate;
     }
 
     @Override
     public String toString() {
-        return "Subscribe [SubscribeNo=" + SubscribeNo + ", subNickname=" + subNickname + ", subTargetNickname="
+        return "Subscribe [subscribeNo=" + subscribeNo + ", subNickname=" + subNickname + ", subTargetNickname="
                 + subTargetNickname + ", subscribeDate=" + subscribeDate + "]";
     }
     

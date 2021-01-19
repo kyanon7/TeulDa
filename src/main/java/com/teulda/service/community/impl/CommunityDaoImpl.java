@@ -13,6 +13,7 @@ import com.teulda.service.community.CommunityDao;
 import com.teulda.service.domain.Bookmark;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.HashTag;
+import com.teulda.service.domain.Subscribe;
 
 @Repository("communityDaoImpl")
 public class CommunityDaoImpl implements CommunityDao {
@@ -73,6 +74,26 @@ public class CommunityDaoImpl implements CommunityDao {
 	@Override
 	public void addPhoto(Photo photo) throws Exception {
 		sqlSession.insert("DiaryMapper.addPhoto", photo);
+	}
+	
+	@Override
+	public void addSubscribe(Subscribe subscribe) throws Exception {
+		sqlSession.insert("CommunityMapper.addSubscribe", subscribe);
+	}
+
+	@Override
+	public List<Subscribe> getSubscribeList(String subNickname) throws Exception {
+		return sqlSession.selectList("CommunityMapper.getSubscribeList", subNickname);
+	}
+
+	@Override
+	public void deleteSubscribe(Subscribe subscribe) throws Exception {
+		sqlSession.delete("CommunityMapper.deleteSubscribe", subscribe);
+	}
+
+	@Override
+	public int checkSubscribe(Subscribe subscribe) throws Exception {
+		return sqlSession.selectOne("CommunityMapper.checkSubscribe", subscribe);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.teulda.service.community.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.teulda.service.community.CommunityService;
 import com.teulda.service.domain.Bookmark;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.HashTag;
+import com.teulda.service.domain.Subscribe;
 
 	@Service("communityServiceImpl")
 	public class CommunityServiceImpl implements CommunityService {
@@ -29,7 +31,7 @@ import com.teulda.service.domain.HashTag;
 		
 		//디버깅을 위한
 		public CommunityServiceImpl() {  
-			System.out.println(this.getClass());
+			System.out.println(this.getClass()+" : default Constructor call");
 		}
 	
 	
@@ -95,6 +97,26 @@ import com.teulda.service.domain.HashTag;
 					communityDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨 
 				}
 
+		
+	}
+
+	@Override
+	public boolean addSubscribe(Subscribe subscribe) throws Exception {
+		if(communityDao.checkSubscribe(subscribe) == 0) {
+			communityDao.addSubscribe(subscribe);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public List<Subscribe> getSubscribeList(String subNickname) throws Exception {
+		return communityDao.getSubscribeList(subNickname);
+	}
+
+	@Override
+	public void deleteSubscribe(Subscribe subscribe) throws Exception {
+		communityDao.deleteSubscribe(subscribe);
 		
 	}
 

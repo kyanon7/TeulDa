@@ -55,6 +55,13 @@
 		<result	property="groupType"	column="group_type"		jdbcType="VARCHAR"/>
 	</resultMap>
 	
+	<resultMap id="subscribeSelectMap" type="com.teulda.service.domain.Subscribe">
+		<result property="subscribeNo"			column="subscribe_id"		jdbcType="NUMERIC"/>
+		<result	property="subNickname"			column="subscribe_nick"		jdbcType="VARCHAR"/>
+		<result	property="subTargetNickname"	column="target_nick"		jdbcType="VARCHAR"/>
+		<result	property="subscribeDate"		column="subscribe_date"		jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
 	
 	<insert id="addScrap" parameterType="diary">
 		INSERT
@@ -75,6 +82,34 @@
 	</insert>
 	
 	
+	<!-- SQL : INSERT SUBSCRIBE-->
+	<insert	id="addSubscribe"	parameterType="com.teulda.service.domain.Subscribe" >
+		INSERT
+		INTO subscribe(subscribe_id, subscribe_nick, target_nick, subscribe_date)
+		VALUES (seq_subscribe_subscribe_id.NEXTVAL, #{subNickname}, #{subTargetNickname}, #{subscribeDate})
+	</insert>
+	
+	<!-- SQL : SELECT SUBSCRIBE LIST -->
+	<select	id="getSubscribeList"	parameterType="String"	resultMap="subscribeSelectMap">
+		SELECT *
+		FROM subscribe
+		WHERE subscribe_nick = #{value}
+	</select>
+	
+	<!-- SQL : DELETE SUBSCRIBE-->
+	<delete id="deleteSubscribe"	parameterType="com.teulda.service.domain.Subscribe" >
+	 	DELETE
+	 	FROM subscribe
+	 	WHERE subscribe_nick = #{subNickname}
+	 	AND target_nick = #{subTargetNickname}
+	</delete>
 
+	<!-- SQL : CHECK SUBSCRIBE-->
+	<select id="checkSubscribe"	parameterType="com.teulda.service.domain.Subscribe" resultType="int">
+		SELECT COUNT(*)
+		FROM subscribe
+		WHERE subscribe_nick = #{subNickname}
+		AND target_nick = #{subTargetNickname}
+   </select>
 
 </mapper>
