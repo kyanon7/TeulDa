@@ -58,6 +58,12 @@ public class DiaryDaoImpl implements DiaryDao {
 	public Diary getDiary(int diaryNo) throws Exception {
 		return (Diary) sqlSession.selectOne("DiaryMapper.getDiary", diaryNo);
 	}
+	
+	@Override
+	public int getBookmarkCount(int diaryNo) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public List<HashTag> getHashTagList(int diaryNo) throws Exception {
