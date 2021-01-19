@@ -26,6 +26,9 @@ public interface DiaryDao {
 	// SELECT ONE
 	public Diary getDiary(int diaryNo) throws Exception;
 	
+	// SELECT ONE - 진행중
+	public int getBookmarkCount(int diaryNo) throws Exception;
+	 
 	// SELECT LIST
 	public List<HashTag> getHashTagList(int diaryNo) throws Exception;
 	

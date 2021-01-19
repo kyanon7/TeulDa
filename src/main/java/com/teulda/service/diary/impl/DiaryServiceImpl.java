@@ -79,6 +79,10 @@ public class DiaryServiceImpl implements DiaryService {
 	// 기록 조회(+ 해시태그 조회, 사진 조회)를 위한 비즈니스 수행
 	public Diary getDiary(int diaryNo) throws Exception {
 		Diary diary = diaryDao.getDiary(diaryNo); 
+		
+		// 북마크 횟수, 스크랩 횟수 여기서 넣어서 가져가야 할 듯 
+		// 스크랩 테이블이 없어서 스크랩 횟수를 구할수 없네.. 
+		
 		diary.setHashTagList(diaryDao.getHashTagList(diaryNo));
 		diary.setPhotoList(diaryDao.getPhotoList(diaryNo));
 		return diary;
