@@ -3,6 +3,7 @@ package com.teulda.service.user;
 import java.util.List;
 
 import com.teulda.common.Search;
+import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
 
 
@@ -18,7 +19,7 @@ public interface UserDao {
 	
 	public User getUser(String NickName) throws Exception ;//유저정보 조회
 
-	public List<User> getUserList(Search search, String nickName) throws Exception ;//유저목록 조회
+	public List<User> getUserList(Search search) throws Exception ;//유저목록 조회
 
 	public void updateUser(User user) throws Exception ;//유저정보 수정
 	
@@ -26,16 +27,21 @@ public interface UserDao {
 	
 	public void deleteUser(String nickName) throws Exception ;//유저탈퇴(삭제)
 	
-	public void reportUser(User user) throws Exception ;//신고
-	
 	public List<User> getUserBlackList(Search search) throws Exception ;//블랙리스트목록조회
 	
-	public List<User> getReportList(Search search) throws Exception ;//신고목록조회
+	public List<Report> getReportList(Search search) throws Exception ;//신고목록조회
 	
-	public void deleteReport(User user) throws Exception ;//신고내역삭제
+	public int getTotalCount(Search search);
+
+	public void addReport(Report report) throws Exception;//신고하기
+	
+	public void deleteReport(String targetNick) throws Exception;//신고내역삭제(관리자만)
+	
+	public Report getReport(String targetNick) throws Exception;//신고내역조회
+
+
 
 	
-	//public void changeStatus(User user) throws Exception ;///
 	
 }
 

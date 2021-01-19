@@ -23,6 +23,17 @@
 		<result property="role"				column="role"		jdbcType="CHAR" />
 	</resultMap>
 	
+	<resultMap id="reportSelectMap" type="com.teulda.service.domain.Report">
+		<result property="reportNo"					column="report_id"			jdbcType="NUMERIC" />
+		<result property="reportDate"		column="report_date"			jdbcType="DATE" />
+		<result property="reportPhoto"	column="report_photo"			jdbcType="VARCHAR" />
+		<result property="Reason"		column="reason"				jdbcType="VARCHAR" />
+		<result property="reporterNick"		column="reporter_nick"			jdbcType="VARCHAR" />
+		<result property="targetNick"			column="target_nick"			jdbcType="VARCHAR" />
+		<result property="reportType"				column="report_type"			jdbcType="VARCHAR" />
+
+	</resultMap>
+	
 	
 	<!-- SQL : INSERT 회원추가-->
 	<insert	id="addUser"	parameterType="com.teulda.service.domain.User" >
@@ -61,13 +72,13 @@
 	   	WHERE nickname = #{nickName}
 	</update>
 	
-	<!--  SQL : UPDATE TranCode 
-	<update	id="updateStatus"	parameterType="map" >
-		UPDATE transaction
+	<!--  SQL : UPDATE user_status -->
+	<!-- update	id="updateStatus"	parameterType="com.teulda.service.domain.User" >
+		UPDATE users
 	   	<set>
-	   		tran_status_code	= #{tranCode}, 
+	   		status	= #{status}, 
 		</set>
-		WHERE tran_no = #{tranNo}
+		WHERE nickname = #{nickName}
 	</update> -->
 	
 	<!-- SQL : REMOVE 회원삭제-->
@@ -77,93 +88,51 @@
 	 	WHERE nickname = #{nickName}
 	</delete>
 	
-	<!-- SQL : SELECT User LIST -->
-	<!-- select	id="getUserList"	parameterType="map"	resultMap="userSelectMap">
-		SELECT *
-		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
-		  					FROM transaction, users 
-							WHERE user_id = buyer_id 
-							AND buyer_id = #{buyerId}
-							ORDER BY tran_no DESC) inner_table	
-				WHERE ROWNUM &lt;= #{search.endRowNum} )
-		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	</select-->
-
-	<!-- SQL : SELECT LIST -->
-	<!-- <select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
+	<!-- SQL : SELECT LIST 유저정보-->
+	<select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT nickname , user_name , email
+	  					FROM		(	SELECT nickname , email , user_name
 											FROM users
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				user_id = #{searchKeyword}
-													</if>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				user_name = #{searchKeyword}
-													</if>
-												</where>
-											</if>
-											ORDER BY user_id ) inner_table
+											ORDER BY nickname ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>-->
-	 
-	 
-	 
-
-
+	 </select>
 	
-	<!-- SQL : SELECT PURCHASE ROW Count -->
-	<!-- <select	id="getUserTotalCount"	parameterType="map"	resultType="int">
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM	(SELECT 
-						FROM 
-						<where>
-						user_id = buyer_id 
-						AND buyer_id = #{buyerId}
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND prod_no LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND prod_name LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND price LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						) countTable						
-	</select>-->
+	  	FROM(	SELECT nickname , email , user_name
+						FROM users
+						 ) countTable						
+	 </select>
+	 
+	<!-- SQL : INSERT 신고내역추가-->
+	<insert	id="addReport"	parameterType="com.teulda.service.domain.Report" >
+		INSERT
+		INTO report( report_id ,report_date , report_photo , reason , reporter_nick, target_nick, report_type)
+		VALUES	 (	#{reportNo} , SYSDATE , #{reportPhoto:VARCHAR} , #{Reason:VARCHAR}, #{reportPhoto:VARCHAR}, #{reportNick:VARCHAR},
+							#{targetNick:VARCHAR})
+	</insert>
+	
+		<!-- SQL : SELECT ONE 신고내역상세조회-->
+	<select	id="getReport"	 parameterType="com.teulda.service.domain.Report"	 resultMap="reportSelectMap">
+		SELECT *
+		FROM users
+		WHERE target_nick = #{targetNick}
+	</select>
+	
+	
+	<!-- SQL : REMOVE 신고내역삭제-->
+	<delete id="deleteReport"	parameterType="com.teulda.service.domain.Report">
+	 	DELETE 
+	 	FROM report
+	 	WHERE reportNo = #{report_id}
+	</delete>
 
-	<!-- SQL : SELECT SALE ROW Count -->
-	<!-- <select	id="getSaleTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
-						price, image_file, reg_date, tran_no, tran_status_code 
-						FROM product p, transaction t
-						<where>
-						p.prod_no = t.prod_no
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						) countTable						
-	</select>  -->
+
+	 
+	 
 
 </mapper>
