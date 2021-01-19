@@ -39,8 +39,8 @@ public interface PostDao {
 	//COMMENT SELECT LIST
 	public List<Comment> getCommentList(int postNo) throws Exception;
 	
-	//COMMENT SELECT LIST
-	//public List<Photo> getPhotoList(int postNo) throws Exception;
+	//PHOTO SELECT LIST
+	//public List<Comment> getPhotoList(int postNo) throws Exception;
 	
 	//	MY COMMENT SELECT LIST
 	public List<Comment> getMycommentList(Search search, String nickname) throws Exception;
@@ -49,10 +49,13 @@ public interface PostDao {
 	public List <Post> getPostList(Search search, char postCategory) throws Exception;
 	
 	//게시판 page
-	public int getPostTotalCount(char postCategory) throws Exception;
+	public int getPostTotalCount(Search search, char postCategory) throws Exception;
 	
 	//댓글 page
-	public int getMycommentTotalCount(String nickname) throws Exception;
+	public int getCommentTotalCount(int postNo) throws Exception;
+	
+	//나의 댓글 page
+	public int getMycommentTotalCount(Search search, String nickname) throws Exception;
 	
 	//게시글 조회수
 	public void updatePostViewCount(int postNo) throws Exception;
