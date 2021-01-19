@@ -19,11 +19,11 @@ public class ReviewDaoImpl implements ReviewDao {
 	private SqlSession sqlSession;
 	
 	public ReviewDaoImpl() {
-		System.out.println(this.getClass());
+		System.out.println(this.getClass()+" : default Constructor call");
 	}
 	
 	public void setSqlSession(SqlSession sqlSession) {
-		System.out.println("::"+getClass()+".setSqlSession() Call.....");
+		System.out.println("::"+this.getClass()+".setSqlSession() Call.....");
 		this.sqlSession = sqlSession;
 	}
 

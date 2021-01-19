@@ -21,7 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDao reviewDao;
 	
     public ReviewServiceImpl() {
-    	System.out.println(this.getClass());
+    	System.out.println(this.getClass()+" : default Constructor call");
 	}
     
     public void setReviewDao(ReviewDao reviewDao) {

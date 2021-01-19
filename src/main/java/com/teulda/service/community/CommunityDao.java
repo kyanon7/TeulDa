@@ -7,6 +7,7 @@ import com.teulda.common.Search;
 import com.teulda.service.domain.Bookmark;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.HashTag;
+import com.teulda.service.domain.Subscribe;
 
 public interface CommunityDao {
 
@@ -29,4 +30,15 @@ public interface CommunityDao {
 	
 	public void addPhoto(Photo photo) throws Exception;
 	
+	// INSERT SUBSCRIBE
+	public void addSubscribe(Subscribe subscribe) throws Exception;
+	
+	// SELECT SUBSCRIBE LIST
+	public List<Subscribe> getSubscribeList(String subNickname) throws Exception;
+	
+	// DELETE SUBSCRIBE
+	public void deleteSubscribe(Subscribe subscribe) throws Exception;
+	
+	// CHECK SUBSCRIBE
+	public int checkSubscribe(Subscribe subscribe) throws Exception;
 }
