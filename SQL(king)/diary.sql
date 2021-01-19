@@ -150,3 +150,42 @@ where diary_id = 10038
 update diary 
 set view_count = view_count + 1
 where diary_id = 10047;
+
+// get my diary list 
+
+// (내 기록 목록, 내 기록 지도)
+
+select  diary_id, title, diary_addr, latitude, longitude, 
+        diary_date, start_date, end_date,
+        content, delete_date, thumbnail, group_id
+from diary
+where origin_nick = 'king주원' and delete_date is null;
+
+// (휴지통)
+
+select  diary_id, title, diary_addr, latitude, longitude, 
+        diary_date, start_date, end_date,
+        content, delete_date, thumbnail, group_id
+from diary
+where origin_nick = 'king주원' and delete_date is not null;
+
+// get my diary list를 한 페이지에 보이는 것만 찾아오게끔 함 
+
+select * 
+from ( select inner_table.*, rownum as row_seq
+        from    (select  diary_id, title, diary_addr, latitude, longitude, 
+                diary_date, start_date, end_date,
+                content, delete_date, thumbnail, group_id
+                from diary
+                where origin_nick = 'king주원' and delete_date is null) inner_table
+      where rownum <= 5 )
+where row_seq between 1 and 5
+
+// get my diary count
+
+select count(*)
+from ( select  diary_id, title, diary_addr, latitude, longitude, 
+                diary_date, start_date, end_date,
+                content, delete_date, thumbnail, group_id
+        from diary
+        where origin_nick = 'king주원' and delete_date is null ) countTable

@@ -1,6 +1,8 @@
 package com.teulda.service.diary.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,15 +75,31 @@ public class DiaryDaoImpl implements DiaryDao {
 	}
 
 	@Override
-	public List<Diary> getDiaryList(Search search, String nickname) throws Exception {
+	public List<Diary> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception {
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("nickname", nickname);
+		map.put("search", search);
+		map.put("isDelete", isDelete);
+		
+		return sqlSession.selectList("DiaryMapper.getMyDiaryList", map);
+	}
+	
+	@Override
+	public int getMyDiaryCount(Search search, String nickname, char isDelete) throws Exception {
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("nickname", nickname);
+		map.put("search", search);
+		map.put("isDelete", isDelete);
+		
+		return sqlSession.selectOne("DiaryMapper.getMyDiaryCount", map);
+	}
+	
+	@Override
+	public List<Diary> getDiaryList(Search search) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public int getDiaryCount(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override

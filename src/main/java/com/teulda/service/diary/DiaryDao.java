@@ -35,11 +35,14 @@ public interface DiaryDao {
 	// SELECT LIST 
 	public List<Group> getDiaryGroupList(String nickname) throws Exception;
 
+	// SELECT LIST 
+	public List<Diary> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception;
+	
+	// 게시판 Page 처리를 위한 Row(totalCount) return 
+	public int getMyDiaryCount(Search search, String nickname, char isDelete) throws Exception;
+	
 	// SELECT LIST - 해야됨 
-	public List<Diary> getDiaryList(Search search, String nickname) throws Exception;
-
-	// 게시판 Page 처리를 위한 전체 Row(totalCount) return - 해야됨  
-	public int getDiaryCount(String nickname) throws Exception;
+	public List<Diary> getDiaryList(Search search) throws Exception;
 
 	// UPDATE (기록 수정)
 	public void updateDiary(Diary diary) throws Exception;

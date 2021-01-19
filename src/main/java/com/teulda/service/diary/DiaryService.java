@@ -19,11 +19,14 @@ public interface DiaryService {
 	// 기록 조회 - 완료
 	public Diary getDiary(int diaryNo) throws Exception;
 
-	// 기록 그룹 목록 리스트 (사용자가 어떤 그룹에 넣을지 선택할때 그룹 목록 리스트 필요할듯) 
+	// 기록 그룹 목록 리스트 (사용자가 어떤 그룹에 넣을지 선택할때 그룹 목록 리스트 필요할듯) - 완료
 	public List<Group> getDiaryGroupList(String nickname) throws Exception;
 	
-	// 기록 목록 리스트
-	public Map<String, Object> getDiaryList(Search search, String nickname) throws Exception;
+	// 내 기록 목록 리스트 - 내 기록 목록, 내 기록 지도, 휴지통에서 쓰임 - 완료
+	public Map<String, Object> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception;
+	
+	// 기록 목록 리스트 - 통합검색시 기록 목록 보여줄때 사용 
+	public Map<String, Object> getDiaryList(Search search) throws Exception;
 
 	// 기록 수정 - 완료
 	public void updateDiary(Diary diary) throws Exception;
@@ -34,7 +37,7 @@ public interface DiaryService {
 	// 기록 그룹 변경 - 완료
 	public void updateDiaryGroup(Diary diary) throws Exception;
 	
-	// 기록 조회수 증가 - getDiary 할 때 내가 쓴 글이 아니면 조회수 증가하게끔 Controller에서 구현해주기 
+	// 기록 조회수 증가 - getDiary 할 때 내가 쓴 글이 아니면 조회수 증가하게끔 Controller에서 구현해주기 - 완료
 	public void updateDiaryViewCount(int diaryNo) throws Exception;
 
 	// 기록 영구삭제 - 완료

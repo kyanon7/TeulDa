@@ -90,18 +90,24 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	// 내 기록 목록 보기를 위한 비즈니스 수행
-	public Map<String, Object> getDiaryList(Search search, String nickname) throws Exception {
+	// 내 기록 목록 보기(내 기록 목록, 내 기록 지도, 휴지통)를 위한 비즈니스 수행 
+	public Map<String, Object> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception {
 		
 		Map<String, Object> map = new HashMap <String, Object>();
 		
-		List <Diary> diaryList = diaryDao.getDiaryList(search, nickname);
+		List <Diary> diaryList = diaryDao.getMyDiaryList(search, nickname, isDelete);
 		
-		// 해시태그도 넣어줘야 함! 코드 완성된거 아님 
-		map.put("list", diaryList);
-		map.put("totalCount", new Integer(diaryDao.getDiaryCount(nickname)));
+		map.put("diaryList", diaryList);
+		map.put("totalCount", new Integer(diaryDao.getMyDiaryCount(search, nickname, isDelete)));
 		
 		return map;
+	}
+	
+	@Override
+	// 모든 기록 목록 보기를 위한 비즈니스 수행
+	public Map<String, Object> getDiaryList(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

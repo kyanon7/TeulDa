@@ -147,6 +147,49 @@
 	WHERE nickname = #{nickname} and group_type = 2 
 	</select> 
 	
+	<!-- SQL : SELECT LIST --> <!-- 추후 Search 조건 추가하기 -->
+	<select  id="getMyDiaryList"  parameterType="map"	resultMap="diarySelectMap">
+	SELECT * 
+	FROM 	(select inner_table.*, rownum as row_seq
+        	from    (SELECT  diary_id, title, diary_addr, latitude, longitude, 
+                	diary_date, start_date, end_date,
+               		content, delete_date, thumbnail, group_id
+                	FROM diary
+                	<where>
+               		origin_nick = #{nickname}
+               			<if test="isDelete == 'f'">
+               			and delete_date is null
+               			</if>
+               			<if test="isDelete == 't'">
+               			and delete_date is not null
+               			</if>
+               		</where>
+               		<!-- 추후 정렬 조건 추가하기 -->
+               		) inner_table
+      		WHERE ROWNUM &lt; = #{search.endRowNum} )
+	WHERE row_seq between #{search.startRowNum} and #{search.endRowNum}
+	</select> 
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	<select  id="getMyDiaryCount"  parameterType="map"	 resultType="int">
+	SELECT COUNT(*)
+	FROM    (SELECT  diary_id, title, diary_addr, latitude, longitude, 
+                	 diary_date, start_date, end_date,
+                	 content, delete_date, thumbnail, group_id
+        	FROM diary
+            <where>
+            origin_nick = #{nickname}
+               	<if test="isDelete == 'f'">
+               	and delete_date is null
+               	</if>
+               	<if test="isDelete == 't'">
+               	and delete_date is not null
+               	</if>
+            </where>
+            <!-- 추후 정렬 조건 추가하기 -->
+       		) countTable
+	</select>
+	
 	<!-- SQL : UPDATE -->
 	<update	id="updateDiary"	parameterType="diary">
 	UPDATE diary

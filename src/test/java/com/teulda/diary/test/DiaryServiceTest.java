@@ -2,6 +2,7 @@ package com.teulda.diary.test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
+import com.teulda.common.Search;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.HashTag;
@@ -171,10 +173,10 @@ public class DiaryServiceTest {
 	// 다이어리 복원 & 다이어리 삭제 (휴지통 이동) 
 	public void testUpdateDiaryStatus() throws Exception {
 		
-		Diary diary = diaryService.getDiary(10038); // 다이어리 가져옴
+		Diary diary = diaryService.getDiary(10048); // 다이어리 가져옴
 		diaryService.updateDiaryStatus(diary);
 		
-		Diary diary2 = diaryService.getDiary(10038);
+		Diary diary2 = diaryService.getDiary(10048);
 		System.out.println(diary2);
 	}
 	
@@ -205,6 +207,18 @@ public class DiaryServiceTest {
 	public void testUpdateDiaryViewCount() throws Exception {
 		
 		diaryService.updateDiaryViewCount(10047);
+	}
+	
+	@Test
+	public void testGetMyDiaryList() throws Exception {
+		
+		Search search = new Search();
+		search.setPageSize(5);
+		search.setCurrentPage(2);
+		
+		// 삭제되지 않은 기록 
+		Map <String, Object> map = diaryService.getMyDiaryList(search, "king주원", 'f');
+		System.out.println(map);
 	}
 	
 }
