@@ -192,7 +192,7 @@ public class DiaryServiceTest {
 	//@Test 
 	public void testDeleteDiary() throws Exception {
 		
-		diaryService.deleteDiary(10043);
+		diaryService.deleteDiary(10046);
 	}
 	
 	//@Test 
@@ -200,4 +200,11 @@ public class DiaryServiceTest {
 		List<Group> diaryGroupList = diaryService.getDiaryGroupList("king주원");
 		System.out.println(diaryGroupList);
 	}
+	
+	//@Test
+	public void testUpdateDiaryViewCount() throws Exception {
+		
+		diaryService.updateDiaryViewCount(10047);
+	}
+	
 }

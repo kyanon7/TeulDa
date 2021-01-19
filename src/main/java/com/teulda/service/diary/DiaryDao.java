@@ -50,7 +50,7 @@ public interface DiaryDao {
 	// UPDATE (기록 그룹 수정 - 그룹 옮김)
 	public void updateDiaryGroup(Diary diary) throws Exception;
 
-	// UPDATE (기록 조회수 증가) - 해야됨 
+	// UPDATE (기록 조회수 증가) 
 	public void updateDiaryViewCount(int diaryNo) throws Exception;
 
 	// DELETE (기록 영구삭제)

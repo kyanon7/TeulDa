@@ -192,6 +192,13 @@
 	WHERE diary_id = #{diaryNo}
 	</update>
 	
+	<!-- SQL : UPDATE -->
+	<update	id="updateDiaryViewCount"	parameterType="int">
+	UPDATE diary
+	SET view_count = view_count + 1
+	WHERE diary_id = #{diaryNo}
+	</update>
+	
 	<!-- SQL : DELETE -->
 	<delete 	id="deleteDiary"  parameterType="int" >
 	DELETE
