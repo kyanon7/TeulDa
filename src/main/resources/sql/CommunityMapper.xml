@@ -81,6 +81,57 @@
         		#{foodBill:NUMERIC}, #{tourBill:NUMERIC}, #{shopBill:NUMERIC}, 'f')
 	</insert>
 	
+	<!-- SQL : INSERT -->
+	<insert 	id="addHashTag"		parameterType="hashTag">
+		INSERT
+		INTO HASHTAG (hashtag_id, diary_id, hashtag_name)
+		VALUES (seq_hashtag_hashtag_id.nextval, 
+					<if test="diaryNo == 1">
+	            	(SELECT diary_id 
+	            	FROM
+	            	(SELECT * 
+	            	FROM diary 
+	            	where scrap_nick = #{nickname}
+	            	ORDER BY diary_id DESC)
+	            	WHERE ROWNUM = 1),
+	            	</if>
+	        	#{hashTagName})
+	</insert>
+	
+	<!-- SQL : INSERT --> <!-- 추후 수정 -->
+	<insert 	id="addPhoto"		parameterType="photo">
+		INSERT
+		INTO PHOTO (photo_id, diary_id, 
+	            	photo_name, description, diary_photo_type)
+		VALUES (seq_photo_photo_id.nextval, <if test="diaryNo == 1">
+											(SELECT diary_id 
+	                                    	FROM
+	                                    	(SELECT * 
+	                                    	FROM diary 
+	                                    	where scrap_nick = #{nickname}
+	                                    	ORDER BY diary_id DESC)
+	                                   		WHERE ROWNUM = 1),
+	                                   		</if>
+	                                   		
+	        	#{photoName}, #{description:VARCHAR}, #{diaryPhotoType})
+	</insert>
+	
+	<insert id="addScrapGroup" parameterType="group">
+		INSERT
+		INTO groups(group_id, group_name, nickname, group_type)
+		VALUES (seq_groups_group_id.nextval, #{groupName}, #{nickname}, '3')
+	</insert>
+	
+	<select id="getGroupList" parameterType="com.teulda.common.Group" resultMap="groupSelectMap">
+		SELECT
+		group_id, group_name, nickname, delete_date, group_type
+		FROM groups
+		WHERE nickname = #{nickname} AND group_type = '3'
+		<if test="deleteDate != null">
+			AND delete_date IS NOT NULL
+		</if>
+	</select>
+	
 	
 	<!-- SQL : INSERT SUBSCRIBE-->
 	<insert	id="addSubscribe"	parameterType="com.teulda.service.domain.Subscribe" >

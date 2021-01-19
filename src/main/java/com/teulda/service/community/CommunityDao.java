@@ -2,6 +2,7 @@ package com.teulda.service.community;
 
 import java.util.List;
 
+import com.teulda.common.Group;
 import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Bookmark;
@@ -26,9 +27,17 @@ public interface CommunityDao {
 	// INSERT Scrap
 	public void addScrap(Diary diary) throws Exception;
 	
+	// INSERT Scrap HashTag
 	public void addHashTag(HashTag hashTag) throws Exception;
 	
+	//INSERT Scrap Photo
 	public void addPhoto(Photo photo) throws Exception;
+	
+	//INSERT Scrap Group
+	public void addScrapGroup(Group group) throws Exception;
+	
+	//SELECT Scrap Group
+	public List<Group> getGroupList(Group group) throws Exception;
 	
 	// INSERT SUBSCRIBE
 	public void addSubscribe(Subscribe subscribe) throws Exception;
