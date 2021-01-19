@@ -25,6 +25,12 @@
 		<result property="nickName"					column="nickname"			jdbcType="VARCHAR" />
 	</resultMap>
 	
+	<resultMap id="photoSelectMap" type="com.teulda.common.Photo">
+		<result property="photoNo"				column="photo_id"			jdbcType="NUMERIC" />
+		<result property="postNo"				column="post_id"			jdbcType="NUMERIC" />
+		<result property="photoName"			column="photo_name"			jdbcType="VARCHAR" />
+	</resultMap>
+	
 	
 	<!-- SQL : POST INSERT -->
 	<insert	id="addPost"	parameterType="post" >
@@ -32,6 +38,44 @@
 		INTO POST (post_id, nickname, title, content, post_date, view_count, post_type)
 		VALUES	(seq_post_post_id.nextval, #{nickname}, #{postTitle:VARCHAR}, 
 				#{postContents:VARCHAR}, SYSDATE, #{viewCount}, #{postCategory:CHAR})
+	</insert>
+	
+	<insert id="addComment"	parameterType="comment">
+		INSERT
+		INTO COMMENT (comment_id, post_id, content)
+		VALUES (seq_hashtag_hashtag_id.nextval,
+									<if test="postNo == 0">
+            						(SELECT post_id 
+            						FROM
+            						(SELECT * 
+            						FROM post 
+            						where origin_nick = #{nickname}
+            						ORDER BY post_id DESC)
+            						WHERE ROWNUM = 1),
+									</if>
+            						<if test="postNo != 0">
+            						#{postNo},
+            						</if>
+        							#{commentName})
+	</insert>
+	
+	<insert id="addPhoto"	parameterType="photo">
+		INSERT
+		INTO PHOTO (photo_id, post_id, photo_name)
+		VALUES (seq_photo_photo_id.nextval, <if test="postNo == 0">
+										(SELECT post_id 
+                                    	FROM
+                                    	(SELECT * 
+                                    	FROM post 
+                                    	where origin_nick = #{nickname}
+                                    	ORDER BY post_id DESC)
+                                   		WHERE ROWNUM = 1),
+                                   		</if>
+                                   		<if test="postNo != 0">
+                                   		#{postNo},
+            							</if>
+        								#{photoName}
+	
 	</insert>
 	 
 	<!-- SQL : POST SELECT ONE -->
@@ -61,4 +105,43 @@
 	 	WHERE post_id = #{postNo}
 	</delete>
 	
+	<!-- SQL : SELECT LIST -->
+	<select  id="getCommentList"  parameterType="int"	resultMap="commentSelectMap">
+		SELECT * 
+		FROM COMMENT
+		WHERE post_id = #{postNo}
+	</select>
+	
+	<select  id="getPhotoList"  parameterType="int"	resultMap="photoSelectMap">
+		SELECT * 
+		FROM PHOTO
+		WHERE post_id = #{postNo}
+	</select> 
+	
+	<delete id="deleteCommentUsePostNo" parameterType="int">
+		DELETE
+		FROM COMMENT
+		WHERE post_id  = #{postNo}
+	</delete>
+	
+	<delete id="deletePhotoUsePostNo" parameterType="int">
+		DELETE
+		FROM PHOTO
+		WHERE post_id  = #{postNo}
+	</delete>
+	
+	<delete 	id="deleteComment"  parameterType="int" >
+		DELETE
+		FROM COMMENT
+		WHERE comment_id = #{commentNo} 
+	</delete>
+	
+	<!-- SQL : DELETE -->
+	<delete 	id="deletePhoto"  parameterType="int" >
+		DELETE
+		FROM PHOTO
+		WHERE photo_id = #{photoNo}
+	</delete>
+	
+
 </mapper>

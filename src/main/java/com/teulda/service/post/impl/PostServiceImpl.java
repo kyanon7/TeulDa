@@ -42,7 +42,7 @@ import com.teulda.service.post.PostService;
 		
 		map.put("list", postList);
 		map.put("totalCount", new Integer(postDao.getPostTotalCount(postCategory)));
-		
+	 
 		return map;
 	}
 
@@ -54,25 +54,17 @@ import com.teulda.service.post.PostService;
 		return post;
 	}
 	
-	//게시글 등록 +댓글 +사진(썸머노트를 쓰면 db에는 서버경로만 저장되고 사진등은 서버에저장된다.)
+	//게시글 등록 +사진(썸머노트를 쓰면 db에는 서버경로만 저장되고 사진등은 서버에저장된다.)
 	@Override
 	public void addPost(Post post) throws Exception {
 		
 		postDao.addPost(post);	// 포스트 디비 생성
 		
-		List<Comment> commentList = post.getCommentList();
-		
-		for(int i =0; i<commentList.size(); i++) {
-			Comment comment = commentList.get(i);
-			comment.setPostNo(post.getPostNo());
-			postDao.addComment(comment);
-		}
-		
 		List <Photo> photoList = post.getPhotoList();
 		
 		for (int i = 0; i < photoList.size(); i++) {
 			Photo photo = photoList.get(i);
-			photo.setPostNo(post.getPostNo()); //게시글 번호로 찾기위해서
+			photo.setNickname(post.getNickname()); //게시글 번호로 찾기위해서
 			postDao.addPhoto(photo);
 		}
 	}
@@ -87,14 +79,16 @@ import com.teulda.service.post.PostService;
 		
 		for (int i = 0; i < photoList.size(); i++) {
 			Photo photo = photoList.get(i);
-			photo.setPostNo(post.getPostNo()); //게시글 번호로 찾기위해서
-			postDao.addPhoto(photoList.get(i));
+			photo.setNickname(post.getNickname()); //게시글 번호로 찾기위해서
+			postDao.addPhoto(photo);
 		}
 		
 	}
 
 	@Override
 	public void deletePost(int postNo) throws Exception {
+		postDao.deletePhoto(postNo);
+		postDao.deleteComment(postNo);
 		postDao.deletePost(postNo);
 		
 	}
@@ -130,10 +124,7 @@ import com.teulda.service.post.PostService;
 		map.put("totalCount", new Integer(postDao.getMycommentTotalCount(nickname)));
 		
 		return map;
-		
-		
-		
-		
+
 //		List<Comment> list = postDao.getMycommentList(search, nickname);
 //		int totalCount = postDao.getCommentTotalCount(search);
 //		
@@ -142,6 +133,12 @@ import com.teulda.service.post.PostService;
 //		map.put("totalCount", new Integer(totalCount));
 //				
 //		return map;
+	}
+
+	@Override
+	public void deletePhoto(int photoNo) throws Exception {
+		postDao.deletePhoto(photoNo);
+		
 	}
 
 }

@@ -29,6 +29,9 @@ public interface PostService {
 	//댓글 삭제
 	public void deleteComment(int commentNo) throws Exception;
 	
+	//사진 삭제
+	public void deletePhoto(int photoNo) throws Exception;
+	
 	//각각의 게시글 목록 보기 (그러기위해서 뒤에 char postCategory를 넣어줌!)
 	public Map<String, Object> getPostList(Search search, char postCategory) throws Exception;
 		
