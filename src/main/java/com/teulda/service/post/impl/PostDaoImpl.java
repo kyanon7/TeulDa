@@ -1,6 +1,8 @@
  package com.teulda.service.post.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public Post getPost(int postNo) throws Exception {
 		
-		return sqlSession.selectOne("PostMapper.getPost",postNo);
+		return (Post)sqlSession.selectOne("PostMapper.getPost",postNo);
 	}
 
 	@Override
@@ -57,7 +59,12 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public List<Post> getPostList(Search search, char postCategory) throws Exception {
 		
-		return sqlSession.selectList("PostMapper.getPostList", search);
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("search", search);
+		map.put("postCategory", postCategory);
+		
+		return sqlSession.selectList("PostMapper.getPostList", map);
 	}
 
 	@Override
@@ -83,43 +90,61 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public List<Comment> getMycommentList(Search search, String nickname) throws Exception {
 		
-		return sqlSession.selectList("PostMapper.getMycommentList", search);
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("search", search);
+		map.put("nickname", nickname);
+		
+		return sqlSession.selectList("PostMapper.getMycommentList", map);
 	}
 
 	@Override
 	public int getPostTotalCount(char postCategory) throws Exception {
-		
 		return sqlSession.selectOne("PostMapper.getPostTotalCount", postCategory);
 	}
 
 	@Override
 	public int getMycommentTotalCount(String nickname) throws Exception {
-		
 		return sqlSession.selectOne("PostMapper.getCommentTotalCount", nickname);
 	}
 
 	@Override
 	public void addPhoto(Photo photo) throws Exception {
-		
 		sqlSession.insert("PhotoMapper.addPhoto", photo);
 		
 	}
 
 	@Override
 	public List<Comment> getCommentList(int postNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("PostMapper.getCommentList", postNo);
 	}
 
 	@Override
 	public List<Photo> getPhotoList(int postNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("PostMapper.getPhotoList", postNo);
 	}
 
 	@Override
-	public void updaatePostViewCount(int postNo) throws Exception {
-		// TODO Auto-generated method stub
+	public void updatePostViewCount(int postNo) throws Exception {
+		sqlSession.update("PostMapper.updatePostViewCount", postNo);
+		
+	}
+
+	@Override
+	public void deletePhoto(int photoNo) throws Exception {
+		sqlSession.delete("PostMapper.deletePhoto", photoNo);
+		
+	}
+
+	@Override
+	public void deleteCommentUsePostNo(int postNo) throws Exception {
+		sqlSession.delete("PostMapper.deleteCommentUsePostNo", postNo);
+		
+	}
+
+	@Override
+	public void deletePhotoUsePostNo(int postNo) throws Exception {
+		sqlSession.delete("PostMapper.deletePhotoUsePostNo", postNo);
 		
 	}
 

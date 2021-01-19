@@ -1,6 +1,10 @@
 package com.teulda.post.test;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.teulda.service.domain.Comment;
+import com.teulda.common.Photo;
 import com.teulda.service.domain.Post;
-import com.teulda.service.domain.Review;
 import com.teulda.service.post.PostService;
 
 
@@ -26,26 +29,41 @@ import com.teulda.service.post.PostService;
 		@Qualifier("postServiceImpl")
 		private PostService postService;
 		
+		
+		//이거 포토에서 bad sql나오는데 한번 확인해보기
 		//@Test
 		public void testaddPost() throws Exception{
 					
 			Post post = new Post();
 			
+			post.setPostNo(10008);
 			post.setPostTitle("돌아간다 신난다");
 			post.setPostContents("당황스럽네?");
 			post.setPostCategory('1');
 			post.setNickname("king제현");
 			
-			System.out.println("1");
-			postService.addPost(post);
-			System.out.println("2");
-			System.out.println(post);
+			//사진 리스트
+			Photo photo1 = new Photo();
+			photo1.setPhotoName("당황스럽.jpg");
 			
-			System.out.println("3");
-			Post post1 = postService.getPost(10005);
+			Photo photo2 = new Photo();
+			photo2.setPhotoName("안당황스럽.jpg");
+			
+			List<Photo> photoList = new ArrayList<Photo>();
+			photoList.add(photo1);
+			photoList.add(photo2);
+			
+			post.setPhotoList(photoList);
+			//
+			
+			System.out.println(post);
+			postService.addPost(post);
+			
+			System.out.println("2");
+			Post post1 = postService.getPost(10008);
 			System.out.println("post1 : "+post1);
 			
-			System.out.println("4");
+			System.out.println("3");
 			Assert.assertEquals("돌아간다 신난다", post1.getPostTitle());
 			Assert.assertEquals("당황스럽네?", post1.getPostContents());
 			Assert.assertEquals('1', post1.getPostCategory());

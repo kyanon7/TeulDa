@@ -30,8 +30,11 @@ public interface PostDao {
 	//	COMMENT UPDATE
 	public void updateComment(Comment comment) throws Exception;
 	
-	//	COMMENT DELETE
+	//	COMMENT DELETE(ajax)
 	public void deleteComment(int commentNo) throws Exception;
+	
+	// PHOTO DELETE(ajax)
+	public void deletePhoto(int photoNo) throws Exception;
 	
 	//COMMENT SELECT LIST
 	public List<Comment> getCommentList(int postNo) throws Exception;
@@ -45,13 +48,19 @@ public interface PostDao {
 	//	POST SELECT LIST
 	public List <Post> getPostList(Search search, char postCategory) throws Exception;
 	
-	//게시판 page, 
+	//게시판 page
 	public int getPostTotalCount(char postCategory) throws Exception;
 	
-	//댓글 목록
+	//댓글 page
 	public int getMycommentTotalCount(String nickname) throws Exception;
 	
 	//게시글 조회수
-	public void updaatePostViewCount(int postNo) throws Exception;
+	public void updatePostViewCount(int postNo) throws Exception;
+	
+	//기록번호 포함된 댓글 삭제
+	public void deleteCommentUsePostNo(int postNo) throws Exception;
+	
+	//기록번호 포함된 사진 삭제
+	public void deletePhotoUsePostNo(int postNo) throws Exception;
 	
 }
