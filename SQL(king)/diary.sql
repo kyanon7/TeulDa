@@ -144,3 +144,9 @@ where diary_id = 10038
 delete 
 from photo
 where diary_id = 10038
+
+// update diary view count
+
+update diary 
+set view_count = view_count + 1
+where diary_id = 10047;

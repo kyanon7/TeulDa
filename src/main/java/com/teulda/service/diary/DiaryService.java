@@ -33,6 +33,9 @@ public interface DiaryService {
 
 	// 기록 그룹 변경 - 완료
 	public void updateDiaryGroup(Diary diary) throws Exception;
+	
+	// 기록 조회수 증가 - getDiary 할 때 내가 쓴 글이 아니면 조회수 증가하게끔 Controller에서 구현해주기 
+	public void updateDiaryViewCount(int diaryNo) throws Exception;
 
 	// 기록 영구삭제 - 완료
 	public void deleteDiary(int diaryNo) throws Exception;

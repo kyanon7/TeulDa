@@ -144,6 +144,12 @@ public class DiaryServiceImpl implements DiaryService {
 	public void updateDiaryGroup(Diary diary) throws Exception {
 		diaryDao.updateDiaryGroup(diary);
 	}
+	
+	@Override
+	// 기록 조회수 증가를 위한 비즈니스 수행 
+	public void updateDiaryViewCount(int diaryNo) throws Exception {
+		diaryDao.updateDiaryViewCount(diaryNo);
+	}
 
 	@Override
 	// 기록 영구삭제를 위한 비즈니스 수행 

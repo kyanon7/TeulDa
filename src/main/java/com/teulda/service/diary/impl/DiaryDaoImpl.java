@@ -101,8 +101,7 @@ public class DiaryDaoImpl implements DiaryDao {
 
 	@Override
 	public void updateDiaryViewCount(int diaryNo) throws Exception {
-		// TODO Auto-generated method stub
-
+		sqlSession.update("DiaryMapper.updateDiaryViewCount", diaryNo);
 	}
 
 	@Override
