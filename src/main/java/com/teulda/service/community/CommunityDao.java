@@ -49,5 +49,5 @@ public interface CommunityDao {
 	public void deleteSubscribe(Subscribe subscribe) throws Exception;
 	
 	// CHECK SUBSCRIBE
-	public int checkSubscribe(Subscribe subscribe) throws Exception;
+	public boolean checkSubscribe(Subscribe subscribe) throws Exception;
 }

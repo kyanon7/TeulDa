@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,4 +55,29 @@ public class CommunityRestController {
 		return communityService.addSubscribe(subscribe);
 	}
 	
+	@RequestMapping(value="rest/deleteSubscribe/{nickname}", method=RequestMethod.GET)
+	public boolean deleteSubscribe(@PathVariable String nickname, HttpSession session) throws Exception{
+		
+		System.out.println("/community/rest/addSubscribe : GET");
+		
+		Subscribe subscribe = new Subscribe();
+		User user = (User) session.getAttribute("user");
+		subscribe.setSubNickname(user.getNickName());
+		subscribe.setSubTargetNickname(nickname);
+		
+		return communityService.deleteSubscribe(subscribe);
+	}
+	
+	@RequestMapping(value="rest/checkSubscribe/", method=RequestMethod.GET)
+	public boolean checkSubscribe(@ModelAttribute("user") User targetuser, HttpSession session) throws Exception{
+		
+		System.out.println("/community/rest/checkSubscribe : GET");
+		
+		Subscribe subscribe = new Subscribe();
+		User user = (User) session.getAttribute("user");
+		subscribe.setSubNickname(user.getNickName());
+		subscribe.setSubTargetNickname(targetuser.getNickName());
+		
+		return communityService.checkSubscribe(subscribe);
+	}
 }

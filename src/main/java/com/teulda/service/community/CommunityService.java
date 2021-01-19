@@ -36,6 +36,9 @@ public interface CommunityService {
 	public List<Subscribe> getSubscribeList(String subNickname) throws Exception;
 	
 	// 구독 취소
-	public void deleteSubscribe(Subscribe subscribe) throws Exception;
+	public boolean deleteSubscribe(Subscribe subscribe) throws Exception;
+	
+	// 구독 상태 확인
+	public boolean checkSubscribe(Subscribe subscribe) throws Exception;
 	
 }

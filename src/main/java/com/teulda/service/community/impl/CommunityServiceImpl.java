@@ -120,7 +120,7 @@ import com.teulda.service.domain.Subscribe;
 
 	@Override
 	public boolean addSubscribe(Subscribe subscribe) throws Exception {
-		if(communityDao.checkSubscribe(subscribe) == 0) {
+		if(communityDao.checkSubscribe(subscribe)) {
 			communityDao.addSubscribe(subscribe);
 			return true;
 		}
@@ -133,10 +133,17 @@ import com.teulda.service.domain.Subscribe;
 	}
 
 	@Override
-	public void deleteSubscribe(Subscribe subscribe) throws Exception {
-		communityDao.deleteSubscribe(subscribe);
-		
+	public boolean deleteSubscribe(Subscribe subscribe) throws Exception {
+		if(!communityDao.checkSubscribe(subscribe)) {
+			communityDao.deleteSubscribe(subscribe);
+			return true;
+		}
+		return false;
 	}
 
+	@Override
+	public boolean checkSubscribe(Subscribe subscribe) throws Exception {
+		return communityDao.checkSubscribe(subscribe);	//	구독 중이면 false, 구독하지 않는 중이면 true.(그러니까 구독 가능하면 true)
+	}
 
 }

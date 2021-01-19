@@ -102,7 +102,7 @@ public class CommunityDaoImpl implements CommunityDao {
 	}
 
 	@Override
-	public int checkSubscribe(Subscribe subscribe) throws Exception {
-		return sqlSession.selectOne("CommunityMapper.checkSubscribe", subscribe);
+	public boolean checkSubscribe(Subscribe subscribe) throws Exception {
+		return sqlSession.selectOne("CommunityMapper.checkSubscribe", subscribe).equals(0);
 	}
 }
