@@ -3,3 +3,43 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+	<mapper namespace="BookmarkMapper">
+
+
+	<resultMap id="bookmarkSelectMap" type="com.teulda.service.domain.Bookmark">
+		<result property="bookmarkNo"				column="bookmark_id"			jdbcType="NUMERIC" />
+		<result property="diaryNo"					column="diary_id"				jdbcType="NUMERIC" />
+		<result property="nickname"					column="nickname"				jdbcType="VARCHAR" />
+		<result property="bookmarkDate"				column="bookmark_date"			jdbcType="DATE" />
+	</resultMap>
+	
+	
+	
+	<insert	id="addBookmark"	parameterType="bookmark">
+		INSERT
+		INTO BOOKMARK (bookmark_id, diary_id, nickname, bookmark_date)
+		VALUES	(seq_bookmark_bookmark_id.nextval, #{diary_id}, #{nickname:VARCHAR}, SYSDATE})
+	</insert> 
+	
+<!-- 	<delete id="deleteBookmark"	parameterType="int">
+	 	DELETE
+	 	FROM BOOKMARK
+	 	WHERE bookmark_id = #{value}
+	</delete>
+	
+	<select  id="getBookmarkList"  parameterType="int"	resultMap="bookmarkSelectMap">
+		SELECT * 
+		FROM BOOKMARK
+		WHERE bookmark_id = #{value}
+		ORDER BY bookmark_id DESC
+	</select>
+	
+	<select  id="getBookmarkTotalCount"  parameterType="search"	 resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT  bookmark_id, diary_id, nickname, bookmark_date
+      		  FROM BOOKMARK) countTable 
+	</select> -->
+	
+	</mapper>
+	

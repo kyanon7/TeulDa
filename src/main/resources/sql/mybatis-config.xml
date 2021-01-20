@@ -43,7 +43,7 @@
 		<mapper resource="sql/PhotoMapper.xml"/>
 		<mapper resource="sql/PostMapper.xml"/>
 		<mapper resource="sql/ReviewMapper.xml"/>
-		<!-- <mapper resource="sql/BookmarkMapper.xml"/> -->
+		<mapper resource="sql/BookmarkMapper.xml"/>
 		<mapper resource="sql/SearchNScrapMapper.xml"/>
 		<!-- <mapper resource="sql/StampMapper.xml"/> -->
 		<mapper resource="sql/SubscribeMapper.xml"/>

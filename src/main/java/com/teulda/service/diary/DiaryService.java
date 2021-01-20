@@ -18,7 +18,7 @@ public interface DiaryService {
 
 	// 기록 조회 - 완료
 	public Diary getDiary(int diaryNo) throws Exception;
-
+	
 	// 기록 그룹 목록 리스트 (사용자가 어떤 그룹에 넣을지 선택할때 그룹 목록 리스트 필요할듯) - 완료
 	public List<Group> getDiaryGroupList(String nickname) throws Exception;
 	
@@ -39,6 +39,12 @@ public interface DiaryService {
 	
 	// 기록 조회수 증가 - getDiary 할 때 내가 쓴 글이 아니면 조회수 증가하게끔 Controller에서 구현해주기 - 완료
 	public void updateDiaryViewCount(int diaryNo) throws Exception;
+	
+//	// 스크랩 추가 할 시 스크랩 추가 횟수 증가 (addScrap 할 때 이 메소드 같이 돌려주기) 
+//	public void updateDiaryScrapCount(int diaryNo) throws Exception;
+//	
+//	// 스크랩 추가 할 시 회원 계정에서 스크랩 추가 횟수 증가 (addScrap 할 때 이 메소드 같이 돌려주기) 
+//	public void updateUserScrapCount(String originNickname) throws Exception;
 
 	// 기록 영구삭제 - 완료
 	public void deleteDiary(int diaryNo) throws Exception;
@@ -48,6 +54,9 @@ public interface DiaryService {
 	
 	// 기록 사진 (아마도 기념품 사진) 삭제 (기록 수정시 사용) - ajax 이용 할 듯? RestController - 완료 
 	public void deletePhoto(int photoNo) throws Exception;
+	
+	// 그룹 삭제 (기록 그룹, 스크랩 그룹 삭제) 
+	public void deleteGroup(int groupNo) throws Exception;
 
 	// 기록을 책 형식으로 인쇄
 	public void printDiary(Diary diary) throws Exception;

@@ -100,7 +100,7 @@ public class DiaryServiceTest {
 	public void testAddDiaryGroup() throws Exception {
 		
 		Group group = new Group();
-		group.setGroupName("겨울여행");
+		group.setGroupName("가을여행");
 		group.setNickname("king주원");
 		
 		diaryService.addDiaryGroup(group);
@@ -108,7 +108,7 @@ public class DiaryServiceTest {
 	
 	//@Test
 	public void testGetDiary() throws Exception {
-		Diary diary2 = diaryService.getDiary(10046);
+		Diary diary2 = diaryService.getDiary(10055);
 		Assert.assertEquals("제주도에 왔어요!", diary2.getTitle());
 	}
 	
@@ -183,18 +183,18 @@ public class DiaryServiceTest {
 	//@Test 
 	public void testUpdateDiaryGroup() throws Exception {
 		
-		Diary diary = diaryService.getDiary(10038); // 다이어리 가져옴
-		diary.setGroupNo(10041);
+		Diary diary = diaryService.getDiary(10055); // 다이어리 가져옴
+		diary.setGroupNo(10040);
 		diaryService.updateDiaryGroup(diary);
 		
-		Diary diary2 = diaryService.getDiary(10038);
+		Diary diary2 = diaryService.getDiary(10055);
 		System.out.println(diary2);
 	}
 	
 	//@Test 
 	public void testDeleteDiary() throws Exception {
 		
-		diaryService.deleteDiary(10046);
+		diaryService.deleteDiary(10048);
 	}
 	
 	//@Test 
@@ -221,7 +221,7 @@ public class DiaryServiceTest {
 		System.out.println(map);
 	}
 	
-	@Test
+	//@Test
 	public void testGetDiaryList() throws Exception {
 		
 		Search search = new Search();
@@ -234,4 +234,22 @@ public class DiaryServiceTest {
 		
 	}
 	
+	//@Test
+	public void testUpdateDiaryScrapCount() throws Exception {
+		
+//		diaryService.updateDiaryScrapCount(10056);
+//		diaryService.updateDiaryScrapCount(10057);
+		
+	}
+	
+	//@Test
+	public void testUpdateUserScrapCount() throws Exception {
+		
+//		diaryService.updateUserScrapCount("king영진");
+	}
+	
+	@Test
+	public void testDeleteGroup() throws Exception {
+		diaryService.deleteGroup(10060);
+	}
 }

@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
+import com.teulda.common.Search;
+import com.teulda.service.diary.DiaryDao;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.HashTag;
-import com.teulda.service.photo.PhotoDao;
 import com.teulda.service.searchnscrap.SearchNScrapDao;
 import com.teulda.service.searchnscrap.SearchNScrapService;
 
@@ -23,7 +24,11 @@ public class SearchNScrapServiceImpl implements SearchNScrapService {
 	@Qualifier("searchNScrapDaoImpl")
 	SearchNScrapDao searchNScrapDao;
 	
-	public void setPhotoDao(PhotoDao photoDao) {
+	@Autowired
+	@Qualifier("diaryDaoImpl")
+	DiaryDao diaryDao;
+	
+	public void setSearchNScrapDao(SearchNScrapDao searchNScrapDao) {
 		System.out.println(getClass()+" : setSearchNScrapDao call");
 	}
 	
@@ -68,6 +73,8 @@ public class SearchNScrapServiceImpl implements SearchNScrapService {
 						photo.setDiaryNo(1);
 						searchNScrapDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨 
 					}
+					diaryDao.updateDiaryScrapCount(diary.getDiaryNo());
+					diaryDao.updateUserScrapCount(diary.getNickname());
 		}
 		
 		//스크랩 그룹 등록
@@ -76,16 +83,29 @@ public class SearchNScrapServiceImpl implements SearchNScrapService {
 			searchNScrapDao.addScrapGroup(group);
 		}
 		
-		//스크랩 그룹 조회
+		//스크랩 그룹목록 조회
 		@Override
-		public Map<String, Object> getGroupList(Group group) throws Exception {
+		public List<Group> getScrapGroupList(String nickname) throws Exception {
+			return searchNScrapDao.getScrapGroupList(nickname);
+		}
+		
+		//스크랩 기록목록 조회
+		@Override
+		public Map<String, Object> getScrapList(Search search, String nickname, char isDelete) throws Exception {
 			
-			List<Group> groupList = searchNScrapDao.getGroupList(group);
+			Map<String, Object> map = new HashMap <String, Object>();
 			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("groupList", groupList);
+			List <Diary> diaryList = searchNScrapDao.getScrapList(search, nickname, isDelete);
+			
+			map.put("diaryList", diaryList);
+			map.put("totalCount", new Integer(searchNScrapDao.getScrapCount(search, nickname, isDelete)));
 			
 			return map;
 		}
 
+		//스크랩 그룹변경
+		@Override
+		public void updateScrapGroup(Diary diary) throws Exception {
+			searchNScrapDao.updateScrapGroup(diary);
+		}
 }

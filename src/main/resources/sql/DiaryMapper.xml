@@ -20,6 +20,7 @@
 		<result property="content"				column="content"			jdbcType="LONGVARCHAR" />
 		<result property="thumbnail"			column="thumbnail"			jdbcType="VARCHAR" />
 		<result property="viewCount"			column="view_count"			jdbcType="NUMERIC" />
+		<result property="scrapCount"			column="scrap_count"		jdbcType="NUMERIC" />
 		<result property="deleteDate"			column="delete_date"		jdbcType="DATE" />
 		<result property="scrapNickname"		column="scrap_nick"			jdbcType="VARCHAR" />
 		<result property="scrapDate"			column="scrap_date"			jdbcType="DATE" />
@@ -124,6 +125,14 @@
 	SELECT * 
 	FROM DIARY
 	WHERE diary_id = #{diaryNo}
+	</select>
+	
+	<!-- SQL : SELECT ONE -->
+	<select 	id="getBookmarkCount"	parameterType="int"	resultType="int">
+	SELECT COUNT(*)
+	FROM (SELECT * 
+     	  FROM BOOKMARK
+      	  WHERE diary_id = #{diaryNo})
 	</select>
 	
 	<!-- SQL : SELECT LIST -->
@@ -270,6 +279,20 @@
 	WHERE diary_id = #{diaryNo}
 	</update>
 	
+	<!-- SQL : UPDATE -->
+	<update	id="updateDiaryScrapCount"	parameterType="int">
+	UPDATE diary
+	SET scrap_count = scrap_count + 1
+	WHERE diary_id = #{diaryNo}
+	</update>
+	
+	<!-- SQL : UPDATE -->
+	<update	id="updateUserScrapCount"	parameterType="String">
+	UPDATE USERS
+	SET scrap_count = scrap_count + 1
+	WHERE nickname = #{originNickname}
+	</update>
+	
 	<!-- SQL : DELETE -->
 	<delete 	id="deleteDiary"  parameterType="int" >
 	DELETE
@@ -303,6 +326,13 @@
 	DELETE
 	FROM photo
 	WHERE photo_id = #{photoNo}
+	</delete>
+	
+	<!-- SQL : DELETE -->
+	<delete 	id="deleteGroup"  parameterType="int" >
+	DELETE
+	FROM groups
+	WHERE group_id = #{groupNo}
 	</delete>
 
 </mapper>

@@ -211,3 +211,29 @@ from (select    diary_id, title, diary_addr, diary_date,
       from diary
       where is_public = 't' and delete_date is null and scrap_nick is null 
      ) countTable 
+     
+// get bookmark count
+
+select count(*)
+from (select *
+      from bookmark
+      where diary_id = 10048);
+      
+// update diary scrap count
+
+update diary
+set scrap_count = scrap_count + 1
+where diary_id = 10055
+
+// get scrap count (유저의 글을 몇번 스크랩해갔는지) - 사용 X
+// 이거 쓰면 기록 지우면 스크랩 횟수 줄어들어서 불가능 
+
+select sum(scrap_count)
+from diary
+where origin_nick = 'king주원'
+
+// update user scrap count
+
+UPDATE users
+SET scrap_count = scrap_count + 1
+WHERE nickname = 'king영진'

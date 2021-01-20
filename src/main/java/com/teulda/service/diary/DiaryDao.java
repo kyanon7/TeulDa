@@ -26,7 +26,7 @@ public interface DiaryDao {
 	// SELECT ONE
 	public Diary getDiary(int diaryNo) throws Exception;
 	
-	// SELECT ONE - 진행중
+	// SELECT ONE (특정 기록의 북마크 추가 횟수)
 	public int getBookmarkCount(int diaryNo) throws Exception;
 	 
 	// SELECT LIST
@@ -61,6 +61,12 @@ public interface DiaryDao {
 
 	// UPDATE (기록 조회수 증가) 
 	public void updateDiaryViewCount(int diaryNo) throws Exception;
+	
+	// UPDATE (스크랩 추가 할 시 스크랩 추가 횟수 증가) (addScrap 할 때 이 메소드 같이 돌려주기) 
+	public void updateDiaryScrapCount(int diaryNo) throws Exception;
+	
+	// UPDATE (스크랩 추가 할 시 회원 계정에서 스크랩 추가 횟수 증가) (addScrap 할 때 이 메소드 같이 돌려주기) 
+	public void updateUserScrapCount(String originNickname) throws Exception;
 
 	// DELETE (기록 영구삭제)
 	public void deleteDiary(int diaryNo) throws Exception;
@@ -76,5 +82,8 @@ public interface DiaryDao {
 	
 	// DELETE (사진 번호로 사진 삭제 - ajax로 바로 삭제)
 	public void deletePhoto(int photoNo) throws Exception;
+	
+	// DELETE (그룹 삭제)
+	public void deleteGroup(int groupNo) throws Exception;
 
 }

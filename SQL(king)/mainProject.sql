@@ -69,6 +69,7 @@ CREATE TABLE users (
 	is_public				CHAR(1),
 	status					CHAR(1)			DEFAULT 0,
 	role					CHAR(1)			DEFAULT 1,
+	scrap_count				NUMBER			DEFAULT 0,
 	PRIMARY KEY(nickname)
 );
 
@@ -132,6 +133,7 @@ CREATE TABLE diary (
 	tour_bill			NUMBER,
 	shop_bill			NUMBER,
 	is_public			CHAR(1),
+	scrap_count			NUMBER				DEFAULT 0,
 	PRIMARY KEY(diary_id)
 );
 
@@ -159,7 +161,7 @@ CREATE TABLE review (
 //북마크 테이블
 CREATE TABLE bookmark (
 	bookmark_id		NUMBER			NOT NULL,
-	diary_id			NUMBER			NOT NULL	REFERENCES diary(diary_id),
+	diary_id			NUMBER			NOT NULL,
 	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
 	bookmark_date	DATE			NOT NULL,
 	PRIMARY KEY(bookmark_id)
