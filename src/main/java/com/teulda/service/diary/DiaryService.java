@@ -40,11 +40,11 @@ public interface DiaryService {
 	// 기록 조회수 증가 - getDiary 할 때 내가 쓴 글이 아니면 조회수 증가하게끔 Controller에서 구현해주기 - 완료
 	public void updateDiaryViewCount(int diaryNo) throws Exception;
 	
-	// 스크랩 추가 할 시 스크랩 추가 횟수 증가 (addScrap 할 때 이 메소드 같이 돌려주기) 
-	public void updateDiaryScrapCount(int diaryNo) throws Exception;
-	
-	// 스크랩 추가 할 시 회원 계정에서 스크랩 추가 횟수 증가 (addScrap 할 때 이 메소드 같이 돌려주기) 
-	public void updateUserScrapCount(String originNickname) throws Exception;
+//	// 스크랩 추가 할 시 스크랩 추가 횟수 증가 (addScrap 할 때 이 메소드 같이 돌려주기) 
+//	public void updateDiaryScrapCount(int diaryNo) throws Exception;
+//	
+//	// 스크랩 추가 할 시 회원 계정에서 스크랩 추가 횟수 증가 (addScrap 할 때 이 메소드 같이 돌려주기) 
+//	public void updateUserScrapCount(String originNickname) throws Exception;
 
 	// 기록 영구삭제 - 완료
 	public void deleteDiary(int diaryNo) throws Exception;

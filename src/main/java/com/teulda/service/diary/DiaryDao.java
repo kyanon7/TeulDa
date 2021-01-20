@@ -62,10 +62,10 @@ public interface DiaryDao {
 	// UPDATE (기록 조회수 증가) 
 	public void updateDiaryViewCount(int diaryNo) throws Exception;
 	
-	// UPDATE (스크랩 추가 할 시 스크랩 추가 횟수 증가)
+	// UPDATE (스크랩 추가 할 시 스크랩 추가 횟수 증가) (addScrap 할 때 이 메소드 같이 돌려주기) 
 	public void updateDiaryScrapCount(int diaryNo) throws Exception;
 	
-	// UPDATE (스크랩 추가 할 시 회원 계정에서 스크랩 추가 횟수 증가)
+	// UPDATE (스크랩 추가 할 시 회원 계정에서 스크랩 추가 횟수 증가) (addScrap 할 때 이 메소드 같이 돌려주기) 
 	public void updateUserScrapCount(String originNickname) throws Exception;
 
 	// DELETE (기록 영구삭제)

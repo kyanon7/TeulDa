@@ -167,16 +167,16 @@ public class DiaryServiceImpl implements DiaryService {
 		diaryDao.updateDiaryViewCount(diaryNo);
 	}
 	
-	@Override
-	// 스크랩 추가 할 시 스크랩 추가 횟수 증가를 위한 비즈니스 수행
-	public void updateDiaryScrapCount(int diaryNo) throws Exception {
-		diaryDao.updateDiaryScrapCount(diaryNo);
-	}
-	
-	@Override
-	public void updateUserScrapCount(String originNickname) throws Exception {
-		diaryDao.updateUserScrapCount(originNickname);
-	}
+//	@Override
+//	// 스크랩 추가 할 시 스크랩 추가 횟수 증가를 위한 비즈니스 수행
+//	public void updateDiaryScrapCount(int diaryNo) throws Exception {
+//		diaryDao.updateDiaryScrapCount(diaryNo);
+//	}
+//	
+//	@Override
+//	public void updateUserScrapCount(String originNickname) throws Exception {
+//		diaryDao.updateUserScrapCount(originNickname);
+//	}
 
 	@Override
 	// 기록 영구삭제를 위한 비즈니스 수행 
