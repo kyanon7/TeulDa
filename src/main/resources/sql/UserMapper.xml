@@ -21,6 +21,7 @@
 		<result property="isPublic"					column="is_public"			jdbcType="CHAR" />
 		<result property="status"				column="status"			jdbcType="CHAR" />
 		<result property="role"				column="role"		jdbcType="CHAR" />
+		<result property="scrapCount"				column="scrap_count"		jdbcType="NUMERIC" />
 	</resultMap>
 	
 	<resultMap id="reportSelectMap" type="com.teulda.service.domain.Report">
@@ -92,8 +93,21 @@
 	<select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT nickname , email , user_name
+	  					FROM		(	SELECT nickname , user_name, user_addr, like_addr
 											FROM users
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				nickname = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				user_addr = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				like_addr = #{searchKeyword}
+													</if>
+												</where>
+											</if>
 											ORDER BY nickname ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
@@ -130,9 +144,6 @@
 	 	FROM report
 	 	WHERE reportNo = #{report_id}
 	</delete>
-
-
-	 
 	 
 
 </mapper>

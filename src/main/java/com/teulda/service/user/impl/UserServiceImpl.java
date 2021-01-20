@@ -172,6 +172,12 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public User login(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	//@Override
 	//public void updateUserStatus(String status) throws Exception {
 		// TODO Auto-generated method stub
