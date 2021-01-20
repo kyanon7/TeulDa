@@ -22,7 +22,7 @@ public class Diary { // 기록
 	private int viewCount; // 조회수
 
 	private int bookmarkCount; // 북마크 횟수 - DB엔 칼럼 없음
-	private int scrapCount; // 스크랩 횟수 - DB엔 칼럼 없음
+	private int scrapCount; // 스크랩 횟수
 
 	private Date deleteDate; // 삭제일자
 	private String scrapNickname; // 스크랩한 회원 닉네임

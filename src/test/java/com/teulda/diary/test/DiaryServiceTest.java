@@ -108,7 +108,7 @@ public class DiaryServiceTest {
 	
 	//@Test
 	public void testGetDiary() throws Exception {
-		Diary diary2 = diaryService.getDiary(10046);
+		Diary diary2 = diaryService.getDiary(10055);
 		Assert.assertEquals("제주도에 왔어요!", diary2.getTitle());
 	}
 	
@@ -194,7 +194,7 @@ public class DiaryServiceTest {
 	//@Test 
 	public void testDeleteDiary() throws Exception {
 		
-		diaryService.deleteDiary(10046);
+		diaryService.deleteDiary(10048);
 	}
 	
 	//@Test 
@@ -221,7 +221,7 @@ public class DiaryServiceTest {
 		System.out.println(map);
 	}
 	
-	@Test
+	//@Test
 	public void testGetDiaryList() throws Exception {
 		
 		Search search = new Search();
@@ -232,6 +232,20 @@ public class DiaryServiceTest {
 		Map <String, Object> map = diaryService.getDiaryList(search);
 		System.out.println(map);
 		
+	}
+	
+	//@Test
+	public void testUpdateDiaryScrapCount() throws Exception {
+		
+		diaryService.updateDiaryScrapCount(10056);
+		diaryService.updateDiaryScrapCount(10057);
+		
+	}
+	
+	//@Test
+	public void testUpdateUserScrapCount() throws Exception {
+		
+		diaryService.updateUserScrapCount("king영진");
 	}
 	
 }

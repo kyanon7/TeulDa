@@ -61,10 +61,9 @@ public class DiaryDaoImpl implements DiaryDao {
 	
 	@Override
 	public int getBookmarkCount(int diaryNo) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("DiaryMapper.getBookmarkCount", diaryNo);
 	}
-
+	
 	@Override
 	public List<HashTag> getHashTagList(int diaryNo) throws Exception {
 		return sqlSession.selectList("DiaryMapper.getHashTagList", diaryNo);
@@ -130,6 +129,16 @@ public class DiaryDaoImpl implements DiaryDao {
 	@Override
 	public void updateDiaryViewCount(int diaryNo) throws Exception {
 		sqlSession.update("DiaryMapper.updateDiaryViewCount", diaryNo);
+	}
+	
+	@Override
+	public void updateDiaryScrapCount(int diaryNo) throws Exception {
+		sqlSession.update("DiaryMapper.updateDiaryScrapCount", diaryNo);
+	}
+	
+	@Override
+	public void updateUserScrapCount(String originNickname) throws Exception {
+		sqlSession.update("DiaryMapper.updateUserScrapCount", originNickname);
 	}
 
 	@Override
