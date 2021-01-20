@@ -13,7 +13,6 @@ import com.teulda.service.subscribe.SubscribeService;
 	@Service("subscribeServiceImpl")
 	public class SubscribeServiceImpl implements SubscribeService {
 
-		//setter 인젝션	
 		@Autowired
 		@Qualifier("subscribeDaoImpl")
 		private SubscribeDao subscribeDao;

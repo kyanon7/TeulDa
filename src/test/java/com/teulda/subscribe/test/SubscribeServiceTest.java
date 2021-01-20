@@ -31,7 +31,7 @@ public class SubscribeServiceTest {
 	
 	
 	// 구독 추가
-	@Test
+	//@Test
 	public void testAddSubscribe() throws Exception{
 		
 		Subscribe subscribe = new Subscribe();

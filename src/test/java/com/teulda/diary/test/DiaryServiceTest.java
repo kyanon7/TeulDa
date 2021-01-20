@@ -92,7 +92,7 @@ public class DiaryServiceTest {
 		System.out.println(diary);
 		diaryService.addDiary(diary);
 		
-		Diary diary2 = diaryService.getDiary(10042);
+		Diary diary2 = diaryService.getDiary(10001);
 		Assert.assertEquals("제주도에 왔어요!", diary2.getTitle());
 	}
 	
