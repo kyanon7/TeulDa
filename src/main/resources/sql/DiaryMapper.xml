@@ -327,5 +327,12 @@
 	FROM photo
 	WHERE photo_id = #{photoNo}
 	</delete>
+	
+	<!-- SQL : DELETE -->
+	<delete 	id="deleteGroup"  parameterType="int" >
+	DELETE
+	FROM groups
+	WHERE group_id = #{groupNo}
+	</delete>
 
 </mapper>

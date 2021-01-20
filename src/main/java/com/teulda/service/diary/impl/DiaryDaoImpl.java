@@ -165,4 +165,9 @@ public class DiaryDaoImpl implements DiaryDao {
 	public void deletePhoto(int photoNo) throws Exception {
 		sqlSession.delete("DiaryMapper.deletePhoto", photoNo);
 	}
+	
+	@Override
+	public void deleteGroup(int groupNo) throws Exception {
+		sqlSession.delete("DiaryMapper.deleteGroup", groupNo);
+	}
 }

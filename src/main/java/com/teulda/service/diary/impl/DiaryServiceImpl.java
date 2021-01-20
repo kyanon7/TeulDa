@@ -197,6 +197,12 @@ public class DiaryServiceImpl implements DiaryService {
 	public void deletePhoto(int photoNo) throws Exception {
 		diaryDao.deletePhoto(photoNo);
 	}
+	
+	// 그룹 삭제 (기록 그룹, 스크랩 그룹 삭제)를 위한 비즈니스 수행
+	@Override
+	public void deleteGroup(int groupNo) throws Exception {
+		diaryDao.deleteGroup(groupNo);
+	}
 
 	@Override
 	public void printDiary(Diary diary) throws Exception {

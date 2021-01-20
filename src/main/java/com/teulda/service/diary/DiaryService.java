@@ -54,6 +54,9 @@ public interface DiaryService {
 	
 	// 기록 사진 (아마도 기념품 사진) 삭제 (기록 수정시 사용) - ajax 이용 할 듯? RestController - 완료 
 	public void deletePhoto(int photoNo) throws Exception;
+	
+	// 그룹 삭제 (기록 그룹, 스크랩 그룹 삭제) 
+	public void deleteGroup(int groupNo) throws Exception;
 
 	// 기록을 책 형식으로 인쇄
 	public void printDiary(Diary diary) throws Exception;

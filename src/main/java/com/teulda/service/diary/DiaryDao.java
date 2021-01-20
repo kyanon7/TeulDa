@@ -82,5 +82,8 @@ public interface DiaryDao {
 	
 	// DELETE (사진 번호로 사진 삭제 - ajax로 바로 삭제)
 	public void deletePhoto(int photoNo) throws Exception;
+	
+	// DELETE (그룹 삭제)
+	public void deleteGroup(int groupNo) throws Exception;
 
 }
