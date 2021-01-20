@@ -23,9 +23,9 @@ public interface UserService {
 	
 	public boolean checkNicknameDuplication(String nickName) throws Exception;//닉네임 중복체크
 	
-	public User login(User user) throws Exception;//로그인
+	//public User login(User user) throws Exception;//로그인
 	
-	public User logout(HttpServletRequest request, HttpServletResponse response) throws Exception;//로그아웃
+	//public User logout(HttpServletRequest request, HttpServletResponse response) throws Exception;//로그아웃
 	
 	public User getUser(String nickName) throws Exception;//유저정보 조회 완
 	
@@ -47,7 +47,6 @@ public interface UserService {
 	
 	public Map<String , Object> getReportList(Search search) throws Exception ;///신고리스트 리스트
 	
-	public void deleteReport(User user) throws Exception ;//신고사유삭제
 
 
 

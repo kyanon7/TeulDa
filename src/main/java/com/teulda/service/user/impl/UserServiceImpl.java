@@ -75,16 +75,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	
-	@Override
-	public User login(User user) throws Exception {
-		User dbUser=userDao.getUser(user.getEmail());
-
-		if(! dbUser.getPassword().equals(user.getPassword())){
-			throw new Exception("로그인에 실패했습니다.");
-		}
-		
-		return dbUser;
-	}
+	/*
+	 * @Override public User login(User user) throws Exception { User
+	 * dbUser=userDao.getUser(user.getEmail());
+	 * 
+	 * if(! dbUser.getPassword().equals(user.getPassword())){ throw new
+	 * Exception("로그인에 실패했습니다."); }
+	 * 
+	 * return dbUser; }
+	 */
 
 
 	@Override
@@ -117,7 +116,6 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-
 	@Override
 	public Map<String, Object> getUserBlackList(Search search) throws Exception {
 
@@ -131,17 +129,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteReport(User user) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void checkPhone(String phone) throws Exception {
-		// TODO Auto-generated method stub
 		
-	}
-
+	}//휴대폰 인증
 
 	@Override
 	public Map<String, Object> getUserList(Search search) throws Exception {
@@ -156,14 +146,14 @@ public class UserServiceImpl implements UserService {
 		return map;
 	}//유저 리스트화, 유저 토탈 저장
 
-	@Override
+	/*@Override
 	public User logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		HttpSession session=request.getSession();	
 		session.invalidate();
 		
 		return null;
-	}
+	}*/
 
 	@Override
 	public void addReport(Report report) throws Exception {
@@ -180,7 +170,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteReport(int reportNo) throws Exception {
 		// TODO Auto-generated method stub
-		
 	}
 
 	//@Override
@@ -188,7 +177,6 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		
 	//}
-
 
 
 	//@Override
@@ -209,11 +197,7 @@ public class UserServiceImpl implements UserService {
 		//return null;
 	//}
 
-	//@Override
-	//public void deleteReport(User user) throws Exception {
-		// TODO Auto-generated method stub
-		
-	//}
+
 	
 	
 
