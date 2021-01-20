@@ -36,47 +36,17 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+  <script src="/resources/js/review.js"></script>
+  <script type="text/javascript">
+  </script>
+
 </head>
 
 <body>
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top header-transparent">
-    <div class="container d-flex align-items-center">
-
-      <div class="logo mr-auto">
-        <h1 class="text-light"><a href="index.jsp"><span>TeulDa</span></a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="resources/assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
-
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="#portfolio">Top 10 </a></li>
-          <li class="drop-down"><a href="">Community</a>
-            <ul>
-              <li><a href="#">자유게시판</a></li>
-              <li><a href="#">도장찍기</a></li>
-              <li><a href="#">채팅</a></li>
-            </ul>
-          </li>
-          <li class="drop-down"><a href="">MyPage</a>
-            <ul>
-              <li><a href="#">기록</a></li>
-              <li><a href="#">앨범</a></li>
-              <li><a href="#">후기</a></li>
-              <li><a href="#">구독</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Log in</a></li>
-          <li><a href="#contact">Sign Up</a></li>
-          <li><a href="#contact">사람 아이콘</a></li>
-        </ul>
-        
-      </nav><!-- .nav-menu -->
-
-    </div>
+    <jsp:include page="/layout/toobar.jsp"/>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
