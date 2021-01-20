@@ -89,7 +89,7 @@ import com.teulda.service.post.PostService;
 	@Override
 	public void deletePost(int postNo) throws Exception {
 		//postDao.deletePhoto(postNo);
-		postDao.deleteComment(postNo);
+		postDao.deleteCommentUsePostNo(postNo);
 		postDao.deletePost(postNo);
 		
 	}
