@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.teulda.common.Group;
+import com.teulda.common.Search;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.searchnscrap.SearchNScrapDao;
@@ -67,18 +68,79 @@ public class SearchNScrapServiceTest {
 		System.out.println(diary);
 	}
 	
+	//스크랩 그룹 조회
 	//@Test
-	public void testGetGroupList() throws Exception{
-			
-		Group group = new Group();
-		group.setNickname("king정인");
+	public void testGetDiaryGroupList() throws Exception {
+		List<Group> diaryGroupList = diaryService.getDiaryGroupList("king정인");
+		System.out.println(diaryGroupList);
+	}
+	
+	//스크랩 리스트 조회
+	//@Test
+	public void testGetScrapList() throws Exception{
 		
-		System.out.println("Junit Test : "+group);
+		Search search = new Search();
+		search.setPageSize(5);
+		search.setCurrentPage(2);
 		
-		Map<String, Object> map = searchNScrapService.getGroupList(group);
+		Map<String, Object> map = searchNScrapService.getScrapList(search, "king정인", 'f');
+		System.out.println(map);
+	}
+	
+	//스크랩 수정
+	//@Test
+	public void testUpdateScrap() throws Exception{
 		
-		List<Object> list = (List<Object>)map.get("groupList");
-		System.out.println("groupList : "+list);
+		Diary diary = diaryService.getDiary(10045);
+		
+		diary.setTitle("제주도에 갔데!!");
+		diary.setLocation("제주앞바~다");
+		
+		System.out.println(diary);
+		
+		diaryService.updateDiary(diary);
 		
 	}
+
+	//스크랩 삭제 플래그처리
+	//@Test
+	public void testUpdateScrapStatus() throws Exception{
+		Diary diary = diaryService.getDiary(10045);
+		diaryService.updateDiaryStatus(diary);
+	}
+	
+	//스크랩 그룹변경
+	//@Test
+	public void testUpdateScrapGroup() throws Exception{
+		Diary diary = diaryService.getDiary(10045); // 다이어리 가져옴
+		diary.setGroupNo(10019);
+		diaryService.updateDiaryGroup(diary);
+		
+		Diary diary2 = diaryService.getDiary(10045);
+		System.out.println(diary2);
+	}
+	
+	//스크랩 삭제
+	//@Test
+	public void testDeleteScrap() throws Exception{
+		diaryService.deleteDiary(10045);
+	}
+
+	//해시태그 삭제
+	//@Test
+	public void testDeleteHashTag() throws Exception{
+		diaryService.deleteHashTag(10000);
+	}
+	
+	//사진삭제
+	//@Test
+	public void testDeletePhoto() throws Exception{
+		diaryService.deletePhoto(10000);
+	}
+	
+	//스크랩그룹 삭제
+	//@Test
+//	public void testDeleteGroup() throws Exception{
+//		diaryService.deleteGroup(10000);
+//	}
 }
