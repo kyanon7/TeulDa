@@ -28,7 +28,7 @@
 			<li><a href="#">구독</a></li>
 			</ul>
 		</li>
-		<li><a href="#contact">Log in</a></li>
+		<li class="active"><a href="../user/login.jsp">Login</a></li>
 		<li><a href="#contact">Sign Up</a></li>
 		<li><a href="#contact">사람 아이콘</a></li>
 		</ul>

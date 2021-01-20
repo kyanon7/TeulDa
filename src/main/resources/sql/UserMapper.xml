@@ -108,7 +108,19 @@
 													</if>
 												</where>
 											</if>
-											ORDER BY nickname ) inner_table
+											ORDER BY
+												<where>
+													<if test="searchSorting == 0 and searchKeyword !='' ">
+										 				user_id DESC
+													</if>
+													<if test="searchSorting == 1 and searchKeyword !='' ">
+										 				nickname DESC
+													</if>
+													<if test="searchSorting == 2 and searchKeyword !='' ">
+										 				name DESC
+													</if>
+													
+												</where>) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
