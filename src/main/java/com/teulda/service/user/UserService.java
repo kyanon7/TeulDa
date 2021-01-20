@@ -23,7 +23,7 @@ public interface UserService {
 	
 	public boolean checkNicknameDuplication(String nickName) throws Exception;//닉네임 중복체크
 	
-	//public User login(User user) throws Exception;//로그인
+	public User login(String email) throws Exception;//로그인
 	
 	//public User logout(HttpServletRequest request, HttpServletResponse response) throws Exception;//로그아웃
 	

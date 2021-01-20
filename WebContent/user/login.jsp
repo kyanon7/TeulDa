@@ -1,54 +1,111 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page pageEncoding="EUC-KR"%>
+
 
 <!DOCTYPE html>
-<html>
-	<head>
-		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" >
-		<meta charset="UTF-8" />
-	    <title>Login</title>
-	</head>
-	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
-        </div>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+<html lang="ko">
 	
-	</body>
+<head>
+	<meta charset="EUC-KR">
+	
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/lux/bootstrap.css" >
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/lux/bootstrap.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+    	 body >  div.container{ 
+            margin-top: 50px;
+        }
+    </style>
+    
+    <!--  ///////////////////////// JavaScript ////////////////////////// -->
+	<script type="text/javascript">
+
+		//============= "로그인"  Event 연결 =============
+		$( function() {
+			
+			$("#email").focus();
+			
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("button").on("click" , function() {
+				var id=$("input:text").val();
+				var pw=$("input:password").val();
+				
+				if(id == null || id.length <1) {
+					alert('ID 를 입력하지 않으셨습니다.');
+					$("#email").focus();
+					return;
+				}
+				
+				if(pw == null || pw.length <1) {
+					alert('패스워드를 입력하지 않으셨습니다.');
+					$("#password").focus();
+					return;
+				}
+				
+				$("form").attr("method","POST").attr("action","/user/login").attr("target","_parent").submit();
+			});
+		});	
+		
+		//============= 회원원가입화면이동 =============
+		$( function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("a:contains('SIGN UP')").on("click" , function() {
+				self.location = "/user/addUser"
+			});
+		});
+		
+	</script>		
+	
+</head>
+
+<body>
+	
+	<!--  화면구성 div Start /////////////////////////////////////-->
+	<div class="container">
+		<!--  row Start /////////////////////////////////////-->
+	
+		 	 	<br/><br/>
+				 	
+		 	 		<h1 class="text-center">LOGIN</h1>
+
+		  			<form>
+		  			
+					<div class="form-group">
+  						<label for="email" class="col-form-label">ID</label>
+  						<input type="text" class="form-control" placeholder="ID" name="email" id="email" >
+					</div>
+					  					  
+					<div class="form-group">
+  						<label for="password" class="col-form-label">PASSWORD</label>
+  						<input type="password" class="form-control" placeholder="PASSWORD" name="password" id="password">
+					</div>
+					  <br><br>
+					  
+					  <div class="form-group">
+					    <div class="text-center">
+					      <button type="button" class="btn btn-outline-primary">LOGIN</button>
+					      &nbsp;&nbsp;&nbsp;&nbsp;
+					      <a class="btn btn-outline-secondary" href="#" role="button">SIGN UP</a>
+					    </div>
+					  </div>
+					  
+					  
+					</form>
+			   	</div>
+			
+
+  	 	<!--  row Start /////////////////////////////////////-->
+  	 	
+ 	<!--  화면구성 div end /////////////////////////////////////-->
+
+</body>
+
 </html>
