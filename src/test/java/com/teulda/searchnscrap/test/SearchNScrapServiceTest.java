@@ -37,10 +37,10 @@ public class SearchNScrapServiceTest {
 	private SearchNScrapDao searchNScrapDao;
 	
 	//스크랩 등록
-	//@Test
+	@Test
 	public void testAddScrap() throws Exception{
 		
-		Diary diary = diaryService.getDiary(10044); // 스크랩할 기록 가져오기
+		Diary diary = diaryService.getDiary(10000); // 스크랩할 기록 가져오기
 		System.out.println("스크랩한 diary : "+diary); // 가져온 기록 확인
 		diary.setScrapNickname("king정인");
 		

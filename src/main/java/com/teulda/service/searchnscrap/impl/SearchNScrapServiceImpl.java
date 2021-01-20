@@ -14,7 +14,6 @@ import com.teulda.common.Search;
 import com.teulda.service.diary.DiaryDao;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.HashTag;
-import com.teulda.service.photo.PhotoDao;
 import com.teulda.service.searchnscrap.SearchNScrapDao;
 import com.teulda.service.searchnscrap.SearchNScrapService;
 
@@ -26,10 +25,10 @@ public class SearchNScrapServiceImpl implements SearchNScrapService {
 	SearchNScrapDao searchNScrapDao;
 	
 	@Autowired
-	@Qualifier("DiaryDaoImpl")
+	@Qualifier("diaryDaoImpl")
 	DiaryDao diaryDao;
 	
-	public void setPhotoDao(PhotoDao photoDao) {
+	public void setSearchNScrapDao(SearchNScrapDao searchNScrapDao) {
 		System.out.println(getClass()+" : setSearchNScrapDao call");
 	}
 	

@@ -69,7 +69,7 @@ CREATE TABLE users (
 	is_public				CHAR(1),
 	status					CHAR(1)			DEFAULT 0,
 	role					CHAR(1)			DEFAULT 1,
-	scrap_count				NUMBER,
+	scrap_count				NUMBER			DEFAULT 0,
 	PRIMARY KEY(nickname)
 );
 
@@ -133,7 +133,7 @@ CREATE TABLE diary (
 	tour_bill			NUMBER,
 	shop_bill			NUMBER,
 	is_public			CHAR(1),
-	scrap_count			NUMBER,
+	scrap_count			NUMBER				DEFAULT 0,
 	PRIMARY KEY(diary_id)
 );
 
