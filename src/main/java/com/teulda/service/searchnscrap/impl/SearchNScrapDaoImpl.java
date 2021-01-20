@@ -1,6 +1,8 @@
 package com.teulda.service.searchnscrap.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
+import com.teulda.common.Search;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.HashTag;
 import com.teulda.service.searchnscrap.SearchNScrapDao;
@@ -54,8 +57,34 @@ public class SearchNScrapDaoImpl implements SearchNScrapDao {
 	}
 	
 	@Override
-	public List<Group> getGroupList(Group group) throws Exception {	
-		return sqlSession.selectList("SearchNScrapMapper.getGroupList", group);
+	public List<Group> getScrapGroupList(String nickname) throws Exception {	
+		return sqlSession.selectList("SearchNScrapMapper.getScrapGroupList", nickname);
 	}
 	
+	@Override
+	public List<Diary> getScrapList(Search search, String nickname, char isDelete) throws Exception {
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("nickname", nickname);
+		map.put("search", search);
+		map.put("isDelete", isDelete);
+		
+		return sqlSession.selectList("SearchNScrapMapper.getScrapList", map);
+	}
+	
+	@Override
+	public int getScrapCount(Search search, String nickname, char isDelete) throws Exception {
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("nickname", nickname);
+		map.put("search", search);
+		map.put("isDelete", isDelete);
+		
+		return sqlSession.selectOne("SearchNScrapMapper.getScrapCount", map);
+	}
+	
+	@Override
+	public void updateScrapGroup(Diary diary) throws Exception {
+		sqlSession.update("SearchNScrapMapper.updateScrapGroup", diary);
+	}
 }
