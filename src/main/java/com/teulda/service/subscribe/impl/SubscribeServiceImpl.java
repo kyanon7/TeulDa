@@ -1,11 +1,13 @@
 package com.teulda.service.subscribe.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Subscribe;
 import com.teulda.service.subscribe.SubscribeDao;
 import com.teulda.service.subscribe.SubscribeService;
@@ -39,6 +41,21 @@ import com.teulda.service.subscribe.SubscribeService;
 	@Override
 	public List<Subscribe> getSubscribeList(String subNickname) throws Exception {
 		return subscribeDao.getSubscribeList(subNickname);
+	}
+	
+	@Override
+	public List<Diary> getSubscribesDiaryList(String subNickname) throws Exception{
+		
+//		for(Subscribe each : subscribeDao.getSubscribeList(subNickname)) {
+//			each.getSubTargetNickname()
+//		}
+		
+		List<Diary> diaryList = new ArrayList<Diary>();
+		
+		
+		
+		
+		return diaryList;
 	}
 
 	@Override

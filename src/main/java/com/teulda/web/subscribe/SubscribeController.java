@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,15 +42,28 @@ public class SubscribeController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value="getSubscribeList")
+	@RequestMapping(value="getSubscribeList", method=RequestMethod.GET)
+	public String getSubscribeList(@RequestParam("nickname") String nickname, Model model) throws Exception {
+		
+		System.out.println("/subscribe/getSubscribeList : GET");
+		
+		System.out.println(nickname);
+		List<Subscribe> subscribeList = subscribeService.getSubscribeList(nickname);
+		
+		model.addAttribute("subscribeList", subscribeList);
+		
+		return "forward:/subscribe/listSubscribe.jsp";
+	}
+	
+	@RequestMapping(value="getSubscribeList", method=RequestMethod.POST)
 	public String getSubscribeList(HttpSession session, Model model) throws Exception {
 		
-		System.out.println("/subscribe/getSubscribeList : GET / POST");
+		System.out.println("/subscribe/getSubscribeList : POST");
 		
 		User user = (User) session.getAttribute("user");
-		List<Subscribe> list = subscribeService.getSubscribeList(user.getNickName());
+		List<Subscribe> subscribeList = subscribeService.getSubscribeList(user.getNickName());
 		
-		model.addAttribute("list", list);
+		model.addAttribute("subscribeList", subscribeList);
 		
 		return "forward:/subscribe/listSubscribe.jsp";
 	}

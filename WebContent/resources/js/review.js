@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
       review.addEventListener('click', (el) =>{
         console.log(review.textContent);
-        location.href = "/review/listReview.jsp";
+        location.href = "../review/listReview.jsp";
       });
   });
   

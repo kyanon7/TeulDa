@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +13,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.teulda.common.Search;
 import com.teulda.service.domain.Subscribe;
+import com.teulda.service.domain.User;
 import com.teulda.service.subscribe.SubscribeService;
+import com.teulda.service.user.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration	(locations = {	"classpath:config/context-common.xml",
@@ -26,9 +30,28 @@ public class SubscribeServiceTest {
 	@Qualifier("subscribeServiceImpl")
 	private SubscribeService subscribeService;
 	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
+	
 	int subscribeNo = 10000;
     Timestamp dateTime = Timestamp.valueOf(LocalDateTime.now().withNano(0));
 	
+    //@Test
+    public void testGetUserList() throws Exception{
+    	
+		 Search search = new Search();
+		 search.setCurrentPage(1);
+		 search.setPageSize(10);
+		 Map<String, Object> map = userService.getUserList(search); 
+		 List<Object> list= (List<Object>)map.get("list");
+		 
+		 Integer totalCount = (Integer)map.get("totalCount");
+		 
+		 System.out.println(list);//확인
+		 System.out.println(totalCount);//확인
+		 
+	}
 	
 	// 구독 추가
 	//@Test
@@ -37,7 +60,7 @@ public class SubscribeServiceTest {
 		Subscribe subscribe = new Subscribe();
 		subscribe.setSubscribeDate(dateTime);
 		
-		String list[] = {"king성영", "king주원", "king정인", "king채경", "king제현"};
+		String list[] = {"king성영", "king주원", "king정인", "king채경", "king제현", "testNick", "tester1", "tester2", "tester3", "tester4", "tester5"};
 		List<String> userList = Arrays.asList(list);
 //		List<String> userList = new ArrayList<String>(Arrays.asList(list));
 		
@@ -65,7 +88,7 @@ public class SubscribeServiceTest {
 	}
 	
 	// 구독 취소
-	//@Test
+	@Test
 	public void testDeleteSubscribe() throws Exception{
 		
 		Subscribe subscribe = new Subscribe();
