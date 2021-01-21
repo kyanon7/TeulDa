@@ -17,7 +17,7 @@ public interface UserDao {
 	
 	public void checkPhone(String phone) throws Exception ;//핸드폰인증
 	
-	public User getUser(String NickName) throws Exception ;//유저정보 조회
+	public User getUser(String email) throws Exception ;//유저정보 조회
 
 	public List<User> getUserList(Search search) throws Exception ;//유저목록 조회
 
@@ -25,7 +25,7 @@ public interface UserDao {
 	
 	public void updateUserStatus(String status) throws Exception ;//유저상태 수정
 	
-	public void deleteUser(String nickName) throws Exception ;//유저탈퇴(삭제)
+	public void deleteUser(String nickname) throws Exception ;//유저탈퇴(삭제)
 	
 	public List<User> getUserBlackList(Search search) throws Exception ;//블랙리스트목록조회
 	
@@ -51,6 +51,6 @@ public interface UserDao {
 
 //public boolean checkIdDuplication(String email) throws Exception;
 
-//public boolean checkNicknameDuplication(String nickName) throws Exception;
+//public boolean checkNicknameDuplication(String nickname) throws Exception;
 
 //public boolean checkPhoneDuplication(String phone) throws Exception;

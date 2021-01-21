@@ -8,7 +8,7 @@
 
 
 	<resultMap id="userSelectMap" type="com.teulda.service.domain.User">
-		<result property="nickName"					column="nickname"			jdbcType="VARCHAR" />
+		<result property="nickname"					column="nickname"			jdbcType="VARCHAR" />
 		<result property="email"		column="email"			jdbcType="VARCHAR" />
 		<result property="password"	column="password"			jdbcType="VARCHAR" />
 		<result property="name"		column="user_name"				jdbcType="VARCHAR" />
@@ -41,7 +41,7 @@
 		INSERT
 		INTO users( nickname , email , password , user_name , phone_number, user_addr, like_addr, birth, user_photo, 
 		update_status_date, is_public, status, role)
-		VALUES	 (	#{nickName} , #{email} , #{password} , #{name}, #{phone:VARCHAR}, #{address:VARCHAR},
+		VALUES	 (	#{nickname} , #{email} , #{password} , #{name}, #{phone:VARCHAR}, #{address:VARCHAR},
 							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{statusDate:VARCHAR}, #{isPublic:CHAR} ,'0','0')
 	</insert>
 	 
@@ -49,14 +49,14 @@
 	<select	id="getUser"	 parameterType="com.teulda.service.domain.User"	 resultMap="userSelectMap">
 		SELECT *
 		FROM users
-		WHERE nickname = #{nickName}
+		WHERE email = #{email}
 	</select>
 	
 	<!-- SQL : UPDATE 회원정보 업데이트 -->
 	<update	id="updateUser"	parameterType="com.teulda.service.domain.User" >
 		UPDATE users
 	   	<set>
-	   		nickname 	= #{nickName} ,
+	   		nickname 	= #{nickname} ,
 			email	= #{email},
 			password				= #{password} ,
 			user_name				=	#{name},
@@ -70,7 +70,7 @@
 			status				=	#{status},
 			role				=	#{role}
 	   	</set>
-	   	WHERE nickname = #{nickName}
+	   	WHERE nickname = #{nickname}
 	</update>
 	
 	<!--  SQL : UPDATE user_status -->
@@ -79,14 +79,14 @@
 	   	<set>
 	   		status	= #{status}, 
 		</set>
-		WHERE nickname = #{nickName}
+		WHERE nickname = #{nickname}
 	</update> -->
 	
 	<!-- SQL : REMOVE 회원삭제-->
 	<delete id="deleteUser"	parameterType="com.teulda.service.domain.User">
 	 	DELETE 
 	 	FROM users
-	 	WHERE nickname = #{nickName}
+	 	WHERE nickname = #{nickname}
 	</delete>
 	
 	<!-- SQL : SELECT LIST 유저정보-->

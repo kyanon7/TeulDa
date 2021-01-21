@@ -1,10 +1,10 @@
 package com.teulda.service.photo;
 
+import java.util.List;
 import java.util.Map;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
-import com.teulda.common.Search;
 
 public interface PhotoService {
 

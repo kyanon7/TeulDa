@@ -44,8 +44,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUser(String nickName) throws Exception {
-		return (User) sqlSession.selectOne("UserMapper.getUser" , nickName);
+	public User getUser(String email) throws Exception {
+		return (User) sqlSession.selectOne("UserMapper.getUser" , email);
 	}
 
 	
@@ -62,8 +62,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void deleteUser(String nickName) throws Exception {
-		sqlSession.delete("UserMapper.deleteUser", nickName);	
+	public void deleteUser(String nickname) throws Exception {
+		sqlSession.delete("UserMapper.deleteUser", nickname);	
 	}
 	
 	@Override
