@@ -108,14 +108,14 @@ public class DiaryServiceTest {
 	
 	//@Test
 	public void testGetDiary() throws Exception {
-		Diary diary2 = diaryService.getDiary(10055);
+		Diary diary2 = diaryService.getDiary(10081);
 		Assert.assertEquals("제주도에 왔어요!", diary2.getTitle());
 	}
 	
 	//@Test
 	public void testUpdateDiary() throws Exception {
 		Diary diary = new Diary();
-		diary.setDiaryNo(10055);
+		diary.setDiaryNo(10082);
 		diary.setTitle("변경한 제목!");
 		diary.setLocation("광안대교 앞에서"); // Google Map 주소 받아옴
 		diary.setLatitude(60.684153857); // Google Map 위도 좌표 
@@ -173,7 +173,7 @@ public class DiaryServiceTest {
 	// 다이어리 복원 & 다이어리 삭제 (휴지통 이동) 
 	public void testUpdateDiaryStatus() throws Exception {
 		
-		Diary diary = diaryService.getDiary(10055); // 다이어리 가져옴
+		Diary diary = diaryService.getDiary(10057); // 다이어리 가져옴
 		diaryService.updateDiaryStatus(diary);
 		
 		Diary diary2 = diaryService.getDiary(10055);
@@ -206,7 +206,7 @@ public class DiaryServiceTest {
 	//@Test
 	public void testUpdateDiaryViewCount() throws Exception {
 		
-		diaryService.updateDiaryViewCount(10055);
+		diaryService.updateDiaryViewCount(10056);
 	}
 	
 	//@Test - 진행중 
@@ -221,15 +221,16 @@ public class DiaryServiceTest {
 		System.out.println(map);
 	}
 	
-	//@Test - 진행중 
+	//@Test
 	public void testGetDiaryList() throws Exception {
 		
 		Search search = new Search();
 		search.setPageSize(5);
 		search.setCurrentPage(1);
 		
-		search.setSearchKeyword("제주");
-		search.setSearchSorting("0");
+		search.setSearchKeyword("채경");
+		search.setSearchCondition("3");
+		search.setSearchSorting("2");
 		
 		// 통합검색에서 검색조건에 맞춰서 기록 불러올때 
 		Map <String, Object> map = diaryService.getDiaryList(search);
@@ -251,7 +252,7 @@ public class DiaryServiceTest {
 //		diaryService.updateUserScrapCount("king영진");
 	}
 	
-	@Test
+	//@Test
 	public void testDeleteGroup() throws Exception {
 		diaryService.deleteGroup(10060);
 	}
