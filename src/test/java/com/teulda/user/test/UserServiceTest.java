@@ -39,11 +39,11 @@ public class UserServiceTest {
 			System.out.println("debug");
 		
 			User user = new User();
-			user.setNickName("testUser2");
-			user.setEmail("corud1130@.com");
+			user.setNickname("testUser3");
+			user.setEmail("corud1130");
 			user.setPassword("testPasswd");
 			user.setName("SCOTT");
-			user.setPhone("110-2222-3333");
+			user.setPhone("110-2222-3345");
 			user.setBirth("2000-01-01");
 			user.setAddress("대한민국 서울");
 			user.setLikePlace("대한민국 부산");
@@ -56,11 +56,11 @@ public class UserServiceTest {
 			System.out.println(user);
 			userService.addUser(user);
 			
-			user = userService.getUser("testUser2");
+			user = userService.getUser("testUser3");
 
 			System.out.println(user);
 
-			Assert.assertEquals("testUser2", user.getNickName());
+			Assert.assertEquals("testUser3", user.getNickname());
 			Assert.assertEquals("corud1130@gmail.com", user.getEmail());
 			Assert.assertEquals("testPasswd", user.getPassword());
 			Assert.assertEquals("SCOTT", user.getName());
@@ -83,7 +83,7 @@ public class UserServiceTest {
 			System.out.println(user);//확인
 			System.out.println("debug");
 			
-			Assert.assertEquals("testNick", user.getNickName());
+			Assert.assertEquals("testNick", user.getNickname());
 			Assert.assertEquals("change@change.com", user.getEmail());
 			Assert.assertEquals("testPasswd", user.getPassword());
 			Assert.assertEquals("SCOTT", user.getName());
@@ -116,7 +116,7 @@ public class UserServiceTest {
 					
 					System.out.println(user);//확인
 				
-					user.setNickName("testNick");
+					user.setNickname("testNick");
 					user.setPhone("777-7777-7777");
 					user.setEmail("change@change.com");
 					user.setPassword("testPasswd");
@@ -168,7 +168,7 @@ public class UserServiceTest {
 					
 						Report report = new Report();
 						
-						report.setReportNo(10030);
+						report.setReportNo(10001);
 						report.setReportDate(null);
 						report.setReason("테스트테스트");
 						report.setReportPhoto(null);

@@ -21,11 +21,11 @@ public class User {
 	private int reportCount;// 신고당한횟수
 	private int scrapCount; // 회원 기록 총 스크랩횟수
 
-	public String getNickName() {
+	public String getNickname() {
 		return nickname;
 	}
 
-	public void setNickName(String nickname) {
+	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
 
