@@ -28,7 +28,7 @@
 	<body>
 		  <!-- ======= Header ======= -->
 		  <header>
-			<jsp:include page="../layout/toobar.jsp"/>
+			<jsp:include page="../layout/toolbar.jsp"/>
 		  </header>
 		  <hr />
 		  <!-- End Header -->

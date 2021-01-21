@@ -61,7 +61,7 @@ public class SubscribeController {
 		System.out.println("/subscribe/getSubscribeList : POST");
 		
 		User user = (User) session.getAttribute("user");
-		List<Subscribe> subscribeList = subscribeService.getSubscribeList(user.getNickName());
+		List<Subscribe> subscribeList = subscribeService.getSubscribeList(user.getNickname());
 		
 		model.addAttribute("subscribeList", subscribeList);
 		

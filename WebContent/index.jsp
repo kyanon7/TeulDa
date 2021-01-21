@@ -46,7 +46,7 @@
 <body>
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top header-transparent">
-    <jsp:include page="/layout/toobar.jsp"/>
+    <jsp:include page="/layout/toolbar.jsp"/>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->

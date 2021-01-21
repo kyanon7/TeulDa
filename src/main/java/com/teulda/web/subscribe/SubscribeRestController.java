@@ -47,7 +47,7 @@ public class SubscribeRestController {
 		
 		Subscribe subscribe = new Subscribe();
 		User user = (User) session.getAttribute("user");
-		subscribe.setSubNickname(user.getNickName());
+		subscribe.setSubNickname(user.getNickname());
 		subscribe.setSubTargetNickname(nickname);
 		subscribe.setSubscribeDate(dateTime);
 		
@@ -61,7 +61,7 @@ public class SubscribeRestController {
 		
 		Subscribe subscribe = new Subscribe();
 		User user = (User) session.getAttribute("user");
-		subscribe.setSubNickname(user.getNickName());
+		subscribe.setSubNickname(user.getNickname());
 		subscribe.setSubTargetNickname(nickname);
 		
 		return subscribeService.deleteSubscribe(subscribe);
@@ -74,8 +74,8 @@ public class SubscribeRestController {
 		
 		Subscribe subscribe = new Subscribe();
 		User user = (User) session.getAttribute("user");
-		subscribe.setSubNickname(user.getNickName());
-		subscribe.setSubTargetNickname(targetuser.getNickName());
+		subscribe.setSubNickname(user.getNickname());
+		subscribe.setSubTargetNickname(targetuser.getNickname());
 		
 		return subscribeService.checkSubscribe(subscribe);
 	}
