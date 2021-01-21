@@ -69,7 +69,9 @@
 <body>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<%-- <jsp:include page="/layout/toolbar.jsp" /> --%>
+
+    	<jsp:include page="/layout/toolbar.jsp"/>
+	
    	<!-- ToolBar End /////////////////////////////////////-->	
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
@@ -83,23 +85,47 @@
 		  			<form>
 		  			
 					<div class="form-group">
-  						<label for="email" class="col-form-label">ID</label>
-  						<input type="text" class="form-control" placeholder="ID" name="email" id="email" >
+  						<label for="email" class="col-form-label">E-mail</label>
+  						<input type="text" class="form-control" placeholder="E-mail" name="email" id="email" >
 					</div>
 					  					  
 					<div class="form-group">
   						<label for="password" class="col-form-label">PASSWORD</label>
   						<input type="password" class="form-control" placeholder="PASSWORD" name="password" id="password">
 					</div>
-					  <br><br>
+					  <br>
+					  
+					  <div class="form-check">
+				        <label class="form-check-label">
+				          <input class="form-check-input" type="checkbox" value="" checked="">
+				          	아이디 기억&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				        </label>
+				        <label class="form-check-label">
+				          <input class="form-check-input" type="checkbox" value="" checked="">
+				          	로그인 유지
+				        </label>
+				      </div>
+					  
+					  <div class="form-group">
+					    <div class="text-right">
+					      <button type="button" class="btn btn-outline-success">로그인</button>
+					      &nbsp;&nbsp;&nbsp;
+					      <a class="btn btn-outline-primary" href="#" role="button">회원가입</a>
+					    </div>
+					  </div>
 					  
 					  <div class="form-group">
 					    <div class="text-center">
-					      <button type="button" class="btn btn-outline-primary">LOGIN</button>
-					      &nbsp;&nbsp;&nbsp;&nbsp;
-					      <a class="btn btn-outline-secondary" href="#" role="button">SIGN UP</a>
+					      <button type="" class="btn btn-outline-danger">Google Login</button>
+					    </div>
+					    &nbsp;&nbsp;
+					    <div class="text-center">
+					      <button type="" class="btn btn-outline-warning">&nbsp;Kakao Login&nbsp;</button>
+			
 					    </div>
 					  </div>
+					  
+					  
 					  
 					  
 					</form>

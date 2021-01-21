@@ -181,6 +181,27 @@ public class UserServiceTest {
 						System.out.println(report);
 
 					}
+					
+					//@Test
+					public void testDeleteReport() throws Exception {
+						
+						System.out.println("debug");
+					
+						Report report = new Report();
+						
+						report.setReportNo(10001);
+						report.setReportDate(null);
+						report.setReason("테스트테스트");
+						report.setReportPhoto(null);
+						report.setReporterNick("king성영");
+						report.setTargetNick("king제현");
+						report.setReportType("욕설");
+						
+						userService.addReport(report);		
+
+						System.out.println(report);
+
+					}
 				 
 				
 }

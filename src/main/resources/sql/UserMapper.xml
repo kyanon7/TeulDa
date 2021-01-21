@@ -95,6 +95,8 @@
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT nickname , user_name, user_addr, like_addr
 											FROM users
+											<where>
+       										(is_public = 't' AND role = '1')
 											<if test="searchCondition != null">
 												<where>
 													<if test="searchCondition == 0 and searchKeyword !='' ">
@@ -106,8 +108,12 @@
 													<if test="searchCondition == 2 and searchKeyword !='' ">
 										 				like_addr = #{searchKeyword}
 													</if>
+											<if test="searchCondition == null and searchKeyword !='' ">
+												(nickname = #{searchKeyword} or user_addr = #{searchKeyword} orlike_addr = #{searchKeyword})
+											</if>
 												</where>
 											</if>
+											</where>
 											ORDER BY
 												<where>
 													<if test="searchSorting == 0 and searchKeyword !='' ">
@@ -117,14 +123,19 @@
 										 				nickname DESC
 													</if>
 													<if test="searchSorting == 2 and searchKeyword !='' ">
-										 				name DESC
+										 				user_name DESC
 													</if>
 													
 												</where>) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
-	
+	 
+	<!-- 부분검색바꿔주기 카운트 추가 --> 
+	 
+	 
+	 
+	 
 	
 	<!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
