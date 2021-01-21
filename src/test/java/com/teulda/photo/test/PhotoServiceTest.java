@@ -182,7 +182,7 @@ public class PhotoServiceTest {
 	}
 	
 	//앨범목록 & 갯수
-	//@Test
+	@Test
 	public void testGetGroupList() throws Exception{
 		
 		Group group = new Group();

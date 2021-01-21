@@ -1,6 +1,23 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<head>
+		<!-- Vendor CSS Files -->
+		<link href="../resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../resources/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+		<link href="../resources/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+		<link href="../resources/assets/vendor/venobox/venobox.css" rel="stylesheet">
+		<link href="../resources/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+		<link href="../resources/assets/vendor/aos/aos.css" rel="stylesheet">
+		
+		<!-- Template Main CSS File -->
+		<link href="../resources/assets/css/style.css" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" >
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap-theme.min.css" >  
+		
+</head>
+	
 <div class="container d-flex align-items-center">
 
 	<div class="logo mr-auto">
