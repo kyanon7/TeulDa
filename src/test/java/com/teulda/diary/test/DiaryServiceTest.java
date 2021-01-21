@@ -228,6 +228,9 @@ public class DiaryServiceTest {
 		search.setPageSize(5);
 		search.setCurrentPage(1);
 		
+		search.setSearchKeyword("제주");
+		search.setSearchSorting("0");
+		
 		// 통합검색에서 검색조건에 맞춰서 기록 불러올때 
 		Map <String, Object> map = diaryService.getDiaryList(search);
 		System.out.println(map);
@@ -248,7 +251,7 @@ public class DiaryServiceTest {
 //		diaryService.updateUserScrapCount("king영진");
 	}
 	
-	@Test
+	//@Test
 	public void testDeleteGroup() throws Exception {
 		diaryService.deleteGroup(10060);
 	}
