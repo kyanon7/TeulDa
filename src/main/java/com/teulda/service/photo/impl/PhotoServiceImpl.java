@@ -74,7 +74,6 @@ public class PhotoServiceImpl implements PhotoService {
 	//그룹조회 list => 완료
 	@Override
 	public Map<String, Object> getGroupList(Group group) throws Exception {
-		
 		List<Group> groupList = photoDao.getGroupList(group);
 		int totalCount = photoDao.getGroupTotalCount(group);
 		
@@ -83,6 +82,7 @@ public class PhotoServiceImpl implements PhotoService {
 		map.put("totalCount", totalCount);
 		
 		return map;
+		
 	}
 
 	//사진이름 변경 => 완료
