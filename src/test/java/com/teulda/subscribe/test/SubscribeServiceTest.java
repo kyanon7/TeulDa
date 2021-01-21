@@ -62,7 +62,7 @@ public class SubscribeServiceTest {
 		Subscribe subscribe = new Subscribe();
 		subscribe.setSubscribeDate(dateTime);
 		
-		String list[] = {"king성영", "king주원", "king정인", "king채경", "king제현", "testNick", "tester1", "tester2", "tester3", "tester4", "tester5"};
+		String list[] = {"king성영", "king주원", "king정인", "king채경", "king제현", "testUser0", "testUser1", "testUser2", "testUser3", "testUser4", "testUser5", "testUser7", "testUser8", "testUser9"};
 		List<String> userList = Arrays.asList(list);
 //		List<String> userList = new ArrayList<String>(Arrays.asList(list));
 		

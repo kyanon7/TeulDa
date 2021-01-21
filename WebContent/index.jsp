@@ -37,7 +37,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   
-  <script src="../resources/js/review.js"></script>
+  <script src="resources/js/review.js"></script>
   <script type="text/javascript">
   </script>
 

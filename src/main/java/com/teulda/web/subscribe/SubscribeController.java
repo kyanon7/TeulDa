@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Subscribe;
 import com.teulda.service.domain.User;
 import com.teulda.service.subscribe.SubscribeService;
@@ -42,28 +43,30 @@ public class SubscribeController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value="getSubscribeList", method=RequestMethod.GET)
-	public String getSubscribeList(@RequestParam("nickname") String nickname, Model model) throws Exception {
-		
-		System.out.println("/subscribe/getSubscribeList : GET");
-		
-		System.out.println(nickname);
-		List<Subscribe> subscribeList = subscribeService.getSubscribeList(nickname);
-		
-		model.addAttribute("subscribeList", subscribeList);
-		
-		return "forward:/subscribe/listSubscribe.jsp";
-	}
+//	@RequestMapping(value="listSubscribe", method=RequestMethod.GET)
+//	public String getSubscribeList(@RequestParam("nickname") String nickname, Model model) throws Exception {
+//		
+//		System.out.println("/subscribe/listSubscribe : GET");
+//		
+//		System.out.println(nickname);
+//		List<Subscribe> subscribeList = subscribeService.getSubscribeList(nickname);
+//		
+//		model.addAttribute("subscribeList", subscribeList);
+//		
+//		return "forward:/subscribe/listSubscribe.jsp";
+//	}
 	
-	@RequestMapping(value="getSubscribeList", method=RequestMethod.POST)
+	@RequestMapping(value="listSubscribe")
 	public String getSubscribeList(HttpSession session, Model model) throws Exception {
 		
-		System.out.println("/subscribe/getSubscribeList : POST");
+		System.out.println("/subscribe/listSubscribe : GET / POST");
 		
 		User user = (User) session.getAttribute("user");
 		List<Subscribe> subscribeList = subscribeService.getSubscribeList(user.getNickname());
+		List<Diary> diaryList = subscribeService.getSubscriberDiaryList(user.getNickname());
 		
 		model.addAttribute("subscribeList", subscribeList);
+		model.addAttribute("diaryList", diaryList);
 		
 		return "forward:/subscribe/listSubscribe.jsp";
 	}

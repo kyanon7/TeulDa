@@ -52,7 +52,6 @@ public class SubscribeDaoImpl implements SubscribeDao {
 	
 	@Override
 	public List<Diary> getSubscriberDiaryList(List<String> subscriberList) throws Exception{
-		System.out.println(subscriberList);
-		return sqlSession.selectList("SubscribeMapper.getSubscribeDiaryList", subscriberList);
+		return sqlSession.selectList("DiaryMapper.getSubscribeDiaryList", subscriberList);
 	}
 }
