@@ -17,7 +17,7 @@
 		<result property="nickname"				column="origin_nick"		jdbcType="VARCHAR" />
 		<result property="startDate"			column="start_date"			jdbcType="DATE" />
 		<result property="endDate"				column="end_date"			jdbcType="DATE" />
-		<result property="content"				column="content"			jdbcType="LONGVARCHAR" />
+		<result property="content"				column="content"			jdbcType="CLOB"  javaType="java.lang.String" />
 		<result property="thumbnail"			column="thumbnail"			jdbcType="VARCHAR" />
 		<result property="viewCount"			column="view_count"			jdbcType="NUMERIC" />
 		<result property="scrapCount"			column="scrap_count"		jdbcType="NUMERIC" />
@@ -66,7 +66,7 @@
             	
 	VALUES 	(seq_diary_diary_id.nextval, #{title}, #{location}, #{latitude}, #{longitude}, SYSDATE, 
 			#{nickname}, #{startDate}, #{endDate}, 
-        	#{content:LONGVARCHAR}, #{thumbnail:VARCHAR},  (select group_id
+        	#{content:CLOB}, #{thumbnail:VARCHAR},  (select group_id
                             								from groups	
                             								where nickname = #{nickname} and group_name = 'default2'),
         	#{currency:VARCHAR}, #{transBill:NUMERIC}, #{roomBill:NUMERIC}, 
@@ -265,6 +265,15 @@
      	  <!-- 추후 정렬 조건 추가하기 -->
      	  ) countTable 
 	</select>
+	
+	<!-- SQL : SELECT SUBSCRIBE DIARY LIST -->
+   <select  id="getSubscribeDiaryList"  parameterType="list"   resultMap="diarySelectMap">
+   SELECT * 
+   FROM diary
+   WHERE origin_nick IN 
+   <foreach collection="list" item="value" index="idx" open="(" close=")" separator=",">#{value}</foreach>
+   ORDER BY diary_date DESC
+   </select>
 	
 	<!-- SQL : UPDATE -->
 	<update	id="updateDiary"	parameterType="diary">
