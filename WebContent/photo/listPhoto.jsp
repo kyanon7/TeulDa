@@ -9,7 +9,6 @@
 
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>		
-
 	</head>
 	<body>
 	<!-- ======= Header ======= -->
@@ -18,21 +17,20 @@
 	</header>
 	<!-- End Header -->
   
-		<div class="col-md-2">
-			<ul class="list-group">
-			  <li class="list-group-item d-flex justify-content-between align-items-center">
-			    <a href="#">지도로 보기</a>
-			    <span class="badge badge-primary badge-pill">14</span>
-			  </li>
-			  <li class="list-group-item d-flex justify-content-between align-items-center">
-			    <a href="#">목록으로 보기</a>
-			    <span class="badge badge-primary badge-pill">2</span>
-			  </li>
-			  <li class="list-group-item d-flex justify-content-between align-items-center">
-			    <a href="#">사진 휴지통</a>
-			    <span class="badge badge-primary badge-pill">1</span>
-			  </li>
-			</ul>
-		</div>
+  	<section>
+  		<jsp:include page="/photo/photoLeft.jsp"></jsp:include>
+  	</section>
+  	<div class="col-md-9">
+	<table class="table table-hover" align="right">
+	  <thead>
+	    <tr>
+	      <th scope="row">Default</th>
+	      <td>Column content</td>
+	      <td>Column content</td>
+	      <td>Column content</td>
+	    </tr>
+	  </tbody>
+	</table>
+	</div>
 	</body>
 </html>
