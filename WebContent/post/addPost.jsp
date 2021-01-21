@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-	    <title>Insert title here</title>
+	    <title>여행지 정보 공유</title>
 	</head>
 	<body>
   
