@@ -14,7 +14,7 @@ public interface SubscribeService {
 	public List<Subscribe> getSubscribeList(String subNickname) throws Exception;
 	
 	// 구독자 기록 목록 조회
-	public List<Diary> getSubscribesDiaryList(String subNickname) throws Exception;
+	public List<Diary> getSubscriberDiaryList(String subNickname) throws Exception;
 	
 	// 구독 취소
 	public boolean deleteSubscribe(Subscribe subscribe) throws Exception;

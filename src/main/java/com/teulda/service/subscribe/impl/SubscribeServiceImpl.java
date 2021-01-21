@@ -1,7 +1,9 @@
 package com.teulda.service.subscribe.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +20,10 @@ import com.teulda.service.subscribe.SubscribeService;
 		@Autowired
 		@Qualifier("subscribeDaoImpl")
 		private SubscribeDao subscribeDao;
+		
+//		@Autowired
+//		@Qualifier("diaryDaoImpl")
+//		private DiaryDao diaryDao;
 		
 		public void setSubscribeDao(SubscribeDao subscribeDao){
 			this.subscribeDao = subscribeDao;
@@ -44,18 +50,16 @@ import com.teulda.service.subscribe.SubscribeService;
 	}
 	
 	@Override
-	public List<Diary> getSubscribesDiaryList(String subNickname) throws Exception{
+	public List<Diary> getSubscriberDiaryList(String subNickname) throws Exception{
 		
-//		for(Subscribe each : subscribeDao.getSubscribeList(subNickname)) {
-//			each.getSubTargetNickname()
-//		}
+		List<String> list = new ArrayList<String>();
+		for(Subscribe each : subscribeDao.getSubscribeList(subNickname)) {
+			list.add(each.getSubTargetNickname());
+		}
 		
-		List<Diary> diaryList = new ArrayList<Diary>();
+		System.out.println(list);
 		
-		
-		
-		
-		return diaryList;
+		return subscribeDao.getSubscriberDiaryList(list);
 	}
 
 	@Override
