@@ -39,11 +39,11 @@ public class UserServiceTest {
 			System.out.println("debug");
 		
 			User user = new User();
-			user.setNickName("testNick");
-			user.setEmail("corud1130@gmail.com");
+			user.setNickName("testUser2");
+			user.setEmail("corud1130@.com");
 			user.setPassword("testPasswd");
 			user.setName("SCOTT");
-			user.setPhone("111-2222-3333");
+			user.setPhone("110-2222-3333");
 			user.setBirth("2000-01-01");
 			user.setAddress("대한민국 서울");
 			user.setLikePlace("대한민국 부산");
@@ -51,16 +51,16 @@ public class UserServiceTest {
 			//user.setStatus('0');
 			user.setStatusDate(null);
 			user.setIsPublic('t');
-			user.setRole('0');
+			user.setRole('1');
 			
 			System.out.println(user);
 			userService.addUser(user);
 			
-			user = userService.getUser("testNick");
+			user = userService.getUser("testUser2");
 
 			System.out.println(user);
 
-			Assert.assertEquals("testNick", user.getNickName());
+			Assert.assertEquals("testUser2", user.getNickName());
 			Assert.assertEquals("corud1130@gmail.com", user.getEmail());
 			Assert.assertEquals("testPasswd", user.getPassword());
 			Assert.assertEquals("SCOTT", user.getName());

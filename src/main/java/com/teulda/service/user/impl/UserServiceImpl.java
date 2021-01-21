@@ -87,9 +87,9 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public User getUser(String nickName) throws Exception {
+	public User getUser(String email) throws Exception {
 
-		return userDao.getUser(nickName);
+		return userDao.getUser(email);
 	}
 
 	@Override

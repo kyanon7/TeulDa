@@ -25,7 +25,23 @@
 		<!-- Uncomment below if you prefer to use an image logo -->
 		<!-- <a href="index.html"><img src="resources/assets/img/logo.png" alt="" class="img-fluid"></a>-->
 	</div>
-
+ <c:if test="${  empty user }">
+	<nav class="nav-menu d-none d-lg-block">
+		<ul>
+		<li class="active"><a href="../index.jsp">Home</a></li>
+		<li><a href="#portfolio">Top 10 </a></li>
+		
+		<li class="drop-down"><a href="">MyPage</a>
+		
+		</li>
+		<li class="active"><a href="../user/login.jsp">Login</a></li>
+	
+		</ul>
+		
+	</nav>
+	</c:if>
+	
+	 <c:if test="${ ! empty user }">
 	<nav class="nav-menu d-none d-lg-block">
 		<ul>
 		<li class="active"><a href="../index.jsp">Home</a></li>
@@ -45,11 +61,13 @@
 			<li><a href="#">구독</a></li>
 			</ul>
 		</li>
-		<li class="active"><a href="../user/login.jsp">Login</a></li>
-		<li><a href="#contact">Sign Up</a></li>
+		<li class="active"><a href="../user/login.jsp">Logout</a></li>
+		<li class="active"><a href="../user/addUser.jsp">Sign Up</a></li>
 		<li><a href="#contact">사람 아이콘</a></li>
 		</ul>
 		
-	</nav><!-- .nav-menu -->
+	</nav>
+	</c:if>
+	<!-- .nav-menu -->
 
 </div>

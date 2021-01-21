@@ -49,7 +49,7 @@
 	<select	id="getUser"	 parameterType="com.teulda.service.domain.User"	 resultMap="userSelectMap">
 		SELECT *
 		FROM users
-		WHERE nickname = #{nickName}
+		WHERE email = #{email}
 	</select>
 	
 	<!-- SQL : UPDATE 회원정보 업데이트 -->

@@ -47,7 +47,7 @@ public class UserController {
 	
 		System.out.println("/user/addUser : GET");
 		
-		return "redirect:/user/addUserView.jsp";
+		return "redirect:/user/addUser.jsp";
 	}
 	
 	@RequestMapping( value="addUser", method=RequestMethod.POST )
@@ -57,7 +57,7 @@ public class UserController {
 		//Business Logic
 		userService.addUser(user);
 		
-		return "redirect:/user/loginView.jsp";
+		return "redirect:/user/login.jsp";
 	}
 	
 
@@ -107,7 +107,7 @@ public class UserController {
 		
 		System.out.println("/user/logon : GET");
 
-		return "redirect:/user/loginView.jsp";
+		return "redirect:/user/login.jsp";
 	}//로그인 뷰로 이동하는 메소드
 	
 	@RequestMapping( value="login", method=RequestMethod.POST )
@@ -119,6 +119,7 @@ public class UserController {
 		
 		if( user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
+			System.out.println(dbUser);
 		}
 		
 		return "redirect:/index.jsp";
