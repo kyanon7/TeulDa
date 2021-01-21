@@ -4,48 +4,78 @@
 <!DOCTYPE html>
 <html lang="ko">
 
-	<head>
+		<head>
 		<meta charset="UTF-8" />
-		 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-		 
-	    <title>자유게시판</title>
-	     <meta content="" name="description">
- 	 <meta content="" name="keywords">	
-	
-	 <link href="../resources/assets/img/favicon.png" rel="icon">
- 	 <link href="../resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-	
-	 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-	
-	
-	    <link href="../resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    	<link href="../resources/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-    	<link href="../resources/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    	<link href="../resources/assets/vendor/venobox/venobox.css" rel="stylesheet">
-    	<link href="../resources/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-    	<link href="../resources/assets/vendor/aos/aos.css" rel="stylesheet">
+		<title>자유게시판</title>
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 
-  <!-- Template Main CSS File -->
- 	 <link href="../resources/assets/css/style.css" rel="stylesheet">
-  
-  	 <script src="../resources/js/review.js"></script>
-  	 <script type="text/javascript">
- 	 </script>
+    <style>
+      .card-columns {
+          column-count: 4;
+      }
+    </style>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+	</head>
+	
+	<body>
+		  <!-- ======= Header ======= -->
+		  <header>
+			<jsp:include page="../layout/toolbar.jsp"/>
+		  </header>
+		  <hr />
+		
+		<script type="text/javascript">
+		
+function fncGetPostList(currentPage){
+	
+	$("#currentPage").val(currentPage)
+	$("form").attr("method","POST").attr("action","/post/getPostList?postCategory=${postCategory}").submit();
+}
+		$(function(){
+			$(".table-active").on("click", function(){
+				
+				fncGetPostList(1);
+			});
+		});
+		
+	</script>
  </head>
-<body>
+ 
+ 
+ 
+ 
+ <body>
+ 
+ <div class="bs-docs-section">
+          <div class="col-lg-3 mr-auto">
+              <h1 id="tables">자유게시판</h1>
+            </div>
 
+ 	 <div class="col-lg-2 mr-auto">
 	 <div class="list-group">
- 	 	<a href="#" class="list-group-item list-group-item-action active">새 글쓰기</a>
+ 	 	 <a href="#" class="list-group-item list-group-item-action active">새 글 쓰기</a>
  		 <a href="#" class="list-group-item list-group-item-action">여행지 정보공유</a>
- 		 <a href="#" class="list-group-item list-group-item-action disabled">맛집 정보공유</a>
- 		 <a href="#" class="list-group-item list-group-item-action disabled">숙소 정보공유</a>
-  	     <a href="#" class="list-group-item list-group-item-action disabled">Q&A</a>
-   	     <a href="#" class="list-group-item list-group-item-action disabled">잡담</a>
-    
+ 		 <a href="#" class="list-group-item list-group-item-action">맛집 정보공유</a>
+ 		 <a href="#" class="list-group-item list-group-item-action">숙소 정보공유</a>
+  	     <a href="#" class="list-group-item list-group-item-action">Q&A</a>
+   	     <a href="#" class="list-group-item list-group-item-action">잡담</a>
 	</div>
-  
-  
+</div>
+</div>
+
+
+
+   <div class="col-lg-10  mr-auto">
   <table class="table table-hover">
+  <tr>
+  	<td colspan="11">
+  		전체  ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage} 페이지
+  	</td>
+  </tr>
   <thead>
     <tr>
       <th scope="col">글번호</th>
@@ -56,33 +86,18 @@
     </tr>
   </thead>
   <tbody>
+  <c:set var="i" value="0"/>
+  	<c:forEach var="post" items="${list}">
+  		<c:set var="i" value="${i+1}"/>
     <tr class="table-active">
-      <th scope="row">1</th>
-      <td>king제현</td>
-      <td>아니 너무 가운데인데?</td>
-      <td>21/01/21</td>
-      <td>0</td>
+      <th scope="row">${ i }</th>
+      <td id="${post.nickname}"></td>
+      <td id="${post.title}"></td>
+      <td id="${post.post_date}"></td>
+      <td id="${post.view_count}"></td>
     </tr>
-     <tbody>
-    <tr class="table-active">
-      <th scope="row">1</th>
-      <td>king제현</td>
-      <td>아니 너무 가운데인데?</td>
-      <td>21/01/21</td>
-      <td>0</td>
-    </tr>
-  
-  </tbody> <tbody>
-    <tr class="table-active">
-      <th scope="row">1</th>
-      <td>king제현</td>
-      <td>아니 너무 가운데인데?</td>
-      <td>21/01/21</td>
-      <td>0</td>
-    </tr>
- 
-    
-  </tbody>
-  </tbody>
+   </c:forEach>
 </table>
+</div>
+
 	</body>
