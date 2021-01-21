@@ -50,7 +50,7 @@
 	<!-- SQL : POST SELECT ONE -->
 	<select	id="getPost"	parameterType="int"	resultMap="postSelectMap">
 		SELECT
-		*
+		post_id, title, content, post_date, view_count, nickname, post_type
 		FROM post
 		WHERE post_id = #{value}
 	</select>
@@ -108,11 +108,26 @@
 	<!-- 이거 받을때 서비스 임플에서 map으로 받아야되  -->
 	<select  id="getPostList"  parameterType="map"	resultMap="postSelectMap">
 		SELECT * 
-		FROM POST
-		WHERE post_type = #{postCategory}
-		ORDER BY post_id DESC
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+			FROM		(SELECT post_id, nickname, title, post_date, view_count
+							FROM POST
+								<if test="searchCondition != null">
+									<where>
+										<if test="searchCondition == 0 and searchCondition !='' ">
+											nickname = #{searchKeyword}
+										</if>
+										<if test="searchCondition == 1 and searchCondition !='' ">
+											title = #{searchKeyword}
+										</if>
+										</where>
+								</if>
+								WHERE post_type = #{postCategory}
+								ORDER BY post_id) inner_table
+					WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 	
 	</select>
 	
+
 	<select  id="getPostTotalCount"  parameterType="search"	 resultType="int">
 	SELECT COUNT(*)
 	FROM (SELECT    post_id, nickname, title, content, post_date, view_count, post_type
@@ -164,8 +179,9 @@
 		FROM PHOTO
 		WHERE photo_id = #{photoNo}
 	</delete> -->
+
 	
-	
+
 	
 
 </mapper>
