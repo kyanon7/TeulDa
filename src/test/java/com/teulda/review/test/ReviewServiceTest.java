@@ -40,7 +40,7 @@ public class ReviewServiceTest {
 //	@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	int no = 10007;
+	int no = 10001;
 	
 	//@Test
 	public void testAddReview() throws Exception{

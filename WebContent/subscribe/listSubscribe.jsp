@@ -62,8 +62,9 @@
               <div class="card-body">
                 <h5 class="card-title">${diary.title}</h5>
                 <p class="card-text">${diary.content}</p>
-                <p class="card-text"><small class="text-muted"></small>${diary.location}</p>
+                <p class="card-text"><small class="text-muted">${diary.location}</small></p>
                 <p class="card-text"><small class="text-muted">${diary.writeDate}</small></p>
+                <p class="card-text"><small class="text-muted">조회수 ${diary.viewCount}회</small></p>
             </div>
           </div>
         </c:forEach>
