@@ -63,7 +63,7 @@
 		</li>
 		<li class="active"><a href="../user/login.jsp">Logout</a></li>
 		<li class="active"><a href="../user/addUser.jsp">Sign Up</a></li>
-		<li><a href="#contact">사람 아이콘</a></li>
+		<li class="active"><a href="../user/getUser.jsp">사람 아이콘</a></li>
 		</ul>
 		
 	</nav>

@@ -65,9 +65,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkNicknameDuplication(String nickName) throws Exception {
+	public boolean checkNicknameDuplication(String nickname) throws Exception {
 		boolean result=true;
-		User user=userDao.getUser(nickName);
+		User user=userDao.getUser(nickname);
 		if(user != null) {
 			result=false;
 		}
@@ -111,8 +111,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(String nickName) throws Exception {
-		userDao.deleteUser(nickName);
+	public void deleteUser(String nickname) throws Exception {
+		userDao.deleteUser(nickname);
 		
 	}
 

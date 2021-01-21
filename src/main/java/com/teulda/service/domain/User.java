@@ -5,7 +5,7 @@ import java.sql.Date;
 public class User {
 
 	/// Field
-	private String nickName;// 닉네임(PK 및 중복불가)
+	private String nickname;// 닉네임(PK 및 중복불가)
 	private String email;// 이메일(아이디로 사용,U)
 	private String password;// 비밀번호
 	private String name;// 이름
@@ -22,11 +22,11 @@ public class User {
 	private int scrapCount; // 회원 기록 총 스크랩횟수
 
 	public String getNickName() {
-		return nickName;
+		return nickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickName(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getEmail() {
@@ -143,7 +143,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [nickName=" + nickName + ", email=" + email + ", password=" + password + ", name=" + name
+		return "User [nickname=" + nickname + ", email=" + email + ", password=" + password + ", name=" + name
 				+ ", phone=" + phone + ", address=" + address + ", likePlace=" + likePlace + ", birth=" + birth
 				+ ", profilePhoto=" + profilePhoto + ", statusDate=" + statusDate + ", status=" + status + ", isPublic="
 				+ isPublic + ", role=" + role + ", reportCount=" + reportCount + ", scrapCount=" + scrapCount + "]";

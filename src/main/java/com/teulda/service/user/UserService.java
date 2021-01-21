@@ -21,13 +21,13 @@ public interface UserService {
 	
 	public boolean checkPhoneDuplication(String phone) throws Exception;//전화번호 중복체크
 	
-	public boolean checkNicknameDuplication(String nickName) throws Exception;//닉네임 중복체크
+	public boolean checkNicknameDuplication(String nickname) throws Exception;//닉네임 중복체크
 	
 	public User login(String email) throws Exception;//로그인
 	
 	//public User logout(HttpServletRequest request, HttpServletResponse response) throws Exception;//로그아웃
 	
-	public User getUser(String nickName) throws Exception;//유저정보 조회 완
+	public User getUser(String nickname) throws Exception;//유저정보 조회 완
 	
 	public Map<String, Object> getUserList(Search search) throws Exception;//유저리스트 조회
 	
@@ -35,7 +35,7 @@ public interface UserService {
 	
 	public void updateUserStatus(String status) throws Exception ;//유저상태 업데이트  
 	
-	public void deleteUser(String nickName) throws Exception ;//유저삭제 완
+	public void deleteUser(String nickname) throws Exception ;//유저삭제 완
 	
 	public void addReport(Report report) throws Exception;//유저신고 생성
 	
