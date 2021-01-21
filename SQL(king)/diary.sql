@@ -202,6 +202,22 @@ from ( select inner_table.*, rownum as row_seq
       where rownum <= 5 )
 where row_seq between 1 and 5;
 
++ 검색조건 추가
+
+SELECT inner_table.*, rownum as row_seq
+FROM   (SELECT  diary_id, title, diary_addr, diary_date, 
+                origin_nick, start_date, end_date,
+                content, thumbnail, view_count
+        FROM diary
+        WHERE   is_public = 't' and delete_date is null and scrap_nick is null
+                and title like '%제주%'
+                and 1=1 and     (
+                                contains(content, '%한라봉%') >0 
+                                )
+                and origin_nick like '%king%'
+                and diary_addr like '%제주%'
+        order by diary_date desc) inner_table
+
 // get diary count
 
 select count(*)

@@ -199,20 +199,59 @@
        		) countTable
 	</select>
 	
-	<!-- SQL : SELECT LIST --> <!-- 추후 Search 조건 추가하기 -->
+	<!-- SQL : SELECT LIST --> <!-- 진행중 -->
 	<!-- 통합검색에서 보이는 기록 리스트는 공개 기록이여야 하며, 삭제일자가 없어야 하며, 스크랩된 기록이 아니여야 한다 -->
+	<!-- searchCondition : 제목/내용/여행장소/작성자 닉네임 & searchSorting : 최신순/조회수/스크랩 횟수 많은순 -->
 	<select  id="getDiaryList"  parameterType="search"	resultMap="diarySelectMap">
 	SELECT *
-	FROM 	(SELECT inner_table.*, rownum as row_seq
-        	 FROM    (SELECT    diary_id, title, diary_addr, diary_date, 
-                            	origin_nick, start_date, end_date,
-                            	content, thumbnail, view_count
-                	 FROM diary
-               	 	 WHERE is_public = 't' and delete_date is null and scrap_nick is null
-               	 	 <!-- 추후 정렬 조건 추가하기 -->
-               	 	 ) inner_table
-      		WHERE ROWNUM &lt; = #{endRowNum})
-	WHERE row_seq between #{startRowNum} and #{endRowNum}
+	FROM	(SELECT inner_table.*, rownum as row_seq
+			FROM   (SELECT  diary_id, title, diary_addr, diary_date, 
+                			origin_nick, start_date, end_date,
+                			content, thumbnail, view_count, scrap_count
+        			FROM diary
+        			<where>
+       				is_public = 't' AND delete_date is null AND scrap_nick is null
+       					<if test="searchCondition == null and searchKeyword !='' "> <!-- 제목, 내용, 작성자, 여행 장소 다 검색 -->
+                			AND title like #{searchKeyword}
+                			AND 1=1 AND     (
+                                			contains(content, #{searchKeyword}) >0 
+                                			)
+                			AND diary_addr like #{searchKeyword}
+                			AND origin_nick like #{searchKeyword}
+                		</if>
+                		<if test="searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                				<when test="searchCondition == 0 and searchKeyword !='' "> <!-- 검색조건 : 제목 -->
+                				AND title like #{searchKeyword}
+                				</when>
+                				<when test="searchCondition == 1 and searchKeyword !='' "> <!-- 검색조건 : 내용 -->
+                				AND 1=1 AND     (
+                                				contains(content, #{searchKeyword}) >0 
+                                				)
+                				</when>
+                				<when test="searchCondition == 2 and searchKeyword !='' "> <!-- 검색조건 : 여행지 주소 -->
+                				AND diary_addr like #{searchKeyword}
+                				</when>
+                				<when test="searchCondition == 3 and searchKeyword !='' "> <!-- 검색조건 : 작성자 닉네임 -->
+                				AND origin_nick like #{searchKeyword}
+                				</when>
+                			</choose>
+                		</if>
+            		</where>
+        			<choose>
+        				<when test = "searchSorting == 0"> <!-- 기본이 0 (최신순) -->
+        				ORDER BY diary_date DESC
+        				</when>
+        				<when test = "searchSorting == 1">
+        				ORDER BY view_count DESC
+        				</when>
+        				<when test = "searchSorting == 2">
+        				ORDER BY scrap_count DESC
+        				</when>
+        			</choose>
+        			) inner_table
+        	WHERE ROWNUM &lt; = #{endRowNum})
+    WHERE row_seq between #{startRowNum} and #{endRowNum}
 	</select> 
 	
 	<!-- SQL : SELECT ROW Count -->	 
