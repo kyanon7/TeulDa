@@ -34,7 +34,7 @@
                <div class="dropdown-menu" >
                <a class="dropdown-item" href="#">기록</a>
                <a class="dropdown-item" href="#">앨범</a>
-               <a class="dropdown-item" id="review" href="#">후기</a>
+               <a class="dropdown-item" id="review" href="../review/listReview">후기</a>
                <a class="dropdown-item" id="subscribe" href="../subscribe/listSubscribe">구독</a>
                </div>
             </li>
