@@ -1,5 +1,6 @@
 package com.teulda.service.diary.impl;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -208,6 +209,26 @@ public class DiaryServiceImpl implements DiaryService {
 	public void printDiary(Diary diary) throws Exception {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public List<Diary> getSubscriberDiaryList(List<String> subscriberList, Timestamp start) throws Exception{
+		
+		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
+		subscriberListInfo.put("subscriberList", subscriberList);
+		subscriberListInfo.put("start", start);
+		
+		return diaryDao.getSubscriberDiaryList(subscriberListInfo);
+	}
+	
+	@Override
+	public List<Diary> getSubscriberDiaryPeriodList(List<String> subscriberList, Timestamp start, Timestamp end) throws Exception {
+		
+		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
+		subscriberListInfo.put("subscriberList", subscriberList);
+		subscriberListInfo.put("start", start);
+		subscriberListInfo.put("end", end);
+		return diaryDao.getSubscriberDiaryList(subscriberListInfo);
 	}
 
 }

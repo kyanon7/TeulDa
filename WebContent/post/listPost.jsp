@@ -2,102 +2,77 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 
-		<head>
+	<head>
 		<meta charset="UTF-8" />
-		<title>자유게시판</title>
-		
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+	    <title>자유게시판</title>
 
-    <style>
-      .card-columns {
-          column-count: 4;
-      }
-    </style>
-
+		<!-- jQuery CDN -->
 		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		
+		<!-- Bootstrap CDN -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
 	</head>
-	
+
 	<body>
-		  <!-- ======= Header ======= -->
-		  <header>
+  		<!-- ======= Header ======= -->
+		<header>
 			<jsp:include page="../layout/toolbar.jsp"/>
-		  </header>
-		  <hr />
-		
-		<script type="text/javascript">
-		
-function fncGetPostList(currentPage){
-	
-	$("#currentPage").val(currentPage)
-	$("form").attr("method","POST").attr("action","/post/getPostList?postCategory=${postCategory}").submit();
-}
-		$(function(){
-			$(".table-active").on("click", function(){
+		</header><br/><br/>
+		<!-- End Header -->
+
+  		<div class="container">
+  		
+  			<div class="row">
+  				<!-- diary toolbar로 빼도 될 듯 -->
+  				<div class="col-md-3">
+  					<div class="list-group">
+  					<button type="button" class="btn btn-info disabled">자유게시판</button>
+  					<button type="button" class="btn btn-outline-info">+ 새 글 작성</button><br/>
+  					<a href="#" class="list-group-item list-group-item-action active">여행지 정보공유</a>
+  					<a href="#" class="list-group-item list-group-item-action">맛집 정보공유</a>
+  					<a href="#" class="list-group-item list-group-item-action">숙소 정보공유</a>
+  					<a href="#" class="list-group-item list-group-item-action">Q&A</a>
+  					<a href="#" class="list-group-item list-group-item-action">잡담</a>
+					</div>
+				</div>
 				
-				fncGetPostList(1);
-			});
-		});
-		
-	</script>
- </head>
- 
- 
- 
- 
- <body>
- 
- <div class="bs-docs-section">
-          <div class="col-lg-3 mr-auto">
-              <h1 id="tables">자유게시판</h1>
-            </div>
-
- 	 <div class="col-lg-2 mr-auto">
-	 <div class="list-group">
- 	 	 <a href="#" class="list-group-item list-group-item-action active">새 글 쓰기</a>
- 		 <a href="#" class="list-group-item list-group-item-action">여행지 정보공유</a>
- 		 <a href="#" class="list-group-item list-group-item-action">맛집 정보공유</a>
- 		 <a href="#" class="list-group-item list-group-item-action">숙소 정보공유</a>
-  	     <a href="#" class="list-group-item list-group-item-action">Q&A</a>
-   	     <a href="#" class="list-group-item list-group-item-action">잡담</a>
-	</div>
-</div>
-</div>
-
-
-
-   <div class="col-lg-10  mr-auto">
-  <table class="table table-hover">
-  <tr>
-  	<td colspan="11">
-  		전체  ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage} 페이지
-  	</td>
-  </tr>
-  <thead>
-    <tr>
-      <th scope="col">글번호</th>
-      <th scope="col">작성자</th>
-      <th scope="col">제 목</th>
-      <th scope="col">작성일자</th>
-      <th scope="col">조회수</th>
-    </tr>
-  </thead>
-  <tbody>
-  <c:set var="i" value="0"/>
-  	<c:forEach var="post" items="${list}">
-  		<c:set var="i" value="${i+1}"/>
-    <tr class="table-active">
-      <th scope="row">${ i }</th>
-      <td id="${post.nickname}"></td>
-      <td id="${post.title}"></td>
-      <td id="${post.post_date}"></td>
-      <td id="${post.view_count}"></td>
-    </tr>
-   </c:forEach>
-</table>
-</div>
-
+				<div class="col-md-9">
+					<ol class="breadcrumb">
+ 						 <li class="breadcrumb-item"><a href="#">내 글 보기</a></li>
+  						 <li class="breadcrumb-item"><a href="#">내 댓글 보기</a></li>
+					</ol>
+  					 	<table class="table table-hover">
+ 					 <thead>
+   					 <tr>
+    					  <th scope="col">글번호</th>
+    					  <th scope="col">작성자</th>
+    					  <th scope="col">제목</th>
+     					 <th scope="col">등록일자</th>
+     					 <th scope="col">조회수</th>
+   					 </tr>
+  				</thead>
+  				<tbody>
+  					  <tr class="table-active">
+   					   <th scope="row">Active</th>
+    				  <td>Column content</td>
+    				  <td>Column content</td>
+     				 <td>Column content</td>
+     				  <td>Column content</td>
+   				 </tr>
+    			<tr>
+				</tr>
+				</tbody>
+				</table>
+				</div>
+			
+			</div>
+  		</div>
 	</body>
+	
+	
+	
+	
+</html>

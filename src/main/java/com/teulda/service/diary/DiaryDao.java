@@ -1,6 +1,7 @@
 package com.teulda.service.diary;
 
 import java.util.List;
+import java.util.Map;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
@@ -85,5 +86,8 @@ public interface DiaryDao {
 	
 	// DELETE (그룹 삭제)
 	public void deleteGroup(int groupNo) throws Exception;
+	
+	// SELECT SUBSCRIBER DIARY LIST (구독자 기록 목록) 
+	public List<Diary> getSubscriberDiaryList(Map<String, Object> subscriberListInfo) throws Exception;
 
 }

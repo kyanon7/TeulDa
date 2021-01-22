@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.teulda.common.Search;
+import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Subscribe;
 import com.teulda.service.domain.User;
@@ -36,8 +37,17 @@ public class SubscribeServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	
+	@Autowired
+	@Qualifier("diaryServiceImpl")
+	private DiaryService diaryService;
+	
 	int subscribeNo = 10000;
     Timestamp dateTime = Timestamp.valueOf(LocalDateTime.now().withNano(0));
+    
+	LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
+	Timestamp currentdateTime = Timestamp.valueOf(localDateTime);
+	Timestamp dateTimeWeekBefore = Timestamp.valueOf(localDateTime.minusWeeks(1));
+	Timestamp dateTimeMonthBefore = Timestamp.valueOf(localDateTime.minusMonths(1));
 	
     //@Test
     public void testGetUserList() throws Exception{
@@ -82,7 +92,7 @@ public class SubscribeServiceTest {
 	public void testGetSubscribeList() throws Exception{
 
 		String subscribeNick = "king성영";
-		List<Subscribe> list = subscribeService.getSubscribeList(subscribeNick);
+		List<Subscribe> list = subscribeService.getSubscribeInfoList(subscribeNick);
 		
 		for(Subscribe each : list) {
 			System.out.println(each);
@@ -116,13 +126,17 @@ public class SubscribeServiceTest {
 	@Test
 	public void testgetSubscribeDiaryList() throws Exception{
 		
-		String subscribeNick = "king성영";
-//		List<String> list = new ArrayList<String>();
-//		for(Subscribe each : subscribeService.getSubscribeList(subscribeNick)) {
-//			list.add(each.getSubTargetNickname());
-//		}
-//		System.out.println(list);
+		String subscribeNick = "king주원";
 		
-		System.out.println(subscribeService.getSubscriberDiaryList(subscribeNick));
+		List<String> subscriberList = subscribeService.getSubscriberList(subscribeNick);
+		
+		List<Diary> diaryListWeekBefore = diaryService.getSubscriberDiaryPeriodList(subscriberList, dateTimeWeekBefore, currentdateTime);
+		List<Diary> diaryListMonthBefore = diaryService.getSubscriberDiaryPeriodList(subscriberList, dateTimeMonthBefore, dateTimeWeekBefore);
+		List<Diary> diaryListBefore = diaryService.getSubscriberDiaryList(subscriberList, dateTimeMonthBefore);
+		
+		System.out.println(diaryListWeekBefore);
+		System.out.println(diaryListMonthBefore);
+		System.out.println(diaryListBefore);
+		
 	}
 }

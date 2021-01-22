@@ -36,7 +36,7 @@ public class SubscribeDaoImpl implements SubscribeDao {
 	}
 
 	@Override
-	public List<Subscribe> getSubscribeList(String subNickname) throws Exception {
+	public List<Subscribe> getSubscribeInfoList(String subNickname) throws Exception {
 		return sqlSession.selectList("SubscribeMapper.getSubscribeList", subNickname);
 	}
 
@@ -51,7 +51,7 @@ public class SubscribeDaoImpl implements SubscribeDao {
 	}
 	
 	@Override
-	public List<Diary> getSubscriberDiaryList(List<String> subscriberList) throws Exception{
-		return sqlSession.selectList("DiaryMapper.getSubscribeDiaryList", subscriberList);
+	public List<Diary> getSubscriberDiaryList(Map<String, Object> subscriberListInfo) throws Exception{
+		return sqlSession.selectList("DiaryMapper.getSubscribeDiaryList", subscriberListInfo);
 	}
 }

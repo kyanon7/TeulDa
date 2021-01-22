@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Subscribe;
 import com.teulda.service.domain.User;
@@ -29,6 +30,10 @@ public class SubscribeController {
 	@Qualifier("subscribeServiceImpl")
 	private SubscribeService subscribeService;
 	
+	@Autowired
+	@Qualifier("diaryServiceImpl")
+	private DiaryService diaryService;
+	
 	@Value("#{commonProperties['pageUnit']}")
 //	@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
@@ -37,36 +42,33 @@ public class SubscribeController {
 //	@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	Timestamp dateTime = Timestamp.valueOf(LocalDateTime.now().withNano(0));
+	LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
+	Timestamp currentdateTime = Timestamp.valueOf(localDateTime);
+	Timestamp dateTimeWeekBefore = Timestamp.valueOf(localDateTime.minusWeeks(1));
+	Timestamp dateTimeMonthBefore = Timestamp.valueOf(localDateTime.minusMonths(1));
 	
 	public SubscribeController(){
 		System.out.println(this.getClass());
 	}
-	
-//	@RequestMapping(value="listSubscribe", method=RequestMethod.GET)
-//	public String getSubscribeList(@RequestParam("nickname") String nickname, Model model) throws Exception {
-//		
-//		System.out.println("/subscribe/listSubscribe : GET");
-//		
-//		System.out.println(nickname);
-//		List<Subscribe> subscribeList = subscribeService.getSubscribeList(nickname);
-//		
-//		model.addAttribute("subscribeList", subscribeList);
-//		
-//		return "forward:/subscribe/listSubscribe.jsp";
-//	}
-	
+
 	@RequestMapping(value="listSubscribe")
 	public String getSubscribeList(HttpSession session, Model model) throws Exception {
 		
 		System.out.println("/subscribe/listSubscribe : GET / POST");
 		
 		User user = (User) session.getAttribute("user");
-		List<Subscribe> subscribeList = subscribeService.getSubscribeList(user.getNickname());
-		List<Diary> diaryList = subscribeService.getSubscriberDiaryList(user.getNickname());
+		List<Subscribe> subscribeList = subscribeService.getSubscribeInfoList(user.getNickname());
+		
+		List<String> subscriberList = subscribeService.getSubscriberList(user.getNickname());
+		
+		List<Diary> diaryListWeekBefore = diaryService.getSubscriberDiaryPeriodList(subscriberList, dateTimeWeekBefore, currentdateTime);
+		List<Diary> diaryListMonthBefore = diaryService.getSubscriberDiaryPeriodList(subscriberList, dateTimeMonthBefore, dateTimeWeekBefore);
+		List<Diary> diaryListBefore = diaryService.getSubscriberDiaryList(subscriberList, dateTimeMonthBefore);
 		
 		model.addAttribute("subscribeList", subscribeList);
-		model.addAttribute("diaryList", diaryList);
+		model.addAttribute("diaryListWeekBefore", diaryListWeekBefore);
+		model.addAttribute("diaryListMonthBefore", diaryListMonthBefore);
+		model.addAttribute("diaryListBefore", diaryListBefore);
 		
 		return "forward:/subscribe/listSubscribe.jsp";
 	}

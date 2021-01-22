@@ -1,5 +1,6 @@
 package com.teulda.service.subscribe.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +22,6 @@ import com.teulda.service.subscribe.SubscribeService;
 		@Qualifier("subscribeDaoImpl")
 		private SubscribeDao subscribeDao;
 		
-//		@Autowired
-//		@Qualifier("diaryDaoImpl")
-//		private DiaryDao diaryDao;
-		
 		public void setSubscribeDao(SubscribeDao subscribeDao){
 			this.subscribeDao = subscribeDao;
 		}
@@ -45,23 +42,39 @@ import com.teulda.service.subscribe.SubscribeService;
 	}
 
 	@Override
-	public List<Subscribe> getSubscribeList(String subNickname) throws Exception {
-		return subscribeDao.getSubscribeList(subNickname);
+	public List<Subscribe> getSubscribeInfoList(String subNickname) throws Exception {
+		return subscribeDao.getSubscribeInfoList(subNickname);
 	}
 	
 	@Override
-	public List<Diary> getSubscriberDiaryList(String subNickname) throws Exception{
-		
-		List<String> list = new ArrayList<String>();
-		for(Subscribe each : subscribeDao.getSubscribeList(subNickname)) {
-			list.add(each.getSubTargetNickname());
+	public List<String> getSubscriberList(String subNickname) throws Exception{
+		List<String> subscriberList = new ArrayList<String>();
+		for(Subscribe each : subscribeDao.getSubscribeInfoList(subNickname)) {
+			subscriberList.add(each.getSubTargetNickname());
 		}
-		
-		System.out.println(list);
-		
-		return subscribeDao.getSubscriberDiaryList(list);
+		return subscriberList;
 	}
-
+	
+	@Override
+	public List<Diary> getSubscriberDiaryList(List<String> subscriberList, Timestamp start) throws Exception{
+		
+		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
+		subscriberListInfo.put("subscriberList", subscriberList);
+		subscriberListInfo.put("start", start);
+		
+		return subscribeDao.getSubscriberDiaryList(subscriberListInfo);
+	}
+	
+	@Override
+	public List<Diary> getSubscriberDiaryPeriodList(List<String> subscriberList, Timestamp start, Timestamp end) throws Exception {
+		
+		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
+		subscriberListInfo.put("subscriberList", subscriberList);
+		subscriberListInfo.put("start", start);
+		subscriberListInfo.put("end", end);
+		return subscribeDao.getSubscriberDiaryList(subscriberListInfo);
+	}
+	
 	@Override
 	public boolean deleteSubscribe(Subscribe subscribe) throws Exception {
 		if(!subscribeDao.checkSubscribe(subscribe)) {
@@ -75,5 +88,6 @@ import com.teulda.service.subscribe.SubscribeService;
 	public boolean checkSubscribe(Subscribe subscribe) throws Exception {
 		return subscribeDao.checkSubscribe(subscribe);	//	구독 중이면 false, 구독하지 않는 중이면 true.(그러니까 구독 가능하면 true)
 	}
+
 
 }
