@@ -28,18 +28,18 @@ public class PhotoServiceTest {
 	private PhotoService photoService;
 	
 	//사진등록
-	//@Test
+	@Test
 	public void testAddPhoto() throws Exception{
 		
 		Photo photo = new Photo();
 		
 		System.out.println("ㅎㅇ");
 //		photo.setPhotoNo(photoNo);
-		photo.setPhotoGroupNo(10018);
+		photo.setPhotoGroupNo(10012);
 //		photo.setPostNo(postNo);
 //		photo.setDiaryNo(diaryNo);
-		photo.setPhotoName("testName2");
-		photo.setPhotoAddr("testAddr");
+		photo.setPhotoName("잘들어가나?");
+		photo.setPhotoAddr("어디든");
 		photo.setLatitude(00.0000);
 		photo.setLongitude(00.0000);
 //		photo.setPhotoDate(photoDate);
@@ -60,7 +60,7 @@ public class PhotoServiceTest {
 		
 		System.out.println("디버깅용");
 //		group.setGroupNo(groupNo);
-		group.setGroupName("testGroup3");
+		group.setGroupName("좀 성공해라");
 		group.setNickname("king정인");
 //		group.setDeleteDate(deleteDate);
 //		group.setGroupType(groupType);
@@ -182,7 +182,7 @@ public class PhotoServiceTest {
 	}
 	
 	//앨범목록 & 갯수
-	@Test
+	//@Test
 	public void testGetGroupList() throws Exception{
 		
 		Group group = new Group();
