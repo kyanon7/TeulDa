@@ -12,7 +12,7 @@ public interface SubscribeDao {
 	public void addSubscribe(Subscribe subscribe) throws Exception;
 	
 	// SELECT SUBSCRIBE LIST
-	public List<Subscribe> getSubscribeList(String subNickname) throws Exception;
+	public List<Subscribe> getSubscribeInfoList(String subNickname) throws Exception;
 	
 	// DELETE SUBSCRIBE
 	public void deleteSubscribe(Subscribe subscribe) throws Exception;
@@ -20,6 +20,7 @@ public interface SubscribeDao {
 	// CHECK SUBSCRIBE
 	public boolean checkSubscribe(Subscribe subscribe) throws Exception;
 	
-	public List<Diary> getSubscriberDiaryList(List<String> subscriberList) throws Exception; 
-	
+	// SELECT SUBSCRIBER DIARY LIST
+	public List<Diary> getSubscriberDiaryList(Map<String, Object> subscriberListInfo) throws Exception;
+ 
 }

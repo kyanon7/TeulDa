@@ -170,4 +170,9 @@ public class DiaryDaoImpl implements DiaryDao {
 	public void deleteGroup(int groupNo) throws Exception {
 		sqlSession.delete("DiaryMapper.deleteGroup", groupNo);
 	}
+	
+	@Override
+	public List<Diary> getSubscriberDiaryList(Map<String, Object> subscriberListInfo) throws Exception{
+		return sqlSession.selectList("DiaryMapper.getSubscribeDiaryList", subscriberListInfo);
+	}
 }

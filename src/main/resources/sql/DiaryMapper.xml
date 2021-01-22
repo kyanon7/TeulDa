@@ -297,13 +297,22 @@
 	</select>
 	
 	<!-- SQL : SELECT SUBSCRIBE DIARY LIST -->
-   <select  id="getSubscribeDiaryList"  parameterType="list"   resultMap="diarySelectMap">
-   SELECT * 
-   FROM diary
-   WHERE origin_nick IN 
-   <foreach collection="list" item="value" index="idx" open="(" close=")" separator=",">#{value}</foreach>
-   ORDER BY diary_date DESC
-   </select>
+	<select  id="getSubscribeDiaryList"  parameterType="map"   resultMap="diarySelectMap">
+	SELECT diary_id, title, diary_addr, diary_date, origin_nick, start_date, end_date, thumbnail, group_id 
+	FROM diary
+	WHERE origin_nick IN 
+	<foreach collection="subscriberList" item="userList" index="index" open="(" close=")" separator=",">#{userList}</foreach>
+	<choose>
+		<when test="end != null">
+			AND diary_date BETWEEN #{start} AND #{end}
+		</when>
+		<otherwise>
+			AND diary_date &lt; #{start}
+		</otherwise>
+	</choose>
+	AND is_public = 't'
+	ORDER BY diary_date DESC
+	</select>
 	
 	<!-- SQL : UPDATE -->
 	<update	id="updateDiary"	parameterType="diary">

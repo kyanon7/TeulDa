@@ -277,3 +277,34 @@ where origin_nick = 'king주원'
 UPDATE users
 SET scrap_count = scrap_count + 1
 WHERE nickname = 'king영진'
+
+
+<!-- SQL : SELECT SUBSCRIBE DIARY LIST -->
+
+--나 한테 구독당한 사람들 기록을 가져오기
+
+	SELECT * 
+	FROM diary 
+	WHERE diary_date 
+	BETWEEN '2020-12-22' AND '2021-01-15' 
+	AND is_public = 't' 
+	ORDER BY diary_date DESC
+    
+    
+<!-- SQL : SELECT SUBSCRIBE DIARY LIST -->
+   <select  id="getSubscribeDiaryList"  parameterType="map"   resultMap="diarySelectMap">
+   SELECT diary_id, title, diary_addr, diary_date, origin_nick, start_date, end_date, thumbnail, group_id 
+   FROM diary
+   WHERE origin_nick IN 
+   <foreach collection="subscriberList" item="userList" index="index" open="(" close=")" separator=",">#{userList}</foreach>
+   <choose>
+		<when test="end != null">
+			AND diary_date BETWEEN #{start} AND #{end}
+		</when>
+		<otherwise>
+			AND diary_date &gt; #{start}
+		</otherwise>
+	</choose>
+   AND is_public = 't'
+   ORDER BY diary_date DESC
+   </select>

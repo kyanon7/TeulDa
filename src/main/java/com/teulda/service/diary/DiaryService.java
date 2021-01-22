@@ -1,5 +1,6 @@
 package com.teulda.service.diary;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -61,4 +62,7 @@ public interface DiaryService {
 	// 기록을 책 형식으로 인쇄
 	public void printDiary(Diary diary) throws Exception;
 
+	// 구독자 기록 목록 조회
+	public List<Diary> getSubscriberDiaryList(List<String> subscriberList, Timestamp start) throws Exception;
+	public List<Diary> getSubscriberDiaryPeriodList(List<String> subscriberList, Timestamp start, Timestamp end) throws Exception;
 }
