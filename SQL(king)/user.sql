@@ -23,5 +23,17 @@ SELECT   r.target_nick,r.reason,r.reporter_nick
 SELECT COUNT(*)
 	 FROM report
 	  where target_nick = 'king제현';
-	  	
-	  	
+	  
+//king 제현= #{targetNick}
+SELECT r.target_nick, email, (SELECT COUNT(*)FROM report r, users u
+							  where r.target_nick = 'king제현' and r.target_nick = u.nickname)
+                               FROM report r, users u
+                               where r.target_nick = 'king제현'
+                               GROUP BY r.target_nick
+
+	  
+	  
+//상태수정날짜에서 쓰일 논리(현재날짜에서 변경날짜 빼기)
+SELECT TRUNC(SYSDATE) - TO_DATE('20171110', 'YYYYMMDD') FROM DUAL;
+
+SELECT TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_DATE('19930315') FROM DUAL;	  	

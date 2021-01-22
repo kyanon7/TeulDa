@@ -97,7 +97,7 @@
 					  
 					  <div class="form-check">
 				        <label class="form-check-label">
-				          <input class="form-check-input" type="checkbox" value="" checked="">
+				          <input class="form-check-input" type="checkbox" value="" >
 				          	아이디 기억&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				        </label>
 				        <label class="form-check-label">

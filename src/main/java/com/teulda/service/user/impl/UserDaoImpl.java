@@ -83,13 +83,13 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public Report getReport(String targetNick) throws Exception {
-		return (Report) sqlSession.selectOne("UserMapper.getReport" , targetNick);
+	public Report getReport(int reportNo) throws Exception {
+		return (Report) sqlSession.selectOne("UserMapper.getReport" , reportNo);
 	}
 	
-	@Override
-	public void deleteReport(String targetNick) throws Exception {
-		sqlSession.delete("UserMapper.deleteReport", targetNick);	
+
+	public void deleteReport(int reportNo) throws Exception {
+		sqlSession.delete("UserMapper.deleteReport", reportNo);	
 		
 	}
 

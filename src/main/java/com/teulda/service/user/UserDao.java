@@ -11,21 +11,21 @@ import com.teulda.service.domain.User;
 public interface UserDao {
 	
 	// INSERT
-	public void addUser(User user) throws Exception ;//가입
+	public void addUser(User user) throws Exception ;//가입 완
 	
 	public void checkEmail(String email) throws Exception ;//이메일인증
 	
 	public void checkPhone(String phone) throws Exception ;//핸드폰인증
 	
-	public User getUser(String email) throws Exception ;//유저정보 조회
+	public User getUser(String email) throws Exception ;//유저정보 조회 완
 
-	public List<User> getUserList(Search search) throws Exception ;//유저목록 조회
+	public List<User> getUserList(Search search) throws Exception ;//유저목록 조회 완
 
-	public void updateUser(User user) throws Exception ;//유저정보 수정
+	public void updateUser(User user) throws Exception ;//유저정보 수정 완
 	
 	public void updateUserStatus(String status) throws Exception ;//유저상태 수정
 	
-	public void deleteUser(String nickname) throws Exception ;//유저탈퇴(삭제)
+	public void deleteUser(String nickname) throws Exception ;//유저탈퇴(삭제) 완
 	
 	public List<User> getUserBlackList(Search search) throws Exception ;//블랙리스트목록조회
 	
@@ -33,11 +33,11 @@ public interface UserDao {
 	
 	public int getTotalCount(Search search) throws Exception;//row카운트
 
-	public void addReport(Report report) throws Exception;//신고하기
+	public void addReport(Report report) throws Exception;//신고하기 완
 	
-	public void deleteReport(String targetNick) throws Exception;//신고내역삭제(관리자만)
+	public void deleteReport(int reportNo) throws Exception;//신고내역삭제(관리자만) 완
 	
-	public Report getReport(String targetNick) throws Exception;//신고내역조회
+	public Report getReport(int reportNo) throws Exception;//신고내역조회 완
 	
 	
 
