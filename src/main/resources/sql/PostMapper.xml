@@ -119,12 +119,22 @@
 										<if test="searchCondition == 1 and searchCondition !='' ">
 											title = #{searchKeyword}
 										</if>
+										<if test="searchCondition == 2 and searchCondition !='' ">
+							<!-- 이거한번 물어보기 -->				contain(content, #{searchKeyword}) > 0
+										</if>
 										</where>
+										<choose>
+											<when test="searchSorting == 0">
+												ORDER BY post_date DESC
+											</when>
+											<when test="searchSorting == 1">
+												ORDER BY view_count DESC
+											</when>
+										</choose>
 								</if>
-								WHERE post_type = #{postCategory}
-								ORDER BY post_id) inner_table
-					WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 	
+				WHERE post_type = #{postCategory}) inner_table
+				WHERE ROWNUM &lt;= #{endRowNum} )
+				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 	
 	</select>
 	
 

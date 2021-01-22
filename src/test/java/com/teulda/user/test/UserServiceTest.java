@@ -33,7 +33,7 @@ public class UserServiceTest {
 	private UserService userService;
 	
 	//유저등록
-		@Test
+		//@Test
 		public void testAddUser() throws Exception {
 			
 			System.out.println("debug");
@@ -99,9 +99,8 @@ public class UserServiceTest {
 		public void testDeleteUser() throws Exception{
 			
 			System.out.println("유저삭제 디버깅");
-			User user = userService.getUser("testNick");
-			userService.deleteUser("testNick");
-			Assert.assertNotNull(user);
+			User user = userService.getUser("testUser");
+			userService.deleteUser("testUser");
 			System.out.println(user);
 			
 		}
@@ -142,7 +141,7 @@ public class UserServiceTest {
 				}
 				//완
 		
-				//@Test
+				@Test
 				 public void testGetUserList() throws Exception{
 				 
 					 System.out.println("유저리스트 디버깅");
@@ -165,11 +164,11 @@ public class UserServiceTest {
 					public void testAddReport() throws Exception {
 						
 						System.out.println("debug");
-					
+						
 						Report report = new Report();
 						
-						report.setReportNo(10001);
-						report.setReportDate(null);
+						report.setReportNo(10007);
+						//report.setReportDate(null);
 						report.setReason("테스트테스트");
 						report.setReportPhoto(null);
 						report.setReporterNick("king성영");
@@ -178,9 +177,38 @@ public class UserServiceTest {
 						
 						userService.addReport(report);		
 
-						System.out.println(report);
+						System.out.println(report);	
 
 					}
+					//완
+					
+					//신고내역조회
+					//@Test
+					public void testGetReport() throws Exception{
+						
+						System.out.println("debug");
+						
+						Report report = userService.getReport(10007);
+						
+						System.out.println("debug");
+						System.out.println(report);//확인
+						System.out.println("debug");
+					}
+					//완
+					
+					
+					//신고내역삭제
+					//@Test
+					public void testDeleteReport() throws Exception{
+						
+						Report report = userService.getReport(10007);
+						userService.deleteReport(10007);
+						System.out.println(report);
+						
+					}
+					//완
+					
+		
 				 
 				
 }

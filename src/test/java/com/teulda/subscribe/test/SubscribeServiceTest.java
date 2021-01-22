@@ -2,6 +2,7 @@ package com.teulda.subscribe.test;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.teulda.common.Search;
+import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Subscribe;
 import com.teulda.service.domain.User;
 import com.teulda.service.subscribe.SubscribeService;
@@ -60,7 +62,7 @@ public class SubscribeServiceTest {
 		Subscribe subscribe = new Subscribe();
 		subscribe.setSubscribeDate(dateTime);
 		
-		String list[] = {"king성영", "king주원", "king정인", "king채경", "king제현", "testNick", "tester1", "tester2", "tester3", "tester4", "tester5"};
+		String list[] = {"king성영", "king주원", "king정인", "king채경", "king제현", "testUser0", "testUser1", "testUser2", "testUser3", "testUser4", "testUser5", "testUser7", "testUser8", "testUser9"};
 		List<String> userList = Arrays.asList(list);
 //		List<String> userList = new ArrayList<String>(Arrays.asList(list));
 		
@@ -88,7 +90,7 @@ public class SubscribeServiceTest {
 	}
 	
 	// 구독 취소
-	@Test
+	//@Test
 	public void testDeleteSubscribe() throws Exception{
 		
 		Subscribe subscribe = new Subscribe();
@@ -109,5 +111,18 @@ public class SubscribeServiceTest {
 		
 		System.out.println(subscribeService.checkSubscribe(subscribe));
 		
+	}
+	
+	@Test
+	public void testgetSubscribeDiaryList() throws Exception{
+		
+		String subscribeNick = "king성영";
+//		List<String> list = new ArrayList<String>();
+//		for(Subscribe each : subscribeService.getSubscribeList(subscribeNick)) {
+//			list.add(each.getSubTargetNickname());
+//		}
+//		System.out.println(list);
+		
+		System.out.println(subscribeService.getSubscriberDiaryList(subscribeNick));
 	}
 }

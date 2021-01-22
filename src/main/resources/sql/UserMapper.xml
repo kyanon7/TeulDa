@@ -73,13 +73,20 @@
 	   	WHERE nickname = #{nickname}
 	</update>
 	
-	<!--  SQL : UPDATE user_status -->
-	<!-- update	id="updateStatus"	parameterType="com.teulda.service.domain.User" >
+	<!--   SQL : UPDATE user_status
+	<update	id="updateUserStatusDate"	parameterType="com.teulda.service.domain.User" >
 		UPDATE users
 	   	<set>
-	   		status	= #{status}, 
-		</set>
-		WHERE nickname = #{nickname}
+		<choose>
+			<when test="status= 1">
+			delete_date = null
+			</when>
+			<otherwise>
+			delete_date = SYSDATE
+			</otherwise>
+		</choose>
+	</set>
+	WHERE nickname = #{nickname}
 	</update> -->
 	
 	<!-- SQL : REMOVE 회원삭제-->
@@ -89,7 +96,50 @@
 	 	WHERE nickname = #{nickname}
 	</delete>
 	
-	<!-- SQL : SELECT LIST 유저정보-->
+	<!-- SQL : SELECT LIST 유저정보
+	<select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT nickname , user_name, user_addr, like_addr
+											FROM users
+											<where>
+       										(is_public = 't' AND role = '1')
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				nickname = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				user_addr = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				like_addr = #{searchKeyword}
+													</if>
+											<if test="searchCondition == null and searchKeyword !='' ">
+												(nickname = #{searchKeyword} or user_addr = #{searchKeyword} orlike_addr = #{searchKeyword})
+											</if>
+												</where>
+											</if>
+											</where>
+											ORDER BY
+												<where>
+													<if test="searchSorting == 0 and searchKeyword !='' ">
+										 				user_id DESC
+													</if>
+													<if test="searchSorting == 1 and searchKeyword !='' ">
+										 				nickname DESC
+													</if>
+													<if test="searchSorting == 2 and searchKeyword !='' ">
+										 				user_name DESC
+													</if>
+													
+												</where>) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>-->
+	 
+	<!-- 부분검색바꿔주기 카운트 추가 --> 
+	
 	<select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
@@ -106,47 +156,115 @@
 													<if test="searchCondition == 2 and searchKeyword !='' ">
 										 				like_addr = #{searchKeyword}
 													</if>
+			
 												</where>
 											</if>
-											ORDER BY
-												<where>
-													<if test="searchSorting == 0 and searchKeyword !='' ">
-										 				user_id DESC
-													</if>
-													<if test="searchSorting == 1 and searchKeyword !='' ">
-										 				nickname DESC
-													</if>
-													<if test="searchSorting == 2 and searchKeyword !='' ">
-										 				name DESC
-													</if>
-													
-												</where>) inner_table
+												ORDER BY nickname	) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	
 	
-	<!-- SQL : SELECT ROW Count -->	 
+	 <!--  select  id="getUserBlackList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  		FROM(
+			  	SELECT r.target_nick, email, (SELECT COUNT(*)FROM report r, users u
+									  where r.target_nick = #{tatgetNick} and r.target_nick = u.nickname)
+		                               FROM report r, users u
+		                               where r.target_nick = #{tatgetNick}
+		                               GROUP BY r.target_nick
+			  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+			  					FROM		(	SELECT nickname , user_name, user_addr, like_addr
+													FROM users
+													
+															
+													) inner_table
+								WHERE ROWNUM &lt;= #{endRowNum} )
+				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select-->
+	 
+	 
+
+	<!-- SQL : SELECT ROW Count	 
 	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT nickname , email , user_name
+	  	FROM(	SELECT nickname
+					FROM users
+					<where>
+		      			(is_public = 't' AND role = '1')
+		      				<if test="searchCondition == null and searchKeyword !='' "> 
+		               		AND 
+		               		(title LIKE '%'||#{searchKeyword}||'%'
+		               		OR content LIKE '%'||#{searchKeyword}||'%'
+		               		OR diary_addr LIKE '%'||#{searchKeyword}||'%'
+		               		OR origin_nick LIKE '%'||#{searchKeyword}||'%')
+		               	</if>
+		               	<if test="searchCondition != null"> 
+		               		<choose>
+		               			<when test="searchCondition == 0 and searchKeyword !='' "> 
+		               			AND title like '%'||#{searchKeyword}||'%'
+		               			</when>
+		               			<when test="searchCondition == 1 and searchKeyword !='' ">
+		               			AND content like '%'||#{searchKeyword}||'%'
+		               			</when>
+		               			<when test="searchCondition == 2 and searchKeyword !='' "> 
+		               			AND diary_addr like '%'||#{searchKeyword}||'%'
+		               			</when>
+		               			<when test="searchCondition == 3 and searchKeyword !='' "> 
+		               			AND origin_nick like '%'||#{searchKeyword}||'%'
+		               			</when>
+		               		</choose>
+		               	</if>
+		           	</where>
+		       		<choose>
+		       			<when test = "searchSorting == 0"> 
+		       			ORDER BY diary_date DESC
+		       			</when>
+		       			<when test = "searchSorting == 1"> 
+		       			ORDER BY nickname DESC, diary_date DESC
+		       			</when>
+		       			<when test = "searchSorting == 2"> 
+		       			ORDER BY user_name DESC, diary_date DESC
+		       			</when>
+		       		</choose>
+    	  ) countTable 
+				
+	 </select-->
+	 
+	 <!-- SQL : SELECT ROW Count -->	 
+	 	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT email, user_name , nickname
 						FROM users
-						 ) countTable						
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
+						 			nickname = #{searchKeyword}
+								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+						 		user_name = #{searchKeyword}
+								</if>
+							</where>
+						</if> ) countTable						
 	 </select>
+	 
+	 
+	
 	 
 	<!-- SQL : INSERT 신고내역추가-->
 	<insert	id="addReport"	parameterType="com.teulda.service.domain.Report" >
 		INSERT
 		INTO report( report_id ,report_date , report_photo , reason , reporter_nick, target_nick, report_type)
-		VALUES	 (	#{reportNo} , SYSDATE , #{reportPhoto:VARCHAR} , #{Reason:VARCHAR}, #{reportPhoto:VARCHAR}, #{reportNick:VARCHAR},
-							#{targetNick:VARCHAR})
+		VALUES	 (	#{reportNo} , SYSDATE , #{reportPhoto:VARCHAR} , #{Reason:VARCHAR}, #{reporterNick:VARCHAR}, #{targetNick:VARCHAR}, #{reportType:VARCHAR})
 	</insert>
 	
 		<!-- SQL : SELECT ONE 신고내역상세조회-->
 	<select	id="getReport"	 parameterType="com.teulda.service.domain.Report"	 resultMap="reportSelectMap">
 		SELECT *
-		FROM users
-		WHERE target_nick = #{targetNick}
+		FROM report
+		WHERE report_id = #{reportNO}
 	</select>
 	
 	
@@ -154,7 +272,7 @@
 	<delete id="deleteReport"	parameterType="com.teulda.service.domain.Report">
 	 	DELETE 
 	 	FROM report
-	 	WHERE reportNo = #{report_id}
+	 	WHERE report_id = #{reportNO}
 	</delete>
 	 
 

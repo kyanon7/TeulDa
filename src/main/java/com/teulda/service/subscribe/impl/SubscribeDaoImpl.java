@@ -1,12 +1,14 @@
 package com.teulda.service.subscribe.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Subscribe;
 import com.teulda.service.subscribe.SubscribeDao;
 
@@ -46,5 +48,10 @@ public class SubscribeDaoImpl implements SubscribeDao {
 	@Override
 	public boolean checkSubscribe(Subscribe subscribe) throws Exception {
 		return sqlSession.selectOne("SubscribeMapper.checkSubscribe", subscribe).equals(0);
+	}
+	
+	@Override
+	public List<Diary> getSubscriberDiaryList(List<String> subscriberList) throws Exception{
+		return sqlSession.selectList("DiaryMapper.getSubscribeDiaryList", subscriberList);
 	}
 }

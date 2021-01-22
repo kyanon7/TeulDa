@@ -113,7 +113,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(String nickname) throws Exception {
 		userDao.deleteUser(nickname);
-		
 	}
 
 	@Override
@@ -157,20 +156,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addReport(Report report) throws Exception {
-		// TODO Auto-generated method stub
+		userDao.addReport(report);
 		
 	}
 
-	@Override
-	public void getReport(int reportNo) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteReport(int reportNo) throws Exception {
-		// TODO Auto-generated method stub
-	}
+	
+	 @Override
+	 public Report getReport(int reportNo) throws Exception { 
+		 return userDao.getReport(reportNo);
+	 }
+	 
+	 @Override public void deleteReport(int reportNo) throws Exception  {
+		 userDao.deleteReport(reportNo);
+	 }
+	 
 
 	@Override
 	public User login(String email) throws Exception {
@@ -185,11 +184,7 @@ public class UserServiceImpl implements UserService {
 	//}
 
 
-	//@Override
-	//public void reportUser(User user) throws Exception {
-		// TODO Auto-generated method stub
-		
-	//}
+	
 
 	//@Override
 	//public Map<String, Object> getUserBlackList(Search search) throws Exception {

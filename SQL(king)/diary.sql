@@ -202,21 +202,45 @@ from ( select inner_table.*, rownum as row_seq
       where rownum <= 5 )
 where row_seq between 1 and 5;
 
-+ 검색조건 추가
++ 검색조건 추가 (북마크 횟수까지! 이렇게 하면 CLOB 때문에 매핑시 오류남..)
 
 SELECT inner_table.*, rownum as row_seq
-FROM   (SELECT  diary_id, title, diary_addr, diary_date, 
-                origin_nick, start_date, end_date,
-                content, thumbnail, view_count
-        FROM diary
-        WHERE   is_public = 't' and delete_date is null and scrap_nick is null
-                and title like '%제주%'
-                and 1=1 and     (
-                                contains(content, '%한라봉%') >0 
-                                )
-                and origin_nick like '%king%'
-                and diary_addr like '%제주%'
-        order by diary_date desc) inner_table
+        	 FROM    (SELECT    d.diary_id, d.title, d.diary_addr, d.diary_date, 
+                            	d.origin_nick, d.start_date, d.end_date,
+                                DBMS_LOB.SUBSTR(CONTENT, 300, 1) as content,
+                            	d.thumbnail, d.view_count, d.scrap_count, 
+                                (select count(*)
+                                from bookmark
+                                where diary_id = d.diary_id) as bookmark_count
+                	 FROM diary d
+               	 	 WHERE (is_public = 't' and delete_date is null and scrap_nick is null)
+                            and 
+                            (title like '%안녕%'
+                            or content like '%한라봉%'
+                            or diary_addr like '%안녕%'
+                            or origin_nick like '%안녕%')
+                     group by   diary_id, title, diary_addr, diary_date, origin_nick, 
+                                start_date, end_date, thumbnail, view_count, 
+                                scrap_count, DBMS_LOB.SUBSTR(CONTENT, 300, 1)
+                     order by bookmark_count desc, diary_date desc
+                     ) inner_table;
+                     
++ 북마크 횟수는 X
+
+SELECT inner_table.*, rownum as row_seq
+        	 FROM    (SELECT    diary_id, title, diary_addr, diary_date, 
+                            	origin_nick, start_date, end_date,
+                                content,
+                            	thumbnail, view_count, scrap_count
+                	 FROM diary 
+               	 	 WHERE (is_public = 't' and delete_date is null and scrap_nick is null)
+                            and 
+                            (title like '%안녕%'
+                            or content like '%한라봉%'
+                            or diary_addr like '%안녕%'
+                            or origin_nick like '%안녕%')
+                     order by diary_date desc
+                     ) inner_table;
 
 // get diary count
 

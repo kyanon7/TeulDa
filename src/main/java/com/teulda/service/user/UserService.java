@@ -25,8 +25,6 @@ public interface UserService {
 	
 	public User login(String email) throws Exception;//로그인
 	
-	//public User logout(HttpServletRequest request, HttpServletResponse response) throws Exception;//로그아웃
-	
 	public User getUser(String nickname) throws Exception;//유저정보 조회 완
 	
 	public Map<String, Object> getUserList(Search search) throws Exception;//유저리스트 조회
@@ -37,19 +35,14 @@ public interface UserService {
 	
 	public void deleteUser(String nickname) throws Exception ;//유저삭제 완
 	
-	public void addReport(Report report) throws Exception;//유저신고 생성
+	public void addReport(Report report) throws Exception;//유저신고 생성 완
 	
-	public void getReport(int reportNo) throws Exception;//신고내역 조회
+	public Report getReport(int reportNo) throws Exception;//신고내역 조회 완
 	
-	public void deleteReport(int reportNo) throws Exception;//신고내역 삭제
+	public void deleteReport(int reportNo) throws Exception;//신고내역 삭제 완
 	
 	public Map<String , Object> getUserBlackList(Search search) throws Exception ;//블랙리스트 리스트
 	
 	public Map<String , Object> getReportList(Search search) throws Exception ;///신고리스트 리스트
 	
-
-
-
-	
-
 }
