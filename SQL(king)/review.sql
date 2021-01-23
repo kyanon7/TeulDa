@@ -53,7 +53,9 @@ WHERE review_id = 10004
 SELECT *  FROM(
 	SELECT inner_table.*, ROWNUM AS row_seq	FROM(
 		SELECT r.review_id, r.nickname, r.review_addr, r.content, r.review_photo, r.review_date, r.star, r.is_allowed
-		FROM review r) inner_table
+		FROM review r
+		ORDER BY r.review_date DESC
+		) inner_table
 		WHERE ROWNUM <= 10 )
 WHERE row_seq 
 BETWEEN 1 AND 5

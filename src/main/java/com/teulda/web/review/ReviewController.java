@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.teulda.common.Page;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Review;
 import com.teulda.service.domain.User;
@@ -52,16 +53,16 @@ public class ReviewController {
 		
 		System.out.println("/review/addReview : POST");
 		
-//		if(session == null) {
-//			throw new Exception();
-//			
-//		}else if(session.getAttribute("user") != null && session.getAttribute("user") instanceof User){
-//			User user = (User) session.getAttribute("user");
-//			
-//			if(user.getNickname().equals(review.getNickname())) {
+		if(session == null) {
+			throw new Exception();
+			
+		}else if(session.getAttribute("user") != null && session.getAttribute("user") instanceof User){
+			User user = (User) session.getAttribute("user");
+			
+			if(user.getNickname().equals(review.getNickname())) {
 				reviewService.addReview(review);
-//			}
-//		}
+			}
+		}
 		
 		return "redirect:/review/listReview";
 	}
@@ -76,20 +77,29 @@ public class ReviewController {
 		return "redirect:/review/getReview.jsp";
 	}
 	
-//	@RequestMapping(value="listReview", method=RequestMethod.POST)
-//	public String listReview(HttpSession session, Model model, Search search) throws Exception{
-//		
-//		System.out.println("/review/listReview : POST");
-//		
-//		User user = (User) session.getAttribute("user");
-//		
-//		Map<String, Object> map = reviewService.getReviewList(search);
-//		
-//		
-//		model.addAttribute(arg0);
-//		
-//		return "forward:/review/listReview.jsp";
-//	}
+	@RequestMapping(value="listReview")
+	public String listReview(HttpSession session, Model model, Search search) throws Exception{
+		
+		System.out.println("/review/listReview : GET / POST");
+		
+		User user = (User) session.getAttribute("user");
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		search.setSearchSorting("3");
+		search.setSearchKeyword(user.getNickname());
+		
+		Map<String, Object> map = reviewService.getReviewList(search);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/review/listReview.jsp";
+	}
 	
 	
 }

@@ -17,6 +17,7 @@ public class Search {
 	private int startRowNum;
 	
 	private String searchSorting;
+	private String ascend;
 	
 	///Constructor
 	public Search() {
@@ -68,12 +69,20 @@ public class Search {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
 
+	// 오름차순 정렬
+	public String getAscend() {
+		return ascend;
+	}
+
+	public void setAscend(String ascend) {
+		this.ascend = ascend;
+	}
 
 	@Override
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
 				+ searchKeyword + ", pageSize=" + pageSize + ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum
-				+ ", searchSorting=" + searchSorting + "]";
+				+ ", searchSorting=" + searchSorting + ", ascend=" + ascend + "]";
 	}
 
 }

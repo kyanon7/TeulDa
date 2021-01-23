@@ -75,53 +75,79 @@
 	  				FROM(SELECT	r.review_id, r.nickname, r.review_addr, r.content, 
 								r.review_photo, r.review_date, r.star, r.is_allowed
 								FROM review r
-								<!-- <where>
-								r.reviewNo = ? -->
+								<!-- <where> -->
 								<choose>
 									<when test="searchCondition != null">
 										<choose>
 											<when test="searchCondition == 0 and searchKeyword !='' ">
-												AND LOWER(r.review_addr) LIKE '%'||#{searchKeyword}||'%'
-												ORDER BY r.review_addr ASC) inner_table
+												WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%')
 											</when>
 											<when test="searchCondition == 1 and searchKeyword !='' ">
-												AND r.star &lt;= #{searchKeyword}
-												ORDER BY r.star ASC) inner_table
+												WHERE LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%')
+											</when>
+											<when test="searchCondition == 2 and searchKeyword !='' ">
+												WHERE LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
+											</when>
+											<when test="searchCondition == 3 and searchKeyword !='' ">
+												WHERE LOWER(r.nickname) IN LOWER(#{searchKeyword})
+											</when>
+										</choose>
+									</when>
+								</choose>
+								<choose>
+									<when test="searchSorting != null">
+										<choose>
+											<when test="searchSorting == 0">
+												ORDER BY r.review_date
+											</when>
+											<when test="searchSorting == 1">
+												ORDER BY r.star
 											</when>
 											<otherwise>
-												ORDER BY r.review_addr DESC) inner_table
+												ORDER BY r.review_date
+											</otherwise>
+										</choose>
+										<choose>
+											<when test="ascend == 0">
+												ASC
+											</when>
+											<otherwise>
+												DESC
 											</otherwise>
 										</choose>
 									</when>
 									<otherwise>
-										ORDER BY r.review_addr DESC) inner_table
+										ORDER BY r.review_date DESC
 									</otherwise>
 								</choose>
-						<!-- </where> -->
-						<!-- ORDER BY review_date DESC) inner_table -->
+								) inner_table
 				WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
-
+	
 	<!-- SQL : SELECT ROW COUNT -->
 	<select	id="getTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
 		SELECT COUNT(*)
 		FROM	(SELECT r.review_id, r.nickname, r.review_addr, r.content, 
 						r.review_photo, r.review_date, r.star, r.is_allowed
 						FROM review r
-					  <where>
 						<if test="searchCondition != null">
 							<choose>
 								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND LOWER(r.review_addr) LIKE '%'||#{searchKeyword}||'%'
+									WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%')
 								</when>
 								<when test="searchCondition == 1 and searchKeyword !='' ">
-									AND r.star &lt;= #{searchKeyword}
+									WHERE LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%')
+								</when>
+								<when test="searchCondition == 2 and searchKeyword !='' ">
+									WHERE LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
+								</when>
+								<when test="searchCondition == 3 and searchKeyword !='' ">
+									WHERE LOWER(r.nickname) IN LOWER(#{searchKeyword})
 								</when>
 							</choose>
 						</if>
-					  </where>
-					  ) countTable						
-  	</select>
+					  ) countTable
+	  </select>
 	
 </mapper>
