@@ -150,6 +150,15 @@
 	          });
 	          map.fitBounds(bounds);
 	        });
+	        
+	        map.addListener('click', function(e) {
+	        	// 맵의 클릭 이벤트 넣기
+	        });
+	        
+	        map.addListener('click', function(e) {
+	        	console.log(e.latLng);
+	        });
+	        
 	      }
 		</script>
 		
