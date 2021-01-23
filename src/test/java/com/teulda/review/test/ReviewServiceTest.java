@@ -172,19 +172,20 @@ public class ReviewServiceTest {
 		System.out.println(reviewService.getReview(no));
 	}
 	
-	//@Test
+	@Test
 	public void testGetReviewList() throws Exception{
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(pageSize);
 		search.setSearchCondition("3");
-		search.setSearchKeyword("매디");
-		search.setSearchSorting(null);
+		search.setSearchKeyword("king채경");
+		search.setSearchSorting("0");
+//		search.setAscend("0");
 		
 		Map<String, Object> map = reviewService.getReviewList(search);
 		List<Object> list = (List<Object>)map.get("list");
-		Assert.assertEquals(5, list.size());
+//		Assert.assertEquals(5, list.size());
 		System.out.println(list.size());
 		
 		System.out.println(list);

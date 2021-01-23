@@ -66,16 +66,23 @@ public class SubscribeServiceTest {
 	}
 	
 	// 구독 추가
-	//@Test
+    //@Test
 	public void testAddSubscribe() throws Exception{
 		
 		Subscribe subscribe = new Subscribe();
 		subscribe.setSubscribeDate(dateTime);
 		
-		String list[] = {"king성영", "king주원", "king정인", "king채경", "king제현", "testUser0", "testUser1", "testUser2", "testUser3", "testUser4", "testUser5", "testUser7", "testUser8", "testUser9"};
-		List<String> userList = Arrays.asList(list);
-//		List<String> userList = new ArrayList<String>(Arrays.asList(list));
-		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(20);
+		Map<String, Object> map = userService.getUserList(search); 
+ 		List<User> userInfoList= (List<User>)map.get("list");
+ 		List<String> userList = new ArrayList<String>();
+ 		
+ 		for(User each : userInfoList) {
+ 			userList.add(each.getNickname());
+ 		}
+ 		
 		for(String each : userList) {
 			for(String other : userList) {
 				if(!each.equals(other)) {
