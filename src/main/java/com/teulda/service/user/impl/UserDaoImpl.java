@@ -56,7 +56,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void updateUserStatus(String status) throws Exception {
+	public void updateUserStatus(User status) throws Exception {
 		sqlSession.update("UserMapper.updateUserStatus", status);
 		
 	}

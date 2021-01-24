@@ -39,8 +39,8 @@ public class UserServiceTest {
 			System.out.println("debug");
 		
 			User user = new User();
-			user.setNickname("testUser3");
-			user.setEmail("corud1130");
+			user.setNickname("testStatus");
+			user.setEmail("testStatus");
 			user.setPassword("testPasswd");
 			user.setName("SCOTT");
 			user.setPhone("110-2222-3345");
@@ -56,7 +56,7 @@ public class UserServiceTest {
 			System.out.println(user);
 			userService.addUser(user);
 			
-			user = userService.getUser("testUser3");
+			user = userService.getUser("testStatus");
 
 			System.out.println(user);
 
@@ -140,6 +140,32 @@ public class UserServiceTest {
 			
 				}
 				//완
+				
+				//@Test
+				public void testUpdateUserStatus() throws Exception{
+					
+					User user = new User();
+					
+					user = userService.getUser("testStatus");
+					
+					System.out.println(user);//확인
+				
+
+					user.setStatus('1');
+					
+					userService.updateUserStatus(user);
+					
+					System.out.println("debug");
+					
+					User change = userService.getUser("testStatus");
+					System.out.println(change);//확인
+					
+					System.out.println("debug");
+			
+				}
+				//완
+				
+				
 		
 				@Test
 				 public void testGetUserList() throws Exception{

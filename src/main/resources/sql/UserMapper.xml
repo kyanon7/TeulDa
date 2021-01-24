@@ -65,13 +65,25 @@
 			like_addr				=	#{likePlace},
 			birth				=	#{birth},
 			user_photo				=	#{profilePhoto},
-			update_status_date				=	SYSDATE,
 			is_public				=	#{isPublic},
 			status				=	#{status},
 			role				=	#{role}
 	   	</set>
 	   	WHERE nickname = #{nickname}
 	</update>
+	
+	
+	<!--   SQL : UPDATE user_status-->
+	<update	id="updateUserStatus"	parameterType="com.teulda.service.domain.User" >
+		UPDATE users
+	   	<set>
+			status				=	#{status},
+			update_status_date				=	SYSDATE
+	</set>
+	WHERE nickname = #{nickname}
+	</update>
+	
+	
 	
 	<!--   SQL : UPDATE user_status
 	<update	id="updateUserStatusDate"	parameterType="com.teulda.service.domain.User" >
@@ -96,51 +108,55 @@
 	 	WHERE nickname = #{nickname}
 	</delete>
 	
-	<!-- SQL : SELECT LIST 유저정보
+	<!-- SQL : SELECT LIST 유저정보-->
 	<select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT nickname , user_name, user_addr, like_addr
+	  					FROM		(	SELECT *
 											FROM users
 											<where>
        										(is_public = 't' AND role = '1')
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				nickname = #{searchKeyword}
+												<if test="searchCondition != null and searchKeyword !='' ">
+													AND 
+							                			(nickname LIKE '%'||#{searchKeyword}||'%'
+							                			OR user_addr LIKE '%'||#{searchKeyword}||'%'
+							                			OR like_addr LIKE '%'||#{searchKeyword}||'%'
 													</if>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				user_addr = #{searchKeyword}
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				like_addr = #{searchKeyword}
-													</if>
-											<if test="searchCondition == null and searchKeyword !='' ">
-												(nickname = #{searchKeyword} or user_addr = #{searchKeyword} orlike_addr = #{searchKeyword})
-											</if>
+													<if test="searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+							                			<choose>
+							                				<when test="searchCondition == 0 and searchKeyword !='' "> 
+							                				AND nickname like '%'||#{searchKeyword}||'%'
+							                				</when>
+							                				<when test="searchCondition == 1 and searchKeyword !='' "> 
+							                				AND user_addr like '%'||#{searchKeyword}||'%'
+							                				</when>
+							                				<when test="searchCondition == 2 and searchKeyword !='' "> 
+							                				AND like_addr like '%'||#{searchKeyword}||'%'
+							                				</when>
+							                				
+							                			</choose>
+							                		</if>
 												</where>
-											</if>
-											</where>
-											ORDER BY
+										
 												<where>
 													<if test="searchSorting == 0 and searchKeyword !='' ">
-										 				user_id DESC
+										 				ORDER BY user_email DESC
 													</if>
 													<if test="searchSorting == 1 and searchKeyword !='' ">
-										 				nickname DESC
+										 				ORDER BY nickname DESC
 													</if>
 													<if test="searchSorting == 2 and searchKeyword !='' ">
-										 				user_name DESC
+										 				ORDER BY user_name DESC
 													</if>
 													
 												</where>) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>-->
+	 </select>
 	 
 	<!-- 부분검색바꿔주기 카운트 추가 --> 
 	
-	<select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
+	<!-- <select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT nickname , user_name, user_addr, like_addr
@@ -162,7 +178,7 @@
 												ORDER BY nickname	) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>
+	 </select>  -->
 	
 	
 	 <!--  select  id="getUserBlackList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">

@@ -98,15 +98,10 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	//@Override
-	public void updateUserStatus(User status) throws Exception {
-		userDao.updateUser(status);
-		
-	}
-
+	
 	@Override
-	public void updateUserStatus(String status) throws Exception {
-		// TODO Auto-generated method stub
+	public void updateUserStatus(User status) throws Exception {
+		userDao.updateUserStatus(status);
 		
 	}
 

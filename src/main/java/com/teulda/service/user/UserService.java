@@ -31,7 +31,7 @@ public interface UserService {
 	
 	public void updateUser(User user) throws Exception;//유저정보 업데이트 완
 	
-	public void updateUserStatus(String status) throws Exception ;//유저상태 업데이트  
+	public void updateUserStatus(User status) throws Exception ;//유저상태 업데이트  
 	
 	public void deleteUser(String nickname) throws Exception ;//유저삭제 완
 	
