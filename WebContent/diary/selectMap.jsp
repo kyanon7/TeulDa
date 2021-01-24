@@ -78,7 +78,7 @@
 }
 </style>
 
-<!-- For Plases Search Box cdn -->
+		<!-- For Plases Search Box cdn -->
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		
 		<!-- jQuery CDN -->
@@ -151,12 +151,43 @@
 	          map.fitBounds(bounds);
 	        });
 	        
-	        map.addListener('click', function(e) {
-	        	// 맵의 클릭 이벤트 넣기
-	        });
+	        //////// 위도 & 경도 좌표 받아오기 ////////
 	        
+	        // 각 값들을 가지고 옴 
+	        var geocoder = new google.maps.Geocoder;
+	        
+	        // 클릭한 위치 확인
 	        map.addListener('click', function(e) {
-	        	console.log(e.latLng);
+	        	
+	        	alert(e.latLng.lat());
+	        	// console.log(e);
+	        	
+	        	// 위도 & 경도 좌표를 요청할 객체를 만들어 줌
+	        	var latlng = {
+	        		lat: e.latLng.lat(), // 위도
+	        		lng: e.latLng.lng()  // 경도 
+	        	};
+	        	
+	        	console.log(latlng);
+	        	
+	        	geocoder.geocode({'location' : latlng}, function(results, status) {
+	        		
+	        		if (status === "OK")
+	        		{
+	        			var jData = results; // results : Json 형태
+	        			var address = jData[3]; // Json 형태의 배열중 3번째 주소를 가져옴 (나라-시-동-(면-리) 까지) 
+	        			console.log('******************');
+	        			console.log(address.formatted_address);
+	        			console.log(latlng);
+	        				
+	        			//console.log(results);
+	        			//alert(results);
+	        			//alert(JSON.stringify(results));
+	        		} else {
+	        			alert("주소를 못 가지고 왔습니다. 사람 사는 곳이 아닌 것 같습니다.");
+	        		}
+	        	}); 
+	        	
 	        });
 	        
 	      }
@@ -197,7 +228,7 @@
       					id="pac-input"
       					class="form-control"
       					type="text"
-      					placeholder="Google 지도 검색"
+      					placeholder="Google 지도에서 원하는 여행지 검색"
     				/>
 					<div id="map"></div>
 				</div>
