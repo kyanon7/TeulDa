@@ -25,11 +25,26 @@ SELECT COUNT(*)
 	  where target_nick = 'king제현';
 	  
 //king 제현= #{targetNick}
-SELECT r.target_nick, email, (SELECT COUNT(*)FROM report r, users u
+SELECT r.target_nick, (SELECT COUNT(*)FROM report r, users u
 							  where r.target_nick = 'king제현' and r.target_nick = u.nickname)
                                FROM report r, users u
                                where r.target_nick = 'king제현'
                                GROUP BY r.target_nick
+                               
+                               
+//신고카운트가 10회 이상인 유저리스트(블랙리스트)                               
+SELECT u.user_name ,u.email,(SELECT COUNT(*)FROM report where target_nick = 'king제현'), u.status
+                               FROM report r, users u
+                               where (SELECT COUNT(*)FROM report where target_nick = 'king제현') >= 10
+                               GROUP BY  u.user_name ,u.email,r.report_photo,u.status
+                               
+
+                               
+ //신고사유 보기                         
+SELECT r.reporter_nick, r.reason ,r.report_type,r.report_date,r.report_photo
+                               FROM report r, users u
+                               where r.target_nick = 'king제현'
+                               GROUP BY r.reporter_nick, r.reason,r.report_type,r.report_date,r.report_photo
 
 	  
 	  

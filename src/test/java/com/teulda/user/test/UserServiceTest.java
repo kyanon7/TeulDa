@@ -167,7 +167,7 @@ public class UserServiceTest {
 				
 				
 		
-				@Test
+				//@Test
 				 public void testGetUserList() throws Exception{
 				 
 					 System.out.println("유저리스트 디버깅");
@@ -233,6 +233,24 @@ public class UserServiceTest {
 						
 					}
 					//완
+					
+					@Test
+					 public void testGetUserBlackList() throws Exception{
+					 
+						 System.out.println("블랙리스트 디버깅");
+						 
+						 Search search = new Search();
+						 search.setCurrentPage(1);
+						 search.setPageSize(3);
+						 Map<String, Object> map = userService.getUserBlackList(search); 
+						 List<Object> list= (List<Object>)map.get("list");
+						 
+						 Integer totalCount = (Integer)map.get("totalCount");
+						 
+						 System.out.println(list);//확인
+						 System.out.println(totalCount);//확인
+						 
+						  }
 					
 		
 				 

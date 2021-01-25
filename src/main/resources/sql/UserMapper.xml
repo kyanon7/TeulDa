@@ -122,7 +122,7 @@
 							                			OR user_addr LIKE '%'||#{searchKeyword}||'%'
 							                			OR like_addr LIKE '%'||#{searchKeyword}||'%'
 													</if>
-													<if test="searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+													<if test="searchCondition != null">
 							                			<choose>
 							                				<when test="searchCondition == 0 and searchKeyword !='' "> 
 							                				AND nickname like '%'||#{searchKeyword}||'%'
@@ -156,7 +156,7 @@
 	 
 	<!-- 부분검색바꿔주기 카운트 추가 --> 
 	
-	<!-- <select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
+<!-- select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT nickname , user_name, user_addr, like_addr
@@ -168,6 +168,7 @@
 													</if>
 													<if test="searchCondition == 1 and searchKeyword !='' ">
 										 				user_addr = #{searchKeyword}
+			
 													</if>
 													<if test="searchCondition == 2 and searchKeyword !='' ">
 										 				like_addr = #{searchKeyword}
@@ -178,10 +179,13 @@
 												ORDER BY nickname	) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>  -->
+	 </select-->
+	 
+	 
+	 
 	
 	
-	 <!--  select  id="getUserBlackList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
+	 <select  id="getUserBlackList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  		FROM(
@@ -198,11 +202,11 @@
 													) inner_table
 								WHERE ROWNUM &lt;= #{endRowNum} )
 				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select-->
+	 </select>
 	 
 	 
 
-	<!-- SQL : SELECT ROW Count	 
+	<!-- SQL : SELECT ROW Count	>
 	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT nickname
@@ -211,24 +215,20 @@
 		      			(is_public = 't' AND role = '1')
 		      				<if test="searchCondition == null and searchKeyword !='' "> 
 		               		AND 
-		               		(title LIKE '%'||#{searchKeyword}||'%'
-		               		OR content LIKE '%'||#{searchKeyword}||'%'
-		               		OR diary_addr LIKE '%'||#{searchKeyword}||'%'
-		               		OR origin_nick LIKE '%'||#{searchKeyword}||'%')
+		               		(nickname LIKE '%'||#{searchKeyword}||'%'
+		               		OR user_addr LIKE '%'||#{searchKeyword}||'%'
+		               		OR like_addr LIKE '%'||#{searchKeyword}||'%')
 		               	</if>
 		               	<if test="searchCondition != null"> 
 		               		<choose>
 		               			<when test="searchCondition == 0 and searchKeyword !='' "> 
-		               			AND title like '%'||#{searchKeyword}||'%'
+		               			AND nickname like '%'||#{searchKeyword}||'%'
 		               			</when>
 		               			<when test="searchCondition == 1 and searchKeyword !='' ">
-		               			AND content like '%'||#{searchKeyword}||'%'
+		               			AND user_addr like '%'||#{searchKeyword}||'%'
 		               			</when>
 		               			<when test="searchCondition == 2 and searchKeyword !='' "> 
-		               			AND diary_addr like '%'||#{searchKeyword}||'%'
-		               			</when>
-		               			<when test="searchCondition == 3 and searchKeyword !='' "> 
-		               			AND origin_nick like '%'||#{searchKeyword}||'%'
+		               			AND like_addr like '%'||#{searchKeyword}||'%'
 		               			</when>
 		               		</choose>
 		               	</if>
@@ -249,7 +249,7 @@
 	 </select-->
 	 
 	 <!-- SQL : SELECT ROW Count -->	 
-	 	<!-- SQL : SELECT ROW Count -->	 
+	 
 	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT email, user_name , nickname

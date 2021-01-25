@@ -50,19 +50,19 @@
 <body>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-
+	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
 		<div class="page-header">
-	       <h1 class="text-center">SELECT USER</h1>
+	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
 	
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>아 이 디</strong></div>
-			<div class="col-xs-8 col-md-4">${user.email}</div>
+	  		<div class="col-xs-4 col-md-2"><strong>닉네임</strong></div>
+			<div class="col-xs-8 col-md-4">${user.nickname}</div>
 		</div>
 		
 		<hr/>

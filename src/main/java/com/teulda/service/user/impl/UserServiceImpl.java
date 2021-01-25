@@ -113,13 +113,27 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> getUserBlackList(Search search) throws Exception {
 
-		return null;
+		List<User> list= userDao.getUserBlackList(search);
+		int totalCount = userDao.getTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
 	}
 
 	@Override
 	public Map<String, Object> getReportList(Search search) throws Exception {
 
-		return null;
+		List<Report> list= userDao.getReportList(search);
+		int totalCount = userDao.getTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
 	}
 
 	@Override

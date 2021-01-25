@@ -86,7 +86,7 @@
 																+"이  름 : "+JSONData.userName+"<br/>"
 																+"이메일 : "+JSONData.email+"<br/>"
 																+"ROLE : "+JSONData.role+"<br/>"
-																+"등록일 : "+JSONData.regDate+"<br/>"
+																+"닉네임 : "+JSONData.nickname+"<br/>"
 																+"</h6>";
 									$("h6").remove();
 									$( "#"+email+"" ).html(displayValue);
@@ -103,6 +103,7 @@
 			//==> 아래와 같이 정의한 이유는 ??
 			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
 		});	
+		
 	
 	</script>
 	
@@ -113,22 +114,24 @@
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
+   	
+   	 
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
 		<div class="page-header text-center">
-	       <h1>USER LIST</h1>
+	       <h2 class>USER LIST</h2>
 	    </div>
 	    
 	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
 	    <div class="row">
 	    
-		    <div class="col-md-6 text-left">
+		   <%--  <div class="col-md-6 text-left">
 		    	<p class="text-primary">
 		    		<br>전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
 		    	</p>
-		    </div>
+		    </div> --%>
 		    
 		    <div class="col-md-6 text-right">
 			    <form class="form-inline" name="detailForm">
@@ -136,18 +139,20 @@
 			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID</option>
-						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>회원명</option>
+						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
+						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>거주지</option>
+						<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>관심지역</option>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<label class="sr-only" for="searchKeyword">검색어</label>
+				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+				    			 &nbsp;&nbsp;&nbsp;&nbsp;
+				    			  <button type="button" class="btn btn-outline-secondary btn-sm">검색</button>
 					</select>
 				  </div>
 				  
-				  <div class="form-group">
-				    <label class="sr-only" for="searchKeyword">검색어</label>
-				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
-				  </div>
 				  
-				  <button type="button" class="btn btn-outline-primary">검색</button>
+				 
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
@@ -164,11 +169,11 @@
       
         <thead>
    			 <tr>
-      			<th align="center" scope="col">No</th>
-      			<th scope="col">회원 ID</th>
-      			<th scope="col">회원명</th>
+      			<th align="center" scope="col">닉네임</th>
       			<th scope="col">이메일</th>
-      			<th scope="col">간략정보</th>
+      			<th scope="col">이름</th>
+      			<th scope="col">거주지</th>
+      			<th scope="col">관심지역</th>
     		</tr>
   		</thead>
        

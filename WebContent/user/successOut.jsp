@@ -23,10 +23,15 @@
 			  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success	"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
 			</div>
 
-		 	 		<h1 class="text-center">축하합니다! 가입이 완료되었습니다.</h1>
+		 	 		<h1 class="text-center">회원탈퇴가 완료되어 휴면계정으로 변경되었습니다. 30일 이내에 로그인 하지 않을 경우 완전히 계정이 삭제됩니다.</h1>
 		 	 <div class="progress">
 			  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success	"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
 			</div>
+			
+			<ul class="navbar-nav ml-auto" >
+            <li class="nav-item">
+               <a class="nav-link" href="../user/logout/">확인했습니다.</a>
+            </li>
 
 		  			<form>
 		  			</form>

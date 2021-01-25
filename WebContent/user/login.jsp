@@ -7,7 +7,19 @@
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+    <title>Login Demo - Kakao JavaScript SDK</title>
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+	
+	
+	<meta charset="utf-8" />
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="752230544000-qsman26p8dm7thqn27vb9etjnvg4ecu8.apps.googleusercontent.com.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -108,19 +120,64 @@
 					  
 					  <div class="form-group">
 					    <div class="text-right">
-					      <button type="button" class="btn btn-outline-success">로그인</button>
+					      <button type="" class="btn btn-outline-success">로그인</button>
 					      &nbsp;&nbsp;&nbsp;
 					      <a class="btn btn-outline-primary" href="#" role="button">회원가입</a>
 					    </div>
 					  </div>
 					  
+					  
+					  
+					   <a id="kakao-login-btn"></a>
+						    <a href="http://developers.kakao.com/logout"></a>
+						    <script type='text/javascript'>
+						        //<![CDATA[
+						        // 사용할 앱의 JavaScript 키를 설정해 주세요.
+						        Kakao.init('3ac72698ea3c0b511e72a414411b60cd');
+						        // 카카오 로그인 버튼을 생성합니다.
+						        Kakao.Auth.createLoginButton({
+						            container: '#kakao-login-btn',
+						            success: function (authObj) {
+						                alert(JSON.stringify(authObj));
+						            },
+						            fail: function (err) {
+						                alert(JSON.stringify(err));
+						            }
+						        });
+						        
+						      //]]>
+						    </script>
+					  
+					  
+					  
+					  
+					  
+					   <div></div>
+						    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">dfd</div>
+						    <script>
+						        function onSignIn(googleUser) {
+						            // Useful data for your client-side scripts:
+						            var profile = googleUser.getBasicProfile();
+						            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+						            console.log('Full Name: ' + profile.getName());
+						            console.log('Given Name: ' + profile.getGivenName());
+						            console.log('Family Name: ' + profile.getFamilyName());
+						            console.log("Image URL: " + profile.getImageUrl());
+						            console.log("Email: " + profile.getEmail());
+						
+						            // The ID token you need to pass to your backend:
+						            var id_token = googleUser.getAuthResponse().id_token;
+						            console.log("ID Token: " + id_token);
+						        };
+						    </script>
+					  
 					  <div class="form-group">
 					    <div class="text-center">
-					      <button type="" class="btn btn-outline-danger">Google Login</button>
+					      <button type="button" class="btn btn-outline-danger">Google Login</button>
 					    </div>
 					    &nbsp;&nbsp;
 					    <div class="text-center">
-					      <button type="" class="btn btn-outline-warning">&nbsp;Kakao Login&nbsp;</button>
+					      <button type="button" class="btn btn-outline-warning">&nbsp;Kakao Login&nbsp;</button>
 			
 					    </div>
 					  </div>
