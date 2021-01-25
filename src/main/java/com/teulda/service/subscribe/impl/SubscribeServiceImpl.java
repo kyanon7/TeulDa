@@ -1,16 +1,12 @@
 package com.teulda.service.subscribe.impl;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Subscribe;
 import com.teulda.service.subscribe.SubscribeDao;
 import com.teulda.service.subscribe.SubscribeService;
@@ -55,25 +51,25 @@ import com.teulda.service.subscribe.SubscribeService;
 		return subscriberList;
 	}
 	
-	@Override
-	public List<Diary> getSubscriberDiaryList(List<String> subscriberList, Timestamp start) throws Exception{
-		
-		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
-		subscriberListInfo.put("subscriberList", subscriberList);
-		subscriberListInfo.put("start", start);
-		
-		return subscribeDao.getSubscriberDiaryList(subscriberListInfo);
-	}
-	
-	@Override
-	public List<Diary> getSubscriberDiaryPeriodList(List<String> subscriberList, Timestamp start, Timestamp end) throws Exception {
-		
-		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
-		subscriberListInfo.put("subscriberList", subscriberList);
-		subscriberListInfo.put("start", start);
-		subscriberListInfo.put("end", end);
-		return subscribeDao.getSubscriberDiaryList(subscriberListInfo);
-	}
+//	@Override
+//	public List<Diary> getSubscriberDiaryList(List<String> subscriberList, Timestamp start) throws Exception{
+//		
+//		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
+//		subscriberListInfo.put("subscriberList", subscriberList);
+//		subscriberListInfo.put("start", start);
+//		
+//		return subscribeDao.getSubscriberDiaryList(subscriberListInfo);
+//	}
+//	
+//	@Override
+//	public List<Diary> getSubscriberDiaryPeriodList(List<String> subscriberList, Timestamp start, Timestamp end) throws Exception {
+//		
+//		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
+//		subscriberListInfo.put("subscriberList", subscriberList);
+//		subscriberListInfo.put("start", start);
+//		subscriberListInfo.put("end", end);
+//		return subscribeDao.getSubscriberDiaryList(subscriberListInfo);
+//	}
 	
 	@Override
 	public boolean deleteSubscribe(Subscribe subscribe) throws Exception {

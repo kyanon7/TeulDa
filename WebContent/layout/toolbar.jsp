@@ -15,7 +15,7 @@
       <div class="collapse navbar-collapse" id="navbarColor02" >
            <ul class="navbar-nav mr-auto" >
             <li class="nav-item active" >
-            <a class="nav-link" href="../">Home
+            <a class="nav-link" href="/">Home
                <span class="sr-only" >(current)</span>
             </a>
             </li>
@@ -31,10 +31,10 @@
          </ul>
          <ul class="navbar-nav ml-auto" >
             <li class="nav-item">
-               <a class="nav-link" href="../user/login/">Login</a>
+               <a class="nav-link" href="/user/login/">Login</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="../user/addUser/">Sign Up</a>
+               <a class="nav-link" href="/user/addUser/">Sign Up</a>
             </li>
         </ul>
         <!-- <form class="form-inline my-2 my-lg-0" >
@@ -49,7 +49,7 @@
       <div class="collapse navbar-collapse" id="navbarColor02" >
            <ul class="navbar-nav mr-auto" >
             <li class="nav-item active" >
-            <a class="nav-link" href="../">Home
+            <a class="nav-link" href="/">Home
                <span class="sr-only" >(current)</span>
             </a>
             </li>
@@ -70,18 +70,18 @@
                <div class="dropdown-menu" >
                <a class="dropdown-item" href="#">기록</a>
                <a class="dropdown-item" href="#">앨범</a>
-               <a class="dropdown-item" id="review" href="../review/listReview">후기</a>
-               <a class="dropdown-item" id="subscribe" href="../subscribe/listSubscribe">구독</a>
+               <a class="dropdown-item" id="review" href="/review/listReview">후기</a>
+               <a class="dropdown-item" id="subscribe" href="/subscribe/listSubscribe">구독</a>
                </div>
             </li>
          </ul>
          <ul class="navbar-nav ml-auto" >
             <li class="nav-item">
-               <a class="nav-link" href="../user/logout/">Logout</a>
+               <a class="nav-link" href="/user/logout/">Logout</a>
             </li>
             
             <li class="nav-item">
-               <a class="nav-link" href="../user/getUser"><img src="../resources/images/profile-user.svg" width="25" height="25" alt=""></a>
+               <a class="nav-link" href="/user/getUser"><img src="../resources/images/profile-user.svg" width="25" height="25" alt=""></a>
             </li>
         </ul>
         <!-- <form class="form-inline my-2 my-lg-0" >
