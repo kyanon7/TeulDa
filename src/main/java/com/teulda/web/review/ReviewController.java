@@ -58,10 +58,8 @@ public class ReviewController {
 			
 		}else if(session.getAttribute("user") != null && session.getAttribute("user") instanceof User){
 			User user = (User) session.getAttribute("user");
-			
-			if(user.getNickname().equals(review.getNickname())) {
-				reviewService.addReview(review);
-			}
+			review.setNickname(user.getNickname());
+			reviewService.addReview(review);
 		}
 		
 		return "redirect:/review/listReview";

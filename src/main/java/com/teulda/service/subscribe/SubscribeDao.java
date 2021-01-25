@@ -1,9 +1,7 @@
 package com.teulda.service.subscribe;
 
 import java.util.List;
-import java.util.Map;
 
-import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Subscribe;
 
 public interface SubscribeDao {
@@ -21,6 +19,6 @@ public interface SubscribeDao {
 	public boolean checkSubscribe(Subscribe subscribe) throws Exception;
 	
 	// SELECT SUBSCRIBER DIARY LIST
-	public List<Diary> getSubscriberDiaryList(Map<String, Object> subscriberListInfo) throws Exception;
+//	public List<Diary> getSubscriberDiaryList(Map<String, Object> subscriberListInfo) throws Exception;
  
 }
