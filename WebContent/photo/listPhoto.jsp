@@ -32,8 +32,8 @@
 							<button type="button" class="btn btn-link disabled">~ 사진을 봅시다 ~</button>
 							<button type="button" class="btn btn-outline-info"> + 새 앨범</button><br/>
 							<a href="#" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
-							<a href="#" class="list-group-item list-group-item-action active"><center>내 사진 목록</center></a>
-							<a href="#" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
+							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록</center></a>
+							<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
 						</div>
 	
 				</div>
@@ -41,11 +41,12 @@
 				<div class="col-md-9">
   					<div class="list-group">
   					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a></br></br>
+  					<c:if test="${empty group.deleteDate}">
 	  					<c:set var = "i" value = "0" />
 		          			<c:forEach var = "group" items = "${groupList}">
 		            	<c:set var = "i" value = "${i+1}" />
 		            		<div class="card" style="width: 18rem">
-		               		<img class="card-img-top" src="..." alt="${group.groupName}">
+		               		<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
 		              		<div class="card-body">
 		                		<h5 class="card-title">${group.groupName}</h5>
 				                <p class="card-text">${group.groupNo}</p>
@@ -55,6 +56,7 @@
 		                	</div>
 		                	</div>
 		                	</c:forEach>
+		                	</c:if>
 					</div>
 				</div>
 			

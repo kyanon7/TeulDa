@@ -88,7 +88,7 @@ public class ReviewController {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
-		search.setSearchSorting("3");
+		search.setSearchSorting("0");
 		search.setSearchKeyword(user.getNickname());
 		
 		Map<String, Object> map = reviewService.getReviewList(search);

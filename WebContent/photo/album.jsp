@@ -32,7 +32,7 @@
 							<button type="button" class="btn btn-link disabled">~ 사진을 봅시다 ~</button>
 							<button type="button" class="btn btn-outline-info"> + 새 앨범</button><br/>
 							<a href="#" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
-							<a href="#" class="list-group-item list-group-item-action active"><center>내 사진 목록</center></a>
+							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록</center></a>
 							<a href="#" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
 						</div>
 	
@@ -40,7 +40,8 @@
 				
 				<div class="col-md-9">
   					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">Cras justo odio</a></br></br>
+  					<a href="#" class="list-group-item list-group-item-action active">${group.groupName}</a></br></br>
+  					<c:if test="${empty photo.deleteDate}">
 	  					<c:set var = "i" value = "0" />
 		          			<c:forEach var = "photo" items = "${photoList}">
 		            	<c:set var = "i" value = "${i+1}" />
@@ -55,6 +56,7 @@
 		                	</div>
 		                	</div>
 		                	</c:forEach>
+		                </c:if>
 					</div>
 				</div>
 			

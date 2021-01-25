@@ -106,11 +106,15 @@
 	</update>
 	
 	<!-- 이거 받을때 서비스 임플에서 map으로 받아야되  -->
+	
 	<select  id="getPostList"  parameterType="map"	resultMap="postSelectMap">
-		SELECT * 
+	
+	
+	
+	SELECT * 
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-			FROM		(SELECT post_id, nickname, title, post_date, view_count
-							FROM POST
+			FROM		(SELECT p.post_id, p.nickname, p.title, p.post_date, p.view_count
+							FROM POST p
 								<if test="searchCondition != null">
 									<where>
 										<if test="searchCondition == 0 and searchCondition !='' ">
@@ -120,21 +124,21 @@
 											title = #{searchKeyword}
 										</if>
 										<if test="searchCondition == 2 and searchCondition !='' ">
-							<!-- 이거한번 물어보기 -->				contain(content, #{searchKeyword}) > 0
+											contain(content, #{searchKeyword}) > 0
 										</if>
 										</where>
-										<choose>
+									<!-- 	<choose>
 											<when test="searchSorting == 0">
 												ORDER BY post_date DESC
 											</when>
 											<when test="searchSorting == 1">
 												ORDER BY view_count DESC
 											</when>
-										</choose>
+										</choose> -->
 								</if>
-				WHERE post_type = #{postCategory}) inner_table
+				<!-- WHERE post_type = #{postCategory} -->ORDER BY POST_ID ) inner_table
 				WHERE ROWNUM &lt;= #{endRowNum} )
-				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 	
+				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}   
 	</select>
 	
 

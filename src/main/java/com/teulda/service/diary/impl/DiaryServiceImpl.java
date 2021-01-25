@@ -56,17 +56,17 @@ public class DiaryServiceImpl implements DiaryService {
 		*/
 		
 		// 사진 이름 등록
-		List <Photo> photoList = diary.getPhotoList();
-		
-		for (int i = 0; i < photoList.size(); i++) {
-			Photo photo = photoList.get(i);
-			photo.setNickname(diary.getNickname()); // 닉네임으로 최신 기록번호 찾기 위해 넣어줌 
-			photo.setDiaryPhotoType('s'); // 기념품 사진 
-			if (photo.getDescription() == null) { // 설명이 없으면 
-				photo.setDiaryPhotoType('d'); // 기록 사진
-			} 
-			diaryDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨 
-		}
+//		List <Photo> photoList = diary.getPhotoList();
+//		
+//		for (int i = 0; i < photoList.size(); i++) {
+//			Photo photo = photoList.get(i);
+//			photo.setNickname(diary.getNickname()); // 닉네임으로 최신 기록번호 찾기 위해 넣어줌 
+//			photo.setDiaryPhotoType('s'); // 기념품 사진 
+//			if (photo.getDescription() == null) { // 설명이 없으면 
+//				photo.setDiaryPhotoType('d'); // 기록 사진
+//			} 
+//			diaryDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨 
+//		}
 		
 	}
 
