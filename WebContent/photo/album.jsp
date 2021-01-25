@@ -30,10 +30,10 @@
   				  	<div class="col-md-3">
 						<div class="list-group">
 							<button type="button" class="btn btn-link disabled">~ 사진을 봅시다 ~</button>
-							<button type="button" class="btn btn-outline-info"> + 새 앨범</button><br/>
-							<a href="#" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
-							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록</center></a>
-							<a href="#" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
+							<button type="button" id="addPhoto" class="btn btn-outline-info"> + 사진등록</button><br/>
+							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
+							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
+							<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
 						</div>
 	
 				</div>

@@ -103,10 +103,10 @@ public class PhotoController {
 		User user = (User)session.getAttribute("user");
 		
 		Group group = new Group();
-//		group.setNickname(user.getNickname());
+		group.setNickname(user.getNickname());
 		
 		//로그인 없이 그냥 바로 테스트 해보려고 넣음
-		group.setNickname("king정인");
+//		group.setNickname("king정인");
 		
 		Map<String, Object> map = photoService.getGroupList(group);
 		

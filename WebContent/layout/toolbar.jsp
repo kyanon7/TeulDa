@@ -69,7 +69,7 @@
                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page</a>
                <div class="dropdown-menu" >
                <a class="dropdown-item" href="#">기록</a>
-               <a class="dropdown-item" href="#">앨범</a>
+               <a class="dropdown-item" id="photo" href="/photo/listPhoto">앨범</a>
                <a class="dropdown-item" id="review" href="/review/listReview">후기</a>
                <a class="dropdown-item" id="subscribe" href="/subscribe/listSubscribe">구독</a>
                </div>

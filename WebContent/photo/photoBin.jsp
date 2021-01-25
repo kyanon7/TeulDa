@@ -14,7 +14,18 @@
 		<!-- Bootstrap CDN -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-	</head>
+		<script>
+		
+		function removeCheck() {
+
+ 			if (confirm("정말 삭제하시겠습니까?? \n삭제시 복구할 수 없습니다!!") == true){    //확인
+ 				document.detailForm.action='/photo/rest/deletePhoto';
+ 			}else{   //취소
+     			return false;
+ 			}
+		}
+	</script>
+		</head>
 
 	<body>
   		<!-- ======= Header ======= -->
@@ -30,9 +41,9 @@
   				  	<div class="col-md-3">
 						<div class="list-group">
 							<button type="button" class="btn btn-link disabled">~ 사진을 봅시다 ~</button>
-							<button type="button" class="btn btn-outline-info"> 휴지통 비우기</button><br/>
-							<a href="#" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
-							<a href="/photo/listPhoto" class="list-group-item list-group-item-action"><center>내 사진 목록</center></a>
+							<button type="button" id="deletePhoto" class="btn btn-outline-info" onclick="removeCheck()"> 휴지통 비우기</button><br/>
+							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
+							<a href="/photo/listPhoto" class="list-group-item list-group-item-action"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
 							<a href="/photo/photoBin" class="list-group-item list-group-item-action active"><center>사진 휴지통</center></a>
 						</div>
 	

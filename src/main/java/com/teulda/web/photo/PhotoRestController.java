@@ -55,14 +55,15 @@ public class PhotoRestController {
 	}
 	//그룹삭제(플래그)
 	//사진삭제(휴지통)
-	//그룹삭제(휴지통)
-	@RequestMapping(value="rest/deleteGroup")
+	//그룹, 사진 영구삭제(휴지통)
+	@RequestMapping(value="rest/deletePhoto")
 	public String deleteGroup(HttpSession session) throws Exception{
 		
 		System.out.println("photo/rest/deleteGroup");
 		
 		User user = (User)session.getAttribute("user");
 		
+		photoService.deletePhoto(user.getNickname());
 		photoService.deleteGroup(user.getNickname());
 		
 		return "forward:/photo/photoBin.jsp";
