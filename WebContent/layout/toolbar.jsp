@@ -59,7 +59,7 @@
             <li class="nav-item dropdown" >
                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
                <div class="dropdown-menu" >
-               <a class="dropdown-item" href="#">자유게시판</a>
+               <a class="dropdown-item" id="post" href="../post/listPost">자유게시판</a>
                <a class="dropdown-item" href="#">도장찍기</a>
                <div class="dropdown-divider"></div>
                <a class="dropdown-item" href="#">채팅</a>

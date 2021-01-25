@@ -30,7 +30,7 @@
   				<div class="col-md-3">
   					<div class="list-group">
   					<button type="button" class="btn btn-info disabled">자유게시판</button>
-  					<button type="button" class="btn btn-outline-info">+ 새 글 작성</button><br/>
+  					<a type="button" href="/post/addPost" class="btn btn-outline-info">+ 새 글 작성</a><br/>
   					<a href="#" class="list-group-item list-group-item-action active">여행지 정보공유</a>
   					<a href="#" class="list-group-item list-group-item-action">맛집 정보공유</a>
   					<a href="#" class="list-group-item list-group-item-action">숙소 정보공유</a>

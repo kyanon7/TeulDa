@@ -36,7 +36,7 @@ import com.teulda.service.post.PostService;
 		
 		
 		//이거 포토에서 bad sql나오는데 한번 확인해보기
-		//@Test
+		@Test
 		public void testaddPost() throws Exception{
 					
 			Post post = new Post();
