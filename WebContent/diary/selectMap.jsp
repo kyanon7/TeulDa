@@ -179,6 +179,29 @@
 	        			console.log('******************');
 	        			console.log(address.formatted_address);
 	        			console.log(latlng);
+	        			
+// 	        			//ajax 이용하여 서버에 위치, 위도, 경도 값 전달 
+// 	        			$.ajax({
+// 	        				url: "/diary/showAddDiaryView",
+// 	        				method : "POST" ,
+// 	        				dataType : "json" ,
+// 	        				headers : {
+// 	    						"Accept" : "application/json",
+// 	    						"Content-Type" : "application/json"
+// 	    					},
+// 	        				data: JSON.stringify ({
+// 	        					location : address.formatted_address,
+// 	        					latitude : latlng.lat,
+// 	        					longitude : latlng.lng
+// 	        				}),
+// 	        				success:function(status) {
+// 	        					if(status.resultCode==200) {
+// 		        					alert("성공!");
+// 	        					}
+// 	        				}
+// 	        			});
+
+					location.href="addDiary.jsp?location="+address.formatted_address+"&latitude="+latlng.lat+"&longitude="+latlng.lng;
 	        				
 	        			//console.log(results);
 	        			//alert(results);
@@ -209,19 +232,11 @@
   		<div class="container">
   		
   			<div class="row">
-  				<!-- diary toolbar로 빼도 될 듯 -->
+  				<!-- ======= Left ToolBar ======= -->
   				<div class="col-md-3">
-  					<div class="list-group">
-  					<button type="button" class="btn btn-info disabled">기록</button>
-  					<button type="button" class="btn btn-outline-info">+ 새 기록 작성</button><br/>
-  					<a href="#" class="list-group-item list-group-item-action active">여행 타임라인</a>
-  					<a href="#" class="list-group-item list-group-item-action">내 기록 지도</a>
-  					<a href="#" class="list-group-item list-group-item-action">내 기록 목록</a>
-  					<a href="#" class="list-group-item list-group-item-action">북마크 기록 목록</a>
-  					<a href="#" class="list-group-item list-group-item-action">스크랩 기록 목록</a>
-  					<a href="#" class="list-group-item list-group-item-action">기록 휴지통</a>
-					</div>
+  					<jsp:include page="../diary/leftbar.jsp"/>
 				</div>
+				<!-- End ToolBar -->
 				
 				<div class="col-md-9">
 					<input
@@ -235,11 +250,7 @@
 			
 			</div>
   		</div>
-  		
-
+  			
 	</body>
-	
-	
-	
-	
+
 </html>
