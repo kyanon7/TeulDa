@@ -47,7 +47,10 @@ public class PhotoDaoImpl implements PhotoDao {
 	@Override
 	public List<Photo> getPhotoList(Group group) throws Exception {
 		
-		return sqlSession.selectList("PhotoMapper.getPhotoList", group);
+		if(group.getDeleteDate() != null) {
+			return sqlSession.selectList("PhotoMapper.deletePhotoList", group);
+		}
+			return sqlSession.selectList("PhotoMapper.getPhotoList", group);
 	}
 	
 	//photoTotalCount => 완료
@@ -74,8 +77,10 @@ public class PhotoDaoImpl implements PhotoDao {
 	//getList => 완료
 	@Override
 	public List<Group> getGroupList(Group group) throws Exception {
-		
-		return sqlSession.selectList("PhotoMapper.getGroupList", group);
+		if(group.getDeleteDate() != null) {
+			return sqlSession.selectList("PhotoMapper.deleteGroupList", group);
+		}
+			return sqlSession.selectList("PhotoMapper.getGroupList", group);
 	}
 	
 	//groupTotalCount => 완료
