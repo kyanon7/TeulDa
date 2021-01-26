@@ -66,13 +66,15 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="getReview", method=RequestMethod.GET)
-	public String getReview(@RequestParam int reviewNo) throws Exception{
+	public String getReview(@RequestParam int reviewNo, Model model) throws Exception{
 		
 		System.out.println("/review/getReview : GET");
 		
-		reviewService.getReview(reviewNo);
+		Review review = reviewService.getReview(reviewNo);
 		
-		return "redirect:/review/getReview.jsp";
+		model.addAttribute("review", review);
+		
+		return "forward:/review/getReview.jsp";
 	}
 	
 	@RequestMapping(value="listReview")
