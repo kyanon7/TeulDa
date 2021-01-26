@@ -17,6 +17,9 @@ public interface PhotoService {
 	//사진조회 list => 완료
 	public Map<String, Object> getPhotoList(Group group) throws Exception;
 	
+	//삭제처리한 사진 조회
+	public Map<String, Object> deletePhotoList(Group group) throws Exception;
+	
 	//그룹생성(group_type = 1) => 완료
 	public void addGroup(Group group) throws Exception;
 	
@@ -25,6 +28,9 @@ public interface PhotoService {
 	
 	//그룹조회 list => 완료
 	public Map<String, Object> getGroupList(Group group) throws Exception;
+	
+	//삭제처리한 그룹 조회
+	public Map<String, Object> deleteGroupList(Group group) throws Exception;
 	
 	//앨범이름 변경 => 완료
 	public void updateGroupName(Group group) throws Exception;

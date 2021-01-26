@@ -19,13 +19,13 @@
 		function removeCheck() {
 
  			if (confirm("정말 삭제하시겠습니까?? \n삭제시 복구할 수 없습니다!!") == true){    //확인
- 				document.detailForm.action='/photo/rest/deletePhoto';
+ 				document.detailForm.action="/photo/deletePhoto";
  			}else{   //취소
      			return false;
  			}
 		}
-	</script>
-		</head>
+		</script>
+	</head>
 
 	<body>
   		<!-- ======= Header ======= -->
@@ -75,8 +75,8 @@
 				
 				<div class="col-md-9">
 	  					<div class="list-group">
-	  					<a href="#" class="list-group-item list-group-item-action active">${group.groupName}</a></br></br>
-	  					<c:if test="${!empty photo.deleteDate}">
+	  					<a href="#" class="list-group-item list-group-item-action active">Delete Photos</a></br></br>
+	  					
 		  					<c:set var = "i" value = "0" />
 			          			<c:forEach var = "photo" items = "${photoList}">
 			            	<c:set var = "i" value = "${i+1}" />
@@ -87,11 +87,11 @@
 					                <p class="card-text">${photo.photoAddr}</p>
 					                <p class="card-text"><small class="text-muted">${photo.photoDate}</small></p>
 					                <p class="card-text"><small class="text-muted">${photo.photoNo}</small></p>
-					                <p class="card-text"><small class="text-muted">조회수 ${photo.photoGroupNo}회</small></p>
+					                <p class="card-text"><small class="text-muted">${photo.deleteDate}</small></p>
 			                	</div>
 			                	</div>
 			                	</c:forEach>
-			                </c:if>
+			            
 						</div>
 					</div>
 					

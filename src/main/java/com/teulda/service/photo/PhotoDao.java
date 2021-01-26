@@ -18,6 +18,9 @@ public interface PhotoDao {
 	//사진조회list => 완료
 	public List<Photo> getPhotoList(Group group) throws Exception;
 	
+	//삭제처리한 사진조회
+	public List<Photo> deletePhotoList(Group group) throws Exception;
+	
 	//photoTotalCount => 완료
 	public int getPhotoTotalCount(Group group) throws Exception;
 	
@@ -29,6 +32,9 @@ public interface PhotoDao {
 	
 	//앨범조회list => 완료
 	public List<Group> getGroupList(Group group) throws Exception;
+	
+	//삭제처리한 앨범조회
+	public List<Group> deleteGroupList(Group group) throws Exception;
 	
 	//groupTotalCount => 완료
 	public int getGroupTotalCount(Group group) throws Exception;

@@ -1,5 +1,7 @@
 package com.teulda.web.photo;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
@@ -125,15 +130,72 @@ public class PhotoController {
 		User user = (User)session.getAttribute("user");
 		
 		Group group = new Group();
-//		group.setNickname(user.getNickname());
-		group.setNickname("king정인");
+		group.setNickname(user.getNickname());
+
 		
-		Map<String, Object> map = photoService.getGroupList(group);
-		Map<String, Object> list = photoService.getPhotoList(group);
+		Map<String, Object> map = photoService.deleteGroupList(group);
+		Map<String, Object> list = photoService.deletePhotoList(group);
 		
 		model.addAttribute("groupList",  map.get("groupList"));
 		model.addAttribute("photoList", list.get("photoList"));
 		
 		return "forward:/photo/photoBin.jsp";
 	}
+	
+    @RequestMapping(value = "addPhoto", method=RequestMethod.POST)
+    public String addPhoto(MultipartHttpServletRequest mtfRequest, HttpSession session) throws Exception{
+        
+    	User user = (User)session.getAttribute("user");
+    	
+    	List<MultipartFile> fileList = mtfRequest.getFiles("file");
+        String src = mtfRequest.getParameter("src");
+        System.out.println("src value : " + src);
+
+        String path = "/Users/tjcpji/Pictures";
+
+        for (MultipartFile mf : fileList) {
+            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+            long fileSize = mf.getSize(); // 파일 사이즈
+
+            System.out.println("originFileName : " + originFileName);
+            System.out.println("fileSize : " + fileSize);
+            System.out.println("Nickname : "+ user.getNickname());
+
+            String safeFile = path + System.currentTimeMillis() + originFileName;
+            
+            System.out.println("safeFile : "+safeFile);
+            
+            Photo photo = new Photo();
+            photo.setPhotoName(originFileName);
+            photo.setNickname(user.getNickname());
+            
+            photoService.addPhoto(photo);
+            
+            try {
+                mf.transferTo(new File(safeFile));
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        return "forward:/photo/listPhoto.jsp";
+    }
+    
+    //그룹, 사진 영구삭제(휴지통)
+  	@RequestMapping(value="deletePhoto")
+  	public String deleteGroup(HttpSession session) throws Exception{
+  		
+  		System.out.println("photo/deleteGroup");
+  		
+  		User user = (User)session.getAttribute("user");
+  		
+  		photoService.deletePhoto(user.getNickname());
+  		photoService.deleteGroup(user.getNickname());
+  		
+  		return "forward:/photo/photoBin.jsp";
+  	}
 }
