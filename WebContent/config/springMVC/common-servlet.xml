@@ -75,6 +75,9 @@
 	     css , image, js 등 넣어 관리하며 아래와 같이 1번의 설정으로 관리-->
     
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    
+    <!-- zoo1 외부파일 경로 매핑 -->
+   	<mvc:resources mapping="/summernoteImage/**" location="/Users/jungjoowon/summernote_image/" />
 	
 	<!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> -->
 
