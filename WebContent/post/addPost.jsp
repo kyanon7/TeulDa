@@ -19,16 +19,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
    		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
    		
-   		
-<!-- 	<script type="text/javascript"> -->
-		<style>
-		h5 { text-align: center; }
-		th { text-align: center; }
-		td { text-align: center; }
-		.form-control form-control-sm { "width:100px;" }
-		</style>
-	
-	
+  
 	<script>
 	$(document).ready(function() {
 		  $('#summernote').summernote({
@@ -42,7 +33,7 @@
 });
 	function fncAddPost(){
 		
- 		var postCategory = $("#postCategory option:selected").val();
+ 		/* var postCategory = $("#postCategory option:selected").val();
 		var postTitle = $("input[name:'title']").val();	
 		var postConetents= $("textarea[name:'content']").val();	
 	
@@ -54,7 +45,7 @@
 		if(postTtile == null || postTtile.length<1){
 			alert("제목은 반드시 입력하여야 합니다.");
 			return;
-		}
+		} */
 	
 	$("form").attr("method","POST").attr("action","/post/addPost").submit();
 }
@@ -101,11 +92,11 @@
   				  </select>
   				</div>
 
-		
+		<div class="row">
 				<div class="col-md-12">
 				<div style="width: 100%;">
 				<br>
-				<input type="text" name="title" style="width: 40%;" placeholder="제목"/>
+				<input type="text" name="title" class="form-control" placeholder="제목"/>
 				<br><br> 
 				<textarea id="summernote" name="content"></textarea>
 				<!-- <input id="subBtn" type="button" value="등록" style="float: right;"/>

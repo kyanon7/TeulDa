@@ -33,49 +33,59 @@ import com.teulda.service.post.PostService;
 	}
 	
 	
-	@Value("#{commonProperties['pageUnit']}")
-	//@Value("#{commonProperties['pageUnit'] ?: 3}")
+	@Value("#{commonProperties['pageUnit'] ?: 5}") // 못 불러온다면 5 주입 
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize']}")
-	//@Value("#{commonProperties['pageSize'] ?: 2}")
-	int pageSize; 
+	@Value("#{commonProperties['pageSize'] ?: 3}") // 못 불러온다면 3 주입 
+	int pageSize;
 
 	
-	@RequestMapping(value="addPost", method=RequestMethod.GET)
-	public String addPost() throws Exception{
-		
-		System.out.println("/post/addPost : GET");
-		
-		return "forward:/post/addPost.jsp";
-		
-	}
+//	@RequestMapping(value="addPost", method=RequestMethod.GET)
+//	public String addPost() throws Exception{
+//		
+//		System.out.println("/post/addPost : GET");
+//		
+//		return "forward:/post/addPost.jsp";
+//		
+//	}
 	
 	@RequestMapping(value="addPost", method=RequestMethod.POST)
-	public String addPost(Post post) throws Exception{
+	public String addPost(@ModelAttribute("post") Post post, Model model,
+			HttpSession session) throws Exception{
 		
 		System.out.println("/post/addPost : POST");
 		
-		postService.addPost(post);
+		User user = (User) session.getAttribute("user");
+		
+		System.out.println("===========================");
+		System.out.println("이건 User값입니다"+user);
+		System.out.println("===========================");
+		
+		post.setNickname(user.getNickname());
 		
 		System.out.println(post);
+		postService.addPost(post);
 		
-		return "forward:/post/addPost.jsp";
+	
+		
+		model.addAttribute("post", post);
+		
+		return "forward:/post/getPost.jsp";
 		
 	}
 	
 	@RequestMapping(value="listPost")
-	public String listPost(Search search, char postCategory, Model model, HttpSession session) throws Exception{
+	public String listPost(@ModelAttribute("search")Search search, char postCategory, Model model, HttpSession session) throws Exception{
 		
 		System.out.println("/post/listPost : GET / POST");
 		
-		User user = (User) session.getAttribute("user");
+		//User user = (User) session.getAttribute("user");
 		
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
-		search.setSearchSorting("3");
+		//search.setSearchSorting("3");
 		
 		
 		Map<String, Object> map = postService.getPostList(search, '1');
@@ -83,6 +93,7 @@ import com.teulda.service.post.PostService;
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
+		model.addAttribute("postCategory", '1');
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
