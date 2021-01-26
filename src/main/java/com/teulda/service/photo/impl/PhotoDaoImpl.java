@@ -139,5 +139,15 @@ public class PhotoDaoImpl implements PhotoDao {
 		
 	}
 
+	@Override
+	public List<Photo> deletePhotoList(Group group) throws Exception {
+		return sqlSession.selectList("PhotoMapper.deletePhotoList", group);
+	}
+
+	@Override
+	public List<Group> deleteGroupList(Group group) throws Exception {
+		return sqlSession.selectList("PhotoMapper.deleteGroupList", group);
+	}
+
 	
 }

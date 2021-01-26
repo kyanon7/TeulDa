@@ -36,6 +36,14 @@ public class PhotoRestController {
 
 
 	//사진등록
+	@RequestMapping(value="rest/addPhoto")
+	public Photo addPhoto(HttpSession session) throws Exception{
+		
+		User user = (User)session.getAttribute("user");
+		
+		
+		return null;
+	}
 	//사진삭제(플래그)
 	//그룹등록
 	@RequestMapping(value="rest/addGroup/{groupName}")
@@ -66,7 +74,7 @@ public class PhotoRestController {
 		photoService.deletePhoto(user.getNickname());
 		photoService.deleteGroup(user.getNickname());
 		
-		return "forward:/photo/photoBin.jsp";
+		return user.getNickname();
 	}
 	//그룹옮기기
 	@RequestMapping(value="rest/updateGroupNo")

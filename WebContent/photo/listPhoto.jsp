@@ -14,6 +14,10 @@
 		<!-- Bootstrap CDN -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	
+		<script>
+		
+		</script>
 	</head>
 
 	<body>
@@ -41,7 +45,7 @@
 				<div class="col-md-9">
   					<div class="list-group">
   					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a></br></br>
-  					<c:if test="${empty group.deleteDate}">
+  					
 	  					<c:set var = "i" value = "0" />
 		          			<c:forEach var = "group" items = "${groupList}">
 		            	<c:set var = "i" value = "${i+1}" />
@@ -56,14 +60,18 @@
 		                	</div>
 		                	</div>
 		                	</c:forEach>
-		                	</c:if>
+		            
 					</div>
 				</div>
 			
 			</div>
   		</div>
   		
-  		
+  	<form name="fileForm" action="/photo/addPhoto" method="post" enctype="multipart/form-data">
+        <input multiple="multiple" type="file" name="file" />
+        <input type="text" name="src" />
+        <input type="submit" value="전송" />
+    </form>
 
 	</body>
 	

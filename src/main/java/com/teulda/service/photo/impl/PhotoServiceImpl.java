@@ -134,6 +134,26 @@ public class PhotoServiceImpl implements PhotoService {
 		
 	}
 
+	@Override
+	public Map<String, Object> deletePhotoList(Group group) throws Exception {
+		List<Photo> photoList = photoDao.deletePhotoList(group);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("photoList", photoList);
+		
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> deleteGroupList(Group group) throws Exception {
+		List<Group> groupList = photoDao.deleteGroupList(group);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("groupList", groupList);
+		
+		return map;
+	}
+
 	
 	
 }
