@@ -50,11 +50,10 @@
 	<update	id="updateReview"	parameterType="com.teulda.service.domain.Review" >
 		UPDATE review
 	   	<set>
-			nickname		= #{nickname}, 
 			review_addr 	= #{reviewPlace}, 
 			content			= #{reviewContents}, 
 			review_photo	= #{reviewPhoto},
-			review_date		= #{reviewDate},
+			<!-- review_date		= #{reviewDate}, -->
 			star			= #{star},
 			is_allowed		= #{isAllowed}
 		</set>

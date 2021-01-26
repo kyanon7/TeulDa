@@ -22,23 +22,23 @@
 			});
 
 			window.addEventListener('DOMContentLoaded', function(){
-				const list = document.querySelector(".list");
-
-				list.addEventListener('click', function(){
+				document.querySelector(".edit").addEventListener('click', function(){
+					location.href = "/review/updateReview?reviewNo=${review.reviewNo}";
+				});
+				
+				document.querySelector(".list").addEventListener('click', function(){
 					location.href = "/review/listReview";
 				});
 			});
 
 			$(function () {
 				$("#rateYo").rateYo({
-				rating: "${review.star}",
-				readOnly: true,
-				starWidth: "20px"
+					rating: "${review.star}",
+					readOnly: true,
+					starWidth: "20px"
 				});
 			});
 
-			console.log($("#rateYo"));
-			
 		</script>
 		
 	</head>
@@ -82,7 +82,7 @@
 							<div class="row">
 								<div class="col-md-1"> </div>
 								<small class="form-text text-muted">나의 평점</small>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<div id="rateYo"></div>
 								</div>
 								<div class="col-md-4"></div>

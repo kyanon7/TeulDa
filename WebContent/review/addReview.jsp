@@ -20,10 +20,10 @@
 
 		<style>
 			.select-img img {
-			max-width: 100%;
-			max-height: auto;
-			display: block;
-			margin: auto;
+				max-width: 100%;
+				max-height: auto;
+				display: block;
+				margin: auto;
 			}
 
 		</style>
