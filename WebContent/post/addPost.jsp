@@ -8,20 +8,38 @@
 
    <title>새 글 작성</title>
 
-		<!— jQuery CDN —>
+		<!-- jQuery CDN --> 
 		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 		
-		<!— Bootstrap CDN —>
+		<!--Bootstrap CDN -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
-		<!— Summer note lite CDN —>
+		<!--  Summer note lite CDN  -->
 		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
    		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
    		
    		
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript"> -->
+		<style>
+		h5 { text-align: center; }
+		th { text-align: center; }
+		td { text-align: center; }
+		.form-control form-control-sm { "width:100px;" }
+		</style>
 	
+	
+	<script>
+	$(document).ready(function() {
+		  $('#summernote').summernote({
+	    	placeholder: '게시글을 남겨주세요',
+	    	 height: 450,     
+   		     minHeight: null,
+   		     maxHeight: null,
+   		     focus: true, 
+    	     lang : 'ko-KR'
+  	});
+});
 	function fncAddPost(){
 		
  		var postCategory = $("#postCategory option:selected").val();
@@ -48,19 +66,7 @@
 			});
 		});
 
-	</script>
-	<script>
-		$(document).ready(function() {
-			  $('#summernote').summernote({
- 	    		 placeholder: 'content',
-	   		     minHeight: 370,
-	   		     maxHeight: null,
-	   		     focus: true, 
-	    	     lang : 'ko-KR'
-	  });
-	});
-		
-		
+
 </script>
 </head>
 <body>
@@ -96,7 +102,7 @@
   				</div>
 
 		
-				<div class="col-md-9">
+				<div class="col-md-12">
 				<div style="width: 100%;">
 				<br>
 				<input type="text" name="title" style="width: 40%;" placeholder="제목"/>

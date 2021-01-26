@@ -127,16 +127,16 @@
 											contain(content, #{searchKeyword}) > 0
 										</if>
 										</where>
-									<!-- 	<choose>
+										<choose>
 											<when test="searchSorting == 0">
 												ORDER BY post_date DESC
 											</when>
 											<when test="searchSorting == 1">
 												ORDER BY view_count DESC
 											</when>
-										</choose> -->
+										</choose> 
 								</if>
-				<!-- WHERE post_type = #{postCategory} -->ORDER BY POST_ID ) inner_table
+				 WHERE post_type = '1') inner_table
 				WHERE ROWNUM &lt;= #{endRowNum} )
 				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}   
 	</select>

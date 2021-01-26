@@ -64,29 +64,29 @@ import com.teulda.service.post.PostService;
 		
 	}
 	
-//	@RequestMapping(value="listPost")
-//	public String listPost(Search search, char postCategory, Model model, HttpSession session) throws Exception{
-//		
-//		System.out.println("/post/listPost : GET / POST");
-//		
-//		User user = (User) session.getAttribute("user");
-//		
-//		if(search.getCurrentPage()==0) {
-//			search.setCurrentPage(1);
-//		}
-//		search.setPageSize(pageSize);
-//		search.setSearchSorting("3");
-//		
-//		
-//		Map<String, Object> map = postService.getPostList(search, '1');
-//		
-//		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-//		System.out.println(resultPage);
-//		
-//		model.addAttribute("list", map.get("list"));
-//		model.addAttribute("resultPage", resultPage);
-//		model.addAttribute("search", search);
-//		
-//		return "forward:/post/listPost.jsp";
-//	}
+	@RequestMapping(value="listPost")
+	public String listPost(Search search, char postCategory, Model model, HttpSession session) throws Exception{
+		
+		System.out.println("/post/listPost : GET / POST");
+		
+		User user = (User) session.getAttribute("user");
+		
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		search.setSearchSorting("3");
+		
+		
+		Map<String, Object> map = postService.getPostList(search, '1');
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/post/listPost.jsp";
+	}
 }
