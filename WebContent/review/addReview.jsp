@@ -62,7 +62,7 @@
 		});
 
 		window.addEventListener('DOMContentLoaded', function(){
-			const cancel = document.querySelector(".btn.btn-primary.btn-sm.cancel");
+			const cancel = document.querySelector(".cancel");
 
 			cancel.addEventListener('click', function(){
 				location.href = "/review/listReview";
@@ -99,7 +99,6 @@
 		</header>
 
 		<br />
-	</div>
 	<div class="container-fullwidth align-items-center">
 		<div class="row">
 			<div class="col-lg-3">
@@ -117,6 +116,7 @@
 							<label for="inputPlace" wfd-id="362"><!--장소--></label>
 							<small class="form-text text-muted">장소</small>
 							<input type="place" class="form-control" id="inputPlace" name="reviewPlace" aria-describedby="palceHelp" placeholder="예) 서울시 강남구, 부산 해운대 앞바다" wfd-id="516">
+							<input type="hidden" name="isAllowed" value="f"/>
 							<!-- <small id="placeHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 						</div>
 						<div class="form-group" wfd-id="351">

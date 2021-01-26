@@ -15,9 +15,48 @@
 
 		<script type="text/javascript">
 
+			window.addEventListener('DOMContentLoaded', function(){
+				let reviewNo = document.querySelectorAll('.review td:nth-child(2)');
+
+				document.querySelectorAll('.review td:nth-child(2)').forEach(function(each){
+					each.addEventListener('click', function(){
+						let getReview = this.querySelector('div').textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim();
+						location.href = "/review/getReview?reviewNo="+getReview;
+					});
+				});
+
+				document.querySelectorAll('.review td:nth-child(4)').forEach(function(each){
+
+					console.log(each)
+					let star = each.querySelector('div').textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim();
+					// console.log(star)
+
+					// console.log($(each).$(".rateYo"));
+					console.log($(each));
+					// console.log($(".rateYo"));
+					console.log($("each #rateYo"));
+					// $("#rateYo").rateYo({
+					// 	rating: star,
+					// 	readOnly: true,
+					// 	starWidth: "20px"
+					// });
+					
+				});
+
+			});
+
 			function writeDown(){
-				location.href = "../review/addReview";
+				location.href = "/review/addReview";
 			}
+
+			console.log($("#rateYo"));
+			$(function () {
+				$("#rateYo").rateYo({
+				rating: 1,
+				readOnly: true,
+				starWidth: "20px"
+				});
+			});
 
 		</script>
 
@@ -37,7 +76,6 @@
 			<div class="col-lg-2">
 			</div>
 
-
 			<div class="col-lg-8">
 
 
@@ -54,11 +92,13 @@
 						<c:set var = "i" value = "0" />
 						<c:forEach var = "review" items = "${list}">
 							<c:set var = "i" value = "${i+1}" />
-							<tr>
+							<tr class="review">
 							<th class="text-center" scope="row">${i}</th>
-								<td><a href="#" >${fn:substring(review.reviewContents, 0, 29)}...</a></td>
-								<td class="text-center"><a href="#" >${fn:substring(review.reviewDate, 0, 10)}</a></td>
-								<td class="text-center"><a href="#" >${review.star}</a></td>
+								<td><a href="#" >${fn:substring(review.reviewContents, 0, 29)}...</a>
+								<div style="display:none">${review.reviewNo}</div></td>
+								<td class="text-center">${fn:substring(review.reviewDate, 0, 10)}</td>
+								<td class="text-center"><div id="rateYo" class="rateYo"><div style="display:none">${review.star}</div></td>
+								<!-- <td class="text-center"><a href="#" >${review.star}</a></td> -->
 							</tr>
 						</c:forEach>
 				</table>
