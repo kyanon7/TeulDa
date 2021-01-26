@@ -51,26 +51,6 @@ import com.teulda.service.subscribe.SubscribeService;
 		return subscriberList;
 	}
 	
-//	@Override
-//	public List<Diary> getSubscriberDiaryList(List<String> subscriberList, Timestamp start) throws Exception{
-//		
-//		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
-//		subscriberListInfo.put("subscriberList", subscriberList);
-//		subscriberListInfo.put("start", start);
-//		
-//		return subscribeDao.getSubscriberDiaryList(subscriberListInfo);
-//	}
-//	
-//	@Override
-//	public List<Diary> getSubscriberDiaryPeriodList(List<String> subscriberList, Timestamp start, Timestamp end) throws Exception {
-//		
-//		Map<String, Object> subscriberListInfo = new HashMap<String, Object>();
-//		subscriberListInfo.put("subscriberList", subscriberList);
-//		subscriberListInfo.put("start", start);
-//		subscriberListInfo.put("end", end);
-//		return subscribeDao.getSubscriberDiaryList(subscriberListInfo);
-//	}
-	
 	@Override
 	public boolean deleteSubscribe(Subscribe subscribe) throws Exception {
 		if(!subscribeDao.checkSubscribe(subscribe)) {
