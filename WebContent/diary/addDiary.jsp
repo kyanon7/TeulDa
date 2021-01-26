@@ -33,11 +33,43 @@
 				  maxHeight: null,             // 최대 높이
 				  focus: true,                 // 에디터 로딩후 포커스를 맞출지 여부
 				  lang: "ko-KR",			   // 한글 설정
-				  placeholder: '여행 기록을 자유롭게 남겨주세요'	//placeholder 설정
-		          
+				  placeholder: '여행 기록을 자유롭게 남겨주세요',	//placeholder 설정
+				  callbacks: {	// 이미지를 업로드할 때 사용하는 callback 함수
+						onImageUpload : function(files) {
+							uploadSummernoteImageFile(files[0], this);
+						},
+						onPaste: function (e) { // 복사한 사진을 ctrl+v로 붙여넣을때 사용하는 onPaste 함수 
+							// 기본값을 사용하면 복붙시 base64로 인코딩된 src 이미지 파일과 
+							// onImageUpload에서 구현한 url 기반의 이미지 파일이 두개가 들어가는 버그가 생김. 따라서 아래와 같이 재설정을 해준다 
+							var clipboardData = e.originalEvent.clipboardData;
+							if (clipboardData && clipboardData.items && clipboardData.items.length) {
+								var item = clipboardData.items[0];
+								if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+									e.preventDefault();
+								}
+							}
+						}
+				  }
 			});
 			
-			$('#currency').change(function() {
+			/* 파일 업로드 */
+			function uploadSummernoteImageFile(file, editor) {
+					data = new FormData();
+					data.append("file", file);
+					$.ajax({
+						data : data,
+						type : "POST",
+						url : "/diary/rest/uploadSummernoteImageFile",
+						contentType : false,
+						processData : false,
+						success : function(data) {
+            				//항상 업로드된 파일의 url이 있어야 한다.
+							$(editor).summernote('insertImage', data.url);
+						}
+					});
+			}
+			
+			$('#currency').change(function() { // 추후 수정예정 - 지출내역 화폐 관련 
 				var state = $('#currency option:selected').val();
 				var currency = $('#showCurrency').val();
 				if (state == 'KRW') {
@@ -66,7 +98,10 @@
 			$("button:contains('등록')").on("click", function() {
 				addDiary();
 			});
-						
+			
+			$("img[src='../resources/images/marker_blue.png']").on("click", function() { // 아이콘 사진 변경시 src 수정해주기 
+				history.go(-1);
+			});		
 		});
 		
 		</script>
@@ -91,7 +126,7 @@
 
 					<input type="text" name="title" class="form-control" placeholder="제목 (반드시 입력)"><br>
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-8">
 							<div class="row">
 								<div class="col-md-1">
 									<img src="../resources/images/marker_blue.png" height="40px">
@@ -103,11 +138,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3">
-							<input type="text" name="startDate" class="form-control" placeholder="여행 시작날짜 입력">
+						<div class="col-md-2">
+							<input type="text" name="startDate" class="form-control" placeholder="여행 시작날">
 						</div>
-						<div class="col-md-3">
-							<input type="text" name="endDate" class="form-control" placeholder="여행 종료날짜 입력">
+						<div class="col-md-2">
+							<input type="text" name="endDate" class="form-control" placeholder="여행 종료날">
 						</div>
 					</div>
 					<br>
