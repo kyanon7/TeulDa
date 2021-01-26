@@ -48,8 +48,4 @@ public class SubscribeDaoImpl implements SubscribeDao {
 		return sqlSession.selectOne("SubscribeMapper.checkSubscribe", subscribe).equals(0);
 	}
 	
-//	@Override
-//	public List<Diary> getSubscriberDiaryList(Map<String, Object> subscriberListInfo) throws Exception{
-//		return sqlSession.selectList("DiaryMapper.getSubscribeDiaryList", subscriberListInfo);
-//	}
 }
