@@ -20,4 +20,13 @@
   			<a href="#" class="list-group-item list-group-item-action">기록 휴지통</a>
 		</div>
 	</body>
+	
+	<script type="text/javascript">
+	$(function() {
+		
+		$("button:contains('+ 새 기록 작성')").on("click", function () {
+			self.location = "/diary/selectMap.jsp";
+		});
+	 });
+	</script>
 </html>
