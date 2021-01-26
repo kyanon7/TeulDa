@@ -36,14 +36,14 @@ import com.teulda.service.post.PostService;
 		
 		
 		//이거 포토에서 bad sql나오는데 한번 확인해보기
-		@Test
+		//@Test
 		public void testaddPost() throws Exception{
 					
 			Post post = new Post();
 		
-			post.setPostTitle("돌아간다 신난다");
-			post.setPostContents("당황스럽네?");
-			post.setPostCategory('1');
+			post.setPostTitle("리스트 확인");
+			post.setPostContents("잘됬으면 좋겠네??");
+			post.setPostCategory('3');
 			post.setNickname("king제현");
 			
 			System.out.println("1");
@@ -186,6 +186,10 @@ import com.teulda.service.post.PostService;
 			Search search = new Search();
 			search.setCurrentPage(1);
 			search.setPageSize(5);
+			
+			search.setSearchKeyword("제현");
+			search.setSearchCondition("3");
+			search.setSearchSorting("2");
 			
 			Map<String, Object> map = postService.getPostList(search, '1');
 			System.out.println(map);

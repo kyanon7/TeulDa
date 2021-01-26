@@ -92,7 +92,7 @@ public class Post {
 	@Override
 	public String toString() {
 		return "Post [postNo=" + postNo + ", postTitle=" + postTitle + ", postContents=" + postContents + ", postDate="
-				+ postDate + ", postCategory=" + postCategory + ", viewCount=" + viewCount + ", nickName=" + nickname
+				+ postDate + ", postCategory=" + postCategory + ", viewCount=" + viewCount + ", nickname=" + nickname
 				+ ", commentList=" + commentList + ", photoList=" + photoList + "]";
 	}
 	

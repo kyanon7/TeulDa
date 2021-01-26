@@ -14,6 +14,18 @@
 		<!-- Bootstrap CDN -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		
+	<!-- 	<script type="text/javascript">
+			
+		$(function(){
+			
+			$("").on("click", function(){
+				self.location="/post/listPost?postCategory="$(this}.attr('id')
+			});
+		}); 
+		
+		
+		</script> -->
 	</head>
 
 	<body>
@@ -30,12 +42,16 @@
   				<div class="col-md-3">
   					<div class="list-group">
   					<button type="button" class="btn btn-info disabled">자유게시판</button>
+  					
+  					<c:if test="${ !empty user }">
   					<a type="button" href="/post/addPost" class="btn btn-outline-info">+ 새 글 작성</a><br/>
-  					<a href="#" class="list-group-item list-group-item-action active">여행지 정보공유</a>
-  					<a href="#" class="list-group-item list-group-item-action">맛집 정보공유</a>
-  					<a href="#" class="list-group-item list-group-item-action">숙소 정보공유</a>
-  					<a href="#" class="list-group-item list-group-item-action">Q&A</a>
-  					<a href="#" class="list-group-item list-group-item-action">잡담</a>
+  					</c:if>
+  					
+  					<a href="/post/listPost?postCategory=1" class="list-group-item list-group-item-action active" type="button">여행지 정보공유</a>
+  					<a href="/post/listPost?postCategory=2" class="list-group-item list-group-item-action " type="button">맛집 정보공유</a>
+  					<a href="/post/listPost?postCategory=3" class="list-group-item list-group-item-action " type="button">숙소 정보공유</a>
+  					<a href="/post/listPost?postCategory=4" class="list-group-item list-group-item-action " type="button">Q&A</a>
+  					<a href="/post/listPost?postCategory=5" class="list-group-item list-group-item-action " type="button">잡담</a>
 					</div>
 				</div>
 				
@@ -44,24 +60,40 @@
  						 <li class="breadcrumb-item"><a href="#">내 글 보기</a></li>
   						 <li class="breadcrumb-item"><a href="#">내 댓글 보기</a></li>
 					</ol>
+						
   					 	<table class="table table-hover">
  					 <thead>
    					 <tr>
     					  <th scope="col">글번호</th>
+    					  <td></td>
     					  <th scope="col">작성자</th>
+    					  <td></td>
     					  <th scope="col">제목</th>
+    					  <td></td>
      					 <th scope="col">등록일자</th>
+     					 <td></td>
      					 <th scope="col">조회수</th>
+     					 <td></td>
    					 </tr>
   				</thead>
   				<tbody>
-  					  <tr class="table-active">
-   					   <th scope="row">Active</th>
-    				  <td>Column content</td>
-    				  <td>Column content</td>
-     				 <td>Column content</td>
-     				  <td>Column content</td>
-   				 </tr>
+ 				<c:set var = "i" value = "0"/>
+  					<c:forEach var = "post" items = "${list}">
+  						<c:set var = "i" value = "${i+1}" />
+  						<tr class="ct_list_pop">
+  						<%-- 	<td align="center">${ i }</td>
+								<td></td> --%>
+								<td align="left">${post.postNo}</td>
+								<td></td> 
+								<td align="left">${post.nickname}</td>
+								<td></td>
+								<td align="left">${post.postTitle}</td>
+								<td></td>			
+								<td align="left">${post.postDate}</td>
+  								<td></td>			
+								<td align="left">${post.viewCount}</td>
+  					</tr>
+  					</c:forEach>	
     			<tr>
 				</tr>
 				</tbody>
@@ -70,6 +102,33 @@
 			
 			</div>
   		</div>
+  		
+  		
+  		<div>
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <a class="page-link" href="#">&laquo;</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="#">1</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">3</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">4</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">5</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">&raquo;</a>
+    </li>
+  </ul>
+</div>
 	</body>
 	
 	
