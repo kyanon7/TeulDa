@@ -37,7 +37,7 @@
 		INSERT
 		INTO POST (post_id, nickname, title, content, post_date, view_count, post_type)
 		VALUES	(seq_post_post_id.nextval, #{nickname}, #{postTitle:VARCHAR}, 
-				#{postContents::CLOB}, SYSDATE, #{viewCount}, #{postCategory:CHAR})
+				#{postContents:CLOB}, SYSDATE, #{viewCount}, #{postCategory:CHAR})
 	</insert>
 	
 	<insert id="addComment"	parameterType="com.teulda.service.domain.Comment">
@@ -108,10 +108,13 @@
 	<!-- 이거 받을때 서비스 임플에서 map으로 받아야되  -->
 	
 	<select  id="getPostList"  parameterType="map"	resultMap="postSelectMap">
+
+	SELECT post_id, nickname, title, post_date, view_count
+	FROM POST
+	WHERE post_type = #{postCategory}
+	ORDER BY post_id DESC
 	
-	
-	
-	SELECT * 
+	<!-- SELECT * 
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq
 			FROM		(SELECT p.post_id, p.nickname, p.title, p.post_date, p.view_count
 							FROM POST p
@@ -136,9 +139,9 @@
 											</when>
 										</choose> 
 								</if>
-				 WHERE post_type = '1') inner_table
+				 WHERE post_type = #{postCategory}) inner_table
 				WHERE ROWNUM &lt;= #{endRowNum} )
-				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}   
+				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} -->   
 	</select>
 	
 

@@ -63,6 +63,8 @@ public class PostDaoImpl implements PostDao {
 		map.put("search", search);
 		map.put("postCategory", postCategory);
 		
+		System.out.println(map);
+		
 		return sqlSession.selectList("PostMapper.getPostList", map);
 	}
 
