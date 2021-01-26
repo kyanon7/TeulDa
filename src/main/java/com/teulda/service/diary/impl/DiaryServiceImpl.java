@@ -39,13 +39,19 @@ public class DiaryServiceImpl implements DiaryService {
 		
 		diaryDao.addDiary(diary); // diary DB 생성 
 		
-		// 해시태그 등록
-		List <HashTag> hashTagList = diary.getHashTagList();
+		System.out.println(diary.getHashTagList());
 		
-		for (int i = 0; i < hashTagList.size(); i++) {
-			HashTag hashTag = hashTagList.get(i);
-			hashTag.setNickname(diary.getNickname()); // 닉네임으로 최신 기록번호 찾기 위해 넣어줌 
-			diaryDao.addHashTag(hashTag); // 해시태그가 DB에 저장됨 
+		// 해시태그 등록
+		if (diary.getHashTagList().get(0).getHashTagName() != "") { // 해시태그를 작성한 게 있으면 
+
+			List<HashTag> hashTagList = diary.getHashTagList();
+
+			for (int i = 0; i < hashTagList.size(); i++) {
+				HashTag hashTag = hashTagList.get(i);
+				hashTag.setNickname(diary.getNickname()); // 닉네임으로 최신 기록번호 찾기 위해 넣어줌
+				diaryDao.addHashTag(hashTag); // 해시태그가 DB에 저장됨
+			}
+
 		}
 		
 		/*
@@ -75,6 +81,12 @@ public class DiaryServiceImpl implements DiaryService {
 	public void addDiaryGroup(Group group) throws Exception {
 		diaryDao.addDiaryGroup(group);
 	}
+	
+	@Override
+	// 방금 등록한 기록 번호 조회를 위한 비즈니스 수행 
+	public int getLatestDiaryNo(String nickname) throws Exception {
+		return diaryDao.getLatestDiaryNo(nickname);
+	}
 
 	@Override
 	// 기록 조회(+ 해시태그 조회, 사진 조회)를 위한 비즈니스 수행
@@ -83,7 +95,7 @@ public class DiaryServiceImpl implements DiaryService {
 				
 		diary.setBookmarkCount(diaryDao.getBookmarkCount(diaryNo)); // 북마크 횟수 
 		diary.setHashTagList(diaryDao.getHashTagList(diaryNo)); // 해시태그 리스트
-		diary.setPhotoList(diaryDao.getPhotoList(diaryNo)); // 사진 리스트 
+		//diary.setPhotoList(diaryDao.getPhotoList(diaryNo)); // 사진 리스트 
 		return diary;
 	}
 	

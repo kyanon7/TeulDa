@@ -53,6 +53,11 @@ public class DiaryDaoImpl implements DiaryDao {
 	public void addDiaryGroup(Group group) throws Exception {
 		sqlSession.insert("DiaryMapper.addDiaryGroup", group);
 	}
+	
+	@Override
+	public int getLatestDiaryNo(String nickname) throws Exception {
+		return sqlSession.selectOne("DiaryMapper.getLatestDiaryNo", nickname);
+	}
 
 	@Override
 	public Diary getDiary(int diaryNo) throws Exception {

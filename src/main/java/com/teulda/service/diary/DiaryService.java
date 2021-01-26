@@ -16,6 +16,9 @@ public interface DiaryService {
 
 	// 기록 그룹 등록 - 완료
 	public void addDiaryGroup(Group group) throws Exception;
+	
+	// 방금 등록한 기록 번호 조회 
+	public int getLatestDiaryNo(String nickname) throws Exception;
 
 	// 기록 조회 - 완료
 	public Diary getDiary(int diaryNo) throws Exception;

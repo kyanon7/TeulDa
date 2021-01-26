@@ -31,6 +31,7 @@ public class DiaryRestController {
 	@Qualifier("diaryServiceImpl")
 	private DiaryService diaryService;
 	
+	// 파일 업로드 경로
 	@Value("#{commonProperties['zoo1Path']}") 
 	String uploadPath;
 	
