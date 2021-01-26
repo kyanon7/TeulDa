@@ -23,8 +23,13 @@
 		th { text-align: center; }
 		td { text-align: center; }
 		.form-control form-control-sm { "width:100px;" }
+		#addHashTag { width: 300px; margin: 0px auto; text-align: center; }
+		#hashTagList input { text-align: center; width: 100px; }
 		</style>
 		<script>
+		
+		var i = 0; // 해시태그 갯수 count 위함 
+		
 		$(document).ready(function() {
 			//여기 아래 부분
 			$('#summernote').summernote({
@@ -102,6 +107,32 @@
 			$("img[src='../resources/images/marker_blue.png']").on("click", function() { // 아이콘 사진 변경시 src 수정해주기 
 				history.go(-1);
 			});		
+		});
+		
+		$(function () {
+			$("#addHashTag").on("keypress", function (e) {
+            	var self = $(this);
+            	
+            	// input 에 focus 되있을 때 엔터 및 스페이스바 입력시 구동
+            	if (e.key === "Enter" || e.keyCode == 32) {
+
+                	var tagValue = "#" + self.val(); // 값 가져오기
+                	tagValue = tagValue.replace(/\,/g, ''); // 콤마 삭제 
+                	
+                	// 값이 없으면 동작 ㄴㄴ
+               		if (tagValue !== "") {
+              	
+                		$('#hashTagList').append (                        
+                      		'<input name="hashTagList['+ i +'].hashTagName" value='+  tagValue  +' class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" readonly>&nbsp;'                    
+                    	); // end append  
+                    	
+                    	//alert(tagValue);
+                    	self.val(""); // 들어있는 태그 비워줌
+                    	i++;
+                	}
+                	e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
+            	}
+        	});
 		});
 		
 		</script>
@@ -199,17 +230,13 @@
 							
 							<hr class="my-4">
 							
-							<h5>해시태그 (임시구현)</h5>
-							<div class="row">
-								<input name="hashTagList[0].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;
-								<input name="hashTagList[1].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp; 
-								<input name="hashTagList[2].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp; 
-								<input name="hashTagList[3].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
-								<input name="hashTagList[4].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
-								<input name="hashTagList[5].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
-								<input name="hashTagList[6].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
-								<input name="hashTagList[7].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
-							</div>
+							<h5>해시태그</h5>					
+								<input placeholder="태그 입력 후 Enter 또는 Space Bar (10글자 이하)" 
+								    	class="form-control form-control-sm" type="text" id="addHashTag" maxlength="10">&nbsp;
+								    	
+								<div class="row" id="hashTagList">
+								    	
+								</div>   
 							
 					
 <!-- 					<div class="row"> -->

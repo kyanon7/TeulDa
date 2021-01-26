@@ -22,6 +22,20 @@
 		img[src$="../resources/images/user.png"] { display: block; margin: 0px auto; }
 		</style>
 		
+		<script>
+		$(function () {
+			
+			$("span:contains('수정')").on("click", function () {
+				self.location = "/diary/updateDiary?diaryNo=${ diary.diaryNo }";
+			});
+			
+			$("img[src='../resources/images/marker_blue.png']").on("click", function() { // 아이콘 사진 변경시 src 수정해주기 
+				history.go(-1); // 장소 선택하는 화면으로 감 
+			});		
+		});
+		</script>
+		
+		
 	</head>
 	<body>
   		<!-- ======= Header ======= -->
@@ -56,8 +70,8 @@
   								<h6>${ diary.nickname }</h6>
   							</div>
   							<div class="col-md-9" align="right">
-<!--   								<span class="badge badge-info">수정</span> -->
-<!--   								<span class="badge badge-danger">삭제</span> -->
+  								<span class="badge badge-info">수정</span>
+  								<span class="badge badge-danger">삭제</span>
   							</div>
   						</div>
  						<hr class="my-4">
@@ -118,7 +132,7 @@
 							
 							<hr class="my-4">
 							
-							<h5>해시태그 (임시구현)</h5>
+							<h5>해시태그</h5>
 							<div class="row">
 								<c:set var="i" value="0" />
 									<c:forEach var = "hashTag" items = "${ diary.hashTagList }">
@@ -128,7 +142,10 @@
 								
 							</div>
 					</div>
+
+					조회수 ${ diary.viewCount }회 | 북마크 ${ diary.bookmarkCount }회 | 스크랩 ${ diary.scrapCount }회
 					<button type="button" class="btn btn-outline-secondary" style="float: right;">확인</button>
+
 				</div>
 				
 			</div>

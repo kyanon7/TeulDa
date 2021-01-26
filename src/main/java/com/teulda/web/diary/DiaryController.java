@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,6 +61,47 @@ public class DiaryController {
 		model.addAttribute("diary", newDiary);
 		
 		return "forward:/diary/getDiary.jsp"; 
+	}
+	
+	@RequestMapping(value="getDiary", method=RequestMethod.GET)
+	public String getDiary(@RequestParam("diaryNo") int diaryNo, Model model) throws Exception {
+		
+		System.out.println("/diary/getDiary : GET");
+		//Business Logic
+		Diary diary = diaryService.getDiary(diaryNo);
+		
+		// Model 과 View 연결
+		model.addAttribute("diary", diary);
+		
+		return "forward:/diary/getDiary.jsp";
+	}
+	
+	@RequestMapping(value="updateDiary", method=RequestMethod.GET)
+	public String updateDiary(@RequestParam("diaryNo") int diaryNo, Model model) throws Exception {
+		
+		System.out.println("/diary/updateDiary : GET");
+		//Business Logic
+		Diary diary = diaryService.getDiary(diaryNo);
+		
+		// Model 과 View 연결
+		model.addAttribute("diary", diary);
+		
+		return "forward:/diary/updateDiary.jsp";
+	}
+	
+	@RequestMapping(value="updateDiary", method=RequestMethod.POST)
+	public String updateDiary(@ModelAttribute("diary") Diary diary, Model model) throws Exception {
+		
+		System.out.println("/diary/updateDiary : POST");
+		//Business Logic
+		diaryService.updateDiary(diary);
+		
+		Diary newDiary = diaryService.getDiary(diary.getDiaryNo());
+		
+		// Model 과 View 연결
+		model.addAttribute("diary", newDiary);
+		
+		return "forward:/diary/getDiary.jsp";
 	}
 
 }

@@ -336,7 +336,7 @@
     	last_update_date = SYSDATE, 
     	start_date = #{startDate},
     	end_date = #{endDate},
-    	content = #{content:LONGVARCHAR},
+    	content = #{content:CLOB},
     	thumbnail = #{thumbnail:VARCHAR},
     	currency = #{currency:VARCHAR},
     	trans_bill = #{transBill:NUMERIC},

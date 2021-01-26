@@ -39,10 +39,8 @@ public class DiaryServiceImpl implements DiaryService {
 		
 		diaryDao.addDiary(diary); // diary DB 생성 
 		
-		System.out.println(diary.getHashTagList());
-		
 		// 해시태그 등록
-		if (diary.getHashTagList().get(0).getHashTagName() != "") { // 해시태그를 작성한 게 있으면 
+		if (diary.getHashTagList() != null) { // 해시태그를 작성한 게 있으면 
 
 			List<HashTag> hashTagList = diary.getHashTagList();
 
@@ -140,26 +138,30 @@ public class DiaryServiceImpl implements DiaryService {
 		diaryDao.updateDiary(diary); // 기록 수정 
 
 		// 새로 생성한 해시태그 등록
-		List <HashTag> hashTagList = diary.getHashTagList();
-		
-		for (int i = 0; i < hashTagList.size(); i++) {
-			HashTag hashTag = hashTagList.get(i); 
-			hashTag.setDiaryNo(diary.getDiaryNo()); // 기록번호가 정해져 있으니 넣어줌 
-			diaryDao.addHashTag(hashTagList.get(i)); // 해시태그가 DB에 저장됨 
-		}
-		
-		// 새로 첨부한 사진 등록 (기념품 사진일듯) 
-		List<Photo> photoList = diary.getPhotoList();
+		if (diary.getHashTagList() != null) { // 해시태그를 작성한 게 있으면 
 
-		for (int i = 0; i < photoList.size(); i++) {
-			Photo photo = photoList.get(i);
-			photo.setDiaryNo(diary.getDiaryNo()); // 기록번호가 정해져 있으니 넣어줌 
-			photo.setDiaryPhotoType('s'); // 기념품 사진
-			if (photo.getDescription() == null) { // 설명이 없으면
-				photo.setDiaryPhotoType('d'); // 기록 사진
+			List<HashTag> hashTagList = diary.getHashTagList();
+
+			for (int i = 0; i < hashTagList.size(); i++) {
+				HashTag hashTag = hashTagList.get(i);
+				hashTag.setDiaryNo(diary.getDiaryNo()); // 기록번호가 정해져 있으니 넣어줌 
+				diaryDao.addHashTag(hashTag); // 해시태그가 DB에 저장됨
 			}
-			diaryDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨
+
 		}
+		
+//		// 새로 첨부한 사진 등록 (기념품 사진일듯) 
+//		List<Photo> photoList = diary.getPhotoList();
+//
+//		for (int i = 0; i < photoList.size(); i++) {
+//			Photo photo = photoList.get(i);
+//			photo.setDiaryNo(diary.getDiaryNo()); // 기록번호가 정해져 있으니 넣어줌 
+//			photo.setDiaryPhotoType('s'); // 기념품 사진
+//			if (photo.getDescription() == null) { // 설명이 없으면
+//				photo.setDiaryPhotoType('d'); // 기록 사진
+//			}
+//			diaryDao.addPhoto(photo); // 사진 파일명이 DB에 저장됨
+//		}
 	}
 
 	@Override
