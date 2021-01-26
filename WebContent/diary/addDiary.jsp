@@ -52,7 +52,7 @@
 				  }
 			});
 			
-			/* 파일 업로드 */
+			/* 파일 업로드
 			function uploadSummernoteImageFile(file, editor) {
 					data = new FormData();
 					data.append("file", file);
@@ -67,7 +67,7 @@
 							$(editor).summernote('insertImage', data.url);
 						}
 					});
-			}
+			}  */
 			
 			$('#currency').change(function() { // 추후 수정예정 - 지출내역 화폐 관련 
 				var state = $('#currency option:selected').val();
