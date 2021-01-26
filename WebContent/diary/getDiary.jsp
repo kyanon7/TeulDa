@@ -5,9 +5,134 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-	    <title>Insert title here</title>
+	    <title>기록 조회</title>
+	    
+	    <!-- jQuery CDN -->
+		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		
+		<!-- Bootstrap CDN -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	
+		<style>
+		h6 { text-align: center; color: gray; }
+		h3 { text-align: center; }
+		h5 { text-align: center; }
+		p  { text-align: center; }
+		img[src$="../resources/images/user.png"] { display: block; margin: 0px auto; }
+		</style>
+		
 	</head>
 	<body>
-  		성공! 
+  		<!-- ======= Header ======= -->
+		<header>
+			<jsp:include page="../layout/toolbar.jsp"/>
+		</header><br/><br/>
+		<!-- End Header -->
+		
+		<div class="container">
+			<div class="row">
+				<!-- ======= Left ToolBar ======= -->
+				<div class="col-md-3">
+					<jsp:include page="../diary/leftbar.jsp" />
+				</div>
+				<!-- End ToolBar -->
+				
+				<div class="col-md-9">
+					<div class="jumbotron">
+						<h6>
+						<c:choose>
+							<c:when test="${ diary.groupName eq 'default2' }">기본 그룹</c:when>
+							<c:otherwise>${ diary.groupName }</c:otherwise>
+						</c:choose>
+						</h6>
+  						<h3>${ diary.title }</h3>
+  						<p><img src="../resources/images/marker_blue.png" height="15px" align="middle">
+  						${ diary.location } | ${ diary.startDate } ~ ${ diary.endDate }</p>
+  						
+  						<div class="row">
+  							<div class="col-md-3">
+  								<img src="../resources/images/user.png" height="30px">
+  								<h6>${ diary.nickname }</h6>
+  							</div>
+  							<div class="col-md-9" align="right">
+<!--   								<span class="badge badge-info">수정</span> -->
+<!--   								<span class="badge badge-danger">삭제</span> -->
+  							</div>
+  						</div>
+ 						<hr class="my-4">
+ 						<p style="text-align: right">
+ 							<c:if test="${ diary.isPublic eq 't'.charAt(0) }"> <!-- 공개 --> 
+ 								<img src="../resources/images/unlock.png" height="20px" align="middle">
+ 							</c:if> 
+ 							<c:if test="${ diary.isPublic eq 'f'.charAt(0) }"> <!-- 비공개 --> 
+ 								<img src="../resources/images/lock.png" height="20px" align="middle">
+ 							</c:if>
+ 						작성일 : ${ diary.writeDate }
+ 						<c:if test="${ diary.updateDate ne null }"> <!-- 수정일자 있으면 보여줌 -->
+ 						| 마지막 수정일 : ${ diary.updateDate }
+ 						</c:if>
+ 						</p>
+ 						
+ 						<p class="lead">${ diary.content }</p>
+ 						
+ 						<hr class="my-4">
+							
+							<h5>지출내역 (임시 구현)</h5>
+							<table class="table table-hover">
+								<thead>
+									<tr class="table-light">
+										<th scope="col">분 류</th>
+										<th scope="col">금 액</th>
+										<th scope="col">통 화</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="table-light">
+										<th scope="row">교통비</th>
+										<td>${ diary.transBill }</td>
+										<td>${ diary.currency }</td>
+									</tr>
+									<tr class="table-light">
+										<th scope="row">숙박비</th>
+										<td>${ diary.roomBill }</td>
+										<td>${ diary.currency }</td>
+									</tr>
+									<tr class="table-light">
+										<th scope="row">식비</th>
+										<td>${ diary.foodBill }</td>
+										<td>${ diary.currency }</td>
+									</tr>
+									<tr class="table-light">
+										<th scope="row">관광비</th>
+										<td>${ diary.tourBill }</td>
+										<td>${ diary.currency }</td>
+									</tr>
+									<tr class="table-light">
+										<th scope="row">쇼핑비</th>
+										<td>${ diary.shopBill }</td>
+										<td>${ diary.currency }</td>
+									</tr>
+								</tbody>
+							</table>
+							
+							<hr class="my-4">
+							
+							<h5>해시태그 (임시구현)</h5>
+							<div class="row">
+								<c:set var="i" value="0" />
+									<c:forEach var = "hashTag" items = "${ diary.hashTagList }">
+										<c:set var="i" value="${ i+1 }" />
+											<span class="badge badge-info">${ hashTag.hashTagName }</span>&nbsp;&nbsp;
+									</c:forEach>
+								
+							</div>
+					</div>
+					<button type="button" class="btn btn-outline-secondary" style="float: right;">확인</button>
+				</div>
+				
+			</div>
+		</div>
+		
 	</body>
 </html>

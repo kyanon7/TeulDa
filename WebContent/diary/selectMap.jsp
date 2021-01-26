@@ -91,8 +91,8 @@
 		<script>
 		function initAutocomplete() {
 	        const map = new google.maps.Map(document.getElementById("map"), {
-	          center: { lat: -33.8688, lng: 151.2195 },
-	          zoom: 13,
+	          center: { lat: 35.85501664867628, lng: 126.96168749999998 },
+	          zoom: 2,
 	          mapTypeId: "roadmap",
 	        });
 	        // Create the search box and link it to the UI element.
@@ -239,6 +239,9 @@
 				<!-- End ToolBar -->
 				
 				<div class="col-md-9">
+					<small id="fileHelp" class="form-text text-muted">
+					<img src="../resources/images/marker_icon.png" height="12px">
+					검색하여 여행지를 찾거나, 자유롭게 지도를 움직여 추억을 되짚어 가며 기록하고 싶은 여행지를 선택해 보세요.</small><br>
 					<input
       					id="pac-input"
       					class="form-control"

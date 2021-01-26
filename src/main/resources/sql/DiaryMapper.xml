@@ -25,6 +25,7 @@
 		<result property="scrapNickname"		column="scrap_nick"			jdbcType="VARCHAR" />
 		<result property="scrapDate"			column="scrap_date"			jdbcType="DATE" />
 		<result property="groupNo"				column="group_id"			jdbcType="NUMERIC" />
+		<result property="groupName"			column="group_name"			jdbcType="VARCHAR" />
 		<result property="currency"				column="currency"			jdbcType="VARCHAR" />
 		<result property="transBill"			column="trans_bill"			jdbcType="NUMERIC" />
 		<result property="roomBill"				column="room_bill"			jdbcType="NUMERIC" />
@@ -121,10 +122,21 @@
 	</insert>
 	
 	<!-- SQL : SELECT ONE -->
+	<select 	id="getLatestDiaryNo"	parameterType="String"	resultType="int">
+	SELECT diary_id 
+	FROM
+	(SELECT * 
+	FROM diary 
+	where origin_nick = #{nickname}
+	ORDER BY diary_id DESC)
+	WHERE ROWNUM = 1
+	</select>
+	
+	<!-- SQL : SELECT ONE -->
 	<select 	id="getDiary"	parameterType="int"	resultMap="diarySelectMap">
-	SELECT * 
-	FROM DIARY
-	WHERE diary_id = #{diaryNo}
+	SELECT d.*, g.group_name
+	FROM DIARY d, GROUPS g
+	WHERE diary_id = #{diaryNo} and d.group_id = g.group_id
 	</select>
 	
 	<!-- SQL : SELECT ONE -->

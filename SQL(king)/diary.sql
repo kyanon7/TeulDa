@@ -63,6 +63,12 @@ select *
 from diary
 where diary_id = 10006
 
++ 그룹 이름까지 가져오기
+
+select d.*, g.group_name
+from diary d, groups g
+where diary_id = 10055 and d.group_id = g.group_id
+
 // get hashtag list
 
 select *

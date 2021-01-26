@@ -23,6 +23,9 @@ public interface DiaryDao {
 
 	// INSERT
 	public void addDiaryGroup(Group group) throws Exception;
+	
+	// SELECT ONE
+	public int getLatestDiaryNo(String nickname) throws Exception;
 
 	// SELECT ONE
 	public Diary getDiary(int diaryNo) throws Exception;

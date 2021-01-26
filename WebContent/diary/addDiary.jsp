@@ -149,9 +149,10 @@
 					<!-- form 안에 에디터를 사용하는 경우 -->
 					<textarea id="summernote" name="content"></textarea>
 					<br>
-					<div class="row">
-						<div class="col-md-6">
-							<h5>지출내역</h5>
+							
+							<hr class="my-4">
+							
+							<h5>지출내역 (임시 구현)</h5>
 							<table class="table table-hover">
 								<thead>
 									<tr class="table-light">
@@ -170,47 +171,51 @@
 								<tbody>
 									<tr class="table-light">
 										<th scope="row">교통비</th>
-										<td><input class="form-control form-control-sm" type="text" name="transBill" style="width: 100px;"></td>
+										<td><input class="form-control form-control-sm" type="number" value="0" name="transBill" style="width: 100px;"></td>
 										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
 									</tr>
 									<tr class="table-light">
 										<th scope="row">숙박비</th>
-										<td><input class="form-control form-control-sm" type="text" name="roomBill" style="width: 100px;"></td>
+										<td><input class="form-control form-control-sm" type="number" value="0" name="roomBill" style="width: 100px;"></td>
 										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
 									</tr>
 									<tr class="table-light">
 										<th scope="row">식비</th>
-										<td><input class="form-control form-control-sm" type="text" name="foodBill" style="width: 100px;"></td>
+										<td><input class="form-control form-control-sm" type="number" value="0" name="foodBill" style="width: 100px;"></td>
 										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
 									</tr>
 									<tr class="table-light">
 										<th scope="row">관광비</th>
-										<td><input class="form-control form-control-sm" type="text" name="tourBill" style="width: 100px;"></td>
+										<td><input class="form-control form-control-sm" type="number" value="0" name="tourBill" style="width: 100px;"></td>
 										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
 									</tr>
 									<tr class="table-light">
 										<th scope="row">쇼핑비</th>
-										<td><input class="form-control form-control-sm" type="text" name="shopBill" style="width: 100px;"></td>
+										<td><input class="form-control form-control-sm" type="number" value="0" name="shopBill" style="width: 100px;"></td>
 										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
 									</tr>
 								</tbody>
 							</table>
-						</div>
-
-						<div class="col-md-6">
+							
+							<hr class="my-4">
+							
 							<h5>해시태그 (임시구현)</h5>
 							<div class="row">
 								<input name="hashTagList[0].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;
 								<input name="hashTagList[1].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp; 
 								<input name="hashTagList[2].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp; 
 								<input name="hashTagList[3].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
+								<input name="hashTagList[4].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
+								<input name="hashTagList[5].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
+								<input name="hashTagList[6].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
+								<input name="hashTagList[7].hashTagName" class="form-control form-control-sm" type="text" id="hashTag" maxlength="10" style="width: 100px;">&nbsp;  
 							</div>
-						</div>
-					</div>
+							
 					
-					<div class="row">
-						<h5>기념품</h5>
-					</div>
+<!-- 					<div class="row"> -->
+<!-- 						<h5>기념품</h5> -->
+<!-- 					</div> -->
+					<hr class="my-4">
 					
 					<div class="row">
 						<div class="col-md-9"></div>

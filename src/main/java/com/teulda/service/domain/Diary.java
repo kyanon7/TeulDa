@@ -28,6 +28,7 @@ public class Diary { // 기록
 	private String scrapNickname; // 스크랩한 회원 닉네임
 	private Date scrapDate; // 스크랩 한 날짜
 	private int groupNo; // 기록일때 기록 그룹 No, 스크랩일때 스크랩 그룹 No
+	private String groupName; // 기록 그룹 Name, 스크랩 그룹 Name
 	private String currency; // 통화 (화폐)
 	private double transBill; // 교통비
 	private double roomBill; // 숙박비
@@ -192,6 +193,14 @@ public class Diary { // 기록
 		this.groupNo = groupNo;
 	}
 
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
 	public String getCurrency() {
 		return currency;
 	}
@@ -271,10 +280,10 @@ public class Diary { // 기록
 				+ nickname + ", startDate=" + startDate + ", endDate=" + endDate + ", content=" + content
 				+ ", thumbnail=" + thumbnail + ", viewCount=" + viewCount + ", bookmarkCount=" + bookmarkCount
 				+ ", scrapCount=" + scrapCount + ", deleteDate=" + deleteDate + ", scrapNickname=" + scrapNickname
-				+ ", scrapDate=" + scrapDate + ", groupNo=" + groupNo + ", currency=" + currency + ", transBill="
-				+ transBill + ", roomBill=" + roomBill + ", foodBill=" + foodBill + ", tourBill=" + tourBill
-				+ ", shopBill=" + shopBill + ", isPublic=" + isPublic + ", hashTagList=" + hashTagList + ", photoList="
-				+ photoList + "]";
+				+ ", scrapDate=" + scrapDate + ", groupNo=" + groupNo + ", groupName=" + groupName + ", currency="
+				+ currency + ", transBill=" + transBill + ", roomBill=" + roomBill + ", foodBill=" + foodBill
+				+ ", tourBill=" + tourBill + ", shopBill=" + shopBill + ", isPublic=" + isPublic + ", hashTagList="
+				+ hashTagList + ", photoList=" + photoList + "]";
 	}
 
 }

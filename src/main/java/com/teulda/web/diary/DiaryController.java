@@ -50,11 +50,14 @@ public class DiaryController {
 		
 		diary.setNickname(user.getNickname());
 		// Business Logic
-		System.out.println(diary);
+		System.out.println(diary); // for debug 
 		diaryService.addDiary(diary);
 		
+		Diary newDiary = // 방금 저장한 기록번호로 기록 내용 가져옴 (+ 해시태그, 기록작성일 등 더 많은 정보 가져오기 위함) 
+		diaryService.getDiary(diaryService.getLatestDiaryNo(user.getNickname()));
+		
 		// Model 과 View 연결
-		model.addAttribute("diary", diary);
+		model.addAttribute("diary", newDiary);
 		
 		return "forward:/diary/getDiary.jsp"; 
 	}
