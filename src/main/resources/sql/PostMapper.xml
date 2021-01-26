@@ -10,7 +10,7 @@
 	<resultMap id="postSelectMap" type="com.teulda.service.domain.Post">
 		<result property="postNo"					column="post_id"			jdbcType="NUMERIC" />
 		<result property="postTitle"				column="title"				jdbcType="VARCHAR" />
-		<result property="postContents"				column="content"			jdbcType="VARCHAR" />
+		<result property="postContents"				column="content"			jdbcType="CLOB"  javaType="java.lang.String" />
 		<result property="postDate"					column="post_date"			jdbcType="DATE" />
 		<result property="viewCount"				column="view_count"			jdbcType="NUMERIC" />
 		<result property="nickname"					column="nickname"			jdbcType="VARCHAR" />
@@ -37,7 +37,7 @@
 		INSERT
 		INTO POST (post_id, nickname, title, content, post_date, view_count, post_type)
 		VALUES	(seq_post_post_id.nextval, #{nickname}, #{postTitle:VARCHAR}, 
-				#{postContents:VARCHAR}, SYSDATE, #{viewCount}, #{postCategory:CHAR})
+				#{postContents::CLOB}, SYSDATE, #{viewCount}, #{postCategory:CHAR})
 	</insert>
 	
 	<insert id="addComment"	parameterType="com.teulda.service.domain.Comment">
