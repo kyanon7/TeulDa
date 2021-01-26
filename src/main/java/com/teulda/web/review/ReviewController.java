@@ -78,7 +78,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="listReview")
-	public String listReview(HttpSession session, Model model, Search search) throws Exception{
+	public String listReview(HttpSession session, Model model, @ModelAttribute("search") Search search) throws Exception{
 		
 		System.out.println("/review/listReview : GET / POST");
 		
@@ -89,6 +89,7 @@ public class ReviewController {
 		}
 		search.setPageSize(pageSize);
 		search.setSearchSorting("0");
+		search.setSearchCondition("3");
 		search.setSearchKeyword(user.getNickname());
 		
 		Map<String, Object> map = reviewService.getReviewList(search);
@@ -101,5 +102,37 @@ public class ReviewController {
 		return "forward:/review/listReview.jsp";
 	}
 	
+	@RequestMapping(value="updateReview", method=RequestMethod.GET)
+	public String updateReview(@RequestParam int reviewNo, Model model, HttpSession session) throws Exception{
+		
+		System.out.println("/review/updateReview : GET");
+		
+		if(session == null) {
+			throw new Exception();
+			
+		}else if(session.getAttribute("user") != null && session.getAttribute("user") instanceof User){
+			User user = (User) session.getAttribute("user");
+			Review review = reviewService.getReview(reviewNo);
+			String writer = review.getNickname();
+			
+			if(writer.equals(user.getNickname())) {
+				model.addAttribute("review", review);
+			}else {
+				throw new Exception();
+			}
+		}
+		
+		return "forward:/review/updateReview.jsp";
+	}
+	
+	@RequestMapping(value="updateReview", method=RequestMethod.POST)
+	public String updateReview(@ModelAttribute("review") Review review) throws Exception{
+		
+		System.out.println("/review/updateReview : POST");
+		
+		reviewService.updateReview(review);
+		
+		return "redirect:/review/getReview?reviewNo="+review.getReviewNo();
+	}
 	
 }
