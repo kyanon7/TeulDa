@@ -69,7 +69,7 @@
 					  // 마커에 이벤트 생성 (info window 창 띄워줌) 
 		              google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		                    return function() {
-		                        infowindow.setContent('<div class="wrap"><div class="text-box"><a href="/diary/getDiary?diaryNo='+data.diaryList[i].diaryNo+'&status=own"><h6>'+data.diaryList[i].title+'</h6><a><p>'+data.diaryList[i].location+'</p><p>'+data.diaryList[i].startDate+'-'+data.diaryList[i].endDate+'</p><p></div></div>');
+		                        infowindow.setContent('<div class="wrap"><div class="text-box"><a href="/diary/getDiary?diaryNo='+data.diaryList[i].diaryNo+'&status=own"><h6>'+data.diaryList[i].title+'</h6><a><p><img src="../resources/images/marker_blue.png" height="10px" align="middle">&nbsp;'+data.diaryList[i].location+'</p><p>'+data.diaryList[i].startDate+'-'+data.diaryList[i].endDate+'</p><p></div></div>');
 		                        infowindow.open(map, marker);
 		                    }
 		              })(marker, i));
