@@ -30,10 +30,12 @@
 		  <header>
 			<jsp:include page="../layout/toolbar.jsp"/>
 		  </header>
-		  <hr />
+      <br />
 		  <!-- End Header -->
 
-	<div class="row">
+
+      
+	<!-- <div class="row">
 		<div class="col-lg-2">
 		  <div class="bs-component">
 			<ul class="list-group">
@@ -43,14 +45,32 @@
 					<c:set var = "i" value = "${i+1}" />
 				  <li class="list-group-item d-flex justify-content-between align-items-center" style="border: none">
 					<a href="#">${subscribe.subTargetNickname}</a>
-				<!-- <span class="badge badge-primary badge-pill">X</span> -->
+				<span class="badge badge-primary badge-pill">X</span>
 			  </li>
 			</c:forEach>
 			</ul>
 		  </div>
-		</div>
-		
-    <div class="col-lg-10 border-0" style="background-color: rgb(247, 247, 247);">
+    </div> -->
+    
+
+    <div class="row">
+      <div class="col-lg-2">
+        <div class="bs-component">
+        <ul class="list-group">
+          <li class="h3 nav-header disabled"><a>구독</a></li>
+          <c:set var = "i" value = "0" />
+          <c:forEach var = "subscribe" items = "${subscribeList}">
+            <c:set var = "i" value = "${i+1}" />
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="border: none">
+            <a href="#">${subscribe.subTargetNickname}</a>
+          <!-- <span class="badge badge-primary badge-pill">X</span> -->
+          </li>
+        </c:forEach>
+        </ul>
+        </div>
+      </div>
+    
+    <div class="col-lg-10 border-0" style="background-color: rgb(247, 247, 247);"><br />
       
       <div class="h4">이번 주</div><br />
         <div class="card-columns">

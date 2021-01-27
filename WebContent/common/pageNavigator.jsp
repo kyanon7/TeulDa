@@ -1,32 +1,55 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:choose>
-	<c:when test = "${resultPage.currentPage == 1}">
-		◀ 이전
-	</c:when>
-	<c:otherwise>
-		<a href="javascript:fncGetList('${resultPage.currentPage-1}')">◀ 이전</a>
-	</c:otherwise>
-</c:choose>
-<c:forEach var = "i" begin = "${resultPage.beginUnitPage}" end = "${resultPage.endUnitPage}" step = "1">
-	<c:choose>
-		<c:when test="${i == resultPage.currentPage}">
-			<strong>${i}</strong>
-		</c:when>
-		<c:otherwise>
-			<a href="javascript:fncGetList('${i}');">${i}</a>
-		</c:otherwise>
-	</c:choose>
-</c:forEach>
-
-<c:choose>
-	<c:when test = "${resultPage.endUnitPage >= resultPage.maxPage}">
-		다음 ▶
-	</c:when>
-	<c:otherwise>
-		<a href="javascript:fncGetList('${resultPage.endUnitPage+1}')">다음 ▶</a>
-	</c:otherwise>
-</c:choose>
+ 
+<div class="container">
+		 
+	<nav>
+	<!-- 크기조절 :  pagination-lg pagination-sm-->
+		<ul class="pagination justify-content-center">
+	
+			<!--  <<== 좌측 nav -->
+			<c:if test="${ resultPage.currentPage <= resultPage.pageUnit }">
+				<li class="page-item disabled">	
+			</c:if>
+			<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
+				<li class="page-item">
+			</c:if>
+				<a class="page-link" href="javascript:fncGetList('${ resultPage.currentPage-1}')" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+		
+		<!--  중앙  -->
+		<c:forEach var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
+			
+			<c:if test="${ resultPage.currentPage == i }">
+				<!--  현재 page 가리킬경우 : active -->
+				<li class="page-item active">
+					<a class="page-link" href="javascript:fncGetList('${ i }');">${ i }<span class="sr-only">(current)</span></a>
+				</li>
+			</c:if>	
+			
+			<c:if test="${ resultPage.currentPage != i}">	
+				<li class="page-item">
+					<a class="page-link" href="javascript:fncGetList('${ i }');">${ i }</a>
+				</li>
+			</c:if>
+		</c:forEach>
+		
+			<!--  우측 nav==>> -->
+			<c:if test="${ resultPage.endUnitPage >= resultPage.maxPage }">
+				<li class="page-item disabled">
+			</c:if>
+			<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
+				<li class="page-item">
+			</c:if>
+				<a class="page-link" href="javascript:fncGetList('${resultPage.endUnitPage+1}')" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</div>
