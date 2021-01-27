@@ -146,9 +146,9 @@
 
 	<div class="container">
 		<div class="row">
-			<!-- ======= Left ToolBar ======= -->
+			<!-- ======= Diary Left ToolBar ======= -->
 			<div class="col-md-3">
-				<jsp:include page="../diary/leftbar.jsp" />
+  				<jsp:include page="../diary/leftbar.jsp" />
 			</div>
 			<!-- End ToolBar -->
 
@@ -183,7 +183,7 @@
 							
 							<hr class="my-4">
 							
-							<h5>지출내역 (임시 구현)</h5>
+							<h5>EXPENSE (임시 구현)</h5>
 							<table class="table table-hover">
 								<thead>
 									<tr class="table-light">
@@ -230,7 +230,7 @@
 							
 							<hr class="my-4">
 							
-							<h5>해시태그</h5>					
+							<h5>HASHTAG</h5>					
 								<input placeholder="태그 입력 후 Enter 또는 Space Bar (10글자 이하)" 
 								    	class="form-control form-control-sm" type="text" id="addHashTag" maxlength="10">&nbsp;
 								    	
@@ -258,7 +258,7 @@
       								<label class="custom-control-label" for="customRadio2">비공개</label>
     							</div>
     							&nbsp;&nbsp;
-    							<button type="button" class="btn btn-outline-info">등록</button>
+    							<button type="button" class="btn btn-primary btn-sm" style="float: right;" >등록</button>
 							</div>
 						</div>
 					</div>

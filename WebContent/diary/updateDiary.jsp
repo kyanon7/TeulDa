@@ -30,6 +30,7 @@
 		
 		var i = 0; // 해시태그 갯수 count 위함 
 		
+		/* Summer Note */
 		$(document).ready(function() {
 			//여기 아래 부분
 			$('#summernote').summernote({
@@ -74,6 +75,7 @@
 					});
 			}  
 			
+			/* 지출내역 */
 			$('#currency').change(function() { // 추후 수정예정 - 지출내역 화폐 관련 
 				var state = $('#currency option:selected').val();
 				var currency = $('#showCurrency').val();
@@ -98,6 +100,7 @@
 			$("form").attr("method", "POST").attr("action", "/diary/updateDiary").submit();
 		}
 		
+		/* Navigation */
 		$(function () {
 			
 			$("button:contains('수정')").on("click", function() {
@@ -109,7 +112,10 @@
 			});		
 		});
 		
+		/* 해시태그 */
 		$(function () {
+			
+			/* 해시태그 생성 */
 			$("#addHashTag").on("keypress", function (e) {
             	var self = $(this);
             	
@@ -133,6 +139,32 @@
                 	e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
             	}
         	});
+
+			/* 해시태그 삭제 */
+			$("span:contains('x')").on("click", function () {
+				$.ajax(
+						{
+							url : "/diary/rest/deleteHashTag" ,
+							method : "POST" ,
+							dataType : "text" ,
+							data : {
+								hashTagNo : $(this).children('input').val()
+							},
+							success : function(result) {
+								if (result == "Success") {
+									alert("해시태그가 삭제되었습니다.");
+									//$('#delete').load(location.href + '#delete');
+								} else {
+									alert("해시태그가 삭제되지 않았습니다.");
+								}
+							}
+							
+				});
+				
+				$(this).parent().remove();
+				
+			});
+			
 		});
 		
 		</script>
@@ -148,7 +180,17 @@
 		<div class="row">
 			<!-- ======= Left ToolBar ======= -->
 			<div class="col-md-3">
-				<jsp:include page="../diary/leftbar.jsp" />
+				<!--  diary left toobar -->
+  				<div class="list-group">
+  					<button type="button" class="btn btn-info disabled">기록</button>
+  					<button onclick="/diary/selectMap.jsp" type="button" class="btn btn-outline-info">+ 새 기록 작성</button><br/>
+  					<a href="#" class="list-group-item list-group-item-action">여행 타임라인</a>
+  					<a href="#" class="list-group-item list-group-item-action">내 기록 지도</a>
+  					<a href="#" class="list-group-item list-group-item-action">내 기록 목록</a>
+  					<a href="#" class="list-group-item list-group-item-action">북마크 기록 목록</a>
+  					<a href="#" class="list-group-item list-group-item-action">스크랩 기록 목록</a>
+  					<a href="#" class="list-group-item list-group-item-action">기록 휴지통</a>
+				</div>
 			</div>
 			<!-- End ToolBar -->
 
@@ -184,7 +226,7 @@
 							
 							<hr class="my-4">
 							
-							<h5>지출내역 (임시 구현)</h5>
+							<h5>EXPENSE (임시 구현)</h5>
 							<table class="table table-hover">
 								<thead>
 									<tr class="table-light">
@@ -231,19 +273,25 @@
 							
 							<hr class="my-4">
 							
-							<h5>해시태그</h5>	
+							<h5>HASHTAG</h5>	
+								
+								<input placeholder="태그 입력 후 Enter 또는 Space Bar (10글자 이하)" 
+								    	class="form-control form-control-sm" type="text" id="addHashTag" maxlength="10">&nbsp;
 								
 								<!-- 기존 해시태그 -->
-								<div class="row">
+								<div class="row" id="delete">
 									<c:set var="i" value="0" />
 										<c:forEach var = "hashTag" items = "${ diary.hashTagList }">
 											<c:set var="i" value="${ i+1 }" />
-												<span class="badge badge-info">${ hashTag.hashTagName }</span>&nbsp;&nbsp;
+												<div>
+													<span class="badge badge-info">${ hashTag.hashTagName }</span>
+													<span class="badge badge-info" id="deleteHashTag" style="margin-left: -8px;">x
+													<input type="hidden" value="${ hashTag.hashTagNo }">
+													</span>&nbsp;&nbsp;
+												</div>
 										</c:forEach>
 								</div>				
-								<input placeholder="태그 입력 후 Enter 또는 Space Bar (10글자 이하)" 
-								    	class="form-control form-control-sm" type="text" id="addHashTag" maxlength="10">&nbsp;
-								    	
+								
 								<div class="row" id="hashTagList">
 								    	
 								</div>   
@@ -270,7 +318,7 @@
       								<label class="custom-control-label" for="customRadio2">비공개</label>
     							</div>
     							&nbsp;&nbsp;
-    							<button type="button" class="btn btn-outline-info">수정</button>
+    							<button type="button" class="btn btn-primary btn-sm" style="float: right;" >수정</button>
 							</div>
 						</div>
 					</div>

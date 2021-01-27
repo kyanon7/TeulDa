@@ -152,6 +152,7 @@
 	SELECT hashtag_id, diary_id, hashtag_name
 	FROM HASHTAG
 	WHERE diary_id = #{diaryNo}
+	ORDER by hashtag_id
 	</select> 
 	
 	<!-- SQL : SELECT LIST -->
