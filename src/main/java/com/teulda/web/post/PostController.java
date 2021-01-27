@@ -99,4 +99,18 @@ import com.teulda.service.post.PostService;
 		
 		return "forward:/post/listPost.jsp";
 	}
+	
+	@RequestMapping(value="getPost", method=RequestMethod.GET)
+	public String getPost(@RequestParam("postNo")int postNo, Model model) throws Exception{
+		
+		System.out.println("/post/getPost : GET");
+		
+		Post post = postService.getPost(postNo);
+		
+		model.addAttribute("post", post);
+		
+		System.out.println(post);
+		
+		return "forward:/post/getPost.jsp";
+	}
 }
