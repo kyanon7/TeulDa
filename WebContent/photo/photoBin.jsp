@@ -63,7 +63,7 @@
 				                <p class="card-text">${group.groupNo}</p>
 				                <p class="card-text"><small class="text-muted">${group.deleteDate}</small></p>
 				                <p class="card-text"><small class="text-muted">${group.nickname}</small></p>
-				                <p class="card-text"><small class="text-muted">조회수 ${group.groupType}회</small></p>
+				                <p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">복구</a></small></p>
 		                	</div>
 		                	</div>
 		                	</c:forEach>
@@ -85,9 +85,9 @@
 			              		<div class="card-body">
 			                		<h5 class="card-title">${photo.photoName}</h5>
 					                <p class="card-text">${photo.photoAddr}</p>
-					                <p class="card-text"><small class="text-muted">${photo.photoDate}</small></p>
-					                <p class="card-text"><small class="text-muted">${photo.photoNo}</small></p>
 					                <p class="card-text"><small class="text-muted">${photo.deleteDate}</small></p>
+					                <p class="card-text"><small class="text-muted">${photo.photoNo}</small></p>
+					                <p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">복구</a></small></p>
 			                	</div>
 			                	</div>
 			                	</c:forEach>

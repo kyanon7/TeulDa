@@ -1,5 +1,6 @@
 package com.teulda.web.photo;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teulda.common.Group;
@@ -61,7 +63,8 @@ public class PhotoRestController {
 		
 		return group;
 	}
-	//그룹삭제(플래그)
+	//그룹 삭제 플래그처리
+  	
 	//사진삭제(휴지통)
 	//그룹, 사진 영구삭제(휴지통)
 	@RequestMapping(value="rest/deletePhoto")

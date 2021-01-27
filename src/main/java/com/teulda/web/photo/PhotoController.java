@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -88,7 +89,7 @@ public class PhotoController {
 		
 		//로그인 없이 그냥 바로 테스트 해보려고 넣음
 		Group group = new Group();
-		group.setNickname("king정인");
+		group.setNickname(user.getNickname());
 		group.setGroupNo(groupNo);
 //		group.setGroupNo(10012);
 		
@@ -182,7 +183,7 @@ public class PhotoController {
             }
         }
 
-        return "forward:/photo/listPhoto.jsp";
+        return "forward:/photo/album";
     }
     
     //그룹, 사진 영구삭제(휴지통)
@@ -196,6 +197,8 @@ public class PhotoController {
   		photoService.deletePhoto(user.getNickname());
   		photoService.deleteGroup(user.getNickname());
   		
-  		return "forward:/photo/photoBin.jsp";
+  		return "redirect:/photo/photoBin.jsp";
   	}
+  	
+  	//그룹 삭제 플래그처리
 }
