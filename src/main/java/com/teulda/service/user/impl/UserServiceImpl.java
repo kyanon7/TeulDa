@@ -75,21 +75,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	
-	/*
-	 * @Override public User login(User user) throws Exception { User
-	 * dbUser=userDao.getUser(user.getEmail());
-	 * 
-	 * if(! dbUser.getPassword().equals(user.getPassword())){ throw new
-	 * Exception("로그인에 실패했습니다."); }
-	 * 
-	 * return dbUser; }
-	 */
 
 
 	@Override
 	public User getUser(String email) throws Exception {
-
-		return userDao.getUser(email);
+		User user = userDao.getUser(email);
+		
+		return user;
 	}
 
 	@Override
