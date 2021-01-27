@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
@@ -19,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
+import com.teulda.service.domain.User;
 
 //==> 기록관리 RestController
 @RestController
@@ -82,11 +86,30 @@ public class DiaryRestController {
 		return jsonObject;
 	}
 	
+	// 해시태그 수정시 
 	@RequestMapping(value="rest/deleteHashTag", produces = "application/json")
 	public String deleteHashTag(@RequestParam("hashTagNo") int hashTagNo) throws Exception {
 		
 		diaryService.deleteHashTag(hashTagNo);
 		
 		return "Success";
+	}
+	
+	// 기록 리스트 (위도, 경도) 와 총 갯수 받아오기 
+	@RequestMapping(value="rest/getDiaryList", produces = "application/json")
+	public JSONObject getDiaryList(HttpSession session) throws Exception {
+		
+		User user = (User) session.getAttribute("user");
+		String nickname = user.getNickname();
+		
+		Map<String, Object> map = diaryService.getMyDiaryList(nickname);
+		
+		JSONObject jsonObject = new JSONObject();
+		
+		jsonObject.put("diaryList", map.get("diaryList"));
+		jsonObject.put("totalCount", ((Integer)map.get("totalCount")).intValue());
+
+
+		return jsonObject;
 	}
 }

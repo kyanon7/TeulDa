@@ -26,7 +26,10 @@ public interface DiaryService {
 	// 기록 그룹 목록 리스트 (사용자가 어떤 그룹에 넣을지 선택할때 그룹 목록 리스트 필요할듯) - 완료
 	public List<Group> getDiaryGroupList(String nickname) throws Exception;
 	
-	// 내 기록 목록 리스트 - 내 기록 목록, 내 기록 지도, 휴지통에서 쓰임 - 완료
+	// 내 기록 목록 리스트 - 내 기록 지도에서 쓰임
+	public Map<String, Object> getMyDiaryList(String nickname) throws Exception;
+	
+	// 내 기록 목록 리스트 - 내 기록 목록, 휴지통에서 쓰임 - 완료
 	public Map<String, Object> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception;
 	
 	// 기록 목록 리스트 - 통합검색시 기록 목록 보여줄때 사용 

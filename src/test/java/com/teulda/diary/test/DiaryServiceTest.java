@@ -209,7 +209,7 @@ public class DiaryServiceTest {
 		diaryService.updateDiaryViewCount(10056);
 	}
 	
-	//@Test - 진행중 
+	//@Test 
 	public void testGetMyDiaryList() throws Exception {
 		
 		Search search = new Search();
@@ -218,6 +218,14 @@ public class DiaryServiceTest {
 		
 		// 삭제되지 않은 기록 
 		Map <String, Object> map = diaryService.getMyDiaryList(search, "king주원", 'f');
+		System.out.println(map);
+	}
+	
+	//@Test 
+	public void testGetMyDiaryListForMap() throws Exception {
+		
+		// 삭제되지 않은 기록 
+		Map <String, Object> map = diaryService.getMyDiaryList("king주원");
 		System.out.println(map);
 	}
 	

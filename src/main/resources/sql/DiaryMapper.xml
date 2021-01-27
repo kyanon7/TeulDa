@@ -169,6 +169,23 @@
 	WHERE nickname = #{nickname} and group_type = 2 
 	</select> 
 	
+	<!-- SQL : SELECT LIST --> <!-- Search 조건 없이 뽑아오기 위함! for map -->
+	<select  id="getMyDiaryListForMap"  parameterType="String"	resultMap="diarySelectMap">
+	SELECT  diary_id, title, diary_addr, latitude, longitude, 
+        	start_date, end_date,
+        	content, thumbnail, group_id
+    FROM DIARY 
+    WHERE origin_nick = #{nickname} and delete_date is null
+    </select> 
+    
+    <!-- SQL : SELECT ROW Count -->	 
+	<select  id="getMyDiaryCountForMap"  parameterType="map"	 resultType="int">
+    SELECT COUNT(*)
+    FROM    (SELECT diary_id
+             FROM diary
+             WHERE origin_nick = #{nickname})
+	</select>
+	
 	<!-- SQL : SELECT LIST --> <!-- 추후 Search 조건 추가하기 -->
 	<select  id="getMyDiaryList"  parameterType="map"	resultMap="diarySelectMap">
 	SELECT * 

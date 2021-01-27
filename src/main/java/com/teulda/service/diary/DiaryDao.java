@@ -41,6 +41,12 @@ public interface DiaryDao {
 	
 	// SELECT LIST 
 	public List<Group> getDiaryGroupList(String nickname) throws Exception;
+	
+	// SELECT LIST 
+	public List<Diary> getMyDiaryList(String nickname) throws Exception;
+	
+	// getDiaryMap.jsp ajax 사용하여 마커 표시할때 기록 총 갯수로 for문 돌리기 위한 전체 기록 총 갯수 return
+	public int getMyDiaryCount(String nickname) throws Exception;
 
 	// SELECT LIST 
 	public List<Diary> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception;
