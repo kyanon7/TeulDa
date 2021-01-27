@@ -81,7 +81,7 @@
             </li>
             
             <li class="nav-item">
-               <a class="nav-link" href="/user/getUser"><img src="../resources/images/profile-user.svg" width="25" height="25" alt=""></a>
+               <a class="nav-link" href="/user/getUser?email=${sessionScope.user.email}"><img src="../resources/images/profile-user.svg" width="25" height="25" alt=""></a>
             </li>
         </ul>
         <!-- <form class="form-inline my-2 my-lg-0" >
