@@ -43,8 +43,8 @@ import com.teulda.service.post.PostService;
 		
 			post.setPostTitle("리스트 확인");
 			post.setPostContents("잘됬으면 좋겠네??");
-			post.setPostCategory('3');
-			post.setNickname("king제현");
+			post.setPostCategory('4');
+			post.setNickname("king성영");
 			
 			System.out.println("1");
 //			//사진 리스트

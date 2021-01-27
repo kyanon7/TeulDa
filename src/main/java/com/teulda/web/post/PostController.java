@@ -20,6 +20,8 @@ import com.teulda.common.Search;
 import com.teulda.service.domain.Post;
 import com.teulda.service.domain.User;
 import com.teulda.service.post.PostService;
+import com.teulda.service.user.UserService;
+
 
 	@Controller
 	@RequestMapping("/post/*")
@@ -88,7 +90,7 @@ import com.teulda.service.post.PostService;
 		
 		
 		Map<String, Object> map = postService.getPostList(search, postCategory);
-		
+
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
@@ -101,16 +103,51 @@ import com.teulda.service.post.PostService;
 	}
 	
 	@RequestMapping(value="getPost", method=RequestMethod.GET)
-	public String getPost(@RequestParam("postNo")int postNo, Model model) throws Exception{
+	public String getPost(@RequestParam("postNo")int postNo, Model model, HttpSession session) throws Exception{
 		
 		System.out.println("/post/getPost : GET");
+
+//		User user = (User) session.getAttribute("user");
+//		
+//		System.out.println("===========================");
+//		System.out.println("이건 User값입니다"+user);
+//		System.out.println("===========================");
+		
+		Post post = postService.getPost(postNo);
+		model.addAttribute("post", post);
+		
+		System.out.println(post);
+
+		if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+			return "forward:/post/getMyPost.jsp";
+		}else {
+			return "forward:/post/getPost.jsp";
+		}
+	}
+	
+	@RequestMapping(value="updatePost", method = RequestMethod.GET)
+	public String updatePost(@RequestParam("postNo")int postNo, Model model) throws Exception{
+		System.out.println("/post/updatePost : GET");
 		
 		Post post = postService.getPost(postNo);
 		
 		model.addAttribute("post", post);
 		
+		return "forward:/post/updatePost.jsp";	
+	}
+	
+	@RequestMapping(value="updatePost", method = RequestMethod.POST)
+	public String updatePost(@RequestParam("post")Post post, @RequestParam int postNo, Model model) throws Exception{
+		
+		System.out.println("/post/updatePost : POST");
+		
+		post = postService.getPost(postNo);
+		
+		System.out.println(postNo);
 		System.out.println(post);
 		
-		return "forward:/post/getPost.jsp";
+		postService.updatePost(post);
+		
+		return "forward:/post/getPost.jsp"; 
 	}
 }
