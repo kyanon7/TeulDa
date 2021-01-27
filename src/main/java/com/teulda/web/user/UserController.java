@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teulda.common.Page;
 import com.teulda.common.Search;
+import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
 import com.teulda.service.user.UserService;
 
@@ -57,12 +61,12 @@ public class UserController {
 		//Business Logic
 		userService.addUser(user);
 		
-		return "redirect:/user/login.jsp";
+		return "redirect:/user/successJoin.jsp";
 	}
 	
 
-	@RequestMapping( value="getUser", method=RequestMethod.GET )
-	public String getUser( @RequestParam("email") String email , Model model ) throws Exception {
+	@RequestMapping( value="getUser", method=RequestMethod.GET  )
+	public String getUser( @RequestParam(value="email") String email , Model model ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		//Business Logic
@@ -119,17 +123,17 @@ public class UserController {
 		
 		if( user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
-			System.out.println(dbUser);
+			System.out.println("dbUser디버깅"+dbUser);
 		}
 		
 		return "redirect:/index.jsp";
-	}//실질 로그인 메소드
+	}// 로그인 하고 인덱스
 		
 	
 	@RequestMapping( value="logout", method=RequestMethod.GET )
 	public String logout(HttpSession session ) throws Exception{
 		
-		System.out.println("/user/logout : POST");
+		System.out.println("/user/logout : GET");
 		
 		session.invalidate();
 		

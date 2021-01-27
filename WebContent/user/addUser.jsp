@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -7,9 +7,9 @@
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8" />
 	
-	<!-- ���� : http://getbootstrap.com/css/   ���� -->
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -24,31 +24,140 @@
    
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   <!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+       body > div.container{
+        	border: 3px solid #D6CDB7;
+            margin-top: 10px;
+        }
+    </style>
+    
+     <!--  ///////////////////////// JavaScript ////////////////////////// -->
+	<script type="text/javascript">
+	
+		//============= "가입"  Event 연결 =============
+		 $(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "button.btn.btn-primary" ).on("click" , function() {
+				fncAddUser();
+			});
+		});	
+		
+		
+		//============= "취소"  Event 처리 및  연결 =============
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("a[href='#' ]").on("click" , function() {
+				$("form")[0].reset();
+			});
+		});	
+		
+		
+		function fncAddUser() {
+			
+			var email=$("input[name='email']").val();
+			var password=$("input[name='password']").val();
+			var name=$("input[name='userName']").val();
+			var nickname=$("input[name='nickname']").val();
+			var phone=$("input[name='phone']").val();
+			var address=$("input[name='address']").val();
+			var likeaddr=$("input[name='likePlace']").val();
+			var ispublic=$("input[0]").val();
+			var photo=$("input[name='profilePhoto']").val();
+		
+			
+			
+			if(email == null || email.length <1){
+				alert("이메일은 반드시 입력하셔야 합니다.");
+				return;
+			}
+			
+			if(password == null || password.length <1){
+				alert("패스워드는  반드시 입력하셔야 합니다.");
+				return;
+			}
+
+			
+			
+			if(nickname == null || nickname.length <2){
+				alert("닉네임은  반드시 입력하셔야 합니다.");
+				return;
+			}
+			
+			if(phone == null || phone.length <10){
+				alert("전화번호는  반드시 입력하셔야 합니다.");
+				return;
+			}
+		
 
 
+		 $("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+		}
+		
+		
+			</script>	
+   
+
+</head>
+
+<body>
+
+<!-- ToolBar Start /////////////////////////////////////-->
+
+    	<jsp:include page="/layout/toolbar.jsp"/>
+	
+   	<!-- ToolBar End /////////////////////////////////////-->
+<div class="col-lg-10"><!-- 길이지정 -->
+<div class="bs-component"><!-- 컴포넌트는 부트스트랩에서 정의한 UI 요소로 버튼, 경고창, 네비게이션바 와 같이 화면 구성에 필요한 요소들을 정의해둔 클래스 집합 입니다 -->
 <form data-dpmaxz-fid="4">
   <fieldset>
-
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="staticEmail">Email</label>
-      <div class="col-sm-10">
-        <input class="form-control-plaintext" id="staticEmail" type="text" readonly="" value="email@example.com" data-dpmaxz-eid="4">
-      </div>
-    </div>
+  
+  	<br/><br/>
+	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Join Our Site!</h1>
+	
+	<h3 class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;필수입력정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;선택입력정보</h3>
+    
+    
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" type="email" placeholder="Enter email" data-dpmaxz-eid="5">
-      <small class="form-text text-muted" id="emailHelp">We'll never share your email with anyone else.</small>
-    </div>
+  		<label for="email" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;E-mail</label>	
+  		<input type="text" class="form-control" placeholder="E-mail" name="email" id="email" >
+  		<small class="form-text text-muted" id="emailHelp">We'll never share your email with anyone else.</small>
+	</div>
+    
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password" data-dpmaxz-eid="6">
+      <label for="password" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;Password</label> 
+      <input type="text"  class="form-control" id="password" type="password" placeholder="password" >
     </div>
     
     <div class="form-group">
-      <label for="exampleTextarea">Example textarea</label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-    </div>
+  		<label for="password" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;비밀번호</label>
+  		<input type="text" class="form-control" placeholder="password" name="password" id="password" >
+	</div>
+    
+    <div class="form-group">
+  		<label for="name" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;이름</label>
+  		<div class="col-sm-4">
+  		<input type="text" class="form-control" placeholder="name" name="name" id="name" >	
+		</div>
+	</div>
+	
+	<div class="form-group">
+  		<label for="nickname" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;닉네임</label>
+  		<div class="col-sm-4">
+  		<input type="text" class="form-control" placeholder="nickname" name="nickname" id="nickname" >
+		</div>
+	</div>
+	
+	<div class="form-group">
+  		<label for="phone" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;전화번호</label>
+  		<div class="col-sm-4">
+  		<input type="text" class="form-control" placeholder="phone" name="phone" id="phone" >
+		</div>
+	</div>
+	
+	    
+
     <div class="form-group">
       <label for="exampleInputFile">File input</label>
       <input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file" data-dpmaxz-eid="7">
@@ -59,5 +168,10 @@
      
    
     <button class="btn btn-primary" type="submit">Submit</button>
+    <button type="button" class="btn btn-primary"  >가 &nbsp;입</button>
   </fieldset>
+  
 </form>
+</div>
+</div>
+</body>

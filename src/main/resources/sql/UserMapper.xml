@@ -42,11 +42,11 @@
 		INTO users( nickname , email , password , user_name , phone_number, user_addr, like_addr, birth, user_photo, 
 		update_status_date, is_public, status, role)
 		VALUES	 (	#{nickname} , #{email} , #{password} , #{name}, #{phone:VARCHAR}, #{address:VARCHAR},
-							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{statusDate:VARCHAR}, #{isPublic:CHAR} ,'0','0')
+							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{statusDate:VARCHAR}, #{isPublic:CHAR} ,'0','1')
 	</insert>
 	 
 	<!-- SQL : SELECT ONE 회원정보상세조회-->
-	<select	id="getUser"	 parameterType="com.teulda.service.domain.User"	 resultMap="userSelectMap">
+	<select	id="getUser"	 parameterType="String"	 resultMap="userSelectMap">
 		SELECT *
 		FROM users
 		WHERE email = #{email}
