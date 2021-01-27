@@ -23,20 +23,63 @@
 			<div class="row">
 				<div class="col-md-2">
 				<jsp:include page="../post/leftbar.jsp" />
-		
+			</div>
+			
 		<div class="row">
-			<div class="col-md-9">
-			<div class="card border-secondary mb-3" style="max-width: 20rem;">
-  			<div class="card-header">Header</div>
+		
+			<div class="col-md-10">
+			
+			<c:if test="${post.postCategory eq '1'.charAt(0)}">
+       				<h4>여행지 정보공유 </h4>
+   			</c:if>
+   			<c:if test="${post.postCategory eq '2'.charAt(0)}">
+       				<h4>맛집 정보공유 </h4>
+   			</c:if>
+   			<c:if test="${post.postCategory eq '3'.charAt(0)}">
+       				<h4>숙소 정보공유 </h4>
+   			</c:if>
+   			<c:if test="${post.postCategory eq '4'.charAt(0)}">
+       				<h4>Q&A </h4>
+   			</c:if>
+   			<c:if test="${post.postCategory eq '5'.charAt(0)}">
+       				<h4>잡담 </h4>
+   			</c:if>
+		
+			
+			<br/><br/>
+			<div class="card border-secondary md-6" style="width: 55rem;">
+  			<div class="card-header">
+  			
+  			 작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 : ${post.postDate } &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  			 &nbsp; &nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 조회수 : ${post.viewCount} 
+  			</div>
  			 <div class="card-body">
-  			  <h4 class="card-title">Secondary card title</h4>
-  			  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
- 		 </div>
-				</div>
-				</div>
-				</div>
+ 		
+ 			 </div> 
+  			  <div class="card-title">
+  					<h4>${post.postTitle}</h4>
 			</div>
-			</div>
+  			  <p class="card-text">${post.postContents}</p>
+ 			 </div>
+ 			 <br/><br/>
+ 			 
+ 		<%--  <table class="table table-hover">
+ 	   <tbody>
+ 	   			<c:set var = "i" value = "0" />
+					<c:forEach var = "post" items = "${list}">
+						<c:set var = "i" value = "${i+1}" />
+ 				 <tr class="table-info">
+     			 <th scope="row">${post.nickname}</th>
+     			 <td>${post.commentList} </td>
+     			 <td>Column content</td>
+     			 <td>${comment }</td>
+      			 </tr>
+      			 </c:forEach> --%>
+    <!-- 	</tbody>
+    </table> -->
+			 			</div>
+					</div>
+				</div>
 		</div>
 	</body>
 </html>

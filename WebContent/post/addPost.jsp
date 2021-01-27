@@ -91,6 +91,7 @@
       				<option  value="5">잡담</option>
   				  </select>
   				</div>
+  			</div>
 
 		<div class="row">
 				<div class="col-md-12">
@@ -102,7 +103,7 @@
 				<!-- <input id="subBtn" type="button" value="등록" style="float: right;"/>
 				<input id="cancleBtn" type="button" value="취소" style="float: right;"/> -->
 				
-				<button class="btn btn-info" type="button">등록</button>
+				<button class="btn btn-info" type="submit">등록</button>
 				<button class="btn btn-info" type="button">취소</button>
 			</div>
 		</div>
