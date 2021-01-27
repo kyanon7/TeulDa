@@ -56,7 +56,7 @@
 				                <p class="card-text">${group.groupNo}</p>
 				                <p class="card-text"><small class="text-muted">${group.deleteDate}</small></p>
 				                <p class="card-text"><small class="text-muted">${group.nickname}</small></p>
-				                <p class="card-text"><small class="text-muted">조회수 ${group.groupType}회</small></p>
+				                <p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">삭제</a></small></p>
 		                	</div>
 		                	</div>
 		                	</c:forEach>
