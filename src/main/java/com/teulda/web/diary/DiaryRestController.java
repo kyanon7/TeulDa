@@ -54,8 +54,7 @@ public class DiaryRestController {
 	
 	// addDiary.jsp 에서 SummerNote 파일업로드 할 때 사용 
 	@RequestMapping(value="rest/uploadSummernoteImageFile", produces = "application/json")
-	@ResponseBody
-	public JSONObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+	public JSONObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 		
 		JSONObject jsonObject = new JSONObject();
 		
@@ -81,5 +80,13 @@ public class DiaryRestController {
 		}
 		
 		return jsonObject;
+	}
+	
+	@RequestMapping(value="rest/deleteHashTag", produces = "application/json")
+	public String deleteHashTag(@RequestParam("hashTagNo") int hashTagNo) throws Exception {
+		
+		diaryService.deleteHashTag(hashTagNo);
+		
+		return "Success";
 	}
 }

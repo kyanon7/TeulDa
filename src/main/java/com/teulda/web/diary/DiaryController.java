@@ -63,8 +63,10 @@ public class DiaryController {
 		return "forward:/diary/getDiary.jsp"; 
 	}
 	
+	// 내 기록 조회 (getDiary?diaryNo=번호&status=own) & 공개 기록 조회 (getDiary?diaryNo=번호)
 	@RequestMapping(value="getDiary", method=RequestMethod.GET)
-	public String getDiary(@RequestParam("diaryNo") int diaryNo, Model model) throws Exception {
+	public String getDiary(@RequestParam("diaryNo") int diaryNo, 
+							@RequestParam(value="status", required=false) String status, Model model) throws Exception {
 		
 		System.out.println("/diary/getDiary : GET");
 		//Business Logic
@@ -73,7 +75,11 @@ public class DiaryController {
 		// Model 과 View 연결
 		model.addAttribute("diary", diary);
 		
-		return "forward:/diary/getDiary.jsp";
+		if (status != null && status.equals("own")) { // 마이페이지-기록에서 내 기록만 찾는거면 
+			return "forward:/diary/getMyDiary.jsp";
+		}
+		
+		return "forward:/diary/getDiary.jsp"; // (타 모듈에서 기록 찾는거면) 
 	}
 	
 	@RequestMapping(value="updateDiary", method=RequestMethod.GET)

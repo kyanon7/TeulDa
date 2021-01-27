@@ -5,14 +5,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-	    <title>Insert title here</title>
+	    <title>마이페이지-기록 왼쪽 툴바</title>
 	</head>
 	<body>
 		<!--  diary left toobar -->
   		<div class="list-group">
   			<button type="button" class="btn btn-info disabled">기록</button>
   			<button type="button" class="btn btn-outline-info">+ 새 기록 작성</button><br/>
-  			<a href="#" class="list-group-item list-group-item-action active">여행 타임라인</a>
+  			<a href="#" class="list-group-item list-group-item-action">여행 타임라인</a>
   			<a href="#" class="list-group-item list-group-item-action">내 기록 지도</a>
   			<a href="#" class="list-group-item list-group-item-action">내 기록 목록</a>
   			<a href="#" class="list-group-item list-group-item-action">북마크 기록 목록</a>
@@ -27,6 +27,11 @@
 		$("button:contains('+ 새 기록 작성')").on("click", function () {
 			self.location = "/diary/selectMap.jsp";
 		});
+		
+		$("a:contains('여행 타임라인')").on("click", function () {
+			self.location = "/diary/timeline.jsp";
+		});
+		
 	 });
 	</script>
 </html>
