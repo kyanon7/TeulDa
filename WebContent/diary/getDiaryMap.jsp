@@ -20,6 +20,15 @@
 			width: 100%;
 			height: 550px;
 		}
+		div.wrap {
+            width: 200px;
+        }
+        div.text-box {
+            text-align: center;
+        }
+        h6 {
+            margin: 10px auto 0;
+        }
 	    </style>
 	    
 	  	<!-- Google 지도 API 사용 스크립트 추가 -->
@@ -28,24 +37,48 @@
 	    
 		<script>
 		
+		var diaryContent = [];
+		
 		function initMap() {
+			
 		      var map = new google.maps.Map (
 		        document.getElementById('map'), { zoom: 2, center: { lat: 35.85501664867628, lng: 126.96168749999998 }, })
 		      
-		      //DB에 있는 장소 마커 표시
+	          var flagIcon = new google.maps.MarkerImage("../resources/images/flag.png"); // 마커 아이콘
+		      
+		      // DB에 있는 장소 마커 표시
 		      $.ajax({
 		        type: 'GET',
 		        url: '/diary/rest/getDiaryList',
 		        success: function (data) {
-		            
+		        	
+		        	// 인포윈도우
+		            var infowindow = new google.maps.InfoWindow();
+		        	
 		            for (var i = 0; i < data.totalCount; i++) {
 		              var latLng = { lat: data.diaryList[i].latitude, lng: data.diaryList[i].longitude }
-		              var marker = new google.maps.Marker({ position: latLng, map: map, title: data.diaryList[i].title });
+		               
+					  // 마커 생성
+		              var marker = new google.maps.Marker({ 
+		            	  position: latLng, 
+		            	  map: map, 
+		            	  title: data.diaryList[i].title,
+		            	  icon: flagIcon
+		              });
+		              
+					  // 마커에 이벤트 생성 (info window 창 띄워줌) 
+		              google.maps.event.addListener(marker, 'click', (function(marker, i) {
+		                    return function() {
+		                        infowindow.setContent('<div class="wrap"><div class="text-box"><a href="/diary/getDiary?diaryNo='+data.diaryList[i].diaryNo+'&status=own"><h6>'+data.diaryList[i].title+'</h6><a><p>'+data.diaryList[i].location+'</p><p>'+data.diaryList[i].startDate+'-'+data.diaryList[i].endDate+'</p><p></div></div>');
+		                        infowindow.open(map, marker);
+		                    }
+		              })(marker, i));
+
+		              console.log(data.diaryList[i].title);
 		            }
 		        }
 		      });
 		      
-
 		}
 		</script>
 	
