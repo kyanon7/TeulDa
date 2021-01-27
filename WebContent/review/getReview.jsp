@@ -10,13 +10,14 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 		
-		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 
 		<script type="text/javascript">
 			window.addEventListener('DOMContentLoaded', function(){
 				if('${review.nickname}' !== '${sessionScope.user.nickname}'){
+					document.querySelector('.delete').setAttribute('class', 'btn btn-primary btn-sm delete invisible');
 					document.querySelector('.edit').setAttribute('class', 'btn btn-primary btn-sm edit invisible');
 				}
 			});
@@ -31,7 +32,35 @@
 				});
 			});
 
-			$(function () {
+			window.addEventListener('DOMContentLoaded', function(){
+				const deleteReview = document.querySelector('div.modal-footer').querySelector("button[type='button'].btn.btn-primary");
+				deleteReview.addEventListener('click', function(){
+
+					fetch('/review/rest/deleteReview/${review.reviewNo}', {
+						method: 'GET',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						credentials : "same-origin"
+					})
+					.then(res => res.json())
+					.then(result => {
+						if(result){
+							alert('후기가 삭제되었습니다.');
+							location.href = "/review/listReview";
+						}else{
+							alert('후기 삭제에 실패했습니다.');
+							location.reload = "/review/getReview?reviewNo=${review.reviewNo}";	
+						}
+					})
+					.catch(err =>{
+						alert('후기 삭제에 실패했습니다.');
+						location.reload = "/review/getReview?reviewNo=${review.reviewNo}";
+					});
+				});
+			});
+
+			window.addEventListener('DOMContentLoaded', function(){
 				$("#rateYo").rateYo({
 					rating: "${review.star}",
 					readOnly: true,
@@ -66,7 +95,6 @@
 							<div class="form-group" wfd-id="361">
 								<label for="inputPlace" wfd-id="362"></label>
 								<small class="form-text text-muted">장소</small>
-								<!-- <input type="place" class="form-control" id="inputPlace" aria-describedby="palceHelp" placeholder="예) 서울시 강남구, 부산 해운대 앞바다" wfd-id="516"> -->
 								<div style="line-height: 50%;"><br /></div>
 								<p>${review.reviewPlace}</p>
 							</div>
@@ -74,7 +102,6 @@
 								<label for="textarea" wfd-id="352"></label>
 								<small class="form-text text-muted">후기 내용</small>
 								<div style="line-height: 50%;"><br /></div>
-								<!-- <textarea class="form-control" id="textarea" rows="3" wfd-id="527">${review.reviewContents}</textarea> -->
 								<p>${review.reviewContents}</p>
 								<br />
 							</div>
@@ -85,7 +112,8 @@
 								<div class="col-md-3">
 									<div id="rateYo"></div>
 								</div>
-								<div class="col-md-4"></div>
+								<div class="col-md-3"></div>
+									<button type="button" class="btn btn-primary btn-sm delete" data-toggle="modal" data-target="#deleteReview">후기 삭제</button>&nbsp;&nbsp;
 									<button type="button" class="btn btn-primary btn-sm edit" >후기 수정</button>&nbsp;&nbsp;
 									<button type="button" class="btn btn-primary btn-sm list" >후기 목록</button>
 							</div>
@@ -100,6 +128,39 @@
 				<div class="col-lg-3">
 				</div>
 
+				<!-- DeleteReview Modal Start-->
+				<div class="modal fade" id="deleteReview" tabindex="-1" aria-labelledby="deleteReviewLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="deleteReviewLabel">후기 삭제</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							</div>
+							<div class="modal-body">현재 후기를 삭제하시겠습니까?</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">삭제 취소</button>
+								<button type="button" class="btn btn-primary">삭제</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- DeleteReview Modal End-->
+
+				<!-- Result Modal Start -->
+				<!-- <button type="button" class="btn btn-primary result sr-only" data-toggle="modal" data-target=".bd-example-modal-sm">result</button>
+
+				<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="deleteAlertLabel">처리 결과</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							</div>
+							<div class="modal-body">후기가 삭제되었습니다.</div>
+						</div>
+					</div>
+				</div> -->
+				<!-- Result Modal End -->
 
 			</div>
 		</div>
