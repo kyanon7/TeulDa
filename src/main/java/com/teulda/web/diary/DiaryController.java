@@ -60,7 +60,7 @@ public class DiaryController {
 		// Model 과 View 연결
 		model.addAttribute("diary", newDiary);
 		
-		return "forward:/diary/getDiary.jsp"; 
+		return "forward:/diary/getMyDiary.jsp"; 
 	}
 	
 	// 내 기록 조회 (getDiary?diaryNo=번호&status=own) & 공개 기록 조회 (getDiary?diaryNo=번호)
@@ -107,7 +107,7 @@ public class DiaryController {
 		// Model 과 View 연결
 		model.addAttribute("diary", newDiary);
 		
-		return "forward:/diary/getDiary.jsp";
+		return "forward:/diary/getMyDiary.jsp"; 
 	}
 
 }
