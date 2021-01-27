@@ -102,9 +102,23 @@ public class DiaryServiceImpl implements DiaryService {
 	public List<Group> getDiaryGroupList(String nickname) throws Exception {
 		return diaryDao.getDiaryGroupList(nickname);
 	}
+	
+	@Override
+	// 내 기록 목록 리스트 - (내 기록 지도)를 위한 비즈니스 수행
+	public Map<String, Object> getMyDiaryList(String nickname) throws Exception {
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		List <Diary> diaryList = diaryDao.getMyDiaryList(nickname);
+		
+		map.put("diaryList", diaryList);
+		map.put("totalCount", new Integer(diaryDao.getMyDiaryCount(nickname)));
+		
+		return map;
+	}
 
 	@Override
-	// 내 기록 목록 보기(내 기록 목록, 내 기록 지도, 휴지통)를 위한 비즈니스 수행 
+	// 내 기록 목록 보기(내 기록 목록, 휴지통)를 위한 비즈니스 수행 
 	public Map<String, Object> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception {
 		
 		Map<String, Object> map = new HashMap <String, Object>();

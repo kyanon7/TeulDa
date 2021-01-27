@@ -159,13 +159,20 @@ where diary_id = 10047;
 
 // get my diary list 
 
-// (내 기록 목록, 내 기록 지도)
+// (내 기록 목록)
 
 select  diary_id, title, diary_addr, latitude, longitude, 
         diary_date, start_date, end_date,
         content, delete_date, thumbnail, group_id
 from diary
 where origin_nick = 'king주원' and delete_date is null;
+
+// (내 기록 지도)
+SELECT  diary_id, title, diary_addr, latitude, longitude, 
+        start_date, end_date,
+        content, thumbnail, group_id
+        FROM diary
+        where origin_nick = 'king주원' and delete_date is null;
 
 // (휴지통)
 

@@ -15,8 +15,38 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
 		<style>
-		</style>
+		/* 너비와 높이가 지정되어 있지 않으면 지도가 읽어지지 않음(에러는 안남, 안보임) */
+		#map {
+			width: 100%;
+			height: 550px;
+		}
+	    </style>
+	    
+	  	<!-- Google 지도 API 사용 스크립트 추가 -->
+  		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABfHCGnA7XGz4lch9JFD8ECEu2BuuKHOI&callback=initMap"async defer></script>
+  		
+	    
 		<script>
+		
+		function initMap() {
+		      var map = new google.maps.Map (
+		        document.getElementById('map'), { zoom: 2, center: { lat: 35.85501664867628, lng: 126.96168749999998 }, })
+		      
+		      //DB에 있는 장소 마커 표시
+		      $.ajax({
+		        type: 'GET',
+		        url: '/diary/rest/getDiaryList',
+		        success: function (data) {
+		            
+		            for (var i = 0; i < data.totalCount; i++) {
+		              var latLng = { lat: data.diaryList[i].latitude, lng: data.diaryList[i].longitude }
+		              var marker = new google.maps.Marker({ position: latLng, map: map, title: data.diaryList[i].title });
+		            }
+		        }
+		      });
+		      
+
+		}
 		</script>
 	
 	</head>
@@ -38,7 +68,7 @@
 
 			<div class="col-md-9">
 
-					
+				<div id="map"></div>
 
 			</div>
 		</div>

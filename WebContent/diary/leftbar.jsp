@@ -32,6 +32,10 @@
 			self.location = "/diary/timeline.jsp";
 		});
 		
+		$("a:contains('내 기록 지도')").on("click", function () {
+			self.location = "/diary/getDiaryMap.jsp";
+		});
+		
 	 });
 	</script>
 </html>
