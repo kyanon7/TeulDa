@@ -19,7 +19,7 @@
 
 		$(function(){
 			$("button:contains('수정')").on("click", function(){
-				self.location = "/post/updatePost"			
+				self.location = "/post/updatePost?postNo=${post.postNo}"			
 			});
 		});
 
