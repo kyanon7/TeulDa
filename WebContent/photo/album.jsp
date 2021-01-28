@@ -14,6 +14,19 @@
 		<!-- Bootstrap CDN -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		
+		<script>
+		
+		function removeCheck() {
+
+ 			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+ 				document.detailForm.action="/photo/deletePhoto";
+ 			}else{   //취소
+     			return false;
+ 			}
+		}
+		
+		</script>
 	</head>
 
 	<body>
@@ -52,7 +65,7 @@
 				                <p class="card-text">${photo.photoAddr}</p>
 				                <p class="card-text"><small class="text-muted">${photo.photoDate}</small></p>
 				                <p class="card-text"><small class="text-muted">${photo.photoNo}</small></p>
-				                <p class="card-text"><small class="text-muted">조회수 ${photo.photoGroupNo}회</small></p>
+				                <p class="card-text" id="delete" style="text-align:right;" onclick="removeCheck();"><small class="text-muted"><a href="#">삭제</a></small></p>
 		                	</div>
 		                	</div>
 		                	</c:forEach>

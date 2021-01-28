@@ -16,6 +16,22 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
 		<script>
+		function buttonClick(){
+			if($("#makeAlbum").css("display") == "none"){
+			    $("#makeAlbum").show();
+			} else {
+			    $("#makeAlbum").hide();
+			}
+		}
+		
+		function removeCheck() {
+
+ 			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+ 				document.detailForm.action="/photo/deletePhoto";
+ 			}else{   //취소
+     			return false;
+ 			}
+		}
 		
 		</script>
 	</head>
@@ -34,7 +50,12 @@
   				  	<div class="col-md-3">
 						<div class="list-group">
 							<button type="button" id="listPhoto" class="btn btn-link disabled">~ 사진을 봅시다 ~</button>
-							<button type="button" class="btn btn-outline-info"> + 새 앨범</button><br/>
+							<button type="button" id="addAlbum" class="btn btn-outline-info" onclick="buttonClick();"> + 새 앨범</button><br/>
+						<div id="makeAlbum" style="display:nono;">
+							<input type="text" id="groupName" name="groupName" style="height: 38pt;" placeholder="앨범명을 입력해주세요"/>
+							<!-- <input type="text" readonly="" class="form-control-plaintext" id="groupName" placeholder="앨범명을 입력해주세여."> -->
+							<button type="button" class="btn btn-outline-info">만들기</button>
+						</div><br/>
 							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
 							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
 							<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
@@ -44,7 +65,7 @@
 				
 				<div class="col-md-9">
   					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a></br></br>
+  					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a><br/><br/>
   					
 	  					<c:set var = "i" value = "0" />
 		          			<c:forEach var = "group" items = "${groupList}">
@@ -56,7 +77,7 @@
 				                <p class="card-text">${group.groupNo}</p>
 				                <p class="card-text"><small class="text-muted">${group.deleteDate}</small></p>
 				                <p class="card-text"><small class="text-muted">${group.nickname}</small></p>
-				                <p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">삭제</a></small></p>
+				                <p class="card-text" id="delete" style="text-align:right;" onclick="removeCheck();"><small class="text-muted"><a href="#">삭제</a></small></p>
 		                	</div>
 		                	</div>
 		                	</c:forEach>
