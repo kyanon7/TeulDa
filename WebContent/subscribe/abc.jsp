@@ -14,6 +14,10 @@
           column-count: 4;
         } */
 
+        .small {
+            font-size: smaller;
+        }
+
         .text-log {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -53,102 +57,111 @@
             .then(res => res.json())
             .then(result => {
                 let subscribeList = result.subscribeList;
+                let diaryListWeekBefore = result.diaryListWeekBefore;
                 let diaryListMonthBefore = result.diaryListMonthBefore;
                 let diaryListBefore = result.diaryListBefore;
 
+                console.log(subscribeList);
+                console.log(diaryListWeekBefore);
+                console.log(diaryListMonthBefore);
+                console.log(diaryListBefore);
+
                 let currentPage = 1
 
-                const DATA_PER_PAGE = 10, lastPage = subscribeList.length+diaryListMonthBefore.length+diaryListBefore.length;
+                const DATA_PER_PAGE = 10, lastPage = diaryListWeekBefore.length+diaryListMonthBefore.length+diaryListBefore.length;
                 console.log(lastPage);
+                console.log(currentPage)
 
                 function addData(currentPage) {
 
-                    // const br = document.createElement("br");
-
+                    const br = document.createElement("br");
                     const list = document.querySelector(".subList");
-                    console.log(list);
 
                     const period = document.createElement("div");
                     period.setAttribute("class", "h4");
-                    // period.textContent = "이번 주";
-                    period.innerHTML = "이번 주<br />"
+                    period.textContent = "이번 주";
                     list.appendChild(period);
+                    list.appendChild(br);
 
                     const div = document.createElement("div");
                     div.setAttribute("class", "card-group");
-                    period.appendChild(div);
+                    list.appendChild(div);
 
-                    const cardFrame = document.createElement("div");
-                    cardFrame.setAttribute("class", "col-auto mb-2");
-                    div.appendChild(cardFrame);
+                    for (let i = (currentPage - 1) * DATA_PER_PAGE; i < currentPage * DATA_PER_PAGE; i++) {
 
-                    const cardHead = document.createElement("div");
-                    cardHead.setAttribute("class", "card");
-                    cardHead.setAttribute("style", "width: 15rem;");
-                    cardFrame.appendChild(cardHead);
+                        // const period = document.createElement("div");
+                        // period.setAttribute("class", "h4");
+                        // period.textContent = "이번 주";
+                        // list.appendChild(period);
+                        // list.appendChild(br);
 
-                    const cardEmbed = document.createElement("div");
-                    cardEmbed.setAttribute("class", "embed-responsive embed-responsive-16by9");
-                    cardHead.appendChild(cardEmbed);
+                        // const div = document.createElement("div");
+                        // div.setAttribute("class", "card-group");
+                        // list.appendChild(div);
 
-                    const cardImage = document.createElement("img");
-                    cardImage.setAttribute("class", "card-img-top embed-responsive-item");
-                    cardImage.setAttribute("src", "https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg");
-                    cardImage.setAttribute("alt", "Card image cap");
-                    cardEmbed.appendChild(cardImage);
-                
-                    const cardBody = document.createElement("div");
-                    cardBody.setAttribute("class", "card-body");
-                    cardHead.appendChild(cardBody);
+                        const cardFrame = document.createElement("div");
+                        cardFrame.setAttribute("class", "col-auto mb-2");
+                        div.appendChild(cardFrame);
 
-                    const title = document.createElement("h5");
-                    title.setAttribute("class", "card-title text-log");
-                    title.textContent = "우와아아아앙 작년에 부산 완전 좋았다 개굿이었음";
+                        const cardHead = document.createElement("div");
+                        cardHead.setAttribute("class", "card");
+                        cardHead.setAttribute("style", "width: 14.5rem;");
+                        cardFrame.appendChild(cardHead);
+
+                        const cardEmbed = document.createElement("div");
+                        cardEmbed.setAttribute("class", "embed-responsive embed-responsive-16by9");
+                        cardHead.appendChild(cardEmbed);
+
+                        const cardImage = document.createElement("img");
+                        cardImage.setAttribute("class", "card-img-top embed-responsive-item");
+                        cardImage.setAttribute("src", "https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg");
+                        cardImage.setAttribute("alt", "Card image cap");
+                        cardEmbed.appendChild(cardImage);
                     
-                    const place = document.createElement("div");
-                    place.setAttribute("class", "text-truncate place");
+                        const cardBody = document.createElement("div");
+                        cardBody.setAttribute("class", "card-body");
+                        cardHead.appendChild(cardBody);
 
-                    const placeText = document.createElement("small");
-                    placeText.setAttribute("class", "text-muted");
-                    placeText.textContent = "부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ";
-                    place.appendChild(placeText);
-                    cardBody.appendChild(title);
-                    cardBody.appendChild(place);
+                        const title = document.createElement("h5");
+                        title.setAttribute("class", "card-title text-log");
+                        title.textContent = "우와아아아앙 작년에 부산 완전 좋았다 개굿이었음";
+                        
+                        const place = document.createElement("div");
+                        place.setAttribute("class", "text-truncate place");
 
-                    cal.sldjq = `${alsoe}+${asd}`
+                        const placeText = document.createElement("span");
+                        placeText.setAttribute("class", "text-muted small");
+                        placeText.textContent = "부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ";
+                        place.appendChild(placeText);
+                        cardBody.appendChild(title);
+                        cardBody.appendChild(place);
 
-                    const footer = document.createElement("div");
-                    footer.setAttribute("class", "card-footer");
-                    cardHead.appendChild(footer);
+                        const footer = document.createElement("div");
+                        footer.setAttribute("class", "card-footer");
+                        cardHead.appendChild(footer);
 
-                    const viewCount = document.createElement("small");
-                    viewCount.setAttribute("class", "text-muted viewCount");
-                    viewCount.textContent = "조회수 1회"
+                        const viewCount = document.createElement("span");
+                        viewCount.setAttribute("class", "text-muted small viewCount");
+                        viewCount.textContent = "조회수 1회"
 
-                    const seperation = document.createElement("span");
-                    seperation.setAttribute("class", "text-muted")
-                    seperation.innerHTML = '<small>&nbsp;&#8226;&nbsp;</small>';
+                        const seperator = document.createElement("span");
+                        seperator.setAttribute("class", "text-muted separator small");
+                        seperator.insertAdjacentHTML('afterbegin', '&nbsp;&#8226;&nbsp;');
 
-                    const lastUpdated = document.createElement("small");
-                    lastUpdated.setAttribute("class", "text-muted last-update");
-                    lastUpdated.textContent = "last updated";
+                        const lastUpdated = document.createElement("span");
+                        lastUpdated.setAttribute("class", "text-muted small last-update");
+                        lastUpdated.textContent = "last updated";
 
-                    footer.appendChild(viewCount);
-                    footer.appendChild(seperation);
-                    footer.appendChild(lastUpdated);
+                        footer.appendChild(viewCount);
+                        footer.appendChild(seperator);
+                        footer.appendChild(lastUpdated);
 
 
-                    // for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
-                    //     const $li = document.createElement("li")
-                    //     const $p = document.createElement("p")
-                    //     $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
-                    //     $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
-                    //     // $li.classList.add("fade-in")
-                    //     $list.appendChild($p)
-                    //     $list.appendChild($li)
-                    // }
+                    
+                    }
                 }
-                addData();
+                
+                addData(currentPage);
             })
             .catch(err =>{
 
@@ -156,6 +169,8 @@
 
             
         });
+
+        
 
         
 
@@ -169,21 +184,21 @@
             // // const msgLoading = document.getElementById("msg-loading")
 
 
-            // // 데이터 추가 함수
-            // function addData(currentPage) {
+            // 데이터 추가 함수
+            function addData(currentPage) {
 
-            //     const $list = document.getElementById("list")
+                const $list = document.getElementById("list")
 
-            //     for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
-            //         const $li = document.createElement("li")
-            //         const $p = document.createElement("p")
-            //         $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
-            //         $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
-            //         // $li.classList.add("fade-in")
-            //         $list.appendChild($p)
-            //         $list.appendChild($li)
-            //     }
-            // }
+                for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
+                    const $li = document.createElement("li")
+                    const $p = document.createElement("p")
+                    $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
+                    $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
+                    // $li.classList.add("fade-in")
+                    $list.appendChild($p)
+                    $list.appendChild($li)
+                }
+            }
 
             // // IntersectionObserver 갱신 함수
             // function observeLastChild(intersectionObserver) {
@@ -263,7 +278,7 @@
 
             <div class="col-lg-10 border-0 subList" style="background-color: rgb(247, 247, 247);"><br />
 
-                <div class="h4">이번 주</div><br />
+                <!-- <div class="h4">이번 주</div><br />
                     <div class="card-group">
                         <div class="col-auto mb-2">
                             <div class="card" style="width: 15rem;">
@@ -272,7 +287,7 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title text-log">우와아아아앙 작년에 부산 완전 좋았다 개굿이었음</h5>
-                                    <div class="text-truncate place"><small class="text-muted">부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ</small></div>
+                                    <div class="text-truncate place"><span class="text-muted small">부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ</span></div>
                                 </div>
                                 <div class="card-footer">
                                     <small class="text-muted viewCount">조회수 1회</small><span class="text-muted"><small>&nbsp;&#8226;&nbsp;</small></span><small class="text-muted last-update">last updated</small>
@@ -280,7 +295,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
 
