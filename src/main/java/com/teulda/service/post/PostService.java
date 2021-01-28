@@ -3,6 +3,8 @@ package com.teulda.service.post;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.teulda.common.Search;
 import com.teulda.service.domain.Comment;
 import com.teulda.service.domain.Post;
@@ -39,10 +41,12 @@ public interface PostService {
 	//각각의 게시글 목록 보기 (그러기위해서 뒤에 char postCategory를 넣어줌!)
 	public Map<String, Object> getPostList(Search search, char postCategory) throws Exception;
 		
-	//나의 댓글 목록 조회(나의 댓글을 보기위해서 목록을 뽑은다음에 닉네임으로 나의 댓글을 볼수있게 설정함) 
+	//나의 댓글 목록 조회(나의 댓글을 보기위해서 목록을 뽑은다음에 닉네임으로 나의 댓글을 볼수있게 설정함) 	
 	public Map<String, Object> getMycommentList(Search search, String nickname) throws Exception;
 
 	//댓글 목록 조회
 	public List<Comment> getCommentList(int postNo) throws Exception;
 	
+	//내가 작성한 게시글 리스트 조회
+	public Map<String, Object> getPostListBynickname(Search search, String nickname, char postCategory) throws Exception;	
 }

@@ -146,6 +146,19 @@ import com.teulda.service.post.PostService;
 		postDao.updatePostViewCount(postNo);
 		
 	}
+	
+	@Override
+	public Map<String, Object> getPostListBynickname(Search search, String nickname, char postCategory) throws Exception {
+		
+		Map<String, Object> map =  new HashMap<String, Object>();
+		
+		List <Post>  postList = postDao.getPostListBynickname(search, nickname, postCategory);
+		
+		map.put("list", postList);
+		map.put("totalCount", new Integer(postDao.getPostBynicknameTotalCount(search, nickname, postCategory)));
+	 
+		return map;
+	}
 
 //	@Override
 //	public void deletePhoto(int photoNo) throws Exception {

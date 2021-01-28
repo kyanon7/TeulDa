@@ -161,6 +161,34 @@ public class PostDaoImpl implements PostDao {
 		return sqlSession.selectOne("PostMapper.getCommentTotalCount",postNo);
 }
 
+	@Override
+	public List<Post> getPostListBynickname(Search search, String nickname, char postCategory) throws Exception {
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("search", search);
+		map.put("nickname", nickname);
+		map.put("postCategory", postCategory);
+		
+		System.out.println(map);
+		
+		return sqlSession.selectList("PostMapper.getPostListBynickname", map);
+	}
+
+	@Override
+	public int getPostBynicknameTotalCount(Search search, String nickname, char postCategory) throws Exception {
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("search", search);
+		map.put("nickname", nickname);
+		map.put("postCategory", postCategory);
+		
+		System.out.println(map);
+		
+		return sqlSession.selectOne("PostMapper.getPostBynicknameTotalCount", map);
+	}
+
 
 //	@Override
 //	public void deletePhotoUsePostNo(int postNo) throws Exception {

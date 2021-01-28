@@ -185,7 +185,7 @@
 					    <div class="text-right">
 					      <button type="" class="btn btn-outline-success">로그인</button>
 					      &nbsp;&nbsp;&nbsp;
-					      <a class="btn btn-outline-primary" href="#" role="button">회원가입</a>
+					      <a class="btn btn-outline-primary" href="/user/addUser" role="button">회원가입</a>
 					    </div>
 					  </div>
 					  

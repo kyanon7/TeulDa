@@ -40,7 +40,7 @@
 		(select group_id 
 		from groups
 		where nickname='${nickname}' and group_name = 'default1'),
-		${photoName}, ${photoAddr}, ${latitude : NUMERIC}, ${longitude : NUMERIC}, null, null)
+		${photoName}, ${photoAddr}, ${latitude}, ${longitude}, null, null)
 	</insert>
 	
 	<!-- SQL : INSERT PHOTO 앨범등록 -->

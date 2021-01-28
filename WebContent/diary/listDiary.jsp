@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -15,8 +16,49 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
 		<style>
+		/* content 3줄 이상이면 자름 */
+		p {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 3; /* 라인수 */
+			-webkit-box-orient: vertical;
+			word-wrap: break-word;
+			line-height: 1.2em;
+			height: 3.5em;
+			/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+		}
 		</style>
+		
 		<script>
+		//검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
+		function fncGetList(currentPage){
+			
+			$("#currentPage").val(currentPage);
+		   	$("form[name='detailForm']").attr("method", "POST").attr("action", "/diary/listDiary").submit();
+		   	
+		}
+		$(function() {
+			
+			$("button:contains('Search')").on("click", function () { // 검색 버튼
+				fncGetList(1); // currentpage : 1 
+			});
+			
+			$(".breadcrumb-item").on("click", function () { // 정렬
+				fncGetList(1); // currentpage : 1 
+			});
+			
+// 			$(".getProduct").on("click", function () {
+// 				self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=${ menu }";
+// 			});
+			
+			
+// 			$(".getProductSearch").on("click", function () { // 이미지 누르면 상품 보여지게 함
+// 				self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=search";
+// 			});
+			
+			
+		 });
 		</script>
 	
 	</head>
@@ -27,7 +69,9 @@
 			<jsp:include page="../layout/toolbar.jsp"/>
 		</header><br/><br/>
 		<!-- End Header -->
-
+	
+	<form name="detailForm">
+	
 	<div class="container">
 		<div class="row">
 			<!-- ======= Diary Left ToolBar ======= -->
@@ -38,12 +82,76 @@
 
 			<div class="col-md-9">
 
-					
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a class="nav-link active"
+						data-toggle="tab" href="#home">ALL</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab"
+						href="#profile">BY GROUP</a></li>
+				</ul>
+				<br>
+
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<select class="custom-select">
+								<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목</option>
+								<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>내용</option>
+								<option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>장소</option>
+								<option value="3" ${ ! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>해시태그</option>
+							</select>
+
+						</div>
+					</div>
+					<div class="col-md-7">
+						<input type="text" class="form-control" placeholder="검색어 입력" id="inputDefault"
+								value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+					</div>
+					<div class="col-md-3">
+						<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+					</div>
+				</div>
+				<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
+				<ol class="breadcrumb" style="float:right; ">
+					<li class="breadcrumb-item" value="0"><a href="#" ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최근 작성 순</a></li>
+					<li class="breadcrumb-item" value="1"><a href="#" ${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>최근 여행 순</a></li>
+					<li class="breadcrumb-item" value="2"><a href="#" ${ ! empty search.searchSorting && search.searchSorting==2 ? "style=font-weight:350;" : "" }>오래된 여행 순</a></li>
+				</ol><br><br><br>
+
+				<div class="row"> 
+					<c:set var="i" value="0" />
+					<c:forEach var = "diary" items = "${ diaryList }">
+						<c:set var="i" value="${ i+1 }" />
+						<div class="col-md-4">
+							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
+								<div class="card-header">
+									<img src="../resources/images/marker_blue.png" height="12px"
+										align="middle">&nbsp;&nbsp;${ diary.location } <br>
+									<small>${ diary.startDate } - ${ diary.endDate }</small>
+								</div>
+								<div class="card-body">
+									<h5 class="card-title" id = "${ diary.diaryNo }">${ diary.title }</h5>
+									<p class="card-text" id="content">
+<%-- 									${ diary.content } --%> 
+									<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
+									</p>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+			    </div>
+			    
+			    <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+				<input type="hidden" id="currentPage" name="currentPage" value=""/>
+				
+			    <!-- PageNavigation Start... -->
+				<jsp:include page="../common/pageNavigator.jsp"/>
+				<!-- PageNavigation End... -->
 
 			</div>
 		</div>
 	</div>
 
-  	
+  	</form>
 	</body>
 </html>

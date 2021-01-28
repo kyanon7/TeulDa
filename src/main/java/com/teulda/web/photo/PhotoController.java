@@ -48,7 +48,20 @@ public class PhotoController {
 //	@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	
+	//앨범 생성
+	@RequestMapping(value="addGroup")
+	public String addGroup(HttpSession session) throws Exception{
+		
+		System.out.println("photo/addGroup");
+		
+		User user = (User)session.getAttribute("user");
+		
+		Group group = new Group();
+		group.setNickname(user.getNickname());
+//		group.setGroupName();
+		
+		return "forward:/photo/getPhotoMap.jsp";
+	}
 	//지도로 보기(photoList랑 별 다를거 없는 듯?)
 	@RequestMapping(value="getPhotoMap")
 	public String getPhotoMap(Model model, HttpSession session) throws Exception{
@@ -201,4 +214,18 @@ public class PhotoController {
   	}
   	
   	//그룹 삭제 플래그처리
+  	@RequestMapping(value="updateGroupStatus")
+  	public String updateGroupStatus(HttpSession session, HttpServletRequest request) throws Exception{
+  		
+  		System.out.println("photo/updateGroupStatus");
+  		
+  		User user = (User)session.getAttribute("user");
+  		Group group = new Group();
+  		group.setNickname(user.getNickname());
+  		group.setGroupNo(Integer.parseInt(request.getParameter("groupNo")));
+  		
+  		photoService.updateGroupStatus(group);
+  		
+  		return "forward:/photo/listPhoto.jsp";
+  	}
 }

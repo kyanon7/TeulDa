@@ -63,6 +63,12 @@
  			 </div>
  			 <br/><br/>
  			 
+ 	 <table class="table table-hover">
+ 		  <tr class="table-primary">
+  			    <th scope="row">Primary</th>
+  			    <td>Column content</td>
+   		 </tr>
+ 	</table> 
  		<%--  <table class="table table-hover">
  	   <tbody>
  	   			<c:set var = "i" value = "0" />
