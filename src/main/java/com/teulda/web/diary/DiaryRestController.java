@@ -43,19 +43,6 @@ public class DiaryRestController {
 		System.out.println(this.getClass()); // 디버깅 위함
 	}
 	
-//	@RequestMapping(value="rest/addDiary", method=RequestMethod.POST)
-//	public ModelAndView addDiary(@RequestBody Diary diary) throws Exception {
-//		
-//		System.out.println("/diary/rest/addDiary : POST");
-//		
-//		// Model 과 View 연결
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.addObject("diary", diary);
-//		modelAndView.setViewName("/diary/addDiary.jsp");
-//		
-//		return modelAndView;
-//	}
-	
 	// addDiary.jsp 에서 SummerNote 파일업로드 할 때 사용 
 	@RequestMapping(value="rest/uploadSummernoteImageFile", produces = "application/json")
 	public JSONObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
@@ -86,7 +73,7 @@ public class DiaryRestController {
 		return jsonObject;
 	}
 	
-	// 해시태그 수정시 
+	// updateDiary.jsp 에서 해시태그 삭제 할 때 사용 
 	@RequestMapping(value="rest/deleteHashTag", produces = "application/json")
 	public String deleteHashTag(@RequestParam("hashTagNo") int hashTagNo) throws Exception {
 		
@@ -95,7 +82,7 @@ public class DiaryRestController {
 		return "Success";
 	}
 	
-	// 기록 리스트 (위도, 경도) 와 총 갯수 받아오기 
+	// getMyDiaryMap.jsp 에서 기록 리스트 (위도, 경도, 위치, 제목, 등등..) 와 기록 총 갯수 받아오기 
 	@RequestMapping(value="rest/getDiaryList", produces = "application/json")
 	public JSONObject getDiaryList(HttpSession session) throws Exception {
 		

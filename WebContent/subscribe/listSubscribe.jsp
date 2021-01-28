@@ -7,8 +7,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>나의 후기 목록</title>
-		
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.6.0/dist/lux/bootstrap.min.css" integrity="sha256-n1LAsYCohTi3YOpx8/Jhgf1i6BLuraa4Bnx/qTd4Vs0=" crossorigin="anonymous">
 
     <style>
       .card-columns {
@@ -16,9 +16,9 @@
       }
     </style>
 
-		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha256-7dA7lq5P94hkBsWdff7qobYkp9ope/L5LQy2t/ljPLo=" crossorigin="anonymous"></script>
+    
 		<script type="text/javascript">
 
 
@@ -33,8 +33,6 @@
       <br />
 		  <!-- End Header -->
 
-
-      
 	<!-- <div class="row">
 		<div class="col-lg-2">
 		  <div class="bs-component">
@@ -52,23 +50,19 @@
 		  </div>
     </div> -->
     
+  <div class="row">
 
-    <div class="row">
-      <div class="col-lg-2">
-        <div class="bs-component">
-        <ul class="list-group">
-          <li class="h3 nav-header disabled"><a>구독</a></li>
-          <c:set var = "i" value = "0" />
-          <c:forEach var = "subscribe" items = "${subscribeList}">
-            <c:set var = "i" value = "${i+1}" />
-            <li class="list-group-item d-flex justify-content-between align-items-center" style="border: none">
-            <a href="#">${subscribe.subTargetNickname}</a>
-          <!-- <span class="badge badge-primary badge-pill">X</span> -->
-          </li>
+
+    <div class="col-lg-2">
+      <div class="list-group">
+        <ul class="list-group"><li class="h4 list-group-item disabled border-0" >구독</li></ul>
+        <c:set var = "i" value = "0" />
+        <c:forEach var = "subscribe" items = "${subscribeList}">
+          <c:set var = "i" value = "${i+1}" />
+          <a href="#" class="list-group-item list-group-item-action border-0">${subscribe.subTargetNickname}</a>
         </c:forEach>
-        </ul>
-        </div>
       </div>
+    </div>
     
     <div class="col-lg-10 border-0" style="background-color: rgb(247, 247, 247);"><br />
       
