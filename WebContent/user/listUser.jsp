@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,16 +9,17 @@
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 	
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
+	<!-- ì°¸ì¡° : http://getbootstrap.com/css/   ì°¸ì¡° -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/lux/bootstrap.css" >
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/lux/bootstrap.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<!-- jQuery CDN -->
+		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		
+		<!-- Bootstrap CDN -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -32,40 +33,40 @@
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-		//=============    °Ë»ö / page µÎ°¡Áö °æ¿ì ¸ğµÎ  Event  Ã³¸® =============	
+		//=============    ê²€ìƒ‰ / page ë‘ê°€ì§€ ê²½ìš° ëª¨ë‘  Event  ì²˜ë¦¬ =============	
 		function fncGetList(currentPage) {
 			$("#currentPage").val(currentPage)
 			$("form").attr("method" , "POST").attr("action" , "/user/listUser").submit();
 		}
 		
 		
-		//============= "°Ë»ö"  Event  Ã³¸® =============	
+		//============= "ê²€ìƒ‰"  Event  ì²˜ë¦¬ =============	
 		 $(function() {
-			 //==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			 //==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "button.btn.btn-outline-primary" ).on("click" , function() {
 				fncGetList(1);
 			});
 		 });
 		
 		
-		//============= email ¿¡ È¸¿øÁ¤º¸º¸±â  Event  Ã³¸®(Click) =============	
+		//============= email ì— íšŒì›ì •ë³´ë³´ê¸°  Event  ì²˜ë¦¬(Click) =============	
 		 $(function() {
 		
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td:nth-child(2)" ).on("click" , function() {
 				 self.location ="/user/getUser?email="+$(this).text().trim();
 			});
 						
-			//==> email LINK Event End User ¿¡°Ô º¸ÀÏ¼ö ÀÖµµ·Ï 
+			//==> email LINK Event End User ì—ê²Œ ë³´ì¼ìˆ˜ ìˆë„ë¡ 
 			$( "td:nth-child(2)" ).css("color" , "red");
 			
 		});	
 		
 		
-		//============= email ¿¡ È¸¿øÁ¤º¸º¸±â  Event  Ã³¸® (double Click)=============
+		//============= email ì— íšŒì›ì •ë³´ë³´ê¸°  Event  ì²˜ë¦¬ (double Click)=============
 		 $(function() {
 			 
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$(".badge.badge-light" ).on("click" , function() {
 
 					var email = $(this).next().val();
@@ -82,11 +83,11 @@
 								success : function(JSONData , status) {
 
 									var displayValue = "<h6>"
-																+"¾ÆÀÌµğ : "+JSONData.email+"<br/>"
-																+"ÀÌ  ¸§ : "+JSONData.userName+"<br/>"
-																+"ÀÌ¸ŞÀÏ : "+JSONData.email+"<br/>"
+																+"ì•„ì´ë”” : "+JSONData.email+"<br/>"
+																+"ì´  ë¦„ : "+JSONData.userName+"<br/>"
+																+"ì´ë©”ì¼ : "+JSONData.email+"<br/>"
 																+"ROLE : "+JSONData.role+"<br/>"
-																+"´Ğ³×ÀÓ : "+JSONData.nickname+"<br/>"
+																+"ë‹‰ë„¤ì„ : "+JSONData.nickname+"<br/>"
 																+"</h6>";
 									$("h6").remove();
 									$( "#"+email+"" ).html(displayValue);
@@ -96,11 +97,11 @@
 					
 			});
 			
-			//==> email LINK Event End User ¿¡°Ô º¸ÀÏ¼ö ÀÖµµ·Ï 
+			//==> email LINK Event End User ì—ê²Œ ë³´ì¼ìˆ˜ ìˆë„ë¡ 
 			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
 			$("h7").css("color" , "red");
 			
-			//==> ¾Æ·¡¿Í °°ÀÌ Á¤ÀÇÇÑ ÀÌÀ¯´Â ??
+			//==> ì•„ë˜ì™€ ê°™ì´ ì •ì˜í•œ ì´ìœ ëŠ” ??
 			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
 		});	
 		
@@ -117,19 +118,19 @@
    	
    	 
 	
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
 	<div class="container">
 	
 		<div class="page-header text-center">
 	       <h2 class>USER LIST</h2>
 	    </div>
 	    
-	    <!-- table À§ÂÊ °Ë»ö Start /////////////////////////////////////-->
+	    <!-- table ìœ„ìª½ ê²€ìƒ‰ Start /////////////////////////////////////-->
 	    <div class="row">
 	    
 		   <%--  <div class="col-md-6 text-left">
 		    	<p class="text-primary">
-		    		<br>ÀüÃ¼  ${resultPage.totalCount } °Ç¼ö, ÇöÀç ${resultPage.currentPage}  ÆäÀÌÁö
+		    		<br>ì „ì²´  ${resultPage.totalCount } ê±´ìˆ˜, í˜„ì¬ ${resultPage.currentPage}  í˜ì´ì§€
 		    	</p>
 		    </div> --%>
 		    
@@ -139,29 +140,29 @@
 			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>´Ğ³×ÀÓ</option>
-						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>°ÅÁÖÁö</option>
-						<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>°ü½ÉÁö¿ª</option>
+						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>ë‹‰ë„¤ì„</option>
+						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>ê±°ì£¼ì§€</option>
+						<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>ê´€ì‹¬ì§€ì—­</option>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<label class="sr-only" for="searchKeyword">°Ë»ö¾î</label>
-				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="°Ë»ö¾î"
+						<label class="sr-only" for="searchKeyword">ê²€ìƒ‰ì–´</label>
+				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="ê²€ìƒ‰ì–´"
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				    			 &nbsp;&nbsp;&nbsp;&nbsp;
-				    			  <button type="button" class="btn btn-outline-secondary btn-sm">°Ë»ö</button>
+				    			  <button type="button" class="btn btn-outline-secondary btn-sm">ê²€ìƒ‰</button>
 					</select>
 				  </div>
 				  
 				  
 				 
 				  
-				  <!-- PageNavigation ¼±ÅÃ ÆäÀÌÁö °ªÀ» º¸³»´Â ºÎºĞ -->
+				  <!-- PageNavigation ì„ íƒ í˜ì´ì§€ ê°’ì„ ë³´ë‚´ëŠ” ë¶€ë¶„ -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
 				</form>
 	    	</div>
 	    	
 		</div>
-		<!-- table À§ÂÊ °Ë»ö Start /////////////////////////////////////-->
+		<!-- table ìœ„ìª½ ê²€ìƒ‰ Start /////////////////////////////////////-->
 		
 		
       <!--  table Start /////////////////////////////////////-->
@@ -169,11 +170,11 @@
       
         <thead>
    			 <tr>
-      			<th align="center" scope="col">´Ğ³×ÀÓ</th>
-      			<th scope="col">ÀÌ¸ŞÀÏ</th>
-      			<th scope="col">ÀÌ¸§</th>
-      			<th scope="col">°ÅÁÖÁö</th>
-      			<th scope="col">°ü½ÉÁö¿ª</th>
+      			<th align="center" scope="col">ë‹‰ë„¤ì„</th>
+      			<th scope="col">ì´ë©”ì¼</th>
+      			<th scope="col">ì´ë¦„</th>
+      			<th scope="col">ê±°ì£¼ì§€</th>
+      			<th scope="col">ê´€ì‹¬ì§€ì—­</th>
     		</tr>
   		</thead>
        
@@ -184,7 +185,7 @@
 			<c:set var="i" value="${ i+1 }" />
 			<tr class="table-light">
 			  <td align="left">${ i }</td>
-			  <td align="left"  title="Click : È¸¿øÁ¤º¸ È®ÀÎ">${user.email}</td>
+			  <td align="left"  title="Click : íšŒì›ì •ë³´ í™•ì¸">${user.email}</td>
 			  <td align="left">${user.userName}</td>
 			  <td align="left">${user.email}</td>
 			  <td align="left">
@@ -206,7 +207,7 @@
 		</div>
 
  	</div>
- 	<!--  È­¸é±¸¼º div End /////////////////////////////////////-->
+ 	<!--  í™”ë©´êµ¬ì„± div End /////////////////////////////////////-->
  	
  
 	
