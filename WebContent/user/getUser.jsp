@@ -39,9 +39,25 @@
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "button" ).on("click" , function() {
-					self.location = "/user/updateUser?nickname=${user.nickname}"
+					self.location = "/user/updateUser?email=${user.email}"
 				});
 		});
+		
+		 $(function() {
+				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				 $( "out" ).on("click" , function() {
+					 var msg = "정말로 탈퇴하시겠습니까?";
+
+					 var flag = confirm(msg);
+
+					 if(flag==true) {alert("탈퇴되었습니다.");
+					 $("form").attr("method" , "POST").attr("action" , "/user/deleteUser").submit();
+					 }
+					 else {alert("취소하였습니다.");}
+					});
+			});
+		
+		
 		
 	</script>
 	
@@ -99,11 +115,14 @@
 		
 
 		
-		<div class="row">
+		<div class="form-group">
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-outline-primary">회원정보수정</button>
+	  			<out type="button" class="btn btn-outline-danger">회원탈퇴</out>
 	  		</div>
 		</div>
+		
+
 		
 		<br/>
 		

@@ -58,7 +58,7 @@
 			});
 						
 			//==> email LINK Event End User 에게 보일수 있도록 
-			$( "td:nth-child(2)" ).css("color" , "red");
+
 			
 		});	
 		
@@ -84,7 +84,7 @@
 
 									var displayValue = "<h6>"
 																+"아이디 : "+JSONData.email+"<br/>"
-																+"이  름 : "+JSONData.userName+"<br/>"
+																+"이  름 : "+JSONData.name+"<br/>"
 																+"이메일 : "+JSONData.email+"<br/>"
 																+"ROLE : "+JSONData.role+"<br/>"
 																+"닉네임 : "+JSONData.nickname+"<br/>"
@@ -170,9 +170,10 @@
       
         <thead>
    			 <tr>
-      			<th align="center" scope="col">닉네임</th>
+      			<th align="center" scope="col">No</th>
       			<th scope="col">이메일</th>
       			<th scope="col">이름</th>
+      			<th scope="col">닉네임</th>
       			<th scope="col">거주지</th>
       			<th scope="col">관심지역</th>
     		</tr>
@@ -186,10 +187,12 @@
 			<tr class="table-light">
 			  <td align="left">${ i }</td>
 			  <td align="left"  title="Click : 회원정보 확인">${user.email}</td>
-			  <td align="left">${user.userName}</td>
-			  <td align="left">${user.email}</td>
+			  <td align="left">${user.name}</td>
+			  <td align="left">${user.nickname}</td>
+			  <td align="left">${user.address}</td>
+			  <td align="left">${user.likePlace}</td>
 			  <td align="left">
-			  	<span class="badge badge-light" id= "${user.email}">Click</span>
+			  	
 			  	<input type="hidden" value="${user.email}">
 			  </td>
 			</tr>

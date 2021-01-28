@@ -42,7 +42,7 @@
 		INTO users( nickname , email , password , user_name , phone_number, user_addr, like_addr, birth, user_photo, 
 		update_status_date, is_public, status, role)
 		VALUES	 (	#{nickname} , #{email} , #{password} , #{name}, #{phone:VARCHAR}, #{address:VARCHAR},
-							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{statusDate:VARCHAR}, #{isPublic:CHAR} ,'0','1')
+							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{statusDate:VARCHAR}, 't' ,'0','1')
 	</insert>
 	 
 	<!-- SQL : SELECT ONE 회원정보상세조회-->
@@ -61,15 +61,15 @@
 			password				= #{password} ,
 			user_name				=	#{name},
 			phone_number				=	#{phone},
-			user_addr				=	#{address},
-			like_addr				=	#{likePlace},
-			birth				=	#{birth},
-			user_photo				=	#{profilePhoto},
-			is_public				=	#{isPublic},
-			status				=	#{status},
-			role				=	#{role}
+			user_addr				=	#{address:VARCHAR},
+			like_addr				=	#{likePlace:VARCHAR},
+			birth				=	#{birth:VARCHAR},
+			user_photo				=	#{profilePhoto:VARCHAR},
+			is_public				=	#{isPublic:VARCHAR},
+			status				=	#{status:VARCHAR},
+			role				=	#{role:VARCHAR}
 	   	</set>
-	   	WHERE nickname = #{nickname}
+	   	WHERE email = #{email}
 	</update>
 	
 	
@@ -115,7 +115,6 @@
 	  					FROM		(	SELECT *
 											FROM users
 											<where>
-       										(is_public = 't' AND role = '1')
 												<if test="searchCondition != null and searchKeyword !='' ">
 													AND 
 							                			(nickname LIKE '%'||#{searchKeyword}||'%'
@@ -155,6 +154,52 @@
 	 </select>
 	 
 	<!-- 부분검색바꿔주기 카운트 추가 --> 
+	
+	<!-- SQL : SELECT LIST 유저정보-->
+	<!-- <select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT *
+											FROM users
+											<where>
+       										(is_public = 't' AND role = '1')
+												<if test="searchCondition != null and searchKeyword !='' ">
+													AND 
+							                			(nickname LIKE '%'||#{searchKeyword}||'%'
+							                			OR user_addr LIKE '%'||#{searchKeyword}||'%'
+							                			OR like_addr LIKE '%'||#{searchKeyword}||'%'
+													</if>
+													<if test="searchCondition != null">
+							                			<choose>
+							                				<when test="searchCondition == 0 and searchKeyword !='' "> 
+							                				AND nickname like '%'||#{searchKeyword}||'%'
+							                				</when>
+							                				<when test="searchCondition == 1 and searchKeyword !='' "> 
+							                				AND user_addr like '%'||#{searchKeyword}||'%'
+							                				</when>
+							                				<when test="searchCondition == 2 and searchKeyword !='' "> 
+							                				AND like_addr like '%'||#{searchKeyword}||'%'
+							                				</when>
+							                				
+							                			</choose>
+							                		</if>
+												</where>
+										
+												<where>
+													<if test="searchSorting == 0 and searchKeyword !='' ">
+										 				ORDER BY user_email DESC
+													</if>
+													<if test="searchSorting == 1 and searchKeyword !='' ">
+										 				ORDER BY nickname DESC
+													</if>
+													<if test="searchSorting == 2 and searchKeyword !='' ">
+										 				ORDER BY user_name DESC
+													</if>
+													
+												</where>) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select> -->
 	
 <!-- select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
@@ -206,10 +251,10 @@
 	 
 	 
 
-	<!-- SQL : SELECT ROW Count	>
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	<!-- SQL : SELECT ROW Count	-->
+	 <!-- <select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT nickname
+	  	FROM(	SELECT email
 					FROM users
 					<where>
 		      			(is_public = 't' AND role = '1')
@@ -246,11 +291,11 @@
 		       		</choose>
     	  ) countTable 
 				
-	 </select-->
+	 </select> -->
 	 
 	 <!-- SQL : SELECT ROW Count -->	 
 	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT email, user_name , nickname
 						FROM users
