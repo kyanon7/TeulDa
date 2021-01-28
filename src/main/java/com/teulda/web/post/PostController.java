@@ -137,17 +137,44 @@ import com.teulda.service.user.UserService;
 	}
 	
 	@RequestMapping(value="updatePost", method = RequestMethod.POST)
-	public String updatePost(@RequestParam("post")Post post, @RequestParam int postNo, Model model) throws Exception{
+	public String updatePost(@ModelAttribute("post")Post post, Model model) throws Exception{
 		
 		System.out.println("/post/updatePost : POST");
 		
-		post = postService.getPost(postNo);
-		
-		System.out.println(postNo);
-		System.out.println(post);
-		
 		postService.updatePost(post);
 		
-		return "forward:/post/getPost.jsp"; 
+		Post newPost = postService.getPost(post.getPostNo());
+		
+		model.addAttribute("post", newPost);
+		
+		return "forward:/post/getMyPost.jsp"; 
+	}
+	
+	@RequestMapping(value="listPostBynickname")
+	public String listPostBynickname(@ModelAttribute("search")Search search, @RequestParam String nickname, @RequestParam char postCategory, Model model) throws Exception{
+		
+		System.out.println("/post/listPostBynickname : GET / POST");
+		
+		//User user = (User) session.getAttribute("user");
+		
+		
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		//search.setSearchSorting("3");
+		
+		
+		Map<String, Object> map = postService.getPostListBynickname(search, nickname, postCategory);
+
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/post/listPostBynickname.jsp";
 	}
 }

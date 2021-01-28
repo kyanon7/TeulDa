@@ -55,7 +55,11 @@
 			$("button:contains('등록')").on("click", function(){
 				fncAddPost();
 			});
+			
+			$("button:contains('취소')").on("click", function(){
+				self.location = "/post/listPost?postCategory=1"
 		});
+	});
 
 
 </script>
@@ -65,24 +69,16 @@
 
 
 	<div class="container">
-	<form>	
-	
   			<div class="row">
   				<div class="col-md-2">
-  					<div class="list-group">
-  					<a type="button" href="/post/listPost" class="btn btn-info abled">자유게시판</a>
-  					<a type="button" href="/post/addPost" class="btn btn-outline-info">+ 새 글 작성</a><br/>
-  					<a href="#" class="list-group-item list-group-item-action active">여행지 정보공유</a>
-  					<a href="#" class="list-group-item list-group-item-action">맛집 정보공유</a>
-  					<a href="#" class="list-group-item list-group-item-action">숙소 정보공유</a>
-  					<a href="#" class="list-group-item list-group-item-action">Q&A</a>
-  					<a href="#" class="list-group-item list-group-item-action">잡담</a>
-					</div>
-				</div>
-			
- 				 <div class="form-group">
- 				 <div class="col-md-3">
-   					<select id="postCategory" class="custom-select">
+  					<jsp:include page="../post/leftbar.jsp" />
+			</div>
+				
+			<div class="row">
+ 			 <div class="col-md-10">
+ 			 	<form name="addPost">
+ 			 	
+   					<select class="form-control" name="postCategory" style="width: 200px; height: 50px;">
     				<option>게시판 유형</option>
    			  	    <option  value="1" >여행지 정보공유</option>
     				<option  value="2">맛집 정보공유</option>
@@ -90,26 +86,29 @@
       				<option  value="4">Q&A</option>
       				<option  value="5">잡담</option>
   				  </select>
-  				</div>
-  			</div>
+  				<br/>	
+  		
 
-		<div class="row">
-				<div class="col-md-12">
+			<div class="row">
+				
 				<div style="width: 100%;">
 				<br>
-				<input type="text" name="title" class="form-control" placeholder="제목"/>
+				<input type="text" name="postTitle" class="form-control" placeholder="제목"/>
 				<br><br> 
-				<textarea id="summernote" name="content"></textarea>
+				<textarea id="summernote" name="postContents"></textarea>
 				<!-- <input id="subBtn" type="button" value="등록" style="float: right;"/>
 				<input id="cancleBtn" type="button" value="취소" style="float: right;"/> -->
-				
+				<br>
+		
 				<button class="btn btn-info" type="submit">등록</button>
 				<button class="btn btn-info" type="button">취소</button>
+				</div>
+				
 			</div>
+			</form>	
 		</div>
 	</div>
 </div>
-</form>
 </div>
 </body>
 </html>

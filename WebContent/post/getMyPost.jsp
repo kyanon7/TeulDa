@@ -21,8 +21,11 @@
 			$("button:contains('수정')").on("click", function(){
 				self.location = "/post/updatePost?postNo=${post.postNo}"			
 			});
+			
+			$("button:contains('취소')").on("click", function(){
+				self.location = "/post/listPost?postCategory=1"
 		});
-
+	});
 		
 	</script>
 </head>
@@ -78,7 +81,16 @@
  			 <br/><br/>
  			 
  			 <button class="btn btn-info" type="submit">수정</button>
+ 			 <button class="btn btn-info" type="button">삭제</button>
 			<button class="btn btn-info" type="button">취소</button>
+			
+			
+			 <table class="table table-hover">
+ 				  <tr class="table-primary">
+  			 	   <th scope="row">Primary</th>
+  			 	   <td>Column content</td>
+   				 </tr>
+ 			</table> 
  			 
  		<%--  <table class="table table-hover">
  	   <tbody>

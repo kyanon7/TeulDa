@@ -8,7 +8,7 @@
 	</head>
 <body>
 			<div class="list-group">
-  					<button type="button" class="btn btn-info disabled">자유게시판</button>
+  					<a href="/post/listPost?postCategory=1" type="button" class="btn btn-info active">자유게시판</a>
   					
   					<c:if test="${ !empty user }">
   					<a type="button" href="/post/addPost" class="btn btn-outline-info">+ 새 글 작성</a><br/>
