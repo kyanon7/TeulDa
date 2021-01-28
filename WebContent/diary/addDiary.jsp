@@ -22,7 +22,7 @@
 		h5 { text-align: center; }
 		th { text-align: center; }
 		td { text-align: center; }
-		.form-control form-control-sm { "width:100px;" }
+		.form-control form-control-sm { width:100px; }
 		#addHashTag { width: 300px; margin: 0px auto; text-align: center; }
 		#hashTagList input { text-align: center; width: 100px; }
 		</style>

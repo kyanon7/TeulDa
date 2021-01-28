@@ -1,5 +1,7 @@
 package com.teulda.web.diary;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teulda.common.Page;
+import com.teulda.common.Search;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.User;
@@ -38,8 +42,8 @@ public class DiaryController {
 	@Value("#{commonProperties['pageUnit'] ?: 5}") // 못 불러온다면 5 주입 
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize'] ?: 3}") // 못 불러온다면 3 주입 
-	int pageSize;
+	//@Value("#{commonProperties['pageSize'] ?: 5}") // 못 불러온다면 5 주입 
+	int pageSize = 12;
 	
 	@RequestMapping(value="addDiary", method=RequestMethod.POST)
 	public String addDiary(@ModelAttribute("diary") Diary diary, Model model,
@@ -108,6 +112,34 @@ public class DiaryController {
 		model.addAttribute("diary", newDiary);
 		
 		return "forward:/diary/getMyDiary.jsp"; 
+	}
+	
+	@RequestMapping(value="listDiary", method= {RequestMethod.GET, RequestMethod.POST})
+	public String listDiary(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception {
+		
+		System.out.println("/diary/listDiary : POST");
+		
+		User user = (User) session.getAttribute("user");
+		
+		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 첫 페이지를 1이라고 지정 
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize); // pageSize 지정 
+		
+		System.out.println("보낼 Search " + search);
+		
+		// Business logic 수행
+		Map<String, Object> map = diaryService.getMyDiaryList(search, user.getNickname(), 'f');
+		Page resultPage	= // 페이지 나누는 것을 추상화 & 캡슐화 한 Page 클래스 이용 
+				new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		// Model 과 View 연결
+		model.addAttribute("diaryList", map.get("diaryList")); // 기록 
+		model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
+		model.addAttribute("search", search); // 검색 정보가 담겨있음 
+		
+		return "forward:/diary/listDiary.jsp";
 	}
 
 }

@@ -36,6 +36,10 @@
 			self.location = "/diary/getDiaryMap.jsp";
 		});
 		
+		$("a:contains('내 기록 목록')").on("click", function () {
+			self.location = "/diary/listDiary";
+		});
+		
 	 });
 	</script>
 </html>
