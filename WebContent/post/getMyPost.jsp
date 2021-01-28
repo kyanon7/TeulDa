@@ -16,6 +16,28 @@
 		
 		<script type="text/javascript">
 		
+		
+		function fncAddComment(){
+			
+			$("form").attr("method","POST").attr("action","/comment/addComment").submit();
+
+		}
+		
+
+		$(function(){
+			$("out").on("click", function(){
+				
+				 var msg = "정말 삭제하시겠습니까?";
+
+				 var flag = confirm(msg);
+
+				 if(flag==true){
+				
+				self.location = "/post/deletePost?postNo=${post.postNo}"
+				 }
+			});
+			
+		}); 
 
 		$(function(){
 			$("button:contains('수정')").on("click", function(){
@@ -24,7 +46,12 @@
 			
 			$("button:contains('취소')").on("click", function(){
 				self.location = "/post/listPost?postCategory=1"
-		});
+			});
+			
+			$("button:contains('등록')").on("click", function(){
+					fncAddComment();
+			});
+
 	});
 		
 	</script>
@@ -79,19 +106,30 @@
   			  <p class="card-text">${post.postContents}</p>
  			 </div>
  			 <br/><br/>
+ 			
  			 
  			 <button class="btn btn-info" type="submit">수정</button>
- 			 <button class="btn btn-info" type="button">삭제</button>
+ 			 <out class="btn btn-info" type="submit">삭제</out>
 			<button class="btn btn-info" type="button">취소</button>
 			
-			
-			 <table class="table table-hover">
- 				  <tr class="table-primary">
-  			 	   <th scope="row">Primary</th>
-  			 	   <td>Column content</td>
-   				 </tr>
- 			</table> 
- 			 
+		<form name="addComment">
+			 <br/><br/>
+			 <input type="text" name="commentContents" class="form-control" placeholder="댓글달아봐요~"/>
+			 <button class="btn btn-info" type="submit">등록</button>
+			 <br/><br/>
+			 
+		</form>
+			 
+	<table class="table table-hover">
+ 		  <tr class="table-primary">
+ 		  	<c:set var="i" value="0"/>
+ 		  		<c:forEach var="comment" items = "${commentList}">
+ 		  			<c:set var="i" value="${i+1}"/> 
+  			    <th scope="row">${comment.nickname}</th>
+  			    <td>${comment.commentContents} </td>
+  			  </c:forEach>
+   		 </tr>
+ 	</table> 
  		<%--  <table class="table table-hover">
  	   <tbody>
  	   			<c:set var = "i" value = "0" />

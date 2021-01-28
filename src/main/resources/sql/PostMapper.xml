@@ -66,10 +66,10 @@
 	</update>
 	
 	<!-- SQL : POST DELETE -->
-	<delete id="deletePost"	parameterType="int">
+	<delete id="deletePost"	parameterType="com.teulda.service.domain.Post">
 	 	DELETE
 	 	FROM POST
-	 	WHERE post_id = #{value}
+	 	WHERE post_id = #{postNo}
 	</delete>
 	
 	<!-- SQL : SELECT LIST -->

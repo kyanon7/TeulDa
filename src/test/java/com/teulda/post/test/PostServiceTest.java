@@ -132,17 +132,17 @@ import com.teulda.service.post.PostService;
 			
 			Comment comment = new Comment();
 			
-			comment.setPostNo(10033);
+			comment.setPostNo(10044);
 			comment.setCommentContents("댓글이 제대로 달려야 당황하지 않을텐데,,,");
-			comment.setNickname("king제현");
+			comment.setNickname("king성영");
 			
 			System.out.println(comment);
 				
 			Comment comment2 = new Comment();
 
-			comment2.setPostNo(10033);
+			comment2.setPostNo(10044);
 			comment2.setCommentContents("댓글을 또 다는데 되겠지?");
-			comment2.setNickname("king제현");
+			comment2.setNickname("king채경");
 			System.out.println(comment2);
 			
 			System.out.println("1");

@@ -63,10 +63,14 @@
  			 </div>
  			 <br/><br/>
  			 
- 	 <table class="table table-hover">
+ <table class="table table-hover">
  		  <tr class="table-primary">
-  			    <th scope="row">Primary</th>
-  			    <td>Column content</td>
+ 		  	<c:set var="i" value="0"/>
+ 		  		<c:forEach var="comment" items = "${commentList}">
+ 		  			<c:set var="i" value="${i+1}"/> 
+  			    <th scope="row">${comment.nickname}</th>
+  			    <td>${comment.commentContents} </td>
+  			  </c:forEach>
    		 </tr>
  	</table> 
  		<%--  <table class="table table-hover">
