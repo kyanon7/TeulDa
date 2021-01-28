@@ -1,5 +1,6 @@
 package com.teulda.web.post;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.teulda.common.Page;
 import com.teulda.common.Search;
+import com.teulda.service.domain.Comment;
 import com.teulda.service.domain.Post;
 import com.teulda.service.domain.User;
 import com.teulda.service.post.PostService;
@@ -112,11 +114,18 @@ import com.teulda.service.user.UserService;
 //		System.out.println("===========================");
 //		System.out.println("이건 User값입니다"+user);
 //		System.out.println("===========================");
-		
 		Post post = postService.getPost(postNo);
-		model.addAttribute("post", post);
+		List<Comment> commentList = postService.getCommentList(postNo);
 		
 		System.out.println(post);
+		System.out.println("////////////////////////////////");
+		System.out.println(commentList);
+		System.out.println("////////////////////////////////");
+		
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("post", post);
+		
+		
 
 		if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/post/getMyPost.jsp";
@@ -124,6 +133,24 @@ import com.teulda.service.user.UserService;
 			return "forward:/post/getPost.jsp";
 		}
 	}
+	
+//	@RequestMapping(value="getPost", method=RequestMethod.GET)
+//	public String getCommentList(@RequestParam int postNo, Model model, HttpSession session, @RequestParam Post post) throws Exception{
+//		
+//		System.out.println("/post/getPost,getMyPost : GET");
+//		
+//		List<Comment> commentList = postService.getCommentList(postNo);
+//		
+//		System.out.println(commentList);
+//		model.addAttribute("commnetList", commentList);
+//		
+//
+//		if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+//			return "forward:/post/getMyPost.jsp";
+//		}else {
+//			return "forward:/post/getPost.jsp";
+//		}
+//	}
 	
 	@RequestMapping(value="updatePost", method = RequestMethod.GET)
 	public String updatePost(@RequestParam("postNo")int postNo, Model model) throws Exception{
@@ -176,5 +203,48 @@ import com.teulda.service.user.UserService;
 		model.addAttribute("search", search);
 		
 		return "forward:/post/listPostBynickname.jsp";
+	}
+	
+	@RequestMapping(value="deletePost")
+	public String deletePost(@RequestParam("postNo")int postNo, Model model) throws Exception{
+		
+		System.out.println("/post/deletePost");
+		
+		postService.deletePost(postNo);
+		
+		return "forward:/post/listPost?postCategory=1";
+	}
+	
+	@RequestMapping(value="addComment", method = RequestMethod.POST)
+	public String addComment(@ModelAttribute("comment")Comment comment, @RequestParam int postNo, Model model, HttpSession session) throws Exception{
+		
+		System.out.println("/comment/addComment");
+		
+		User user = (User) session.getAttribute("user");
+		
+		System.out.println("===========================");
+		System.out.println("이건 User값입니다"+user);
+		System.out.println("===========================");
+		
+		System.out.println(postNo);
+		
+		comment.setNickname(user.getNickname());
+		
+		
+		postService.addComment(comment);
+		
+		System.out.println("===========================");
+		System.out.println("이건 comment값입니다"+comment);
+		System.out.println("===========================");
+
+		model.addAttribute("comment", comment);
+		model.addAttribute("postNo", postNo);
+		
+
+		if(((User) session.getAttribute("user")).getNickname() != null && comment.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+			return "forward:/post/getMyPost.jsp";
+		}else {
+			return "forward:/post/getPost.jsp";
+		}
 	}
 }
