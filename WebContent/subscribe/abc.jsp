@@ -52,7 +52,6 @@
             })
             .then(res => res.json())
             .then(result => {
-                // let subscriberList;
                 let subscribeList = result.subscribeList;
                 let diaryListMonthBefore = result.diaryListMonthBefore;
                 let diaryListBefore = result.diaryListBefore;
@@ -64,19 +63,92 @@
 
                 function addData(currentPage) {
 
-                const $list = document.getElementById("list")
+                    // const br = document.createElement("br");
 
-                    for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
-                        const $li = document.createElement("li")
-                        const $p = document.createElement("p")
-                        $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
-                        $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
-                        // $li.classList.add("fade-in")
-                        $list.appendChild($p)
-                        $list.appendChild($li)
-                    }
+                    const list = document.querySelector(".subList");
+                    console.log(list);
+
+                    const period = document.createElement("div");
+                    period.setAttribute("class", "h4");
+                    // period.textContent = "이번 주";
+                    period.innerHTML = "이번 주<br />"
+                    list.appendChild(period);
+
+                    const div = document.createElement("div");
+                    div.setAttribute("class", "card-group");
+                    period.appendChild(div);
+
+                    const cardFrame = document.createElement("div");
+                    cardFrame.setAttribute("class", "col-auto mb-2");
+                    div.appendChild(cardFrame);
+
+                    const cardHead = document.createElement("div");
+                    cardHead.setAttribute("class", "card");
+                    cardHead.setAttribute("style", "width: 15rem;");
+                    cardFrame.appendChild(cardHead);
+
+                    const cardEmbed = document.createElement("div");
+                    cardEmbed.setAttribute("class", "embed-responsive embed-responsive-16by9");
+                    cardHead.appendChild(cardEmbed);
+
+                    const cardImage = document.createElement("img");
+                    cardImage.setAttribute("class", "card-img-top embed-responsive-item");
+                    cardImage.setAttribute("src", "https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg");
+                    cardImage.setAttribute("alt", "Card image cap");
+                    cardEmbed.appendChild(cardImage);
+                
+                    const cardBody = document.createElement("div");
+                    cardBody.setAttribute("class", "card-body");
+                    cardHead.appendChild(cardBody);
+
+                    const title = document.createElement("h5");
+                    title.setAttribute("class", "card-title text-log");
+                    title.textContent = "우와아아아앙 작년에 부산 완전 좋았다 개굿이었음";
+                    
+                    const place = document.createElement("div");
+                    place.setAttribute("class", "text-truncate place");
+
+                    const placeText = document.createElement("small");
+                    placeText.setAttribute("class", "text-muted");
+                    placeText.textContent = "부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ";
+                    place.appendChild(placeText);
+                    cardBody.appendChild(title);
+                    cardBody.appendChild(place);
+
+                    cal.sldjq = `${alsoe}+${asd}`
+
+                    const footer = document.createElement("div");
+                    footer.setAttribute("class", "card-footer");
+                    cardHead.appendChild(footer);
+
+                    const viewCount = document.createElement("small");
+                    viewCount.setAttribute("class", "text-muted viewCount");
+                    viewCount.textContent = "조회수 1회"
+
+                    const seperation = document.createElement("span");
+                    seperation.setAttribute("class", "text-muted")
+                    seperation.innerHTML = '<small>&nbsp;&#8226;&nbsp;</small>';
+
+                    const lastUpdated = document.createElement("small");
+                    lastUpdated.setAttribute("class", "text-muted last-update");
+                    lastUpdated.textContent = "last updated";
+
+                    footer.appendChild(viewCount);
+                    footer.appendChild(seperation);
+                    footer.appendChild(lastUpdated);
+
+
+                    // for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
+                    //     const $li = document.createElement("li")
+                    //     const $p = document.createElement("p")
+                    //     $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
+                    //     $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
+                    //     // $li.classList.add("fade-in")
+                    //     $list.appendChild($p)
+                    //     $list.appendChild($li)
+                    // }
                 }
-
+                addData();
             })
             .catch(err =>{
 
@@ -89,74 +161,74 @@
 
         window.addEventListener('DOMContentLoaded', function(){
 
-            let currentPage = 1
+            // let currentPage = 1
 
-            const DATA_PER_PAGE = 5,
-                lastPage = 5
+            // const DATA_PER_PAGE = 5,
+            //     lastPage = 5
 
-            // const msgLoading = document.getElementById("msg-loading")
-
-
-            // 데이터 추가 함수
-            function addData(currentPage) {
-
-                const $list = document.getElementById("list")
-
-                for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
-                    const $li = document.createElement("li")
-                    const $p = document.createElement("p")
-                    $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
-                    $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
-                    // $li.classList.add("fade-in")
-                    $list.appendChild($p)
-                    $list.appendChild($li)
-                }
-            }
-
-            // IntersectionObserver 갱신 함수
-            function observeLastChild(intersectionObserver) {
-
-                const listChildren = document.querySelectorAll("#list li")
-                listChildren.forEach(el => {
-
-                    if (!el.nextSibling && currentPage < lastPage) {
-                        intersectionObserver.observe(el) // el에 대하여 관측 시작
-                    } else if (currentPage >= lastPage) {
-                        intersectionObserver.disconnect()
-                    }
-
-                })
-            }
-
-            // IntersectionObeserver 부분
-            const observerOption = {
-                root: null,
-                rootMargin: "0px 0px 0px 0px",
-                threshold: 0.5
-            }
-
-            // IntersectionObserver 인스턴스 생성
-            const io = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-
-                    // entry.isIntersecting: 특정 요소가 뷰포트와 50%(threshold 0.5) 교차되었으면
-                    if (entry.isIntersecting) {
-
-                        // 다음 데이터 가져오기: 자연스러운 연출을 위해 setTimeout 사용
-                        setTimeout(() => {
-                            addData(++currentPage)
-                            observer.unobserve(entry.target)
-                            observeLastChild(observer)
-
-                        }, 50)
-                    }
-                })
-            }, observerOption)
+            // // const msgLoading = document.getElementById("msg-loading")
 
 
-            // 초기 데이터 생성
-            addData(currentPage)
-            observeLastChild(io)
+            // // 데이터 추가 함수
+            // function addData(currentPage) {
+
+            //     const $list = document.getElementById("list")
+
+            //     for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
+            //         const $li = document.createElement("li")
+            //         const $p = document.createElement("p")
+            //         $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
+            //         $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
+            //         // $li.classList.add("fade-in")
+            //         $list.appendChild($p)
+            //         $list.appendChild($li)
+            //     }
+            // }
+
+            // // IntersectionObserver 갱신 함수
+            // function observeLastChild(intersectionObserver) {
+
+            //     const listChildren = document.querySelectorAll("#list li")
+            //     listChildren.forEach(el => {
+
+            //         if (!el.nextSibling && currentPage < lastPage) {
+            //             intersectionObserver.observe(el) // el에 대하여 관측 시작
+            //         } else if (currentPage >= lastPage) {
+            //             intersectionObserver.disconnect()
+            //         }
+
+            //     })
+            // }
+
+            // // IntersectionObeserver 부분
+            // const observerOption = {
+            //     root: null,
+            //     rootMargin: "0px 0px 0px 0px",
+            //     threshold: 0.5
+            // }
+
+            // // IntersectionObserver 인스턴스 생성
+            // const io = new IntersectionObserver((entries, observer) => {
+            //     entries.forEach(entry => {
+
+            //         // entry.isIntersecting: 특정 요소가 뷰포트와 50%(threshold 0.5) 교차되었으면
+            //         if (entry.isIntersecting) {
+
+            //             // 다음 데이터 가져오기: 자연스러운 연출을 위해 setTimeout 사용
+            //             setTimeout(() => {
+            //                 addData(++currentPage)
+            //                 observer.unobserve(entry.target)
+            //                 observeLastChild(observer)
+
+            //             }, 50)
+            //         }
+            //     })
+            // }, observerOption)
+
+
+            // // 초기 데이터 생성
+            // addData(currentPage)
+            // observeLastChild(io)
 
         });
         
@@ -189,10 +261,31 @@
               </div>
             </div>
 
-            <div class="col-lg-10 border-0" style="background-color: rgb(247, 247, 247);"><br />
+            <div class="col-lg-10 border-0 subList" style="background-color: rgb(247, 247, 247);"><br />
 
                 <div class="h4">이번 주</div><br />
-                    <div class="card-columns">
+                    <div class="card-group">
+                        <div class="col-auto mb-2">
+                            <div class="card" style="width: 15rem;">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <img class="card-img-top embed-responsive-item" src="https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title text-log">우와아아아앙 작년에 부산 완전 좋았다 개굿이었음</h5>
+                                    <div class="text-truncate place"><small class="text-muted">부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ</small></div>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted viewCount">조회수 1회</small><span class="text-muted"><small>&nbsp;&#8226;&nbsp;</small></span><small class="text-muted last-update">last updated</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+                    <!-- <div class="card-columns">
                         <div class="card" style="width: 18rem">
                         <img class="card-img-top" src="..." alt="${diary.thumbnail}">
                         <div class="card-body">
@@ -201,22 +294,24 @@
                             <p class="card-text"><small class="text-muted">${diary.writeDate}</small></p>
                             <p class="card-text"><small class="text-muted">조회수 1회</small></p>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="card-group">
+                    <!-- <div class="card-group">
                         <div class="col-auto mb-2">
                             <div class="card" style="width: 15rem;">
-                            <img class="card-img-top" src=".." alt="Card image cap">
-                            <div class="card-body">
-                                <!-- <h5 class="card-title text-log">우와아아아앙 작년에 부산 완전 좋았다 개굿이었음</h5> -->
-                                <p class="card-text text-log">우와아아아앙 작년에 부산 완전 좋았다 개굿이었음</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted viewCount">조회수 1회</small><span class="text-muted"><small>&nbsp;&#8226;&nbsp;</small></span><small class="text-muted last-update">last updated</small>
-                            </div>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <img class="card-img-top embed-responsive-item" src="https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title text-log">우와아아아앙 작년에 부산 완전 좋았다 개굿이었음</h5>
+                                    <div class="text-truncate place"><small class="text-muted">부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ</small></div>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted viewCount">조회수 1회</small><span class="text-muted"><small>&nbsp;&#8226;&nbsp;</small></span><small class="text-muted last-update">last updated</small>
+                                </div>
                             </div>
                         </div>
-                      </div>
+                    </div> -->
 
 
 
@@ -224,9 +319,9 @@
 
                 </ul>
                 <p id="msg-loading"></p> -->
-            </div>
+            
 
-        </div>
+        
     </div>
 
     
