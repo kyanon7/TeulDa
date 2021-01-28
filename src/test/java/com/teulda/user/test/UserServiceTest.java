@@ -72,7 +72,7 @@ public class UserServiceTest {
 		}
 		//완
 		
-		@Test
+		//@Test
 		public void testGetUser() throws Exception{
 			
 			System.out.println("debug");
@@ -160,14 +160,14 @@ public class UserServiceTest {
 				
 				
 		
-				//@Test
+				@Test
 				 public void testGetUserList() throws Exception{
 				 
 					 System.out.println("유저리스트 디버깅");
 					 
 					 Search search = new Search();
 					 search.setCurrentPage(1);
-					 search.setPageSize(3);
+					 search.setPageSize(10);
 					 Map<String, Object> map = userService.getUserList(search); 
 					 List<Object> list= (List<Object>)map.get("list");
 					 

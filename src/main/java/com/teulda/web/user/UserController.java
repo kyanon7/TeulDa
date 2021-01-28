@@ -105,6 +105,17 @@ public class UserController {
 		return "redirect:/user/getUser?email="+user.getEmail();
 	}
 	
+	@RequestMapping("deleteProduct")
+	public String deleteUser(@RequestParam("nickname") String nickname) throws Exception {
+		
+		
+		System.out.println("/user/deleteUser");
+		//Business Logic
+		userService.deleteUser(nickname);
+		
+		return "redirect:/index.jsp";
+	}
+	
 	
 	@RequestMapping( value="login", method=RequestMethod.GET )
 	public String login() throws Exception{
