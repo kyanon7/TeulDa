@@ -58,13 +58,10 @@
 	<!-- SQL : POST UPDATE -->
 	<update	id="updatePost"	parameterType="com.teulda.service.domain.Post" >
 		UPDATE post
-			<set>
-				nickname		=#{nickname},
+		SET     post_type		=#{postCategory},
 				title			=#{postTitle},
-				content			=#{postContents},
-				post_type		=#{postCategory}
-			</set>
-			WHERE post_id = #{postNo}
+				content			=#{postContents}
+		WHERE post_id = #{postNo}
 			<!-- 객체에서 값을 불러올때는 postNo 그대로 써주고 그냥 값만 불러올때는 value를 써줘야해 -->
 	</update>
 	
@@ -144,8 +141,21 @@
 				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} -->   
 	</select>
 	
+	<select  id="getPostListBynickname"  parameterType="map"	resultMap="postSelectMap">
+	SELECT post_id, nickname, title, post_date, view_count
+	FROM POST
+	WHERE nickname = #{nickname} and post_type = #{postCategory}
+	ORDER BY post_id DESC
+	</select>
+	
 
 	<select  id="getPostTotalCount"  parameterType="search"	 resultType="int">
+	SELECT COUNT(*)
+	FROM (SELECT    post_id, nickname, title, content, post_date, view_count, post_type
+      	  FROM POST) countTable 
+	</select>
+	
+	<select  id="getPostBynicknameTotalCount"  parameterType="map"	 resultType="int">
 	SELECT COUNT(*)
 	FROM (SELECT    post_id, nickname, title, content, post_date, view_count, post_type
       	  FROM POST) countTable 

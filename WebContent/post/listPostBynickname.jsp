@@ -26,14 +26,11 @@
 	
 	$(function(){
 		$("a:contains('내 글 보기')").on("click", function(){
-			self.location = "/post/listPostBynickname?postCategory="+1+"&nickname="+${sessionScope.user.nickname}
+			self.location = "/post/listPostBynickname?nickname="+$(this).attr('id')	
 		});
 	});
 	
-	
-	
-	
-	
+
 		</script>
 	</head>
 
@@ -66,29 +63,28 @@
 					</div>
 				</div> --%>
 				
-			<div class="row">
+			
 				<div class=".col-md-10">
 					<ol class="breadcrumb">
  						 <li class="breadcrumb-item"><a href="#">최신순</a></li>
   						 <li class="breadcrumb-item"><a href="#">조회순</a></li>
   				   </ol>
-  						 
+  						  <form class="form-inline">
+    						  <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+   						 </form>
    					<c:if test="${ !empty user }"> 
-   					<a type="button" class="btn btn-outline-info">내 글 보기</a>
+   					<a type="button" id="${nickname}" class="btn btn-outline-info">내 글 보기</a>
   					<a type="button" href="#" class="btn btn-outline-info">내 댓글 보기</a>
   					</c:if>
    						  <div class="form-group">
-   							 <select class="custom-select" style="width: 200px; height: 50px;">
+   							 <select class="custom-select">
+    						  <option selected="">Open this select menu</option>
      						 <option value="1">제목</option>
      						 <option value="2">내용</option>
      					 <option value="3">제목+내용</option>
      					 <option value="4">작성자</option>
    					 </select>
-   					 
-   					  <form class="form-inline">
-    						  <input class="form-control mr-sm-2" type="text" placeholder="Search">
-    						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-   					 </form>
 				
 					<!-- <div class=".col-md-6"> -->
   					 	<table class="table table-hover">
@@ -127,15 +123,13 @@
 				</tbody>
 				</table>
 				</div>
-			</div>
 		</div>
 	</div>
-
+</div>
  	
- 
-<div id="bottom" style="margin:0 auto; width:300px;">
-
-  <ul class="pagination" >
+ 	<div class="row">
+ 	<div class=".col-md-3 .col-md-offset-3">
+  <ul class="pagination">
     <li class="page-item disabled">
       <a class="page-link" href="#">&laquo;</a>
     </li>
@@ -162,4 +156,8 @@
 
 </div>
 	</body>
+	
+	
+	
+	
 </html>

@@ -48,8 +48,14 @@ public interface PostDao {
 	//	POST SELECT LIST
 	public List <Post> getPostList(Search search, char postCategory) throws Exception;
 	
+	//POST SELECT LIST
+	public List <Post> getPostListBynickname(Search search, String nickname, char postCategory) throws Exception;
+	
 	//게시판 page
 	public int getPostTotalCount(Search search, char postCategory) throws Exception;
+	
+	//게시판 nickname page
+	public int getPostBynicknameTotalCount(Search search, String nickname, char postCategory) throws Exception;
 	
 	//댓글 page
 	public int getCommentTotalCount(int postNo) throws Exception;
