@@ -209,12 +209,15 @@ public class DiaryServiceTest {
 		diaryService.updateDiaryViewCount(10056);
 	}
 	
-	//@Test 
+	@Test 
 	public void testGetMyDiaryList() throws Exception {
 		
 		Search search = new Search();
-		search.setPageSize(5);
-		search.setCurrentPage(2);
+		search.setPageSize(9);
+		search.setCurrentPage(1);
+		//search.setSearchCondition(searchCondition);
+		search.setSearchKeyword("테스트");
+		search.setSearchCondition("1");
 		
 		// 삭제되지 않은 기록 
 		Map <String, Object> map = diaryService.getMyDiaryList(search, "king주원", 'f');
@@ -236,7 +239,7 @@ public class DiaryServiceTest {
 		search.setPageSize(5);
 		search.setCurrentPage(1);
 		
-		search.setSearchKeyword("채경");
+		search.setSearchKeyword("킹");
 		search.setSearchCondition("3");
 		search.setSearchSorting("2");
 		

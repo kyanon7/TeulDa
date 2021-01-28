@@ -38,6 +38,7 @@
 		   	$("form[name='detailForm']").attr("method", "POST").attr("action", "/diary/listDiary").submit();
 		   	
 		}
+		
 		$(function() {
 			
 			$("button:contains('Search')").on("click", function () { // 검색 버튼
@@ -45,8 +46,12 @@
 			});
 			
 			$(".breadcrumb-item").on("click", function () { // 정렬
+				
+				// <li> 클릭 시 해당 value 값 input type text 에 넣기
+				$("#searchSorting").val($(this).attr('value'));
 				fncGetList(1); // currentpage : 1 
 			});
+
 			
 // 			$(".getProduct").on("click", function () {
 // 				self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=${ menu }";
@@ -59,6 +64,7 @@
 			
 			
 		 });
+		
 		</script>
 	
 	</head>
@@ -93,7 +99,7 @@
 				<div class="row">
 					<div class="col-md-2">
 						<div class="form-group">
-							<select class="custom-select">
+							<select class="custom-select" name="searchCondition">
 								<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목</option>
 								<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>내용</option>
 								<option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>장소</option>
@@ -103,19 +109,25 @@
 						</div>
 					</div>
 					<div class="col-md-7">
-						<input type="text" class="form-control" placeholder="검색어 입력" id="inputDefault"
+						<input type="text" name="searchKeyword" class="form-control" placeholder="검색어 입력" id="inputDefault"
 								value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
 					</div>
 					<div class="col-md-3">
 						<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 					</div>
 				</div>
+				
+			    <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+				<input type="hidden" id="currentPage" name="currentPage" value=""/>
+				
 				<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
 				<ol class="breadcrumb" style="float:right; ">
-					<li class="breadcrumb-item" value="0"><a href="#" ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최근 작성 순</a></li>
-					<li class="breadcrumb-item" value="1"><a href="#" ${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>최근 여행 순</a></li>
-					<li class="breadcrumb-item" value="2"><a href="#" ${ ! empty search.searchSorting && search.searchSorting==2 ? "style=font-weight:350;" : "" }>오래된 여행 순</a></li>
+					<li class="breadcrumb-item" value="0"><a ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최근 작성 순</a></li>
+					<li class="breadcrumb-item" value="1"><a ${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>최근 여행 순</a></li>
+					<li class="breadcrumb-item" value="2"><a ${ ! empty search.searchSorting && search.searchSorting==2 ? "style=font-weight:350;" : "" }>오래된 여행 순</a></li>
 				</ol><br><br><br>
+				
+				<input type="hidden" name="searchSorting" id="searchSorting" value="${ search.searchSorting }"> <!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
 
 				<div class="row"> 
 					<c:set var="i" value="0" />
@@ -141,8 +153,6 @@
 
 			    </div>
 			    
-			    <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-				<input type="hidden" id="currentPage" name="currentPage" value=""/>
 				
 			    <!-- PageNavigation Start... -->
 				<jsp:include page="../common/pageNavigator.jsp"/>
