@@ -16,12 +16,14 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<script>
 		
+		/* 완전 삭제 */
 		function removeCheck() {
 
  			if (confirm("정말 삭제하시겠습니까?? \n삭제시 복구할 수 없습니다!!") == true){    //확인
- 				document.detailForm.action="/photo/deletePhoto";
+ 				self.location = "/photo/deletePhoto";
+ 				alert("삭제되었습니다.");
  			}else{   //취소
-     			return false;
+ 				alert("취소되었습니다.");
  			}
 		}
 		</script>
@@ -48,28 +50,34 @@
 						</div>
 	
 				</div>
-				
 				<div class="col-md-9">
   					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">Delete Albums</a></br></br>
-  					<c:if test="${!empty group.deleteDate}">
-	  					<c:set var = "i" value = "0" />
-		          			<c:forEach var = "group" items = "${groupList}">
-		            	<c:set var = "i" value = "${i+1}" />
-		            		<div class="card" style="width: 18rem">
-		               		<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
-		              		<div class="card-body">
-		                		<h5 class="card-title">${group.groupName}</h5>
-				                <p class="card-text">${group.groupNo}</p>
-				                <p class="card-text"><small class="text-muted">${group.deleteDate}</small></p>
-				                <p class="card-text"><small class="text-muted">${group.nickname}</small></p>
-				                <p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">복구</a></small></p>
-		                	</div>
-		                	</div>
-		                	</c:forEach>
-		                </c:if>
-					</div>
-				</div>
+  					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a><br/><br/>
+				<div class="row"> 
+					<c:set var="i" value="0" />
+					<c:forEach var = "group" items = "${ groupList }">
+						<c:set var="i" value="${ i+1 }" />
+						<div class="col-md-4">
+							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
+								<div class="card-header">
+<%-- 									<img src="../resources/images/marker_blue.png" height="12px"
+										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
+									<small>${ group.groupName}</small>
+								</div>
+								<div class="card-body">
+									<h5 class="card-title" id = "${ groupgroupNo }">${ group.groupName }</h5>
+									<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
+									<p class="card-text" id="content">
+									<p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">복구</a></small></p>
+<%-- 									${ diary.content } --%> 
+									<%-- <c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /> --%>
+									</p>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+			    </div>
 				
 				<div class="col-md-3"></div>
 				

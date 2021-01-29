@@ -65,7 +65,7 @@ public class PhotoController {
 		
 		photoService.addGroup(group);
 		
-		return "forward:/photo/listPhoto";
+		return "redirect:/photo/listPhoto";
 	}
 	//지도로 보기(photoList랑 별 다를거 없는 듯?)
 	@RequestMapping(value="getPhotoMap")
@@ -215,7 +215,7 @@ public class PhotoController {
   		photoService.deletePhoto(user.getNickname());
   		photoService.deleteGroup(user.getNickname());
   		
-  		return "redirect:/photo/photoBin.jsp";
+  		return "redirect:/photo/photoBin";
   	}
   	
   	//그룹 삭제 플래그처리
