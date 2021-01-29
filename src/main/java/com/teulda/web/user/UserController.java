@@ -105,7 +105,7 @@ public class UserController {
 		return "redirect:/user/getUser?email="+user.getEmail();
 	}
 	
-	@RequestMapping("deleteProduct")
+	@RequestMapping("deleteUser")
 	public String deleteUser(@RequestParam("nickname") String nickname) throws Exception {
 		
 		
@@ -189,4 +189,11 @@ public class UserController {
 		
 		return "forward:/user/listUser.jsp";
 	}
+	
+	
+	
+	
+	
+	
+	
 }
