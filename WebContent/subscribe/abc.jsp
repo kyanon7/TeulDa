@@ -37,8 +37,6 @@
     
     <script type="text/javascript">
 
-        
-       
 
         window.addEventListener('DOMContentLoaded', function(){
 
@@ -74,14 +72,15 @@
 
                 function addData(currentPage) {
 
-                    const br = document.createElement("br");
+                    // const br = document.createElement("br");
                     const list = document.querySelector(".subList");
 
                     const period = document.createElement("div");
                     period.setAttribute("class", "h4");
                     period.textContent = "이번 주";
                     list.appendChild(period);
-                    list.appendChild(br);
+                    // list.appendChild(br);
+                    period.insertAdjacentHTML('afterend', '<br />');
 
                     const div = document.createElement("div");
                     div.setAttribute("class", "card-group");
