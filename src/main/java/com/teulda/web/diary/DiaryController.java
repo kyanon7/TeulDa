@@ -125,7 +125,7 @@ public class DiaryController {
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
-		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때, page Navigation 했을 때 0번 ( 최근 작성 순 ) 으로 정렬
+		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 0번 ( 최근 작성 순 ) 으로 정렬되게 지정 
 		if (search.getSearchSorting() == null) {
 			search.setSearchSorting("0");
 		}

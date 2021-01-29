@@ -202,28 +202,28 @@
                			<if test="isDelete == 't'">
                			and delete_date is not null
                			</if>
-               			<if test="searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+               			<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
-                				<when test="searchCondition == 0 and searchKeyword !='' "> <!-- 검색조건 : 제목 -->
-                				AND title like '%'||#{searchKeyword}||'%'
+                				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 제목 -->
+                				AND title like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="searchCondition == 1 and searchKeyword !='' "> <!-- 검색조건 : 내용 -->
-                				AND content like '%'||#{searchKeyword}||'%'
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 내용 -->
+                				AND content like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="searchCondition == 2 and searchKeyword !='' "> <!-- 검색조건 : 장소 -->
-                				AND diary_addr like '%'||#{searchKeyword}||'%'
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 장소 -->
+                				AND diary_addr like '%'||#{search.searchKeyword}||'%'
                 				</when>
                 			</choose>
                 		</if>
                		</where>
                		<choose>
-        				<when test = "searchSorting == 0"> <!-- 기본이 0 (최신 작성 순) -->
+        				<when test = "search.searchSorting eq '0'.toString()"> <!-- 기본이 0 (최신 작성 순) -->
         				ORDER BY diary_date DESC
         				</when>
-        				<when test = "searchSorting == 1"> <!-- 1 : 최근 여행 순 -->
+        				<when test = "search.searchSorting eq '1'.toString()"> <!-- 1 : 최근 여행 순 -->
         				ORDER BY start_date DESC, diary_date DESC
         				</when>
-        				<when test = "searchSorting == 2"> <!-- 2 : 오래된 여행 순 -->
+        				<when test = "search.searchSorting eq '2'.toString()"> <!-- 2 : 오래된 여행 순 -->
         				ORDER BY start_date ASC, diary_date DESC
         				</when>
         				<!-- 추후 휴지통 정렬조건 추가하기 -->
@@ -246,28 +246,28 @@
                			<if test="isDelete == 't'">
                			and delete_date is not null
                			</if>
-               			<if test="searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+               			<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
-                				<when test="searchCondition == 0 and searchKeyword !='' "> <!-- 검색조건 : 제목 -->
-                				AND title like '%'||#{searchKeyword}||'%'
+                				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 제목 -->
+                				AND title like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="searchCondition == 1 and searchKeyword !='' "> <!-- 검색조건 : 내용 -->
-                				AND content like '%'||#{searchKeyword}||'%'
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 내용 -->
+                				AND content like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="searchCondition == 2 and searchKeyword !='' "> <!-- 검색조건 : 장소 -->
-                				AND diary_addr like '%'||#{searchKeyword}||'%'
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 장소 -->
+                				AND diary_addr like '%'||#{search.searchKeyword}||'%'
                 				</when>
                 			</choose>
                 		</if>
                		</where>
                		<choose>
-        				<when test = "searchSorting == 0"> <!-- 기본이 0 (최신 작성 순) -->
+        				<when test = "search.searchSorting eq '0'.toString()"> <!-- 기본이 0 (최신 작성 순) -->
         				ORDER BY diary_date DESC
         				</when>
-        				<when test = "searchSorting == 1"> <!-- 1 : 최근 여행 순 -->
+        				<when test = "search.searchSorting eq '1'.toString()"> <!-- 1 : 최근 여행 순 -->
         				ORDER BY start_date DESC, diary_date DESC
         				</when>
-        				<when test = "searchSorting == 2"> <!-- 2 : 오래된 여행 순 -->
+        				<when test = "search.searchSorting eq '2'.toString()"> <!-- 2 : 오래된 여행 순 -->
         				ORDER BY start_date ASC, diary_date DESC
         				</when>
         				<!-- 추후 휴지통 정렬조건 추가하기 -->
