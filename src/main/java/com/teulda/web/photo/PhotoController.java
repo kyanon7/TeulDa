@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -49,8 +49,8 @@ public class PhotoController {
 	int pageSize;
 	
 	//앨범 생성
-	@RequestMapping(value="addGroup")
-	public String addGroup(HttpSession session) throws Exception{
+	@RequestMapping(value="addGroup", method=RequestMethod.GET)
+	public String addGroup(@RequestParam("groupName")String groupName, HttpSession session) throws Exception{
 		
 		System.out.println("photo/addGroup");
 		
@@ -58,9 +58,14 @@ public class PhotoController {
 		
 		Group group = new Group();
 		group.setNickname(user.getNickname());
-//		group.setGroupName();
+		group.setGroupName(groupName);
 		
-		return "forward:/photo/getPhotoMap.jsp";
+		System.out.println("Nickname ============== "+group.getNickname());
+		System.out.println("groupName ============== "+group.getGroupName());
+		
+		photoService.addGroup(group);
+		
+		return "redirect:/photo/listPhoto";
 	}
 	//지도로 보기(photoList랑 별 다를거 없는 듯?)
 	@RequestMapping(value="getPhotoMap")
@@ -210,22 +215,22 @@ public class PhotoController {
   		photoService.deletePhoto(user.getNickname());
   		photoService.deleteGroup(user.getNickname());
   		
-  		return "redirect:/photo/photoBin.jsp";
+  		return "redirect:/photo/photoBin";
   	}
   	
   	//그룹 삭제 플래그처리
-  	@RequestMapping(value="updateGroupStatus")
-  	public String updateGroupStatus(HttpSession session, HttpServletRequest request) throws Exception{
+  	@RequestMapping(value="updateGroupStatus", method=RequestMethod.GET)
+  	public String updateGroupStatus(@RequestParam("groupNo")int groupNo) throws Exception{
   		
   		System.out.println("photo/updateGroupStatus");
   		
-  		User user = (User)session.getAttribute("user");
   		Group group = new Group();
-  		group.setNickname(user.getNickname());
-  		group.setGroupNo(Integer.parseInt(request.getParameter("groupNo")));
+  		group.setGroupNo(groupNo);
+  		
+  		System.out.println("groupNo ============= "+groupNo);
   		
   		photoService.updateGroupStatus(group);
   		
-  		return "forward:/photo/listPhoto.jsp";
+  		return "forward:/photo/listPhoto";
   	}
 }
