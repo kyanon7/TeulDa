@@ -13,6 +13,25 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<!-- Google 지도 API 사용 스크립트 추가 -->
+		
+		<script type="text/javascript">
+		
+		
+		function fncAddComment(){
+			
+			$("form").attr("method","POST").attr("action","/post/addComment").submit();
+
+		}
+		
+		$(function(){
+			$("button:contains('등록')").on("click", function(){
+				fncAddComment();
+		});
+
+	});
+		
+</script>		
+		
 	</head>
 	<body>
  		 <header>
@@ -62,6 +81,15 @@
   			  <p class="card-text">${post.postContents}</p>
  			 </div>
  			 <br/><br/>
+ 			 
+ 			 
+ 		<form name="addComment">
+			 <br/><br/>
+			 <input type="text" name="commentContents" class="form-control" placeholder="댓글달아봐요~"/>
+			 <button class="btn btn-info" type="submit">등록</button>
+			 <br/><br/>
+			 
+		</form>
  			 
  <table class="table table-hover">
  		  <tr class="table-primary">

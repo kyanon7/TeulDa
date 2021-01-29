@@ -16,14 +16,6 @@
 		
 		<script type="text/javascript">
 		
-		
-		function fncAddComment(){
-			
-			$("form").attr("method","POST").attr("action","/comment/addComment").submit();
-
-		}
-		
-
 		$(function(){
 			$("out").on("click", function(){
 				
@@ -38,6 +30,17 @@
 			});
 			
 		}); 
+		
+		
+		function fncAddComment(){
+			
+			$("form").attr("method","POST").attr("action","/post/addComment").submit();
+
+		}
+		
+
+	
+			
 
 		$(function(){
 			$("button:contains('수정')").on("click", function(){
@@ -49,11 +52,9 @@
 			});
 			
 			$("button:contains('등록')").on("click", function(){
-					fncAddComment();
+				fncAddComment();
 			});
-
-	});
-		
+	});		
 	</script>
 </head>
 	
@@ -94,7 +95,7 @@
 			<div class="card border-secondary md-6" style="width: 55rem;">
   			<div class="card-header">
   			
-  			 작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 : ${post.postDate } &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  			글번호 : ${post.postNo}  &emsp;&emsp; 작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 : ${post.postDate } &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
   			 &nbsp; &nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 조회수 : ${post.viewCount} 
   			</div>
  			 <div class="card-body">
@@ -112,12 +113,14 @@
  			 <out class="btn btn-info" type="submit">삭제</out>
 			<button class="btn btn-info" type="button">취소</button>
 			
+			
 		<form name="addComment">
+			<h4>댓글</h4>
 			 <br/><br/>
-			 <input type="text" name="commentContents" class="form-control" placeholder="댓글달아봐요~"/>
+			 <input type="hidden" name="postNo" value="${ post.postNo }"/>
+			 <input type="text" name="commentContents" class="form-control" placeholder="댓글을 작성해주세요." maxlength="200"/>
+			 <br/><br/>
 			 <button class="btn btn-info" type="submit">등록</button>
-			 <br/><br/>
-			 
 		</form>
 			 
 	<table class="table table-hover">
@@ -125,8 +128,9 @@
  		  	<c:set var="i" value="0"/>
  		  		<c:forEach var="comment" items = "${commentList}">
  		  			<c:set var="i" value="${i+1}"/> 
-  			    <th scope="row">${comment.nickname}</th>
+  			  	 <td>${comment.nickname} <td>
   			    <td>${comment.commentContents} </td>
+  			     <td>${comment.commentDate} </td>
   			  </c:forEach>
    		 </tr>
  	</table> 

@@ -44,7 +44,7 @@
 		INSERT
 		INTO COMMENTS (comment_id, post_id, content, comment_date, nickname)
 		VALUES (seq_comment_comment_id.nextval, #{postNo}, #{commentContents:VARCHAR}, 
-				SYSDATE, #{nickname:VARCHAR})     				
+				SYSDATE, #{nickname:VARCHAR})   				
 	</insert>
 	 
 	<!-- SQL : POST SELECT ONE -->
@@ -108,8 +108,30 @@
 
 	SELECT post_id, nickname, title, post_date, view_count
 	FROM POST
-	WHERE post_type = #{postCategory}
-	ORDER BY post_id DESC
+	<where>
+		post_type = #{postCategory}
+					<if test="searchCondition != null">
+									<where>
+										<if test="searchCondition == 0 and searchCondition !='' ">
+											AND nickname like '%'||#{searchKeyword}||'%'
+										</if>
+										<if test="searchCondition == 1 and searchCondition !='' ">
+											AND title like '%'||#{searchKeyword}||'%'
+										</if>
+										<if test="searchCondition == 2 and searchCondition !='' ">
+											AND content like '%'||#{searchKeyword}||'%'
+										</if>
+										</where>
+									</if>
+										<choose>
+											<when test="searchSorting == 0"> <!-- 디폴트  -->
+												ORDER BY post_id DESC
+											</when>
+											<when test="searchSorting == 1">
+												ORDER BY view_count DESC
+											</when>
+										</choose> 
+						</where>
 	
 	<!-- SELECT * 
 		FROM (SELECT inner_table.*, ROWNUM AS row_seq

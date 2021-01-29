@@ -76,7 +76,7 @@ import com.teulda.service.user.UserService;
 		
 	}
 	
-	@RequestMapping(value="listPost")
+	@RequestMapping(value="listPost",  method= {RequestMethod.GET, RequestMethod.POST})
 	public String listPost(@ModelAttribute("search")Search search, @RequestParam char postCategory, Model model, HttpSession session) throws Exception{
 		
 		System.out.println("/post/listPost : GET / POST");
@@ -86,6 +86,10 @@ import com.teulda.service.user.UserService;
 		
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
+		}
+		
+		if (search.getSearchSorting() == null) {
+			search.setSearchSorting("0");
 		}
 		search.setPageSize(pageSize);
 		//search.setSearchSorting("3");
@@ -218,7 +222,7 @@ import com.teulda.service.user.UserService;
 	@RequestMapping(value="addComment", method = RequestMethod.POST)
 	public String addComment(@ModelAttribute("comment")Comment comment, @RequestParam int postNo, Model model, HttpSession session) throws Exception{
 		
-		System.out.println("/comment/addComment");
+		System.out.println("/post/addComment");
 		
 		User user = (User) session.getAttribute("user");
 		
@@ -229,6 +233,7 @@ import com.teulda.service.user.UserService;
 		System.out.println(postNo);
 		
 		comment.setNickname(user.getNickname());
+		comment.setPostNo(postNo);
 		
 		
 		postService.addComment(comment);
@@ -238,13 +243,11 @@ import com.teulda.service.user.UserService;
 		System.out.println("===========================");
 
 		model.addAttribute("comment", comment);
-		model.addAttribute("postNo", postNo);
-		
 
 		if(((User) session.getAttribute("user")).getNickname() != null && comment.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
-			return "forward:/post/getMyPost.jsp";
+			return "redirect:/post/getMyPost.jsp";
 		}else {
-			return "forward:/post/getPost.jsp";
+			return "redirect:/post/getPost.jsp";
 		}
 	}
 }

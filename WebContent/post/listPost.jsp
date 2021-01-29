@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,8 +17,18 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		
 		
+		
+		
 	<script type="text/javascript">
 	
+	function fncGetList(currentPage){
+		
+		$("#currentPage").val(currentPage);
+	   	$("form[name='detailForm']").attr("method", "POST").attr("action", "/post/listPost").submit();
+	   	
+	}
+	
+
 	$(function(){
 		$(".ct_list_pop td:nth-child(5)").on("click", function(){
 			self.location = "/post/getPost?postNo="+$(this).attr('id')			
@@ -27,6 +38,19 @@
 	$(function(){
 		$("a:contains('내 글 보기')").on("click", function(){
 			self.location = "/post/listPostBynickname?postCategory="+1+"&nickname="+${sessionScope.user.nickname}
+		});
+	});
+	
+	$(function(){
+		
+		$("button:contains('Search')").on("click", function () { // 검색 버튼
+			fncGetList(1); 
+		});
+		
+		$(".breadcrumb-item").on("click", function(){
+			
+			$("#searchSorting").val($(this).attr('value'));
+			fncGetList(1);
 		});
 	});
 	
@@ -43,11 +67,13 @@
 			<jsp:include page="../layout/toolbar.jsp"/>
 		</header><br/><br/>
 		<!-- End Header -->
+		
+			<form name="detailForm">	
 
   		<div class="container">
   			<div class="row">
   				<!-- diary toolbar로 빼도 될 듯 -->
-  				<div class="col-md-2">
+  				<div class="col-md-3">
   					<jsp:include page="../post/leftbar.jsp"/>
   				</div>
   					
@@ -65,32 +91,51 @@
   					<a href="/post/listPost?postCategory=5" class="list-group-item list-group-item-action " type="button">잡담</a>
 					</div>
 				</div> --%>
+		
+				<div class="row">
+				<div class=".col-md-2">
+				<input type="hidden" id="currentPage" name="currentPage" value=""/>
+				<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
 				
-			<div class="row">
-				<div class=".col-md-10">
+				<input type="hidden" id="postCategory" name="postCategory" value="${postCategory}"/>
 					<ol class="breadcrumb">
- 						 <li class="breadcrumb-item"><a href="#">최신순</a></li>
-  						 <li class="breadcrumb-item"><a href="#">조회순</a></li>
+ 						 <li class="breadcrumb-item" value="0"><a ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최신순</a></li>
+  						 <li class="breadcrumb-item" value="1"><a ${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>조회순</a></li>
   				   </ol>
-  						 
+  			</div>
+  				<div class="col-md-7">	 
    					<c:if test="${ !empty user }"> 
    					<a type="button" class="btn btn-outline-info">내 글 보기</a>
   					<a type="button" href="#" class="btn btn-outline-info">내 댓글 보기</a>
   					</c:if>
-   						  <div class="form-group">
-   							 <select class="custom-select" style="width: 200px; height: 50px;">
-     						 <option value="1">제목</option>
-     						 <option value="2">내용</option>
-     					 <option value="3">제목+내용</option>
-     					 <option value="4">작성자</option>
+  				</div>
+  			</div>
+  		
+  			<div class="row">
+  				<div class="col-md-2">
+   					<div class="form-group">
+   					<select class="custom-select" name="searchCondition" style="width: 200px; height: 50px;">
+     						 <option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>작성자</option>
+     						 <option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>제목</option>
+     						 <option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>내용</option>
    					 </select>
-   					 
-   					  <form class="form-inline">
-    						  <input class="form-control mr-sm-2" type="text" placeholder="Search">
+   					 </div>
+   				</div>
+   					<div class="col-md-7">
+    						  <input class="form-control mr-sm-2" name="searchKeyword" type="text" placeholder="Search"  id="inputDefault"
+    						  value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+    				</div>
+    				
+    				
     						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-   					 </form>
-				
-					<!-- <div class=".col-md-6"> -->
+    					</div>
+    				</div> 
+    			</div>
+			</form>	
+			
+			<div class="row">
+    					<div class="col-md-7">
+    					
   					 	<table class="table table-hover">
  					 <thead>
    					 <tr>
@@ -117,21 +162,20 @@
 								<td></td>
 								<td align="left" id="${post.postNo}">${post.postTitle}</td>
 								<td></td>			
-								<td align="left">${post.postDate}</td>
+								<td align="left">${fn:substring(post.postDate, 0, 10)}</td>
   								<td></td>			
 								<td align="left">${post.viewCount}</td>
   					</tr>
   					</c:forEach>	
     			<tr>
 				</tr>
+			
 				</tbody>
+		
 				</table>
-				</div>
-			</div>
-		</div>
-	</div>
 
- 	
+ 		</div>
+		</div>
  
 <div id="bottom" style="margin:0 auto; width:300px;">
 
@@ -160,6 +204,5 @@
   </ul>
 </div>
 
-</div>
 	</body>
 </html>
