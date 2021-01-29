@@ -147,11 +147,7 @@
 	<delete id="deletePhoto" parameterType="String">
 		DELETE
 		FROM photo
-		WHERE delete_date IS NOT NULL AND photo_group_id IN 
-		(SELECT group_id
-		FROM groups
-		WHERE nickname = #{value} AND delete_date IS NOT NULL AND group_type = 1)
-		AND photo_group_id IS NOT NULL
+		WHERE delete_date IS NOT NULL AND photo_group_id IS NOT NULL
 	</delete>
 	
 	<!-- SQL : DELETE Group 완전삭제(휴지통) -->
