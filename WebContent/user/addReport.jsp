@@ -40,7 +40,7 @@
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
-				fncAddUser();
+				fncAddReport();
 			});
 		});	
 		
@@ -54,14 +54,13 @@
 		});	
 		
 		
-		function fncAddUser() {
+		function fncAddReport() {
 			
-			var email=$("input[name='email']").val();
-			var name=$("input[name='userName']").val();
+			var reason=$("input[name='reason']").val();
+			var reporttype=$("input[name='reportType']").val();
+			var reportphoto=$("input[name='reportPhoto']").val();
 			var nickname=$("input[name='nickname']").val();
-			var phone=$("input[name='phone']").val();
-			var ispublic=$("input[0]").val();
-			var photo=$("input[name='profilePhoto']").val();
+			
 		
 			
 			
@@ -113,14 +112,14 @@
   	<br/><br/>
 	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Join Our Site!</h1>
 	
-	<h3 class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;필수입력정보;sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+	<h3 class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;필수입력정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
     
     
     <div class="form-group">
   		<label for="email" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;E-mail</label>	
   		<div class="col-sm-4">
   		<input type="text" class="form-control" placeholder="E-mail" name="email" id="email" >
-  		<small class="form-text text-muted" id="emailHelp">
+  		<small class="form-text text-muted" id="emailHelp">We'll never share your email with anyone else.</small>
   		</div>
 	</div>
     
@@ -144,6 +143,13 @@
   		<label for="nickname" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;닉네임</label>
   		<div class="col-sm-4">
   		<input type="text" class="form-control" placeholder="nickname" name="nickname" id="nickname" >
+		</div>
+	</div>
+	
+	<div class="form-group">
+  		<label for="phone" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;전화번호</label>
+  		<div class="col-sm-4">
+  		<input type="text" class="form-control" placeholder="phone" name="phone" id="phone" >
 		</div>
 	</div>
 	

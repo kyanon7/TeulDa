@@ -38,7 +38,25 @@ SELECT u.user_name ,u.email,(SELECT COUNT(*)FROM report where target_nick = 'kin
                                where (SELECT COUNT(*)FROM report where target_nick = 'king제현') >= 10
                                GROUP BY  u.user_name ,u.email,r.report_photo,u.status
                                
-
+//
+delete from subscribe
+    from subscribe sb, users u
+    where sb.subscribe_nick = u.nickname;
+ DELETE FROM REVIEW WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM HASHTAG WHERE DIARY_ID = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM BOOKMARK WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM SUBSCRIBE WHERE SUBSCRIBE_NICK = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM REPORT WHERE REPORTER_NICK = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM DIARY WHERE ORIGIN_NICK = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM GROUPS WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM STAMP WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM CHAT_HISTORY WHERE CHATROOM_ID = (SELECT CHAT_ROOM FROM USERS WHERE CHATROOM_ID='testUser2');
+ DELETE FROM COMMNETS WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM CHAT_MEMBER WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM STAMP WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+ DELETE FROM POST WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
+                               
+                               
                                
  //신고사유 보기                         
 SELECT r.reporter_nick, r.reason ,r.report_type,r.report_date,r.report_photo

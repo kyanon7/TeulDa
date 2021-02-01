@@ -20,6 +20,8 @@ public interface UserDao {
 	public User getUser(String email) throws Exception ;//유저정보 조회 완
 
 	public List<User> getUserList(Search search) throws Exception ;//유저목록 조회 완
+	
+	public List<User> getUserListPublic(Search search) throws Exception ;//유저목록 조회 완
 
 	public void updateUser(User user) throws Exception ;//유저정보 수정 완
 	

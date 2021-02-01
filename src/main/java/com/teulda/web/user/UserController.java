@@ -66,7 +66,7 @@ public class UserController {
 	
 
 	@RequestMapping( value="getUser", method=RequestMethod.GET  )
-	public String getUser( @RequestParam(value="email") String email , Model model ) throws Exception {
+	public String getUser( @RequestParam(value="email") String email , Model model, HttpSession session ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		//Business Logic
@@ -74,7 +74,11 @@ public class UserController {
 		// Model 과 View 연결
 		model.addAttribute("user", user);
 		
-		return "forward:/user/getUser.jsp";
+		if(((User) session.getAttribute("user")).getNickname() != null && user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+			return "forward:/user/getMyUser.jsp";
+		}else {
+			return "forward:/user/getUser.jsp";
+		}
 	}
 	
 
@@ -169,7 +173,7 @@ public class UserController {
 	@RequestMapping( value="listUser" )
 	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/user/listUser : GET / POST");
+		System.out.println("/user/listUser : GET / POST"+"debug");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -190,7 +194,37 @@ public class UserController {
 		return "forward:/user/listUser.jsp";
 	}
 	
+	@RequestMapping( value="listUserPublic" )
+	public String listUserPublic( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+		
+		System.out.println("/user/listUserPublic : GET / POST"+"debug");
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		Map<String , Object> map=userService.getUserListPublic(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		// Model 과 View 연결
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/user/listUserPublic.jsp";
+	}
 	
+	@RequestMapping( value="addReport", method=RequestMethod.GET )
+	public String addReport() throws Exception{
+	
+		System.out.println("/user/addReport: GET");
+		
+		return "redirect:/user/addReport.jsp";
+	}
 	
 	
 	

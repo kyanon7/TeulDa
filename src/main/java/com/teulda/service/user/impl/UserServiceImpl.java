@@ -145,6 +145,19 @@ public class UserServiceImpl implements UserService {
 		
 		return map;
 	}//유저 리스트화, 유저 토탈 저장
+	
+	@Override
+	public Map<String, Object> getUserListPublic(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		List<User> list= userDao.getUserList(search);
+		int totalCount = userDao.getTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
 
 	/*@Override
 	public User logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -177,6 +190,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	//@Override
 	//public void updateUserStatus(String status) throws Exception {

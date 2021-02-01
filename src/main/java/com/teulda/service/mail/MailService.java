@@ -1,19 +1,16 @@
-/*
- * package com.teulda.service.mail;
- * 
- * import java.util.Map;
- * 
- * import javax.servlet.http.HttpServletRequest; import
- * javax.servlet.http.HttpServletResponse;
- * 
- * import com.teulda.common.Search; import com.teulda.service.domain.Report;
- * import com.teulda.service.domain.User;
- * 
- * public interface MailService {
- * 
- * public boolean send(String subject, String text, String from, String to,
- * String filePath);
- * 
- * 
- * }
- */
+package com.teulda.service.mail;
+
+
+public interface MailService {
+ 
+    /** 메일 전송
+     *  @param subject 제목
+     *  @param text 내용
+     *  @param from 보내는 메일 주소
+     *  @param to 받는 메일 주소
+     *  @param filePath 첨부 파일 경로: 첨부파일 없을시 null **/
+    public boolean send(String subject, String text, String from, String to, String filePath);
+ 
+}
+
+

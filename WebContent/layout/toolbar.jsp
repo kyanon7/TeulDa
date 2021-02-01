@@ -81,8 +81,12 @@
 	               <a class="nav-link" href="/user/logout/">Logout</a>
 	            </li>
 	            
-	            <c:if test="${sessionScope.user.role == '0'}">
+	            <c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
 			      	<a class="nav-link" id="user"  href="/user/listUser">User List</a>
+      			</c:if>
+      			
+      			<c:if test="${sessionScope.user.role eq '1'.charAt(0)}">
+			      	<a class="nav-link" id="user"  href="/user/listUserPublic">User List</a>
       			</c:if>
 	            
 	            <li class="nav-item">

@@ -118,8 +118,8 @@
 		
 		<div class="form-group">
 	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-outline-success">구독</button>
-	  			<a class="btn btn-outline-danger">회원신고</a>
+	  			<button type="button" class="btn btn-outline-primary">회원정보수정</button>
+	  			<a class="btn btn-outline-danger">회원탈퇴</a>
 	  		</div>
 		</div>
 		
