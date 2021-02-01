@@ -80,6 +80,24 @@
    	<mvc:resources mapping="/summernoteImage/**" location="/Users/jungjoowon/summernote_image/" />
 	
 	<!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> -->
+	
+		<!-- 이메일 관련 
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <property name="host" value="smtp.gmail.com" />
+	    <property name="port" value="587" />
+	    <property name="username" value="아이디@gmail.com" />
+	    <property name="password" value="비밀번호" />
+	    <property name="javaMailProperties">
+	        <props>
+	            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+	            <prop key="mail.smtp.starttls.enable">true</prop>
+	            <prop key="mail.smtp.auth">true</prop>
+	        </props>
+	    </property>
+	</bean>
+	<bean id="mailService" class="service.mail.impl.MailServiceImpl">
+	    <property name="javaMailSender" ref="javaMailSender" />
+	</bean-->
 
 	<!-- 	:: exception resolver  선언 :: 서술적 / 선언적 예외처리 
 			:: Servlet 에서의 선언적 예외처리를 다시 생각하며....  -->
