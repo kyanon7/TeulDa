@@ -196,10 +196,24 @@
 
                         let target = targetList[i];
 
-                        if(target == null){
-                            console.log(period)
+                        if(!target){
+                            if(targetList == diaryListWeekBefore){
+                                targetList = diaryListMonthBefore;
+                                i = 0;
+
+                                let cards = cardFrame.cloneNode(true);
+                                let divs = div.cloneNode();
+                                list.appendChild(month);
+
+                                month.insertAdjacentHTML('beforebegin', '<br />');
+                                month.insertAdjacentHTML('beforebegin', '<hr />');
+                                continue;
+                            }
+                            if(targetList == diaryListMonthBefore){
+                                i = 0;
+                                continue;
+                            }
                         }
-                        
 
                         let thumb = target.thumbnail;
                         let titleText = target.title;
