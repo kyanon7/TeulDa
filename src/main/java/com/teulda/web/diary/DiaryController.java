@@ -1,5 +1,6 @@
 package com.teulda.web.diary;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teulda.common.Group;
 import com.teulda.common.Page;
 import com.teulda.common.Search;
 import com.teulda.service.diary.DiaryService;
@@ -139,10 +141,14 @@ public class DiaryController {
 		Page resultPage	= // 페이지 나누는 것을 추상화 & 캡슐화 한 Page 클래스 이용 
 				new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
+		// 기록 그룹 찾기
+		List <Group> diaryGroupList = diaryService.getDiaryGroupList(user.getNickname());
+		
 		// Model 과 View 연결
 		model.addAttribute("diaryList", map.get("diaryList")); // 기록 
 		model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
 		model.addAttribute("search", search); // 검색 정보가 담겨있음 
+		model.addAttribute("diaryGroupList", diaryGroupList);
 		
 		return "forward:/diary/listDiary.jsp";
 	}

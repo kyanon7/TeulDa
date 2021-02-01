@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.teulda.common.Group;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.User;
@@ -98,5 +99,18 @@ public class DiaryRestController {
 
 
 		return jsonObject;
+	}
+	
+	// listDiary.jsp 에서 기록 그룹 생성 
+	@RequestMapping(value="rest/addDiaryGroup", produces = "application/json")
+	public String addDiaryGroup(@RequestParam("groupName") String groupName, HttpSession session) throws Exception {
+		
+		Group group = new Group();
+		group.setGroupName(groupName);
+		group.setNickname(((User) session.getAttribute("user")).getNickname());
+		
+		diaryService.addDiaryGroup(group);
+		
+		return "Success";
 	}
 }
