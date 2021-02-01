@@ -59,7 +59,6 @@
                 let diaryListMonthBefore = result.diaryListMonthBefore;
                 let diaryListBefore = result.diaryListBefore;
 
-                console.log(subscribeList);
                 console.log(diaryListWeekBefore);
                 console.log(diaryListMonthBefore);
                 console.log(diaryListBefore);
@@ -76,8 +75,8 @@
                     const list = document.querySelector(".subList");
 
                     const period = document.createElement("div");
-                    period.setAttribute("class", "h4");
-                    period.textContent = "이번 주";
+                    period.setAttribute("class", "h4 period");
+                    period.textContent = "";
                     list.appendChild(period);
                     // list.appendChild(br);
                     period.insertAdjacentHTML('afterend', '<br />');
@@ -86,77 +85,143 @@
                     div.setAttribute("class", "card-group");
                     list.appendChild(div);
 
+                    const cardFrame = document.createElement("div");
+                    cardFrame.setAttribute("class", "col-auto mb-2");
+                    // div.appendChild(cardFrame);
+
+                    const cardHead = document.createElement("div");
+                    cardHead.setAttribute("class", "card");
+                    cardHead.setAttribute("style", "width: 14.5rem;");
+                    cardFrame.appendChild(cardHead);
+
+                    const cardEmbed = document.createElement("div");
+                    cardEmbed.setAttribute("class", "embed-responsive embed-responsive-16by9");
+                    cardHead.appendChild(cardEmbed);
+
+                    const cardImage = document.createElement("img");
+                    cardImage.setAttribute("class", "card-img-top embed-responsive-item");
+                    // cardImage.setAttribute("src", "https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg");
+                    // cardImage.setAttribute("alt", "Card image cap");
+                    cardEmbed.appendChild(cardImage);
+                
+                    const cardBody = document.createElement("div");
+                    cardBody.setAttribute("class", "card-body");
+                    cardHead.appendChild(cardBody);
+
+                    const title = document.createElement("h5");
+                    title.setAttribute("class", "card-title text-log");
+                    title.textContent = "";
+                    
+                    const place = document.createElement("div");
+                    place.setAttribute("class", "text-truncate place");
+
+                    const placeText = document.createElement("span");
+                    placeText.setAttribute("class", "text-muted small");
+                    placeText.textContent = "";
+                    place.appendChild(placeText);
+                    cardBody.appendChild(title);
+                    cardBody.appendChild(place);
+
+                    const footer = document.createElement("div");
+                    footer.setAttribute("class", "card-footer");
+                    cardHead.appendChild(footer);
+
+                    const nicks = document.createElement("div");
+                    nicks.setAttribute("class", "text-muted small nick");
+                    nicks.textContent = "s";
+
+                    const viewCount = document.createElement("span");
+                    viewCount.setAttribute("class", "text-muted small viewCount");
+                    viewCount.textContent = "";
+
+                    const seperator = document.createElement("span");
+                    seperator.setAttribute("class", "text-muted separator small");
+                    seperator.insertAdjacentHTML('afterbegin', '&nbsp;&#8226;&nbsp;');
+
+                    const lastUpdated = document.createElement("span");
+                    lastUpdated.setAttribute("class", "text-muted small last-update");
+                    lastUpdated.textContent = "";
+
+                    footer.appendChild(nicks);
+                    footer.appendChild(viewCount);
+                    footer.appendChild(seperator);
+                    footer.appendChild(lastUpdated);
+
+                    // let cards = cardFrame.cloneNode(true);
+
+                    // div.appendChild(cards);
+
+                    let week;
+                    let month;
+                    let before;
+
+                    let targetList;
+
+                    if(diaryListWeekBefore.length > 0){
+                        week = period;
+                        week.textContent = "이번 주";
+                        targetList = diaryListWeekBefore;
+                    }
+                    if(diaryListMonthBefore.length > 0){
+                        month = period.cloneNode();
+                        if(diaryListWeekBefore.length < 1){
+                            month = period;
+                            targetList = diaryListMonthBefore;
+                        }
+                        month.textContent = "이번 달";
+                    }
+                    if(diaryListMonthBefore.length > 0){
+                        before = period.cloneNode();
+                        if(diaryListWeekBefore < 1 && diaryListMonthBefore < 1){
+                            before = period;
+                            targetList = diaryListBefore;
+                        }
+                        before.textContent = "이전";
+                    }
+
+                    // list.appendChild(month);
+                    // month.insertAdjacentHTML('beforebegin', '<br />');
+                    // month.insertAdjacentHTML('beforebegin', '<hr />');
+                    
+
+                    console.log(diaryListWeekBefore.length);
+                    console.log(diaryListMonthBefore.length);
+                    console.log(diaryListBefore.length);
+
+                    console.log(week);
+                    console.log(month);
+                    console.log(before);
+
                     for (let i = (currentPage - 1) * DATA_PER_PAGE; i < currentPage * DATA_PER_PAGE; i++) {
 
-                        // const period = document.createElement("div");
-                        // period.setAttribute("class", "h4");
-                        // period.textContent = "이번 주";
-                        // list.appendChild(period);
-                        // list.appendChild(br);
+                        let target = targetList[i];
 
-                        // const div = document.createElement("div");
-                        // div.setAttribute("class", "card-group");
-                        // list.appendChild(div);
-
-                        const cardFrame = document.createElement("div");
-                        cardFrame.setAttribute("class", "col-auto mb-2");
-                        div.appendChild(cardFrame);
-
-                        const cardHead = document.createElement("div");
-                        cardHead.setAttribute("class", "card");
-                        cardHead.setAttribute("style", "width: 14.5rem;");
-                        cardFrame.appendChild(cardHead);
-
-                        const cardEmbed = document.createElement("div");
-                        cardEmbed.setAttribute("class", "embed-responsive embed-responsive-16by9");
-                        cardHead.appendChild(cardEmbed);
-
-                        const cardImage = document.createElement("img");
-                        cardImage.setAttribute("class", "card-img-top embed-responsive-item");
-                        cardImage.setAttribute("src", "https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg");
-                        cardImage.setAttribute("alt", "Card image cap");
-                        cardEmbed.appendChild(cardImage);
-                    
-                        const cardBody = document.createElement("div");
-                        cardBody.setAttribute("class", "card-body");
-                        cardHead.appendChild(cardBody);
-
-                        const title = document.createElement("h5");
-                        title.setAttribute("class", "card-title text-log");
-                        title.textContent = "우와아아아앙 작년에 부산 완전 좋았다 개굿이었음";
+                        if(target == null){
+                            console.log(period)
+                        }
                         
-                        const place = document.createElement("div");
-                        place.setAttribute("class", "text-truncate place");
 
-                        const placeText = document.createElement("span");
-                        placeText.setAttribute("class", "text-muted small");
-                        placeText.textContent = "부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ";
-                        place.appendChild(placeText);
-                        cardBody.appendChild(title);
-                        cardBody.appendChild(place);
+                        let thumb = target.thumbnail;
+                        let titleText = target.title;
+                        let place = target.location;
+                        let nick = target.nickname;
+                        let view = target.viewCount;
+                        let lastUp = new Date(target.writeDate);
+                        let today = new Date();
+                        let last = Math.ceil((today.getTime() - lastUp.getTime())/1000/60/60/24);
 
-                        const footer = document.createElement("div");
-                        footer.setAttribute("class", "card-footer");
-                        cardHead.appendChild(footer);
+                        cardImage.setAttribute("src", thumb);
+                        cardImage.setAttribute("alt", thumb);
 
-                        const viewCount = document.createElement("span");
-                        viewCount.setAttribute("class", "text-muted small viewCount");
-                        viewCount.textContent = "조회수 1회"
+                        nicks.textContent = nick;
+                        title.textContent = titleText;
+                        placeText.textContent = place;
+                        viewCount.textContent = `조회수 \${view}회`;
+                        lastUpdated.textContent = `\${last}일 전`;
 
-                        const seperator = document.createElement("span");
-                        seperator.setAttribute("class", "text-muted separator small");
-                        seperator.insertAdjacentHTML('afterbegin', '&nbsp;&#8226;&nbsp;');
-
-                        const lastUpdated = document.createElement("span");
-                        lastUpdated.setAttribute("class", "text-muted small last-update");
-                        lastUpdated.textContent = "last updated";
-
-                        footer.appendChild(viewCount);
-                        footer.appendChild(seperator);
-                        footer.appendChild(lastUpdated);
-
-
-                    
+                        const cards = cardFrame.cloneNode(true);
+                        div.appendChild(cards);
+                        
                     }
                 }
                 
@@ -184,20 +249,20 @@
 
 
             // 데이터 추가 함수
-            function addData(currentPage) {
+            // function addData(currentPage) {
 
-                const $list = document.getElementById("list")
+            //     const $list = document.getElementById("list")
 
-                for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
-                    const $li = document.createElement("li")
-                    const $p = document.createElement("p")
-                    $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
-                    $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
-                    // $li.classList.add("fade-in")
-                    $list.appendChild($p)
-                    $list.appendChild($li)
-                }
-            }
+            //     for (let i = (currentPage - 1) * DATA_PER_PAGE + 1; i <= currentPage * DATA_PER_PAGE; i++) {
+            //         const $li = document.createElement("li")
+            //         const $p = document.createElement("p")
+            //         $li.textContent = currentPage+'페이지 : '+i+'번째 데이터'
+            //         $p.textContent = currentPage+'페이지 : '+i+'번째 데이터 문단'
+            //         // $li.classList.add("fade-in")
+            //         $list.appendChild($p)
+            //         $list.appendChild($li)
+            //     }
+            // }
 
             // // IntersectionObserver 갱신 함수
             // function observeLastChild(intersectionObserver) {
@@ -275,67 +340,8 @@
               </div>
             </div>
 
-            <div class="col-lg-10 border-0 subList" style="background-color: rgb(247, 247, 247);"><br />
-
-                <!-- <div class="h4">이번 주</div><br />
-                    <div class="card-group">
-                        <div class="col-auto mb-2">
-                            <div class="card" style="width: 15rem;">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <img class="card-img-top embed-responsive-item" src="https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-log">우와아아아앙 작년에 부산 완전 좋았다 개굿이었음</h5>
-                                    <div class="text-truncate place"><span class="text-muted small">부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ</span></div>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted viewCount">조회수 1회</small><span class="text-muted"><small>&nbsp;&#8226;&nbsp;</small></span><small class="text-muted last-update">last updated</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-
-
-            </div>
-                    <!-- <div class="card-columns">
-                        <div class="card" style="width: 18rem">
-                        <img class="card-img-top" src="..." alt="${diary.thumbnail}">
-                        <div class="card-body">
-                            <h5 class="card-title">${diary.title}</h5>
-                            <p class="card-text"><small class="text-muted">${diary.location}</small></p>
-                            <p class="card-text"><small class="text-muted">${diary.writeDate}</small></p>
-                            <p class="card-text"><small class="text-muted">조회수 1회</small></p>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="card-group">
-                        <div class="col-auto mb-2">
-                            <div class="card" style="width: 15rem;">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <img class="card-img-top embed-responsive-item" src="https://c1.staticflickr.com/5/4324/35605403570_4caa1e57bd.jpg" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-log">우와아아아앙 작년에 부산 완전 좋았다 개굿이었음</h5>
-                                    <div class="text-truncate place"><small class="text-muted">부산 해운대에서누ㅠ아ㅓㅜㅈ바ㅓㄷㅈ바ㅓ바ㅓㄷㅈ</small></div>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted viewCount">조회수 1회</small><span class="text-muted"><small>&nbsp;&#8226;&nbsp;</small></span><small class="text-muted last-update">last updated</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-
-
-                <!-- <ul id="list">
-
-                </ul>
-                <p id="msg-loading"></p> -->
-            
-
-        
+            <div class="col-lg-10 border-0 subList" style="background-color: rgb(247, 247, 247);"><br /></div>
+        </div>
     </div>
 
     
