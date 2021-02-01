@@ -54,7 +54,7 @@
 				<div class="col-md-9">
   					<div class="list-group">
   					<a href="#" class="list-group-item list-group-item-action active">${group.groupName}</a></br></br>
-  					<c:if test="${empty photo.deleteDate}">
+  					
 	  					<c:set var = "i" value = "0" />
 		          			<c:forEach var = "photo" items = "${photoList}">
 		            	<c:set var = "i" value = "${i+1}" />
@@ -65,11 +65,11 @@
 				                <p class="card-text">${photo.photoAddr}</p>
 				                <p class="card-text"><small class="text-muted">${photo.photoDate}</small></p>
 				                <p class="card-text"><small class="text-muted">${photo.photoNo}</small></p>
-				                <p class="card-text" id="delete" style="text-align:right;" onclick="removeCheck();"><small class="text-muted"><a href="#">삭제</a></small></p>
+				                <p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small></p>
 		                	</div>
 		                	</div>
 		                	</c:forEach>
-		                </c:if>
+		            
 					</div>
 				</div>
 			
