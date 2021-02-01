@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,13 @@
 	
 	$(function(){
 		$("a:contains('내 글 보기')").on("click", function(){
-			self.location = "/post/listPostBynickname?nickname="+$(this).attr('id')	
+			self.location = "/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}"
+		});
+	});
+	
+	$(function(){
+		$("a:contains('내 댓글 보기')").on("click", function(){
+			self.location = "/post/listMyComment?nickname=${sessionScope.user.nickname}"	
 		});
 	});
 	
@@ -45,23 +52,23 @@
   			<div class="row">
   				<!-- diary toolbar로 빼도 될 듯 -->
   				<div class="col-md-2">
-  					<jsp:include page="../post/leftbar.jsp"/>
-  				</div>
+  			<%-- 		<jsp:include page="../post/leftbar.jsp"/>
+  				</div> --%>
   					
-  					<%-- <div class="list-group">
-  					<button type="button" class="btn btn-info disabled">자유게시판</button>
+  				<div class="list-group">
+  				<a href="/post/listPost?postCategory=1" type="button" class="btn btn-info active">자유게시판</a>
   					
   					<c:if test="${ !empty user }">
   					<a type="button" href="/post/addPost" class="btn btn-outline-info">+ 새 글 작성</a><br/>
   					</c:if>
   					
-  					<a href="/post/listPost?postCategory=1" class="list-group-item list-group-item-action active" type="button">여행지 정보공유</a>
-  					<a href="/post/listPost?postCategory=2" class="list-group-item list-group-item-action " type="button">맛집 정보공유</a>
-  					<a href="/post/listPost?postCategory=3" class="list-group-item list-group-item-action " type="button">숙소 정보공유</a>
-  					<a href="/post/listPost?postCategory=4" class="list-group-item list-group-item-action " type="button">Q&A</a>
-  					<a href="/post/listPost?postCategory=5" class="list-group-item list-group-item-action " type="button">잡담</a>
+  					<a href="/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action active" type="button">여행지 정보공유</a>
+  					<a href="/post/listPostBynickname?postCategory=2&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">맛집 정보공유</a>
+  					<a href="/post/listPostBynickname?postCategory=3&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">숙소 정보공유</a>
+  					<a href="/post/listPostBynickname?postCategory=4&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">Q&A</a>
+  					<a href="/post/listPostBynickname?postCategory=5&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">잡담</a>
 					</div>
-				</div> --%>
+				</div> 
 				
 			
 				<div class=".col-md-10">
@@ -75,7 +82,7 @@
    						 </form>
    					<c:if test="${ !empty user }"> 
    					<a type="button" id="${nickname}" class="btn btn-outline-info">내 글 보기</a>
-  					<a type="button" href="#" class="btn btn-outline-info">내 댓글 보기</a>
+  					<a type="button" id="${nickname}" class="btn btn-outline-info">내 댓글 보기</a>
   					</c:if>
    						  <div class="form-group">
    							 <select class="custom-select">
@@ -113,7 +120,7 @@
 								<td></td>
 								<td align="left" id="${post.postNo}">${post.postTitle}</td>
 								<td></td>			
-								<td align="left">${post.postDate}</td>
+								<td align="left">${fn:substring(post.postDate, 0, 10)}</td>
   								<td></td>			
 								<td align="left">${post.viewCount}</td>
   					</tr>

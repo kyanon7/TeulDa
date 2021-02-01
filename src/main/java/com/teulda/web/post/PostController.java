@@ -118,6 +118,9 @@ import com.teulda.service.user.UserService;
 //		System.out.println("===========================");
 //		System.out.println("이건 User값입니다"+user);
 //		System.out.println("===========================");
+		
+		
+		
 		Post post = postService.getPost(postNo);
 		List<Comment> commentList = postService.getCommentList(postNo);
 		
@@ -130,11 +133,21 @@ import com.teulda.service.user.UserService;
 		model.addAttribute("post", post);
 		
 		
-
-		if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
-			return "forward:/post/getMyPost.jsp";
-		}else {
+		if(((User) session.getAttribute("user")).getNickname() == null) {
 			return "forward:/post/getPost.jsp";
+		}else if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+			return "forward:/post/getMyPost.jsp";
+		}else{
+			postService.updatePostViewCount(postNo);
+			return "forward:/post/getPost.jsp";
+
+//		if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+//			return "forward:/post/getMyPost.jsp";
+//		}else if(((User) session.getAttribute("user")).getNickname() == null) {
+//			return "forward:/post/getPost.jsp";
+//		}else{
+//			postService.updatePostViewCount(postNo);
+//			return "forward:/post/getPost.jsp";
 		}
 	}
 	
@@ -245,9 +258,40 @@ import com.teulda.service.user.UserService;
 		model.addAttribute("comment", comment);
 
 		if(((User) session.getAttribute("user")).getNickname() != null && comment.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
-			return "redirect:/post/getMyPost.jsp";
+			return "forward:/post/getMyPost.jsp";
 		}else {
-			return "redirect:/post/getPost.jsp";
+			return "forward:/post/getPost.jsp";
 		}
+	}
+	
+	@RequestMapping(value="listMyComment",  method= {RequestMethod.GET, RequestMethod.POST})
+	public String listMyComment(@ModelAttribute("search") Search search, @RequestParam String nickname, Model model) throws Exception{
+		
+		System.out.println("/comment/listMyComment GET/POST");
+		
+
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		
+		if (search.getSearchSorting() == null) {
+			search.setSearchSorting("0");
+		}
+		search.setPageSize(pageSize);
+		//search.setSearchSorting("3");
+		
+		
+		Map<String, Object> map = postService.getMycommentList(search, nickname);
+
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("commentList", map.get("commentList"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/post/listMyComment.jsp";
+		
 	}
 }

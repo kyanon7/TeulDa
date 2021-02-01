@@ -19,6 +19,7 @@
 		
 		
 		
+		
 	<script type="text/javascript">
 	
 	function fncGetList(currentPage){
@@ -37,7 +38,13 @@
 	
 	$(function(){
 		$("a:contains('내 글 보기')").on("click", function(){
-			self.location = "/post/listPostBynickname?postCategory="+1+"&nickname="+${sessionScope.user.nickname}
+			self.location = "/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}"
+		});
+	});
+	
+	$(function(){
+		$("a:contains('내 댓글 보기')").on("click", function(){
+			self.location = "/post/listMyComment?nickname=${sessionScope.user.nickname}"	
 		});
 	});
 	
@@ -50,6 +57,7 @@
 		$(".breadcrumb-item").on("click", function(){
 			
 			$("#searchSorting").val($(this).attr('value'));
+			$("#postCategory").val($(this).attr('value')); //각각의 포스트 카테고리에 맞는 value값을 넣어줘야하는데 어떻게 할지 생각해보기
 			fncGetList(1);
 		});
 	});
@@ -93,20 +101,22 @@
 				</div> --%>
 		
 				<div class="row">
-				<div class=".col-md-2">
+				<div class=".col-md-9">
 				<input type="hidden" id="currentPage" name="currentPage" value=""/>
 				<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
 				
 				<input type="hidden" id="postCategory" name="postCategory" value="${postCategory}"/>
+				<input type="hidden" name="searchSorting" id="searchSorting" value="${ search.searchSorting }"> <!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
 					<ol class="breadcrumb">
  						 <li class="breadcrumb-item" value="0"><a ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최신순</a></li>
   						 <li class="breadcrumb-item" value="1"><a ${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>조회순</a></li>
   				   </ol>
+  				   
   			</div>
   				<div class="col-md-7">	 
    					<c:if test="${ !empty user }"> 
-   					<a type="button" class="btn btn-outline-info">내 글 보기</a>
-  					<a type="button" href="#" class="btn btn-outline-info">내 댓글 보기</a>
+   					<a type="button" id="${nickname}" class="btn btn-outline-info">내 글 보기</a>
+  					<a type="button" id="${nickname}" class="btn btn-outline-info">내 댓글 보기</a>
   					</c:if>
   				</div>
   			</div>

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -69,7 +71,7 @@
 			<div class="card border-secondary md-6" style="width: 55rem;">
   			<div class="card-header">
   			
-  			 작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 : ${post.postDate } &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  			 작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 : ${fn:substring(post.postDate, 0, 10)} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
   			 &nbsp; &nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 조회수 : ${post.viewCount} 
   			</div>
  			 <div class="card-body">
@@ -82,7 +84,7 @@
  			 </div>
  			 <br/><br/>
  			 
- 			 
+ 	<c:if test="${ !empty user }"> 		 
  		<form name="addComment">
 			 <br/><br/>
 			 <input type="text" name="commentContents" class="form-control" placeholder="댓글달아봐요~"/>
@@ -114,7 +116,7 @@
       			 </tr>
       			 </c:forEach> --%>
     <!-- 	</tbody>
-    </table> -->
+    </table> --></c:if>
 			 			</div>
 					</div>
 				</div>

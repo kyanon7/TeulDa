@@ -121,8 +121,8 @@
 										<if test="searchCondition == 2 and searchCondition !='' ">
 											AND content like '%'||#{searchKeyword}||'%'
 										</if>
-										</where>
-									</if>
+									</where>
+					</if>
 										<choose>
 											<when test="searchSorting == 0"> <!-- 디폴트  -->
 												ORDER BY post_id DESC
@@ -183,7 +183,7 @@
       	  FROM POST) countTable 
 	</select>
 	
-	<select  id="getMycommentList"  parameterType="search"	 resultType="string">
+	<select  id="getMycommentList"  parameterType="string"	 resultMap="commentSelectMap">
 	SELECT *
 	FROM COMMENTS
 	WHERE nickname = #{nickname}

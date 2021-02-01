@@ -119,9 +119,9 @@ import com.teulda.service.post.PostService;
 	
 		Map<String, Object> map =  new HashMap<String, Object>();
 		
-		List <Comment> myCommetList = postDao.getMycommentList(search, nickname);
+		List <Comment> commetList = postDao.getMycommentList(search, nickname);
 		
-		map.put("list", myCommetList);
+		map.put("commentList", commetList);
 		map.put("totalCount", new Integer(postDao.getMycommentTotalCount(search, nickname)));
 		
 		return map;
