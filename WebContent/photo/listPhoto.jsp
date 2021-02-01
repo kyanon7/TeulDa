@@ -45,7 +45,21 @@
 				
 			});
 		});
-
+		
+		/* $(function(){
+			$('p:contains("이름수정")').on("click", function(){
+				$('#updateGroupName').attr("type", "text");
+				$('.card-header small').attr("style","display:none;")
+			})
+		}) */
+		
+		$(function(){
+			$('.card-header small').on("click", function(){
+				$('#updateGroupName').attr("type", "text");
+				$('.card-header small').attr("style","display:none;")
+			})
+		})
+		
 		</script>
 	</head>
 
@@ -79,26 +93,7 @@
 				<div class="col-md-9">
   					<div class="list-group">
   					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a><br/><br/>
-  					
-	  			<%-- 		<c:set var = "i" value = "0" />
-		          			<c:forEach var = "group" items = "${groupList}">
-		            	<c:set var = "i" value = "${i+1}" />
-		            	<div class="col-md-4">
-		            		<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
-		               		<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
-		              		<div class="card-body">
-		                		<h5 class="card-title">${group.groupName}</h5>
-		                		<span class="getPhoto" id="${group.groupNo}">
-		                			<input type="hidden" value="${group.groupNo}"/>
-		                		</span>
-				                <p class="card-text">${group.groupNo}</p>
-				                <p class="card-text"><small class="text-muted">${group.deleteDate}</small></p>
-				                <p class="card-text"><small class="text-muted">${group.nickname}</small></p>
-				                <p class="card-text" id="delete" style="text-align:right;"><small class="text-muted">삭제</small></p>
-		                	</div>
-		                	</div>
-		                	</div>
-		                	</c:forEach> --%>
+
 		          <div class="row"> 
 					<c:set var="i" value="0" />
 					<c:forEach var = "group" items = "${ groupList }">
@@ -108,13 +103,15 @@
 								<div class="card-header">
 <%-- 									<img src="../resources/images/marker_blue.png" height="12px"
 										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
-									<small>${ group.groupName}</small>
+									<input type="hidden" id="updateGroupName" value="${group.groupName}">
+									<small style="">${ group.groupName}</small>
 								</div>
 								<div class="card-body">
 									<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
 									<h5 class="card-title" id ="${group.groupNo}">${ group.groupName }</h5>
 									<p class="card-text" id="content">
 									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small></p>
+									<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small></p>
 <%-- 									${ diary.content } --%> 
 									<%-- <c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /> --%>
 								<div class="groupNo" style="display:none;">${group.groupNo}</div>
