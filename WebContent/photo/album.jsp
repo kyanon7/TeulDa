@@ -17,14 +17,6 @@
 		
 		<script>
 		
-		function removeCheck() {
-
- 			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
- 				document.detailForm.action="/photo/deletePhoto";
- 			}else{   //취소
-     			return false;
- 			}
-		}
 		$(function(){
 			$("#addPhoto").on("click", function(){
 				if($('form[name="fileForm"]').css("display") == "none"){
@@ -33,15 +25,14 @@
 				    $('form[name="fileForm"]').hide();
 				}	
 			});
-		});/* 
-		function buttonClick(){
-			if($("fileForm").css("display") == "none"){
-			    $("fileForm").show();
-			} else {
-			    $("fileForm").hide();
-			};
-		}
-		 */
+		});
+		
+		$(function(){
+			$("p:contains('이동')").on("click",function(){
+				window.open("/photo/listPhoto", "updateGroupNo", "width=400, height=300, left=100, top=50");
+			});
+		});
+		
 		</script>
 	</head>
 
@@ -51,7 +42,7 @@
 			<jsp:include page="../layout/toolbar.jsp"/>
 		</header><br/><br/>
 		<!-- End Header -->
-
+		
   		<div class="container">
   		
   			<div class="row">
@@ -62,6 +53,7 @@
 							<button type="button" id="addPhoto" class="btn btn-outline-info"> + 사진등록</button><br/>
 							  	<form name="fileForm" action="/photo/addPhoto" method="post" enctype="multipart/form-data" style="display:none;">
 							        <input multiple="multiple" type="file" name="file"/>
+							        <input type="hidden" name="groupNo" value="${groupNo}"/>
 							        <!-- <input type="text" name="photoAddr" /> -->
 							        <input type="text" id="photoName" name="photoAddr" style="height: 38pt;" placeholder="주소를 입력해주세요" value=""/>
 							        <input type="submit" class="btn btn-outline-info" value="사진등록" />
@@ -94,9 +86,9 @@
 									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
 									<p class="card-text" id="content">
 									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small></p>
-									<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small></p>
+									<p class="card-text" style="text-align:right;"><small class="text-muted">이동</small></p>
 								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
-									
+								
 								</div>
 							</div>
 						</div>

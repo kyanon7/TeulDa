@@ -93,6 +93,16 @@ public class DiaryDaoImpl implements DiaryDao {
 	public int getMyDiaryCount(String nickname) throws Exception {
 		return sqlSession.selectOne("DiaryMapper.getMyDiaryCountForMap", nickname);
 	}
+	
+	@Override
+	public List<Diary> getMyDiaryList(int groupNo) throws Exception {
+		return sqlSession.selectList("DiaryMapper.getMyDiaryListByGroup", groupNo);
+	}
+	
+	@Override
+	public int getMyDiaryCount(int groupNo) throws Exception {
+		return sqlSession.selectOne("DiaryMapper.getMyDiaryCountByGroup", groupNo);
+	}
 
 	@Override
 	public List<Diary> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception {

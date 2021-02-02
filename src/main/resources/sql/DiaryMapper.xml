@@ -167,6 +167,7 @@
 	SELECT group_id, group_name
 	FROM groups
 	WHERE nickname = #{nickname} and group_type = 2 
+	ORDER BY group_id
 	</select> 
 	
 	<!-- SQL : SELECT LIST --> <!-- Search 조건 없이 뽑아오기 위함! for map -->
@@ -179,14 +180,32 @@
     </select> 
     
     <!-- SQL : SELECT ROW Count -->	 
-	<select  id="getMyDiaryCountForMap"  parameterType="map"	 resultType="int">
+	<select  id="getMyDiaryCountForMap"  parameterType="String"	 resultType="int">
     SELECT COUNT(*)
     FROM    (SELECT diary_id
              FROM diary
              WHERE origin_nick = #{nickname})
 	</select>
 	
-	<!-- SQL : SELECT LIST --> <!-- 추후 Search 조건 추가하기 -->
+	<!-- SQL : SELECT LIST --> <!-- 특정 Group에 속한 다이어리만 뽑아오기 위함! -->
+	<select  id="getMyDiaryListByGroup"  parameterType="int"	resultMap="diarySelectMap">
+	SELECT  d.diary_id, d.title, d.diary_addr,
+        	d.diary_date, d.start_date, d.end_date,
+       		d.content, d.thumbnail, d.group_id, g.group_name
+    FROM DIARY d, GROUPS g
+    WHERE d.group_id = g.group_id
+          AND d.group_id = #{groupNo}
+	</select>
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	<select  id="getMyDiaryCountByGroup"  parameterType="int"	 resultType="int">
+    SELECT COUNT(*)
+    FROM    (SELECT diary_id
+             FROM diary
+             WHERE group_id = #{groupNo})
+	</select>
+	
+	<!-- SQL : SELECT LIST --> 
 	<select  id="getMyDiaryList"  parameterType="map"	resultMap="diarySelectMap">
 	SELECT * 
 	FROM 	(select inner_table.*, rownum as row_seq
@@ -274,7 +293,7 @@
         			</choose>
        		) countTable
 	</select>
-	
+		
 	<!-- SQL : SELECT LIST --> 
 	<!-- 통합검색에서 보이는 기록 리스트는 공개 기록이여야 하며, 삭제일자가 없어야 하며, 스크랩된 기록이 아니여야 한다 -->
 	<!-- searchCondition : 제목/내용/여행장소/작성자 닉네임 & searchSorting : 최신순/조회수/스크랩 횟수 많은순 -->

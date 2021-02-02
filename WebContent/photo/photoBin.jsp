@@ -42,7 +42,7 @@
   				<!-- diary toolbar로 빼도 될 듯 -->
   				  	<div class="col-md-3">
 						<div class="list-group">
-							<button type="button" class="btn btn-link disabled">~ 사진을 봅시다 ~</button>
+							<button type="button" class="btn btn-link disabled">~ 삭제한 사진을 봅시다 ~</button>
 							<button type="button" id="deletePhoto" class="btn btn-outline-info" onclick="removeCheck()"> 휴지통 비우기</button><br/>
 							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
 							<a href="/photo/listPhoto" class="list-group-item list-group-item-action"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>

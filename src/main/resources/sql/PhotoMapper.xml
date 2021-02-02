@@ -37,9 +37,7 @@
 		INTO photo ( photo_id, photo_group_id, photo_name, photo_addr, 
 					 photo_date, delete_date )
 		VALUES ( seq_photo_photo_id.nextval, 
-		(select group_id 
-		from groups
-		where nickname='${nickname}' and group_name = 'default1'),
+		${photoGroupNo},
 		'${photoName}', '${photoAddr}', sysdate, null)
 	</insert>
 	

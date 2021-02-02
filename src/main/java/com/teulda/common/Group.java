@@ -10,6 +10,7 @@ public class Group {
 	private String nickname;
 	private Date deleteDate;
 	private String groupType; // 사진 그룹 : 1 / 기록 그룹 : 2 / 스크랩 그룹 : 3
+	private int contentCount; // 그룹 안에 들어간 사진 or 기록 갯수
 
 	public int getGroupNo() {
 		return groupNo;
@@ -51,10 +52,18 @@ public class Group {
 		this.groupType = groupType;
 	}
 
+	public int getContentCount() {
+		return contentCount;
+	}
+
+	public void setContentCount(int contentCount) {
+		this.contentCount = contentCount;
+	}
+
 	@Override
 	public String toString() {
 		return "Group [groupNo=" + groupNo + ", groupName=" + groupName + ", nickname=" + nickname + ", deleteDate="
-				+ deleteDate + ", groupType=" + groupType + "]";
+				+ deleteDate + ", groupType=" + groupType + ", contentCount=" + contentCount + "]";
 	}
 
 }
