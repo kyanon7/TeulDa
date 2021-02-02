@@ -64,7 +64,7 @@ public class SubscribeController {
 //		model.addAttribute("diaryListMonthBefore", diaryListMonthBefore);
 //		model.addAttribute("diaryListBefore", diaryListBefore);
 		
-		return "forward:/subscribe/abc.jsp";
+		return "forward:/subscribe/listSubscribe.jsp";
 	}
 
 //	@RequestMapping(value="listSubscribe")
