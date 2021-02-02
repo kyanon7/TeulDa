@@ -141,16 +141,48 @@ public class DiaryController {
 		Page resultPage	= // 페이지 나누는 것을 추상화 & 캡슐화 한 Page 클래스 이용 
 				new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
-		// 기록 그룹 찾기
-		List <Group> diaryGroupList = diaryService.getDiaryGroupList(user.getNickname());
-		
 		// Model 과 View 연결
 		model.addAttribute("diaryList", map.get("diaryList")); // 기록 
 		model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
 		model.addAttribute("search", search); // 검색 정보가 담겨있음 
-		model.addAttribute("diaryGroupList", diaryGroupList);
 		
 		return "forward:/diary/listDiary.jsp";
+	}
+	
+	@RequestMapping(value="listDiaryByGroup", method= RequestMethod.GET)
+	public String listDiaryByGroup(@RequestParam("groupNo") int groupNo, Model model) throws Exception {
+		
+		System.out.println("/diary/listDiaryByGroup : GET");
+		
+		// Business logic 수행
+		Map<String, Object> map = diaryService.getMyDiaryList(groupNo);
+		
+		// Model 과 View 연결
+		model.addAttribute("diaryList", map.get("diaryList")); // 기록 
+		model.addAttribute("totalCount", ((Integer)map.get("totalCount")).intValue()); 
+		
+		return "forward:/diary/listDiaryByGroup.jsp";
+	}
+	
+	@RequestMapping(value="listDiaryGroup", method= RequestMethod.GET)
+	public String listDiaryGroup(HttpSession session, Model model) throws Exception {
+		
+		System.out.println("/diary/listDiaryGroup : GET");
+		
+		User user = (User) session.getAttribute("user");
+		
+		// 기록 그룹 찾기
+		List <Group> diaryGroupList = diaryService.getDiaryGroupList(user.getNickname());
+		
+		// 찾은 기록 그룹에 들어있는 기록 갯수 세팅 
+		for (int i = 0; i < diaryGroupList.size(); i++) {
+			int contentCount = diaryService.getMyDiaryCountByGroup(diaryGroupList.get(i).getGroupNo());
+			diaryGroupList.get(i).setContentCount(contentCount);
+		}
+		
+		model.addAttribute("diaryGroupList", diaryGroupList);
+		
+		return "forward:/diary/listDiaryGroup.jsp";
 	}
 
 }

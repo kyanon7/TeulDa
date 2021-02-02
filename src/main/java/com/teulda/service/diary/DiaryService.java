@@ -23,11 +23,17 @@ public interface DiaryService {
 	// 기록 조회 - 완료
 	public Diary getDiary(int diaryNo) throws Exception;
 	
+	// 기록 그룹 목록 리스트 보여줄때 그룹에 속한 기록이 몇개인지 알 때 쓰임 (0개면 그룹 삭제 가능, 1개이상이면 삭제 불가능) 
+	public int getMyDiaryCountByGroup(int groupNo) throws Exception;
+	
 	// 기록 그룹 목록 리스트 (사용자가 어떤 그룹에 넣을지 선택할때 그룹 목록 리스트 필요할듯) - 완료
 	public List<Group> getDiaryGroupList(String nickname) throws Exception;
 	
 	// 내 기록 목록 리스트 - 내 기록 지도에서 쓰임
 	public Map<String, Object> getMyDiaryList(String nickname) throws Exception;
+	
+	// 내 기록 목록 리스트 - 특정 그룹에 속한 기록만 뽑아올때 쓰임 
+	public Map<String, Object> getMyDiaryList(int groupNo) throws Exception;
 	
 	// 내 기록 목록 리스트 - 내 기록 목록, 휴지통에서 쓰임 - 완료
 	public Map<String, Object> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception;

@@ -98,6 +98,11 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 	
 	@Override
+	public int getMyDiaryCountByGroup(int groupNo) throws Exception {
+		return diaryDao.getMyDiaryCount(groupNo); 
+	}
+	
+	@Override
 	// 기록 그룹 목록 보기를 위한 비즈니스 수행 
 	public List<Group> getDiaryGroupList(String nickname) throws Exception {
 		return diaryDao.getDiaryGroupList(nickname);
@@ -113,6 +118,20 @@ public class DiaryServiceImpl implements DiaryService {
 		
 		map.put("diaryList", diaryList);
 		map.put("totalCount", new Integer(diaryDao.getMyDiaryCount(nickname)));
+		
+		return map;
+	}
+	
+	@Override
+	// 내 기록 목록 리스트 - (특정 그룹에 속한 기록만 뽑아올때 쓰임)을 위한 비즈니스 수행
+	public Map<String, Object> getMyDiaryList(int groupNo) throws Exception {
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		List <Diary> diaryList = diaryDao.getMyDiaryList(groupNo);
+		
+		map.put("diaryList", diaryList);
+		map.put("totalCount", new Integer(diaryDao.getMyDiaryCount(groupNo)));
 		
 		return map;
 	}

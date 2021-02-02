@@ -110,6 +110,7 @@ public class PhotoController {
 		
 		model.addAttribute("photoList", map.get("photoList"));
 		model.addAttribute("totalCount", map.get("totalCount"));
+		model.addAttribute("groupNo", groupNo);
 		
 		return "forward:/photo/album.jsp";
 	}
@@ -153,10 +154,13 @@ public class PhotoController {
 	}
 	
     @RequestMapping(value = "addPhoto", method=RequestMethod.POST)
-    public String addPhoto(MultipartHttpServletRequest mtfRequest, HttpSession session) throws Exception{
+    public String addPhoto(@RequestParam(value="groupNo") int groupNo, MultipartHttpServletRequest mtfRequest, HttpSession session) throws Exception{
         
     	User user = (User)session.getAttribute("user");
-    	
+    	System.out.println(user.getNickname());
+//    	int groupNo = Integer.parseInt((String) request.getAttribute("groupNo"));
+    	System.out.println("groupNo : "+groupNo);
+    
     	List<MultipartFile> fileList = mtfRequest.getFiles("file");
         String photoAddr = mtfRequest.getParameter("photoAddr");
         System.out.println("photoAddr value : " + photoAddr);
@@ -184,6 +188,7 @@ public class PhotoController {
             photo.setPhotoName(photoName);
             photo.setNickname(user.getNickname());
             photo.setPhotoAddr(photoAddr);
+            photo.setPhotoGroupNo(groupNo);
             
             photoService.addPhoto(photo);
             
@@ -198,7 +203,7 @@ public class PhotoController {
             }
         }
 
-        return "redirect:/photo/listPhoto";
+        return "redirect:/photo/album?groupNo="+groupNo;
     }
     
     //그룹, 사진 영구삭제(휴지통)
