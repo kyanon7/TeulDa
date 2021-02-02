@@ -22,13 +22,13 @@
 		
 	<script type="text/javascript">
 	
-	function fncGetList(currentPage){
+/* 	function fncGetList(currentPage){
 		
 		$("#currentPage").val(currentPage);
 	   	$("form[name='detailForm']").attr("method", "POST").attr("action", "/post/listPost").submit();
-	   	
-	}
 	
+	}
+	 */
 
 	$(function(){
 		$(".ct_list_pop td:nth-child(5)").on("click", function(){
@@ -51,14 +51,15 @@
 	$(function(){
 		
 		$("button:contains('Search')").on("click", function () { // 검색 버튼
-			fncGetList(1); 
+			self.loacation = "/post/listPost?currentPage=1&postCategory=${postCategory}$searchCondition="+$(this).attr('value')+"&searchKeyword="+$(this).attr('value')		
 		});
 		
 		$(".breadcrumb-item").on("click", function(){
 			
-			$("#searchSorting").val($(this).attr('value'));
-			$("#postCategory").val($(this).attr('value')); //각각의 포스트 카테고리에 맞는 value값을 넣어줘야하는데 어떻게 할지 생각해보기
-			fncGetList(1);
+			self.location = "/post/listPost?currentPage=1&postCategory=${postCategory}&searchSorting="+$(this).attr('value')/* +"currentPage=1" */			
+		/* 	$("#searchSorting").val($(this).attr('value'));
+			$("#postCategory").val($(this).attr('value'));
+			fncGetList(1); */
 		});
 	});
 	
@@ -105,12 +106,13 @@
 				<input type="hidden" id="currentPage" name="currentPage" value=""/>
 				<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
 				
-				<input type="hidden" id="postCategory" name="postCategory" value="${postCategory}"/>
-				<input type="hidden" name="searchSorting" id="searchSorting" value="${ search.searchSorting }"> <!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
+				<%--  <input type="hidden" id="postCategory" name="postCategory" value="${postCategory}"/>   --%>
+			
 					<ol class="breadcrumb">
  						 <li class="breadcrumb-item" value="0"><a ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최신순</a></li>
   						 <li class="breadcrumb-item" value="1"><a ${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>조회순</a></li>
   				   </ol>
+  			<input type="hidden" name="searchSorting" id="searchSorting" value="${ search.searchSorting }"> <!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
   				   
   			</div>
   				<div class="col-md-7">	 
@@ -141,7 +143,7 @@
     					</div>
     				</div> 
     			</div>
-			</form>	
+			
 			
 			<div class="row">
     					<div class="col-md-7">
@@ -213,6 +215,6 @@
     </li>
   </ul>
 </div>
-
+</form>	
 	</body>
 </html>

@@ -37,6 +37,21 @@
 		});
 	});
 	
+	$(function(){
+		
+		$("button:contains('Search')").on("click", function () { // 검색 버튼
+			self.loacation = "/post/listPost?currentPage=1&postCategory=${postCategory}$searchCondition="+$(this).attr('value')+"&searchKeyword="+$(this).attr('value')		
+		});
+		
+		$(".breadcrumb-item").on("click", function(){
+			
+			self.location = "/post/listPostBynickname?nickname=${sessionScope.user.nickname}&currentPage=1&postCategory=${postCategory}&searchSorting="+$(this).attr('value')/* +"currentPage=1" */			
+		/* 	$("#searchSorting").val($(this).attr('value'));
+			$("#postCategory").val($(this).attr('value'));
+			fncGetList(1); */
+		});
+	});
+	
 
 		</script>
 	</head>
@@ -47,6 +62,7 @@
 			<jsp:include page="../layout/toolbar.jsp"/>
 		</header><br/><br/>
 		<!-- End Header -->
+		<form name="detailForm">	
 
   		<div class="container">
   			<div class="row">
@@ -61,8 +77,8 @@
   					<c:if test="${ !empty user }">
   					<a type="button" href="/post/addPost" class="btn btn-outline-info">+ 새 글 작성</a><br/>
   					</c:if>
-  					
-  					<a href="/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action active" type="button">여행지 정보공유</a>
+  					<a href="/post/listPostBynickname?postCategory=0&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action" type="button">자유 게시글</a>
+  					<a href="/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action" type="button">여행지 정보공유</a>
   					<a href="/post/listPostBynickname?postCategory=2&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">맛집 정보공유</a>
   					<a href="/post/listPostBynickname?postCategory=3&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">숙소 정보공유</a>
   					<a href="/post/listPostBynickname?postCategory=4&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">Q&A</a>
@@ -71,29 +87,53 @@
 				</div> 
 				
 			
-				<div class=".col-md-10">
+				<div class="row">
+				<div class=".col-md-9">
+				<input type="hidden" id="currentPage" name="currentPage" value=""/>
+				<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
+				
+				<%--  <input type="hidden" id="postCategory" name="postCategory" value="${postCategory}"/>   --%>
+			
 					<ol class="breadcrumb">
- 						 <li class="breadcrumb-item"><a href="#">최신순</a></li>
-  						 <li class="breadcrumb-item"><a href="#">조회순</a></li>
+ 						 <li class="breadcrumb-item" value="0"><a ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최신순</a></li>
+  						 <li class="breadcrumb-item" value="1"><a ${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>조회순</a></li>
   				   </ol>
-  						  <form class="form-inline">
-    						  <input class="form-control mr-sm-2" type="text" placeholder="Search">
-    						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-   						 </form>
+  			<input type="hidden" name="searchSorting" id="searchSorting" value="${ search.searchSorting }"> <!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
+  				   
+  			</div>
+  				<div class="col-md-7">	 
    					<c:if test="${ !empty user }"> 
    					<a type="button" id="${nickname}" class="btn btn-outline-info">내 글 보기</a>
   					<a type="button" id="${nickname}" class="btn btn-outline-info">내 댓글 보기</a>
   					</c:if>
-   						  <div class="form-group">
-   							 <select class="custom-select">
-    						  <option selected="">Open this select menu</option>
-     						 <option value="1">제목</option>
-     						 <option value="2">내용</option>
-     					 <option value="3">제목+내용</option>
-     					 <option value="4">작성자</option>
+  				</div>
+  			</div>
+  		
+  			<div class="row">
+  				<div class="col-md-2">
+   					<div class="form-group">
+   					<select class="custom-select" name="searchCondition" style="width: 200px; height: 50px;">
+     						 <option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>작성자</option>
+     						 <option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>제목</option>
+     						 <option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>내용</option>
    					 </select>
-				
-					<!-- <div class=".col-md-6"> -->
+   					 </div>
+   				</div>
+   					<div class="col-md-7">
+    						  <input class="form-control mr-sm-2" name="searchKeyword" type="text" placeholder="Search"  id="inputDefault"
+    						  value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+    				</div>
+    				
+    				
+    						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    					</div>
+    				</div> 
+    			</div>
+			
+			
+			<div class="row">
+    					<div class="col-md-7">
+    					
   					 	<table class="table table-hover">
  					 <thead>
    					 <tr>
@@ -127,16 +167,17 @@
   					</c:forEach>	
     			<tr>
 				</tr>
+			
 				</tbody>
+		
 				</table>
-				</div>
+
+ 		</div>
 		</div>
-	</div>
-</div>
- 	
- 	<div class="row">
- 	<div class=".col-md-3 .col-md-offset-3">
-  <ul class="pagination">
+ 
+<div id="bottom" style="margin:0 auto; width:300px;">
+
+  <ul class="pagination" >
     <li class="page-item disabled">
       <a class="page-link" href="#">&laquo;</a>
     </li>
@@ -160,11 +201,6 @@
     </li>
   </ul>
 </div>
-
-</div>
+</form>	
 	</body>
-	
-	
-	
-	
 </html>

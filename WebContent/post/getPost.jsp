@@ -50,6 +50,9 @@
 		
 			<div class="col-md-10">
 			
+			<c:if test="${post.postCategory eq '0'.charAt(0)}">
+       				<h4>자유 게시글 </h4>
+   			</c:if>
 			<c:if test="${post.postCategory eq '1'.charAt(0)}">
        				<h4>여행지 정보공유 </h4>
    			</c:if>

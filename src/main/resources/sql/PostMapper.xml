@@ -106,81 +106,206 @@
 	
 	<select  id="getPostList"  parameterType="map"	resultMap="postSelectMap">
 
-	SELECT post_id, nickname, title, post_date, view_count
+<!-- 	SELECT post_id, nickname, title, post_date, view_count
 	FROM POST
 	<where>
+	<if test="postCategory != 0">
 		post_type = #{postCategory}
+	</if>
+
 					<if test="searchCondition != null">
 									<where>
-										<if test="searchCondition == 0 and searchCondition !='' ">
-											AND nickname like '%'||#{searchKeyword}||'%'
-										</if>
-										<if test="searchCondition == 1 and searchCondition !='' ">
-											AND title like '%'||#{searchKeyword}||'%'
-										</if>
-										<if test="searchCondition == 2 and searchCondition !='' ">
-											AND content like '%'||#{searchKeyword}||'%'
-										</if>
+											<if test="search.searchCondition eq '0'.toString() and searchCondition !='' ">
+												AND nickname like '%'||#{searchKeyword}||'%'
+											</if>
+											<if test="search.searchCondition eq '1'.toString() and searchCondition !='' ">
+												AND title like '%'||#{searchKeyword}||'%'
+											</if>
+											<if test="search.searchCondition eq '2'.toString() and searchCondition !='' ">
+												AND content like '%'||#{searchKeyword}||'%'
+											</if>
 									</where>
 					</if>
 										<choose>
-											<when test="searchSorting == 0"> <!-- 디폴트  -->
+											<when test="search.searchSorting eq '0'.toString()"> 디폴트 
 												ORDER BY post_id DESC
 											</when>
-											<when test="searchSorting == 1">
+											<when test="search.searchSorting eq '1'.toString()">
 												ORDER BY view_count DESC
 											</when>
 										</choose> 
-						</where>
+		</where> -->
+		SELECT * 
+	FROM 	(select inner_table.*, rownum as row_seq
+        	from    (SELECT  post_id, nickname, title, post_date, view_count
+                	FROM POST
+                	<where>
+                <choose>
+                		<when test="postCategory != '6'">
+                		<!-- post_type = #{postCategory} -->
+                			post_type = #{postCategory}
+                		</when>
+                	<when test="postCategory =='6'">
+                	post_type in ('1','2','3','4','5')
+               	 </when>
+                	
+                	<!-- 	<when test="postCategory == 6">
+                		post_type in ('1','2','3','4','5')
+                		</when> -->
+                	</choose>
+
+               			<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
+                				AND nickname like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> 
+                				AND title like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> 
+                				AND content like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                			</choose>
+                		</if>
+               		</where>
+               		<choose>
+        				<when test = "search.searchSorting eq '0'.toString()"> 
+        				ORDER BY post_date DESC
+        				</when>
+        				<when test = "search.searchSorting eq '1'.toString()"> 
+        				ORDER BY view_count DESC
+        				</when>
+        			</choose>
+               		) inner_table
+      		WHERE ROWNUM &lt; = #{search.endRowNum} )
+	WHERE row_seq between #{search.startRowNum} and #{search.endRowNum}
+		
 	
-	<!-- SELECT * 
-		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-			FROM		(SELECT p.post_id, p.nickname, p.title, p.post_date, p.view_count
-							FROM POST p
-								<if test="searchCondition != null">
-									<where>
-										<if test="searchCondition == 0 and searchCondition !='' ">
-											nickname = #{searchKeyword}
-										</if>
-										<if test="searchCondition == 1 and searchCondition !='' ">
-											title = #{searchKeyword}
-										</if>
-										<if test="searchCondition == 2 and searchCondition !='' ">
-											contain(content, #{searchKeyword}) > 0
-										</if>
-										</where>
-										<choose>
-											<when test="searchSorting == 0">
-												ORDER BY post_date DESC
-											</when>
-											<when test="searchSorting == 1">
-												ORDER BY view_count DESC
-											</when>
-										</choose> 
-								</if>
-				 WHERE post_type = #{postCategory}) inner_table
-				WHERE ROWNUM &lt;= #{endRowNum} )
-				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} -->   
+
 	</select>
 	
 	<select  id="getPostListBynickname"  parameterType="map"	resultMap="postSelectMap">
-	SELECT post_id, nickname, title, post_date, view_count
+	<!-- SELECT post_id, nickname, title, post_date, view_count
 	FROM POST
-	WHERE nickname = #{nickname} and post_type = #{postCategory}
-	ORDER BY post_id DESC
+	WHERE nickname = #{nickname} and post_type = #{postCategory} -->
+	
+	
+	SELECT * 
+	FROM 	(select inner_table.*, rownum as row_seq
+        	from    (SELECT  post_id, nickname, title, post_date, view_count
+                	FROM POST
+                	<where>
+                	nickname = #{nickname}
+					<if test="postCategory != 0">
+							and post_type = #{postCategory}
+					</if>
+               				<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
+                				AND nickname like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> 
+                				AND title like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> 
+                				AND content like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                			</choose>
+                		</if>
+               		</where>
+               		<choose>
+        				<when test = "search.searchSorting eq '0'.toString()"> 
+        				ORDER BY post_date DESC
+        				</when>
+        				<when test = "search.searchSorting eq '1'.toString()"> 
+        				ORDER BY view_count DESC
+        				</when>
+        			</choose>
+               		) inner_table
+      		WHERE ROWNUM &lt; = #{search.endRowNum} )
+	WHERE row_seq between #{search.startRowNum} and #{search.endRowNum}
+	
+	
 	</select>
 	
 
 	<select  id="getPostTotalCount"  parameterType="search"	 resultType="int">
 	SELECT COUNT(*)
-	FROM (SELECT    post_id, nickname, title, content, post_date, view_count, post_type
-      	  FROM POST) countTable 
+	FROM (SELECT    
+		post_id
+      	  FROM POST
+      	  <where>
+      <choose>
+                	<when test="postCategory != '6'">
+                		<!-- post_type = #{postCategory} -->
+                			post_type = #{postCategory}
+                		</when>
+                	<when test="postCategory =='6'">
+                	post_type in ('1','2','3','4','5')
+               	 </when>
+                	
+                	<!-- 	<when test="postCategory == 6">
+                		post_type in ('1','2','3','4','5')
+                		</when> -->
+                	</choose>
+
+               			<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
+                				AND nickname like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> 
+                				AND title like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> 
+                				AND content like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                			</choose>
+                		</if>
+               		</where>
+               		<choose>
+        				<when test = "search.searchSorting eq '0'.toString()"> 
+        				ORDER BY post_date DESC
+        				</when>
+        				<when test = "search.searchSorting eq '1'.toString()"> 
+        				ORDER BY view_count DESC
+        				</when>
+        			</choose>
+               		) countTable 
 	</select>
 	
 	<select  id="getPostBynicknameTotalCount"  parameterType="map"	 resultType="int">
 	SELECT COUNT(*)
 	FROM (SELECT    post_id, nickname, title, content, post_date, view_count, post_type
-      	  FROM POST) countTable 
+      	  FROM POST
+      	  <where>
+                	nickname = #{nickname}
+					<if test="postCategory != 0">
+							and post_type = #{postCategory}
+					</if>
+               				<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
+                				AND nickname like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> 
+                				AND title like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> 
+                				AND content like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                			</choose>
+                		</if>
+               		</where>
+               		<choose>
+        				<when test = "search.searchSorting eq '0'.toString()"> 
+        				ORDER BY post_date DESC
+        				</when>
+        				<when test = "search.searchSorting eq '1'.toString()"> 
+        				ORDER BY view_count DESC
+        				</when>
+        			</choose>
+               		) countTable 
 	</select>
 	
 	<select  id="getMycommentList"  parameterType="string"	 resultMap="commentSelectMap">
@@ -228,9 +353,10 @@
 		FROM PHOTO
 		WHERE photo_id = #{photoNo}
 	</delete> -->
-
 	
-
+	
+	
+	
 	
 
 </mapper>
