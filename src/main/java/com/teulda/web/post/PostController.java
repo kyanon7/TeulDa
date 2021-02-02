@@ -94,9 +94,16 @@ import com.teulda.service.user.UserService;
 		search.setPageSize(pageSize);
 		//search.setSearchSorting("3");
 		
+		System.out.println("////////////////////////////////");
+		System.out.println(search);
+		System.out.println("////////////////////////////////");
 		
 		Map<String, Object> map = postService.getPostList(search, postCategory);
-
+		
+		System.out.println("////////////////////////////////");
+		System.out.println(postCategory);
+		System.out.println("////////////////////////////////");
+		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
@@ -214,6 +221,7 @@ import com.teulda.service.user.UserService;
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
+		model.addAttribute("postCategory", postCategory);
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
