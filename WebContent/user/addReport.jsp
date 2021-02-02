@@ -33,6 +33,8 @@
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
+	
+
 		//============= "가입"  Event 연결 =============
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -90,7 +92,7 @@
 <form data-dpmaxz-fid="4">
   <fieldset>
   	<input type="hidden" name="reporterNick" value="${user.nickname}" />
-  	<input type="hidden" name="targetNick" value="${targetNick}" />
+  	<input type="text" name="targetNick" value="${targetNick}" />
   
   	<br/><br/>
 	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;신고</h1>

@@ -179,7 +179,7 @@ public class UserServiceTest {
 					  }
 				 //대략완
 				//신고등록
-					//@Test
+					@Test
 					public void testAddReport() throws Exception {
 						
 						System.out.println("debug");

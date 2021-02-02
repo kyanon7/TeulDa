@@ -81,12 +81,12 @@
 	
 	<!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> -->
 	
-		<!-- 이메일 관련 
+		<!-- 이메일 관련 -->
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    <property name="host" value="smtp.gmail.com" />
 	    <property name="port" value="587" />
-	    <property name="username" value="아이디@gmail.com" />
-	    <property name="password" value="비밀번호" />
+	    <property name="username" value="corud1130@gmail.com" />
+	    <property name="password" value="rhdeosu8575" />
 	    <property name="javaMailProperties">
 	        <props>
 	            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
@@ -95,9 +95,9 @@
 	        </props>
 	    </property>
 	</bean>
-	<bean id="mailService" class="service.mail.impl.MailServiceImpl">
+	<bean id="mailService" class="com.teulda.service.mail.impl.MailServiceImpl">
 	    <property name="javaMailSender" ref="javaMailSender" />
-	</bean-->
+	</bean>
 
 	<!-- 	:: exception resolver  선언 :: 서술적 / 선언적 예외처리 
 			:: Servlet 에서의 선언적 예외처리를 다시 생각하며....  -->
