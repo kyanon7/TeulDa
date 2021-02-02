@@ -52,7 +52,7 @@
 				</div>
 				<div class="col-md-9">
   					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a><br/><br/>
+  					<a href="#" class="list-group-item list-group-item-action active">Delete Album List</a><br/><br/>
 				<div class="row"> 
 					<c:set var="i" value="0" />
 					<c:forEach var = "group" items = "${ groupList }">
@@ -60,8 +60,6 @@
 						<div class="col-md-4">
 							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
 								<div class="card-header">
-<%-- 									<img src="../resources/images/marker_blue.png" height="12px"
-										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
 									<small>${ group.groupName}</small>
 								</div>
 								<div class="card-body">
@@ -69,37 +67,45 @@
 									<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
 									<p class="card-text" id="content">
 									<p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">복구</a></small></p>
-<%-- 									${ diary.content } --%> 
-									<%-- <c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /> --%>
-									</p>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					<!-- PageNavigation Start... -->
+					<jsp:include page="../common/pageNavigator.jsp" />
+					<!-- PageNavigation End... -->
+			    </div>
+				
+				<div class="col-md-3"></div>
+				
+				<div class="col-md-9">
+  					<div class="list-group">
+  					<a href="#" class="list-group-item list-group-item-action active">Delete Photo List</a><br/><br/>
+		          <div class="row"> 
+					<c:set var="i" value="0" />
+					<c:forEach var = "photo" items = "${ photoList }">
+						<c:set var="i" value="${ i+1 }" />
+						<div class="col-md-4">
+							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
+								<div class="card-header">
+<%-- 									<img src="../resources/images/marker_blue.png" height="12px"
+										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
+									<input type="hidden" id="updateGroupName" value="${photo.photoName}">
+									<small style="">${ photo.photoName}</small>
+								</div>
+								<div class="card-body">
+									<h5 class="card-title" id ="${photo.photoNo}">${photo.photoName}</h5>
+									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
+									<p class="card-text" id="content">
+									<p class="card-text" style="text-align:right;"><small class="text-muted">복구</small></p>
+								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
+									
 								</div>
 							</div>
 						</div>
 					</c:forEach>
 
 			    </div>
-				
-				<div class="col-md-3"></div>
-				
-				<div class="col-md-9">
-	  					<div class="list-group">
-	  					<a href="#" class="list-group-item list-group-item-action active">Delete Photos</a></br></br>
-	  					
-		  					<c:set var = "i" value = "0" />
-			          			<c:forEach var = "photo" items = "${photoList}">
-			            	<c:set var = "i" value = "${i+1}" />
-			            		<div class="card" style="width: 18rem">
-			               		<img class="card-img-top" src="..." alt="${photo.photoName}">
-			              		<div class="card-body">
-			                		<h5 class="card-title">${photo.photoName}</h5>
-					                <p class="card-text">${photo.photoAddr}</p>
-					                <p class="card-text"><small class="text-muted">${photo.deleteDate}</small></p>
-					                <p class="card-text"><small class="text-muted">${photo.photoNo}</small></p>
-					                <p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">복구</a></small></p>
-			                	</div>
-			                	</div>
-			                	</c:forEach>
-			            
 						</div>
 					</div>
 					

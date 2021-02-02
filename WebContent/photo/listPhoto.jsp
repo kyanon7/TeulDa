@@ -76,7 +76,7 @@
   				
   				  	<div class="col-md-3">
 						<div class="list-group">
-							<button type="button" id="listPhoto" class="btn btn-link disabled">~ 사진을 봅시다 ~</button>
+							<button type="button" id="listPhoto" class="btn btn-link disabled">~ 앨범, 앨범을 보자 ~</button>
 							<button type="button" id="addAlbum" class="btn btn-outline-info" onclick="buttonClick();"> + 새 앨범</button><br/>
 						<span id="makeAlbum" style="display:none;">
 							<input type="text" id="groupName" name="groupName" style="height: 38pt;" placeholder="앨범명을 입력해주세요" value=""/>
@@ -84,7 +84,7 @@
 							<button type="button" class="btn btn-outline-info">만들기</button>
 						</span><br/>
 							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
-							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
+							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 앨범 목록&nbsp&nbsp${totalCount}</center></a>
 							<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
 						</div>
 	
@@ -128,12 +128,6 @@
 			
 			</div>
   		</div>
-  		
-  	<form name="fileForm" action="/photo/addPhoto" method="post" enctype="multipart/form-data">
-        <input multiple="multiple" type="file" name="file" />
-        <input type="text" name="src" />
-        <input type="submit" value="전송" />
-    </form>
 
 	</body>
 	

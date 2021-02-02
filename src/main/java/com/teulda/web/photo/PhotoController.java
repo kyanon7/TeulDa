@@ -25,9 +25,6 @@ import com.teulda.service.domain.User;
 import com.teulda.service.photo.PhotoService;
 
 
-//PhotoList(삭제, 삭제 아닌 사진)
-//PhotoGroupList(삭제, 삭제 아닌 그룹)
-
 @Controller
 @RequestMapping("/photo/*")
 public class PhotoController {
@@ -80,7 +77,7 @@ public class PhotoController {
 		
 		//로그인 없이 그냥 바로 테스트 해보려고 넣음
 		Group group = new Group();
-		group.setNickname("king정인");
+		group.setNickname(user.getNickname());
 		group.setGroupNo(10012);
 		
 		//그룹에 있는 nickname, groupNo를 받아와서 getPhotoList로 넘겨야됨
@@ -99,9 +96,7 @@ public class PhotoController {
 		System.out.println("/listPhoto");
 		
 		User user = (User)session.getAttribute("user");
-//		Group group = (Group)session.getAttribute("groupList");
-//		group.setNickname(user.getNickname());
-//		group.setGroupNo(group.getGroupNo());
+
 		int groupNo = Integer.parseInt(request.getParameter("groupNo"));
 		System.out.println("GroupNo : "+groupNo);
 		
@@ -109,7 +104,6 @@ public class PhotoController {
 		Group group = new Group();
 		group.setNickname(user.getNickname());
 		group.setGroupNo(groupNo);
-//		group.setGroupNo(10012);
 		
 		//그룹에 있는 nickname, groupNo를 받아와서 getPhotoList로 넘겨야됨
 		Map<String, Object> map = photoService.getPhotoList(group);
@@ -128,9 +122,6 @@ public class PhotoController {
 		
 		Group group = new Group();
 		group.setNickname(user.getNickname());
-		
-		//로그인 없이 그냥 바로 테스트 해보려고 넣음
-//		group.setNickname("king정인");
 		
 		Map<String, Object> map = photoService.getGroupList(group);
 		
@@ -167,11 +158,13 @@ public class PhotoController {
     	User user = (User)session.getAttribute("user");
     	
     	List<MultipartFile> fileList = mtfRequest.getFiles("file");
-        String src = mtfRequest.getParameter("src");
-        System.out.println("src value : " + src);
+        String photoAddr = mtfRequest.getParameter("photoAddr");
+        System.out.println("photoAddr value : " + photoAddr);
 
-        String path = "/Users/tjcpji/Pictures";
+        String path = "/Users/tjcpji/git/TeulDa/WebContent/resources/images/photos/";
 
+        Photo photo = new Photo();
+        
         for (MultipartFile mf : fileList) {
             String originFileName = mf.getOriginalFilename(); // 원본 파일 명
             long fileSize = mf.getSize(); // 파일 사이즈
@@ -182,11 +175,15 @@ public class PhotoController {
 
             String safeFile = path + System.currentTimeMillis() + originFileName;
             
-            System.out.println("safeFile : "+safeFile);
+            String photoName = System.currentTimeMillis() + originFileName;
             
-            Photo photo = new Photo();
-            photo.setPhotoName(originFileName);
+            System.out.println("safeFile : "+safeFile);
+            System.out.println("photoName value : "+photoName);
+
+//            photo.setPhotoName(originFileName);
+            photo.setPhotoName(photoName);
             photo.setNickname(user.getNickname());
+            photo.setPhotoAddr(photoAddr);
             
             photoService.addPhoto(photo);
             
@@ -201,7 +198,7 @@ public class PhotoController {
             }
         }
 
-        return "forward:/photo/album";
+        return "redirect:/photo/listPhoto";
     }
     
     //그룹, 사진 영구삭제(휴지통)

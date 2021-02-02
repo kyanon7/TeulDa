@@ -25,7 +25,23 @@
      			return false;
  			}
 		}
-		
+		$(function(){
+			$("#addPhoto").on("click", function(){
+				if($('form[name="fileForm"]').css("display") == "none"){
+				    $('form[name="fileForm"]').show();
+				} else {
+				    $('form[name="fileForm"]').hide();
+				}	
+			});
+		});/* 
+		function buttonClick(){
+			if($("fileForm").css("display") == "none"){
+			    $("fileForm").show();
+			} else {
+			    $("fileForm").hide();
+			};
+		}
+		 */
 		</script>
 	</head>
 
@@ -42,8 +58,14 @@
   				<!-- diary toolbar로 빼도 될 듯 -->
   				  	<div class="col-md-3">
 						<div class="list-group">
-							<button type="button" class="btn btn-link disabled">~ 사진을 봅시다 ~</button>
+							<button type="button" class="btn btn-link disabled">~ 사진, 사진을 보자 ~</button>
 							<button type="button" id="addPhoto" class="btn btn-outline-info"> + 사진등록</button><br/>
+							  	<form name="fileForm" action="/photo/addPhoto" method="post" enctype="multipart/form-data" style="display:none;">
+							        <input multiple="multiple" type="file" name="file"/>
+							        <!-- <input type="text" name="photoAddr" /> -->
+							        <input type="text" id="photoName" name="photoAddr" style="height: 38pt;" placeholder="주소를 입력해주세요" value=""/>
+							        <input type="submit" class="btn btn-outline-info" value="사진등록" />
+							    </form><br/>
 							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
 							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
 							<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
@@ -53,31 +75,40 @@
 				
 				<div class="col-md-9">
   					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">${group.groupName}</a></br></br>
-  					
-	  					<c:set var = "i" value = "0" />
-		          			<c:forEach var = "photo" items = "${photoList}">
-		            	<c:set var = "i" value = "${i+1}" />
-		            		<div class="card" style="width: 18rem">
-		               		<img class="card-img-top" src="..." alt="${photo.photoName}">
-		              		<div class="card-body">
-		                		<h5 class="card-title">${photo.photoName}</h5>
-				                <p class="card-text">${photo.photoAddr}</p>
-				                <p class="card-text"><small class="text-muted">${photo.photoDate}</small></p>
-				                <p class="card-text"><small class="text-muted">${photo.photoNo}</small></p>
-				                <p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small></p>
-		                	</div>
-		                	</div>
-		                	</c:forEach>
+  					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a><br/><br/>
+
+		          <div class="row"> 
+					<c:set var="i" value="0" />
+					<c:forEach var = "photo" items = "${ photoList }">
+						<c:set var="i" value="${ i+1 }" />
+						<div class="col-md-4">
+							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
+								<div class="card-header">
+<%-- 									<img src="../resources/images/marker_blue.png" height="12px"
+										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
+									<input type="hidden" id="updateGroupName" value="${photo.photoName}">
+									<small style="">${ photo.photoName}</small>
+								</div>
+								<div class="card-body">
+									<h5 class="card-title" id ="${photo.photoNo}">${photo.photoName}</h5>
+									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
+									<p class="card-text" id="content">
+									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small></p>
+									<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small></p>
+								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
+									
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+			    </div>
 		            
 					</div>
 				</div>
 			
 			</div>
   		</div>
-  		
-  		
-
 	</body>
 	
 	
