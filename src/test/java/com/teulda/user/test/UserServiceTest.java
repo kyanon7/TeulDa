@@ -160,7 +160,7 @@ public class UserServiceTest {
 				
 				
 		
-				@Test
+				//@Test
 				 public void testGetUserList() throws Exception{
 				 
 					 System.out.println("유저리스트 디버깅");

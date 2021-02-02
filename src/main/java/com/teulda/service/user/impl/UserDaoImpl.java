@@ -73,7 +73,7 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public List<User> getUserListPublic(Search search) throws Exception {
-		return sqlSession.selectList("UserMapper.getUserList", search);
+		return sqlSession.selectList("UserMapper.getUserListPublic", search);
 	}
 
 	@Override

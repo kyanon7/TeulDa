@@ -165,7 +165,7 @@
 	  					FROM		(	SELECT *
 											FROM users
 											<where>
-       										(is_public == 't' AND role == '1')
+       										(is_public in 't' AND role in '1')
 												<if test="searchCondition != null and searchKeyword !='' ">
 													AND 
 							                			(nickname LIKE '%'||#{searchKeyword}||'%'
@@ -321,7 +321,7 @@
 	<insert	id="addReport"	parameterType="com.teulda.service.domain.Report" >
 		INSERT
 		INTO report( report_id ,report_date , report_photo , reason , reporter_nick, target_nick, report_type)
-		VALUES	 (	#{reportNo} , SYSDATE , #{reportPhoto:VARCHAR} , #{Reason:VARCHAR}, #{reporterNick:VARCHAR}, #{targetNick:VARCHAR}, #{reportType:VARCHAR})
+		VALUES	 (	seq_report_report_id.NEXTVAL , SYSDATE , #{reportPhoto:VARCHAR} , #{Reason:VARCHAR}, #{reporterNick:VARCHAR}, #{targetNick:VARCHAR}, #{reportType:VARCHAR})
 	</insert>
 	
 		<!-- SQL : SELECT ONE 신고내역상세조회-->

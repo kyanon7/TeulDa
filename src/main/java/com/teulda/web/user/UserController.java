@@ -218,15 +218,36 @@ public class UserController {
 		return "forward:/user/listUserPublic.jsp";
 	}
 	
+	//@RequestMapping( value="addReport", method=RequestMethod.GET )
+	//public String addReport(@RequestParam("nickname") String nickname) throws Exception{
+		
+		//System.out.println("/user/addReport: GET");
+		
+		//return "forward:/user/addReport.jsp";
+	//}
+	
 	@RequestMapping( value="addReport", method=RequestMethod.GET )
 	public String addReport() throws Exception{
-	
+		
 		System.out.println("/user/addReport: GET");
 		
-		return "redirect:/user/addReport.jsp";
+		return "forward:/user/addReport.jsp";
 	}
 	
 	
+	@RequestMapping( value="addReport", method=RequestMethod.POST )
+	public String addReport( @ModelAttribute("report") Report report , Model model,
+			@RequestParam("targetNick") String targetNick, HttpServletRequest request ) throws Exception {
+
+		System.out.println("/user/addReport : POST");
+		//Business Logic
+		
+		
+		
+		report.setTargetNick(targetNick);
+		userService.addReport(report);
+		return "redirect:/";
+	}
 	
 	
 	

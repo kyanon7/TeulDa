@@ -18,12 +18,9 @@
 		<!-- Bootstrap CDN -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+
    
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
    
    <!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -44,7 +41,7 @@
 			});
 		});	
 		
-		
+		console.log(targetNick);
 		//============= "취소"  Event 처리 및  연결 =============
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -56,39 +53,20 @@
 		
 		function fncAddReport() {
 			
+			var reporterNick = "${sessionScope.user.nickname}";
 			var reason=$("input[name='reason']").val();
-			var reporttype=$("input[name='reportType']").val();
-			var reportphoto=$("input[name='reportPhoto']").val();
-			var nickname=$("input[name='nickname']").val();
+			var reportType=$("input[name='reportType']").val();
+			var reportPhoto=$("input[name='reportPhoto']").val();
+			var targetNick="${targetNick}";
 			
 		
 			
 			
-			if(email == null || email.length <1){
-				alert("이메일은 반드시 입력하셔야 합니다.");
-				return;
-			}
 			
-			if(password == null || password.length <1){
-				alert("패스워드는  반드시 입력하셔야 합니다.");
-				return;
-			}
-
-			
-			
-			if(nickname == null || nickname.length <2){
-				alert("닉네임은  반드시 입력하셔야 합니다.");
-				return;
-			}
-			
-			if(phone == null || phone.length <10){
-				alert("전화번호는  반드시 입력하셔야 합니다.");
-				return;
-			}
 		
 
 
-		 $("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+		 $("form").attr("method" , "POST").attr("action" , "/user/addReport").submit();
 		}
 		
 		
@@ -105,55 +83,42 @@
 	
    	<!-- ToolBar End /////////////////////////////////////-->
 <div class="col-lg-10"><!-- 길이지정 -->
+	
+  <input type="hidden" name="reporterNick" value="${user.nickname}" />
+  <input type="hidden" name="targetNick" value="${targetNick}" />
 <div class="bs-component"><!-- 컴포넌트는 부트스트랩에서 정의한 UI 요소로 버튼, 경고창, 네비게이션바 와 같이 화면 구성에 필요한 요소들을 정의해둔 클래스 집합 입니다 -->
 <form data-dpmaxz-fid="4">
   <fieldset>
+  	<input type="hidden" name="reporterNick" value="${user.nickname}" />
+  	<input type="hidden" name="targetNick" value="${targetNick}" />
   
   	<br/><br/>
-	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Join Our Site!</h1>
+	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;신고</h1>
 	
-	<h3 class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;필수입력정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-    
+	
     
     <div class="form-group">
-  		<label for="email" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;E-mail</label>	
+  		<label for="Reason" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;신고사유</label>	
   		<div class="col-sm-4">
-  		<input type="text" class="form-control" placeholder="E-mail" name="email" id="email" >
-  		<small class="form-text text-muted" id="emailHelp">We'll never share your email with anyone else.</small>
+  		<input type="text" class="form-control" placeholder="신고사유를 입력해 주세요" name="reason" id="reason" >
   		</div>
 	</div>
     
-   
+    
+    
+    
+    <table class="table table-hover">
+									<label for="reportType" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;신고유형</label>	
+										<th scope="col"><select class="form-control" name="reportType" style="width: 150px; height: 50px;">
+												<option value="욕설">욕설</option>
+												<option value="음란물 배포">음란물 배포</option>
+												<option value="광고성 글">광고성 글</option>
+												<option value="도배">도배</option>
+										</select></th>
+									</tr>
+								</table>
+  
 
-    <div class="form-group">
-  		<label for="password" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;비밀번호</label>
-  		<div class="col-sm-4">
-  		<input type="password" class="form-control" placeholder="password" name="password" id="password" >
-  		</div>
-	</div>
-    
-    <div class="form-group">
-  		<label for="name" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;이름</label>
-  		<div class="col-sm-4">
-  		<input type="text" class="form-control" placeholder="name" name="name" id="name" >	
-		</div>
-	</div>
-	
-	<div class="form-group">
-  		<label for="nickname" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;닉네임</label>
-  		<div class="col-sm-4">
-  		<input type="text" class="form-control" placeholder="nickname" name="nickname" id="nickname" >
-		</div>
-	</div>
-	
-	<div class="form-group">
-  		<label for="phone" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;전화번호</label>
-  		<div class="col-sm-4">
-  		<input type="text" class="form-control" placeholder="phone" name="phone" id="phone" >
-		</div>
-	</div>
-	
-	    
 
     <div class="form-group">
       <label for="exampleInputFile">File input</label>

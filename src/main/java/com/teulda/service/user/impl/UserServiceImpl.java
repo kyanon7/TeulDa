@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> getUserListPublic(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		List<User> list= userDao.getUserList(search);
+		List<User> list= userDao.getUserListPublic(search);
 		int totalCount = userDao.getTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Report {
 	
 	private int reportNo;//신고 No
+	private User reporter;
 	private Date reportDate;//신고 날짜
 	private String reportType;//신고유형
 	private String Reason;//신고사유
@@ -55,7 +56,13 @@ public class Report {
 	public void setReason(String reason) {
 		Reason = reason;
 	}
-
+	
+	public User getReporter() {
+		return reporter;
+	}
+	public void setReporter(User reporter) {
+		this.reporter = reporter;
+	}
 	
 	//값반환 확인
 	public String toString() {

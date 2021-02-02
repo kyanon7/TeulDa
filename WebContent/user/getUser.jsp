@@ -18,12 +18,7 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -46,13 +41,14 @@
 		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "a" ).on("click" , function() {
-					 var msg = "정말로 탈퇴하시겠습니까?";
+					 var msg = "정말로 신고하시겠습니까?";
 
 					 var flag = confirm(msg);
 
 					 if(flag==true) {
-					 $("form").attr("method" , "POST").attr("action" , "/user/deleteUser").submit();
-					 alert("탈퇴되었습니다.");
+						 //self.location = "/user/addReport.jsp"
+						 self.location = "/user/addReport?targetNick=${user.nickname}"
+					 alert("신고창으로 이동합니다.");
 					 }
 					 else {alert("취소하였습니다.");}
 					});
@@ -72,10 +68,13 @@
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
-	
+		
+		
 		<div class="page-header">
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
+	    
+	    <input type="hidden" name="targetNick" value="${user.nickname}" />
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>닉네임</strong></div>
