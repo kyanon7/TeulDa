@@ -15,8 +15,8 @@
   			<a href="#" class="list-group-item list-group-item-action">여행 타임라인</a>
   			<a href="#" class="list-group-item list-group-item-action">내 기록 지도</a>
   			<a href="#" class="list-group-item list-group-item-action">내 기록 목록</a>
+  			<a href="#" class="list-group-item list-group-item-action">내 기록 그룹</a>
   			<a href="#" class="list-group-item list-group-item-action">북마크 기록 목록</a>
-  			<a href="#" class="list-group-item list-group-item-action">스크랩 기록 목록</a>
   			<a href="#" class="list-group-item list-group-item-action">기록 휴지통</a>
 		</div>
 	</body>
@@ -38,6 +38,10 @@
 		
 		$("a:contains('내 기록 목록')").on("click", function () {
 			self.location = "/diary/listDiary";
+		});
+		
+		$("a:contains('내 기록 그룹')").on("click", function () {
+			self.location = "/diary/listDiaryGroup";
 		});
 		
 	 });

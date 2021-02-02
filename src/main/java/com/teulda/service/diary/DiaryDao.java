@@ -47,6 +47,12 @@ public interface DiaryDao {
 	
 	// getDiaryMap.jsp ajax 사용하여 마커 표시할때 기록 총 갯수로 for문 돌리기 위한 전체 기록 총 갯수 return
 	public int getMyDiaryCount(String nickname) throws Exception;
+	
+	// SELECT LIST 
+	public List<Diary> getMyDiaryList(int groupNo) throws Exception;
+	
+	// listDiaryGroup.jsp ajax 사용하여 무한스크롤 형식으로 기록 보여줄때 갯수 필요할까 싶어 총 갯수 return
+	public int getMyDiaryCount(int groupNo) throws Exception;
 
 	// SELECT LIST 
 	public List<Diary> getMyDiaryList(Search search, String nickname, char isDelete) throws Exception;

@@ -113,4 +113,13 @@ public class DiaryRestController {
 		
 		return "Success";
 	}
+	
+	// listDiaryGroup.jsp 에서 기록 그룹 삭제
+	@RequestMapping(value="rest/deleteDiaryGroup", produces = "application/json")
+	public String deleteDiaryGroup(@RequestParam("groupNo") int groupNo) throws Exception {
+		
+		diaryService.deleteGroup(groupNo);
+		
+		return "Success";
+	}
 }
