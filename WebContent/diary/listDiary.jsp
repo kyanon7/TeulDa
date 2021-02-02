@@ -60,45 +60,16 @@ p {
 			fncGetList(1); // currentpage : 1 
 		});
 
-		$(".getDiary").on("click", function() {
-			self.location = "/diary/getDiary?diaryNo=" + $(this).attr('id') + "&status=own";
+		$(".getDiary").on("click",function() {
+			self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id') + "&status=own";
 		});
 
 		// 			$(".getProductSearch").on("click", function () { // 이미지 누르면 상품 보여지게 함
 		// 				self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=search";
 		// 			});
-		
-		$("button:contains('생성')").on("click", function() {
-			$.ajax(
-					{
-						url : "/diary/rest/addDiaryGroup" ,
-						method : "POST" , 
-						dataType : "text" ,
-						data : {
-							groupName : $("#groupName").val()
-						},
-						success : function(result) {
-							if (result == "Success") {
-								alert("그룹 생성이 완료되었습니다.");
-								//$('#delete').load(location.href + '#delete');
-							} else {
-								alert("그룹 생성이 완료되지 않았습니다.");
-							}
-						}
-					}
-			)
-		});
-		
-		$(function() {
-			$('#tabMenu').tabs({
-				select: function(event, ui) {
-					window.location.replace(ui.tab.hash); 
-				}
-			});
-		});
+
 
 	});
-
 </script>
 
 </head>
@@ -123,151 +94,86 @@ p {
 				<!-- End ToolBar -->
 
 				<div class="col-md-9">
-					
-					<div id ="tabMenu">
-		
-					<ul class="nav nav-tabs">
-						<li class="nav-item"><a class="nav-link active"
-							data-toggle="tab" href="#list">ALL</a></li>
-						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#group">BY GROUP</a></li>
-					</ul>
+					<label class="col-form-label" for="inputDefault">작성한 모든 기록을 한눈에 볼 수 있습니다.</label>
 					<br>
-
-					<div id="myTabContent" class="tab-content">
-
-						<div class="tab-pane fade active show" id="list">
-
-							<div class="row">
-								<div class="col-md-2">
-									<div class="form-group">
-										<select class="custom-select" name="searchCondition">
-											<option value="0"
-												${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목</option>
-											<option value="1"
-												${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>내용</option>
-											<option value="2"
-												${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>장소</option>
-											<option value="3"
-												${ ! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>해시태그</option>
-										</select>
-
-									</div>
-								</div>
-								<div class="col-md-7">
-									<input type="text" name="searchKeyword" class="form-control"
-										placeholder="검색어 입력" id="inputDefault"
-										value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
-								</div>
-								<div class="col-md-3">
-									<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-								</div>
-							</div>
-
-							<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-							<input type="hidden" id="currentPage" name="currentPage" value="" />
-
-							<span class="badge badge-info">PAGE ${ resultPage.currentPage},
-								TOTAL ${ resultPage.totalCount }</span>
-							<ol class="breadcrumb" style="float: right;">
-								<li class="breadcrumb-item" value="0"><a
-									${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최근
-										작성 순</a></li>
-								<li class="breadcrumb-item" value="1"><a
-									${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>최근
-										여행 순</a></li>
-								<li class="breadcrumb-item" value="2"><a
-									${ ! empty search.searchSorting && search.searchSorting==2 ? "style=font-weight:350;" : "" }>오래된
-										여행 순</a></li>
-							</ol>
-							<br> <br> <br> <input type="hidden"
-								name="searchSorting" id="searchSorting"
-								value="${ search.searchSorting }">
-							<!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
-
-							<div class="row">
-								<c:set var="i" value="0" />
-								<c:forEach var="diary" items="${ diaryList }">
-									<c:set var="i" value="${ i+1 }" />
-									<div class="col-md-4">
-										<div class="card bg-secondary mb-3"
-											style="max-width: 20rem; height: 15rem;">
-											<div class="card-header">
-												<img src="../resources/images/marker_blue.png" height="12px"
-													align="middle">&nbsp;&nbsp;${ diary.location } <br>
-												<small>${ diary.startDate } - ${ diary.endDate }</small>
-											</div>
-											<div class="card-body">
-
-												<div class="getDiary" id="${ diary.diaryNo }">
-													<h5 class="card-title">${ diary.title }</h5>
-													<p class="card-text" id="content">
-														<%-- 									${ diary.content } --%>
-														<c:out
-															value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</c:forEach>
-
-								<!-- PageNavigation Start... -->
-								<jsp:include page="../common/pageNavigator.jsp" />
-								<!-- PageNavigation End... -->
-
-							</div>
-
-						</div>
-						<!-- div list end -->
-
-						<div class="tab-pane fade" id="group">
-
+				
+					<div class="row">
+						<div class="col-md-2">
 							<div class="form-group">
-								<label class="col-form-label" for="inputDefault">그룹별로 원하는 기록을 묶어 보관할 수 있습니다.</label>
-								<div class="row">
-									<div class="col-md-3">
-										<input type="text" class="form-control"
-											placeholder="그룹명을 입력하세요." id="groupName"
-											style="width: 210px;"> &nbsp;
+								<select class="custom-select" name="searchCondition">
+									<option value="0"
+										${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목</option>
+									<option value="1"
+										${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>내용</option>
+									<option value="2"
+										${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>장소</option>
+									<option value="3"
+										${ ! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>해시태그</option>
+								</select>
+
+							</div>
+						</div>
+						<div class="col-md-7">
+							<input type="text" name="searchKeyword" class="form-control"
+								placeholder="검색어 입력" id="inputDefault"
+								value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+						</div>
+						<div class="col-md-3">
+							<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+						</div>
+					</div>
+
+					<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+					<input type="hidden" id="currentPage" name="currentPage" value="" />
+
+					<span class="badge badge-info">PAGE ${ resultPage.currentPage},
+						TOTAL ${ resultPage.totalCount }</span>
+					<ol class="breadcrumb" style="float: right;">
+						<li class="breadcrumb-item" value="0"><a
+							${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>
+							최근 작성 순</a></li>
+						<li class="breadcrumb-item" value="1"><a
+							${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>
+							최근 여행 순</a></li>
+						<li class="breadcrumb-item" value="2"><a
+							${ ! empty search.searchSorting && search.searchSorting==2 ? "style=font-weight:350;" : "" }>
+							오래된 여행 순</a></li>
+					</ol>
+					<br> <br> <br> <input type="hidden"
+						name="searchSorting" id="searchSorting"
+						value="${ search.searchSorting }">
+					<!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
+
+					<div class="row">
+						<c:set var="i" value="0" />
+						<c:forEach var="diary" items="${ diaryList }">
+							<c:set var="i" value="${ i+1 }" />
+							<div class="col-md-4">
+								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
+									<div class="card-header">
+										<img src="../resources/images/marker_blue.png" height="12px"
+											align="middle">&nbsp;&nbsp;${ diary.location } <br>
+										<small>${ diary.startDate } - ${ diary.endDate }</small>
 									</div>
-									<div class="col-md-3">
-										<button type="button" class="btn btn-info">생성</button>
+									<div class="card-body">
+
+										<div class="getDiary" id="${ diary.diaryNo }">
+											<h5 class="card-title">${ diary.title }</h5>
+											<p class="card-text" id="content">
+												<%-- 									${ diary.content } --%>
+												<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
+						</c:forEach>
 
-							<div class="row">
-								<c:set var="i" value="0" />
-								<c:forEach var="group" items="${ diaryGroupList }">
-									<c:set var="i" value="${ i+1 }" />
-
-
-									<div class="col-md-4">
-										<div class="card bg-light mb-3" style="max-width: 20rem;">
-											<div class="card-header">
-												<c:choose>
-													<c:when test="${ group.groupName eq 'default2' }">
-													그룹 미지정
-													</c:when>
-													<c:otherwise> ${ group.groupName } </c:otherwise>
-												</c:choose>
-											</div>
-											<div class="card-body"></div>
-										</div>
-									</div>
-
-								</c:forEach>
-							</div>
-
-						</div>
-						<!-- div group end -->
+						<!-- PageNavigation Start... -->
+						<jsp:include page="../common/pageNavigator.jsp" />
+						<!-- PageNavigation End... -->
 
 					</div>
-					<!--  div myTabContent (tab) end -->
-					</div>
-	
-
 
 				</div>
 			</div>
