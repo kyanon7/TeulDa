@@ -184,5 +184,20 @@ public class DiaryController {
 		
 		return "forward:/diary/listDiaryGroup.jsp";
 	}
+	
+	@RequestMapping(value="selectDiaryGroup", method= RequestMethod.GET)
+	public String selectDiaryGroup(HttpSession session, Model model) throws Exception {
+		
+		System.out.println("/diary/selectDiaryGroup : GET");
+		
+		User user = (User) session.getAttribute("user");
+		
+		// 기록 그룹 찾기
+		List <Group> diaryGroupList = diaryService.getDiaryGroupList(user.getNickname());
+		
+		model.addAttribute("diaryGroupList", diaryGroupList);
+		
+		return "forward:/diary/selectDiaryGroup.jsp";
+	}
 
 }
