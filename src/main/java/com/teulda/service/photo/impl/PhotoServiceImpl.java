@@ -130,6 +130,7 @@ public class PhotoServiceImpl implements PhotoService {
 	//앨범 영구삭제 => 완료
 	@Override
 	public void deleteGroup(String nickname) throws Exception {
+		photoDao.deletePhoto(nickname);
 		photoDao.deleteGroup(nickname);
 		
 	}

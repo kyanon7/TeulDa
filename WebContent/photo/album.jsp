@@ -33,6 +33,31 @@
 			});
 		});
 		
+		$(function(){
+			
+			$("p:contains('삭제')").on("click", function () {
+				$.ajax(
+						{
+							url : "/photo/rest/updatePhotoStatus" ,
+							method : "POST" ,
+							dataType : "text" ,
+							data : {
+								photoNo : $(this).children('input').val()
+							},
+							success : function(result) {
+								if (result == "Success") {
+									alert("사진이 삭제되었습니다.");
+									location.reload(); // 리로드 안하고 할 수 있게 해보기 
+								} else {
+									alert("사진이 삭제되지 않았습니다.");
+								}
+							}
+							
+				});
+				
+			});
+		})
+		
 		</script>
 	</head>
 
@@ -85,7 +110,8 @@
 									<h5 class="card-title" id ="${photo.photoNo}">${photo.photoName}</h5>
 									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
 									<p class="card-text" id="content">
-									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small></p>
+									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
+									<input type="hidden" value="${ photo.photoNo }" style="float:right;"></p>
 									<p class="card-text" style="text-align:right;"><small class="text-muted">이동</small></p>
 								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
 								

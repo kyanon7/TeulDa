@@ -1,19 +1,16 @@
 package com.teulda.web.photo;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
-import com.teulda.service.domain.User;
 import com.teulda.service.photo.PhotoService;
 
 @RestController
@@ -37,61 +34,28 @@ public class PhotoRestController {
 	int pageSize;
 
 
-	//사진등록
-	@RequestMapping(value="rest/addPhoto")
-	public Photo addPhoto(HttpSession session) throws Exception{
+	@RequestMapping(value="rest/updateGroupStatus", produces = "application/json")
+	public String updateGroupStatus(@RequestParam("groupNo") int groupNo) throws Exception {
 		
-		User user = (User)session.getAttribute("user");
+		Group group = photoService.getGroup(groupNo);
 		
+		System.out.println("DeleteDate =========== "+group.getDeleteDate());
 		
-		return null;
+		photoService.updateGroupStatus(group);
+		
+		return "Success";
 	}
-	//사진삭제(플래그)
-	//그룹등록
-	@RequestMapping(value="rest/addGroup/{groupName}")
-	public Group addGroup(@PathVariable String groupName, HttpSession session) throws Exception{
+	
+	@RequestMapping(value="rest/updatePhotoStatus", produces = "application/json")
+	public String updatePhotoStatus(@RequestParam("photoNo") int photoNo) throws Exception {
 		
-		System.out.println("photo/rest/addGroup/{groupName}");
+		Photo photo = photoService.getPhoto(photoNo);
 		
-		User user = (User)session.getAttribute("user");
+		System.out.println("DeleteDate =========== "+photo.getDeleteDate());
 		
-		Group group = new Group();
-		group.setNickname(user.getNickname());
-		group.setGroupName(groupName);
+		photoService.updatePhotoStatus(photo);
 		
-		photoService.addGroup(group);
-		
-		return group;
+		return "Success";
 	}
-	//그룹 삭제 플래그처리
-  	
-	//사진삭제(휴지통)
-	//그룹, 사진 영구삭제(휴지통)
-	@RequestMapping(value="rest/deletePhoto")
-	public String deleteGroup(HttpSession session) throws Exception{
-		
-		System.out.println("photo/rest/deleteGroup");
-		
-		User user = (User)session.getAttribute("user");
-		
-		photoService.deletePhoto(user.getNickname());
-		photoService.deleteGroup(user.getNickname());
-		
-		return user.getNickname();
-	}
-	//그룹옮기기
-	@RequestMapping(value="rest/updateGroupNo")
-	public String updateGroupNo(HttpSession session) throws Exception{
-		
-		System.out.println("photo/rest/updateGrouNo");
-		
-		Photo photo = new Photo();
-//		photo.setPhotoGroupNo(photoGroupNo);
-		
-		photoService.updateGroupNo(photo);
-		
-		return null;
-	}
-	//그룹이름 변경
 	
 }
