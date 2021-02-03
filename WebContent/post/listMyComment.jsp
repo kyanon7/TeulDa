@@ -72,10 +72,10 @@
 				
 			
 				<div class=".col-md-10">
-					<ol class="breadcrumb">
+				<!-- 	<ol class="breadcrumb">
  						 <li class="breadcrumb-item"><a href="#">최신순</a></li>
   						 <li class="breadcrumb-item"><a href="#">조회순</a></li>
-  				   </ol>
+  				   </ol> -->
   						  <form class="form-inline">
     						  <input class="form-control mr-sm-2" type="text" placeholder="Search">
     						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -130,34 +130,7 @@
 	</div>
 </div>
  	
- 	<div class="row">
- 	<div class=".col-md-3 .col-md-offset-3">
-  <ul class="pagination">
-    <li class="page-item disabled">
-      <a class="page-link" href="#">&laquo;</a>
-    </li>
-    <li class="page-item active">
-      <a class="page-link" href="#">1</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">2</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">4</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">5</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">&raquo;</a>
-    </li>
-  </ul>
-</div>
-
-</div>
+ 	<jsp:include page="../common/pageNavigator.jsp" />
 	</body>
 	
 	

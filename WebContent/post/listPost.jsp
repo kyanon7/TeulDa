@@ -22,13 +22,12 @@
 		
 	<script type="text/javascript">
 	
-/* 	function fncGetList(currentPage){
+	function fncGetList(currentPage){
 		
 		$("#currentPage").val(currentPage);
-	   	$("form[name='detailForm']").attr("method", "POST").attr("action", "/post/listPost").submit();
-	
+		$("form[name='detailForm']").attr("method", "POST").attr("action", "/post/listPost").submit();
+		
 	}
-	 */
 
 	$(function(){
 		$(".ct_list_pop td:nth-child(5)").on("click", function(){
@@ -51,12 +50,23 @@
 	$(function(){
 		
 		$("button:contains('Search')").on("click", function () { // 검색 버튼
-			self.loacation = "/post/listPost?currentPage=1&postCategory=${postCategory}$searchCondition="+$(this).attr('value')+"&searchKeyword="+$(this).attr('value')		
+			$("#searchSorting").val($(this).attr('value'));
+			$("#postCategory").val($(this).attr('value'));
+			fncGetList(1);
+			/* self.loacation = "/post/listPost?postCategory=${postCategory}$searchCondition="+$(this).attr('value')+"&searchKeyword="+$(this).attr('value')	 */
 		});
+	});
 		
+		
+		$(function(){
 		$(".breadcrumb-item").on("click", function(){
 			
-			self.location = "/post/listPost?currentPage=1&postCategory=${postCategory}&searchSorting="+$(this).attr('value')/* +"currentPage=1" */			
+			$("#searchSorting").val($(this).attr('value'));
+			$("#postCategory").val($(this).attr('value'));
+			fncGetList(1); // currentpage : 1 
+			
+			
+			/* self.location = "/post/listPost?currentPage=1&postCategory=${postCategory}&searchSorting="+$(this).attr('value') */
 		/* 	$("#searchSorting").val($(this).attr('value'));
 			$("#postCategory").val($(this).attr('value'));
 			fncGetList(1); */
@@ -103,10 +113,10 @@
 		
 				<div class="row">
 				<div class=".col-md-9">
-				<input type="hidden" id="currentPage" name="currentPage" value=""/>
+				
 				<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
 				
-				<%--  <input type="hidden" id="postCategory" name="postCategory" value="${postCategory}"/>   --%>
+				  <input type="hidden" id="postCategory" name="postCategory" value=""/>   
 			
 					<ol class="breadcrumb">
  						 <li class="breadcrumb-item" value="0"><a ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최신순</a></li>
@@ -137,11 +147,11 @@
     						  <input class="form-control mr-sm-2" name="searchKeyword" type="text" placeholder="Search"  id="inputDefault"
     						  value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
     				</div>
-    				
-    				
+
     						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     					</div>
     				</div> 
+    				<!-- <input type="hidden" id="currentPage" name="currentPage" value=""/> -->
     			</div>
 			
 			
@@ -188,33 +198,8 @@
 
  		</div>
 		</div>
- 
-<div id="bottom" style="margin:0 auto; width:300px;">
-
-  <ul class="pagination" >
-    <li class="page-item disabled">
-      <a class="page-link" href="#">&laquo;</a>
-    </li>
-    <li class="page-item active">
-      <a class="page-link" href="#">1</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">2</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">4</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">5</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">&raquo;</a>
-    </li>
-  </ul>
-</div>
+ <input type="hidden" id="currentPage" name="currentPage" value=""/>
+<jsp:include page="../common/pageNavigator.jsp" />
 </form>	
 	</body>
 </html>

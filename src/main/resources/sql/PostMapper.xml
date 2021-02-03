@@ -156,13 +156,13 @@
 
                			<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
-                				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
+                				<when test="searchCondition == 0 and searchKeyword !='' "> 
                 				AND nickname like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> 
+                				<when test="searchCondition == 1 and searchKeyword !='' "> 
                 				AND title like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> 
+                				<when test="searchCondition == 2 and searchKeyword !='' "> 
                 				AND content like '%'||#{search.searchKeyword}||'%'
                 				</when>
                 			</choose>
@@ -196,9 +196,19 @@
                 	FROM POST
                 	<where>
                 	nickname = #{nickname}
-					<if test="postCategory != 0">
-							and post_type = #{postCategory}
-					</if>
+					<choose>
+                		<when test="postCategory != '6'">
+                		<!-- post_type = #{postCategory} -->
+                			AND post_type = #{postCategory}
+                		</when>
+                	<when test="postCategory =='6'">
+                	AND post_type in ('1','2','3','4','5')
+               	 </when>
+                	
+                	<!-- 	<when test="postCategory == 6">
+                		post_type in ('1','2','3','4','5')
+                		</when> -->
+                	</choose>
                				<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
                 				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
@@ -279,10 +289,19 @@
 	FROM (SELECT    post_id, nickname, title, content, post_date, view_count, post_type
       	  FROM POST
       	  <where>
-                	nickname = #{nickname}
-					<if test="postCategory != 0">
-							and post_type = #{postCategory}
-					</if>
+                	<choose>
+                		<when test="postCategory != '6'">
+                		<!-- post_type = #{postCategory} -->
+                			AND post_type = #{postCategory}
+                		</when>
+                	<when test="postCategory =='6'">
+                	AND post_type in ('1','2','3','4','5')
+               	 </when>
+                	
+                	<!-- 	<when test="postCategory == 6">
+                		post_type in ('1','2','3','4','5')
+                		</when> -->
+                	</choose>
                				<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
                 				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
