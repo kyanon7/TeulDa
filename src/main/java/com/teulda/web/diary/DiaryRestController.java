@@ -122,4 +122,16 @@ public class DiaryRestController {
 		
 		return "Success";
 	}
+	
+	// selectDiaryGroup.jsp 에서 기록 그룹 이동
+	@RequestMapping(value="rest/updateDiaryGroup", produces = "application/json")
+	public String updateDiaryGroup(@RequestParam("groupNo") int groupNo, @RequestParam("diaryNo") int diaryNo) throws Exception {
+		
+		Diary diary = new Diary();
+		diary.setGroupNo(groupNo);
+		diary.setDiaryNo(diaryNo);
+		diaryService.updateDiaryGroup(diary);
+		
+		return "Success";
+	}
 }

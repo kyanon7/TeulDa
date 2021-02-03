@@ -1,5 +1,6 @@
 package com.teulda.web.diary;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -186,7 +187,7 @@ public class DiaryController {
 	}
 	
 	@RequestMapping(value="selectDiaryGroup", method= RequestMethod.GET)
-	public String selectDiaryGroup(HttpSession session, Model model) throws Exception {
+	public String selectDiaryGroup(@RequestParam("diaryNo") int diaryNo, HttpSession session, Model model) throws Exception {
 		
 		System.out.println("/diary/selectDiaryGroup : GET");
 		
@@ -196,8 +197,70 @@ public class DiaryController {
 		List <Group> diaryGroupList = diaryService.getDiaryGroupList(user.getNickname());
 		
 		model.addAttribute("diaryGroupList", diaryGroupList);
+		model.addAttribute("diaryNo", diaryNo);
 		
 		return "forward:/diary/selectDiaryGroup.jsp";
+	}
+	
+//	// selectDiaryGroup.jsp 에서 기록 그룹 이동
+//	@RequestMapping(value="updateDiaryGroup", method= RequestMethod.GET)
+//	public String updateDiaryGroup(@RequestParam("groupNo") int groupNo, @RequestParam("diaryNo") int diaryNo) throws Exception {
+//		
+//		Diary diary = new Diary();
+//		diary.setGroupNo(groupNo);
+//		diary.setDiaryNo(diaryNo);
+//		diaryService.updateDiaryGroup(diary);
+//		
+//		return "forward:/diary/listDiaryByGroup?groupNo="+groupNo;
+//	}
+	
+	@RequestMapping(value="listDeleteDiary", method= RequestMethod.GET)
+	public String listDeleteDiary(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception {
+		
+		System.out.println("/diary/listDeleteDiary : GET");
+		
+		User user = (User) session.getAttribute("user");
+		
+		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 첫 페이지를 1이라고 지정 (사용 안함) 
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(10000); // pageSize 지정 (사용 안하므로 최대한 늘림) 
+		
+		// Business logic 수행
+		Map<String, Object> map = diaryService.getMyDiaryList(search, user.getNickname(), 't');
+		
+		// Model 과 View 연결
+		model.addAttribute("diaryList", map.get("diaryList")); // 기록
+		model.addAttribute("totalCount", ((Integer) map.get("totalCount")).intValue());
+
+		return "forward:/diary/diaryBin.jsp";
+	}
+	
+	@RequestMapping(value="updateDiaryStatus", method=RequestMethod.GET)
+	public String updateDiaryStatus(@RequestParam("diaryNo") int diaryNo, 
+									@RequestParam(value="deleteDate", required=false) Date deleteDate, Model model) throws Exception {
+									
+		System.out.println("/diary/updateDiaryStatus : GET");
+		
+		Diary diary = new Diary();
+		diary.setDiaryNo(diaryNo);
+		diary.setDeleteDate(deleteDate);
+		//Business Logic
+		diaryService.updateDiaryStatus(diary);
+		
+		return "forward:/diary/listDeleteDiary"; 
+	}
+	
+	@RequestMapping(value="deleteDiary", method=RequestMethod.GET)
+	public String deleteDiary(@RequestParam("diaryNo") int diaryNo, Model model) throws Exception {
+		
+		System.out.println("/diary/deleteDiary : GET");
+		
+		diaryService.deleteDiary(diaryNo);
+		
+		return "forward:/diary/listDeleteDiary"; 
 	}
 
 }

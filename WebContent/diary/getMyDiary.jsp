@@ -29,6 +29,14 @@
 				self.location = "/diary/updateDiary?diaryNo=${ diary.diaryNo }";
 			});
 			
+			$("span:contains('삭제')").on("click", function () {
+				var result = confirm("휴지통으로 기록이 이동됩니다.");
+				if(result)
+				{
+				self.location = "/diary/updateDiaryStatus?diaryNo=${ diary.diaryNo }";
+				}
+			});
+			
 			$("img[src='../resources/images/marker_blue.png']").on("click", function() { // 아이콘 사진 변경시 src 수정해주기 
 				history.go(-1); // 장소 선택하는 화면으로 감 
 			});		
