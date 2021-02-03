@@ -105,7 +105,10 @@ import com.teulda.service.user.UserService;
 		System.out.println("////////////////////////////////");
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		System.out.println("////////////////////////////////");
 		System.out.println(resultPage);
+		System.out.println("////////////////////////////////");
 		
 		model.addAttribute("postCategory", postCategory);
 		model.addAttribute("list", map.get("list"));

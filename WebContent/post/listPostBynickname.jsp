@@ -77,7 +77,7 @@
   					<c:if test="${ !empty user }">
   					<a type="button" href="/post/addPost" class="btn btn-outline-info">+ 새 글 작성</a><br/>
   					</c:if>
-  					<a href="/post/listPostBynickname?postCategory=0&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action" type="button">자유 게시글</a>
+  					<a href="/post/listPostBynickname?postCategory=6&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action" type="button">자유 게시글</a>
   					<a href="/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action" type="button">여행지 정보공유</a>
   					<a href="/post/listPostBynickname?postCategory=2&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">맛집 정보공유</a>
   					<a href="/post/listPostBynickname?postCategory=3&nickname=${sessionScope.user.nickname}" class="list-group-item list-group-item-action " type="button">숙소 정보공유</a>
@@ -175,32 +175,7 @@
  		</div>
 		</div>
  
-<div id="bottom" style="margin:0 auto; width:300px;">
-
-  <ul class="pagination" >
-    <li class="page-item disabled">
-      <a class="page-link" href="#">&laquo;</a>
-    </li>
-    <li class="page-item active">
-      <a class="page-link" href="#">1</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">2</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">4</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">5</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">&raquo;</a>
-    </li>
-  </ul>
-</div>
+<jsp:include page="../common/pageNavigator.jsp" />
 </form>	
 	</body>
 </html>
