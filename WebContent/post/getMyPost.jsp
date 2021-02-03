@@ -18,6 +18,47 @@
 		
 		<script type="text/javascript">
 		
+		
+	$(function(){
+		
+		$("button:contains('등록')").on("click", function(){
+			
+			$.ajax({
+			url : "/post/rest/addComment",	
+			type : "POST",
+			dataType : "text",
+			data : {
+					
+				postNo : "${post.postNo}"    /* $("#postNo").val() */
+				commentContents : $("#commentContents").val()
+			
+			
+			},
+			success : function(result){
+				
+				if (result == "Success") {
+					alert("댓글이 등록되었습니다.");
+					location.reload();
+				} else{
+					alert("댓글이 등록되지 않았습니다.");
+				}
+			}
+		})
+	});
+			
+
+
+/*  	$(function(){
+			$("button:contains('등록')").on("click", function(){
+					alert($("#postNo").val());
+					self.location = "/post/addComment?postNo=${post.postNo}"
+					
+				});
+			});  */
+		
+		
+	
+		
 		$(function(){
 			$("out").on("click", function(){
 				
@@ -34,11 +75,11 @@
 		}); 
 		
 		
-		function fncAddComment(){
+/* 		function fncAddComment(){
 			
 			$("form").attr("method","POST").attr("action","/post/addComment").submit();
 
-		}
+		}  */
 		
 
 	
@@ -53,9 +94,9 @@
 				self.location = "/post/listPost?postCategory=1"
 			});
 			
-			$("button:contains('등록')").on("click", function(){
+			/* $("button:contains('등록')").on("click", function(){
 				fncAddComment();
-			});
+			});  */
 	});		
 	</script>
 </head>
@@ -119,26 +160,58 @@
 			<button class="btn btn-info" type="button">취소</button>
 			
 			
-		<form name="addComment">
+		<form name="addComment" id="addComment">
+
 			<h4>댓글</h4>
 			 <br/><br/>
-			 <input type="hidden" name="postNo" value="${ post.postNo }"/>
-			 <input type="text" name="commentContents" class="form-control" placeholder="댓글을 작성해주세요." maxlength="200"/>
+			 
+			 <input type="text" name="commentContents" id="commentContents" class="form-control" placeholder="댓글을 작성해주세요." maxlength="200"/>
 			 <br/><br/>
 			 <button class="btn btn-info" type="submit">등록</button>
+			 <input type="hidden" name="postNo" id="postNo" value="${ post.postNo }"/>
 		</form>
 			 
-	<table class="table table-hover">
+	 <%-- <table class="table table-hover">
  		  <tr class="table-primary">
  		  	<c:set var="i" value="0"/>
  		  		<c:forEach var="comment" items = "${commentList}">
  		  			<c:set var="i" value="${i+1}"/> 
-  			  	 <td>${comment.nickname} <td>
+  			    <th scope="row">${comment.nickname} &emsp; &emsp; &emsp; ${comment.commentContents}  &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;${comment.commentDate}</th>
+  			  <c:if test="${ user.nickname == post.nickname }"> 	  
+  			    <span class="badge badge-info">수정</span>
+  				<span class="badge badge-danger">삭제</span>
+  				</c:if>
   			    <td>${comment.commentContents} </td>
-  			     <td>${comment.commentDate} </td>
   			  </c:forEach>
    		 </tr>
- 	</table> 
+ 	</table>  --%>
+ 	
+ 
+ 	
+ 
+		
+			
+	<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+	<c:set var="i" value="0"/>	
+ 		 <c:forEach var="comment" items = "${commentList}">
+ 		 <c:set var="i" value="${i+1}"/> 
+ 		 <div class="toast-header">
+ 		   <strong class="mr-auto">${comment.nickname}</strong>
+   			 <small>${comment.commentDate}</small>
+   			 
+   			 <c:if test="${ sessionScope.user.nickname == comment.nickname }">
+   				<span class="badge badge-info">수정</span>
+  				<span class="badge badge-danger">삭제</span>
+    		</c:if>
+    		
+  			</div>
+ 			<div class="toast-body">
+  			  ${comment.commentContents}
+  			</div>
+  		</c:forEach>
+	</div>
+ 	
+ 	
  		<%--  <table class="table table-hover">
  	   <tbody>
  	   			<c:set var = "i" value = "0" />

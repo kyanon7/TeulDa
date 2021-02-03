@@ -156,13 +156,13 @@
 
                			<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
-                				<when test="searchCondition == 0 and searchKeyword !='' "> 
+                			<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 제목 -->
                 				AND nickname like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="searchCondition == 1 and searchKeyword !='' "> 
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 내용 -->
                 				AND title like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="searchCondition == 2 and searchKeyword !='' "> 
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 장소 -->
                 				AND content like '%'||#{search.searchKeyword}||'%'
                 				</when>
                 			</choose>
@@ -245,8 +245,9 @@
 		post_id
       	  FROM POST
       	  <where>
-      <choose>
-                	<when test="postCategory != '6'">
+      	 
+      	<choose>
+      	<when test="postCategory != '6'">
                 		<!-- post_type = #{postCategory} -->
                 			post_type = #{postCategory}
                 		</when>
@@ -261,13 +262,13 @@
 
                			<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
-                				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
+                			<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 제목 -->
                 				AND nickname like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> 
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 내용 -->
                 				AND title like '%'||#{search.searchKeyword}||'%'
                 				</when>
-                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> 
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 장소 -->
                 				AND content like '%'||#{search.searchKeyword}||'%'
                 				</when>
                 			</choose>
@@ -289,7 +290,8 @@
 	FROM (SELECT    post_id, nickname, title, content, post_date, view_count, post_type
       	  FROM POST
       	  <where>
-                	<choose>
+                	nickname = #{nickname}
+					<choose>
                 		<when test="postCategory != '6'">
                 		<!-- post_type = #{postCategory} -->
                 			AND post_type = #{postCategory}
