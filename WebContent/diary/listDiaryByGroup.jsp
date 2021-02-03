@@ -29,6 +29,13 @@
 		}
 		</style>
 		<script>
+		$(function() {
+
+			$(".getDiary").on("click",function() {
+				self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id') + "&status=own";
+			});
+
+		});
 		</script>
 	
 	</head>
@@ -67,6 +74,7 @@
 										<img src="../resources/images/marker_blue.png" height="12px"
 											align="middle">&nbsp;&nbsp;${ diary.location } <br>
 										<small>${ diary.startDate } - ${ diary.endDate }</small>
+										<img src="../resources/images/folder.png" height="13px" align="middle" style="float:right;">
 									</div>
 									<div class="card-body">
 
