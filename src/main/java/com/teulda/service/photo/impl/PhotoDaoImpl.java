@@ -135,6 +135,7 @@ public class PhotoDaoImpl implements PhotoDao {
 	//사진휴지통 영구삭제(앨범&앨범 안에 있는 사진) => 완료
 	@Override
 	public void deleteGroup(String nickname) throws Exception {
+		sqlSession.delete("PhotoMapper.deleteGroupInPhoto", nickname);
 		sqlSession.delete("PhotoMapper.deleteGroup", nickname);
 		
 	}

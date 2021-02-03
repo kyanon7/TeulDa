@@ -20,6 +20,7 @@
 		<result property="deleteDate"			column="delete_date"			jdbcType="DATE" />
 		<result property="description"			column="description"			jdbcType="VARCHAR" />
 		<result property="diaryPhotoType"		column="diary_photo_type"		jdbcType="VARCHAR" />
+		<result property="nickname"				column="nickname"				jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<resultMap id="groupSelectMap" type="com.teulda.common.Group">
@@ -35,10 +36,10 @@
 	<insert id="addPhoto"	parameterType="com.teulda.common.Photo">
 		INSERT 
 		INTO photo ( photo_id, photo_group_id, photo_name, photo_addr, 
-					 photo_date, delete_date )
+					 photo_date, delete_date, nickname)
 		VALUES ( seq_photo_photo_id.nextval, 
 		${photoGroupNo},
-		'${photoName}', '${photoAddr}', sysdate, null)
+		'${photoName}', '${photoAddr}', sysdate, null, '${nickname}')
 	</insert>
 	
 	<!-- SQL : INSERT PHOTO 앨범등록 -->
@@ -120,7 +121,7 @@
 	</update>
 	
 	<!-- SQL : UPDATE GroupPhotoStatus(앨범 안에 있는 사진) 삭제, 복구 -->
-	<update id="updateGroupPhotoStatus" parameterType="com.teulda.common.Group">
+<!-- 	<update id="updateGroupPhotoStatus" parameterType="com.teulda.common.Group">
 		UPDATE photo
 		<set>
 			<choose>
@@ -139,13 +140,13 @@
 		WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo} AND g.group_type = 1)
 	</update>
 
-
+ -->
 	<!-- SQL : DELETE Photo 완전삭제(휴지통) -->
 	<!-- delete_date가 null이 아닌 나의 모든 사진과 앨범, 앨범에 들어있는 사진들 삭제 -->
 	<delete id="deletePhoto" parameterType="String">
 		DELETE
 		FROM photo
-		WHERE delete_date IS NOT NULL AND photo_group_id IS NOT NULL
+		WHERE delete_date IS NOT NULL AND photo_group_id IS NOT NULL AND nickname= #{value}
 	</delete>
 	
 	<!-- SQL : DELETE Group 완전삭제(휴지통) -->
@@ -153,6 +154,15 @@
 		DELETE
 		FROM groups
 		WHERE delete_date IS NOT NULL AND group_type = 1 AND nickname = #{value}
+	</delete>
+	
+	<delete id="deleteGroupInPhoto" parameterType="String">
+		DELETE
+		FROM photo
+		WHERE photo_group_id IN 
+		(SELECT	group_id
+		FROM groups
+		WHERE delete_date IS NOT NULL AND nickname = #{value})
 	</delete>
 	
 	
@@ -216,96 +226,5 @@
 		WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NOT NULL
 		ORDER BY delete_date DESC
 	</select>
-
-	<!-- SQL : SELECT Purchase LIST -->
-	<!-- <select	id="getPurchaseList"	parameterType="map"	resultMap="purchaseSelectMap">
-		SELECT *
-		FROM (SELECT inner_table.*, ROWNUM AS row_seq
-	  			FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
-		  					FROM transaction, users 
-							WHERE user_id = buyer_id 
-							AND buyer_id = #{buyerId}
-							ORDER BY tran_no DESC) inner_table	
-				WHERE ROWNUM &lt;= #{search.endRowNum} )
-		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	</select> -->
-
-	<!-- SQL : SELECT Sale LIST -->
-	<!-- <select	id="getSaleList"	parameterType="com.model2.mvc.common.Search"	resultMap="purchaseSelectMap">
-		SELECT *
-		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
-	  				FROM(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
-						price, image_file, reg_date, tran_no, tran_status_code 
-						FROM product p, transaction t
-						<where>
-						p.prod_no = t.prod_no
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						ORDER BY tran_no DESC) inner_table
-				WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	</select> -->
-	
-	<!-- SQL : SELECT PURCHASE ROW Count -->
-	<!-- <select	id="getPurchaseTotalCount"	parameterType="map"	resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM	(SELECT tran_no, buyer_id, user_name, cell_phone, tran_status_code 
-						FROM transaction, users 
-						<where>
-						user_id = buyer_id 
-						AND buyer_id = #{buyerId}
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND prod_no LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND prod_name LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND price LIKE '%'||#{search.searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						) countTable						
-	</select> -->
-
-	<!-- SQL : SELECT SALE ROW Count -->
-	<!-- <select	id="getSaleTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM	(SELECT	p.prod_no, prod_name, prod_detail, manufacture_day, 
-						price, image_file, reg_date, tran_no, tran_status_code 
-						FROM product p, transaction t
-						<where>
-						p.prod_no = t.prod_no
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				AND LOWER(p.prod_name) LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				AND p.price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>
-						</where>
-						) countTable						
-	</select> -->
 
 </mapper>

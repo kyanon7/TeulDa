@@ -157,8 +157,8 @@ public class PhotoController {
     public String addPhoto(@RequestParam(value="groupNo") int groupNo, MultipartHttpServletRequest mtfRequest, HttpSession session) throws Exception{
         
     	User user = (User)session.getAttribute("user");
-    	System.out.println(user.getNickname());
-//    	int groupNo = Integer.parseInt((String) request.getAttribute("groupNo"));
+    	System.out.println("Session에서 받아온 Nickname ======= "+user.getNickname());
+
     	System.out.println("groupNo : "+groupNo);
     
     	List<MultipartFile> fileList = mtfRequest.getFiles("file");
@@ -217,22 +217,6 @@ public class PhotoController {
   		photoService.deletePhoto(user.getNickname());
   		photoService.deleteGroup(user.getNickname());
   		
-  		return "redirect:/photo/photoBin";
-  	}
-  	
-  	//그룹 삭제 플래그처리
-  	@RequestMapping(value="updateGroupStatus", method=RequestMethod.GET)
-  	public String updateGroupStatus(@RequestParam("groupNo")int groupNo) throws Exception{
-  		
-  		System.out.println("photo/updateGroupStatus");
-  		
-  		Group group = new Group();
-  		group.setGroupNo(groupNo);
-  		
-  		System.out.println("groupNo ============= "+groupNo);
-  		
-  		photoService.updateGroupStatus(group);
-  		
-  		return "forward:/photo/listPhoto";
+  		return "forward:/photo/photoBin";
   	}
 }

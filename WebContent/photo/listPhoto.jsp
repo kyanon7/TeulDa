@@ -25,17 +25,28 @@
 		}
 		
 		$(function(){
-			$('p:contains("삭제")').on("click", function(){
-				if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-					alert($('.card-title').attr('id'));
-					self.location = "/photo/updateGroupStatus?groupNo="+$(".card-title").attr("id");
-					alert("삭제되었습니다.")
-	 			}else{   //취소
-	     			alert($('.card-title').attr('id'));
-	 				alert("취소되었습니다.")
-	 			}
+			
+			$("p:contains('삭제')").on("click", function () {
+				$.ajax(
+						{
+							url : "/photo/rest/updateGroupStatus" ,
+							method : "POST" ,
+							dataType : "text" ,
+							data : {
+								groupNo : $(this).children('input').val()
+							},
+							success : function(result) {
+								if (result == "Success") {
+									alert("그룹이 삭제되었습니다.");
+									location.reload(); // 리로드 안하고 할 수 있게 해보기 
+								} else {
+									alert("그룹이 삭제되지 않았습니다.");
+								}
+							}
+							
+				});
 				
-			})
+			});
 		})
 		
  		$(function(){
@@ -46,12 +57,6 @@
 			});
 		});
 		
-		/* $(function(){
-			$('p:contains("이름수정")').on("click", function(){
-				$('#updateGroupName').attr("type", "text");
-				$('.card-header small').attr("style","display:none;")
-			})
-		}) */
 		
 		$(function(){
 			$('.card-header small').on("click", function(){
@@ -110,7 +115,8 @@
 									<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
 									<h5 class="card-title" id ="${group.groupNo}">${ group.groupName }</h5>
 									<p class="card-text" id="content">
-									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small></p>
+									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
+									<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
 									<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small></p>
 <%-- 									${ diary.content } --%> 
 									<%-- <c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /> --%>

@@ -1,99 +1,87 @@
-//insertPhoto(사진등록)
+//addPhoto(사진등록)
 INSERT 
-INTO photo ( photo_id, photo_group_id, post_id, diary_id, photo_name, photo_addr, 
-			latitude, longitude, photo_date, delete_date, description, diary_photo_type )
+INTO photo ( photo_id, photo_group_id, photo_name, photo_addr, 
+			 photo_date, delete_date, nickname)
 VALUES ( seq_photo_photo_id.nextval, 
-	       (select group_id 
-			from groups
-			where nickname='${nickname}' and group_name = 'default1'),
-			null, null, '${photoName}', '${photoAddr}', ${latitude}, ${longitude}, null, null, null, null)
+${photoGroupNo},
+'${photoName}', '${photoAddr}', sysdate, null, '${nickname}')
 
-//insertGroup(앨범등록)
+
+//addGroup(앨범등록)
 INSERT 
 INTO groups ( group_id, group_name, nickname, delete_date, group_type)
 VALUES ( seq_groups_group_id.nextval, '${groupName}', '${nickname}', null, '1')
 
-//getPhoto(사진조회 1개)
+
+//getPhoto(사진조회)
 SELECT
 photo_id, photo_group_id, post_id, diary_id, photo_name, photo_addr, 
 latitude, longitude, photo_date, delete_date, description, diary_photo_type
 FROM photo
 WHERE photo_id = #{value}
 
-//getGroup(앨범조회 1개)
+
+//getGroup(그룹조회)
 SELECT
 group_id, group_name, nickname, delete_date, group_type
 FROM groups
 WHERE group_id = #{value} AND group_type = 1
 
-//updateGroupName(앨범이름 변경)
+
+//updateGroupName(그룹이름변경)
 UPDATE groups
 SET group_name = #{groupName}
 WHERE group_id = #{groupNo}
 
-//updateGroupNo(사진앨범 변경)
+
+//updateGroupNo(사진옮기기)
 UPDATE photo
 SET photo_group_id = #{photoGroupNo}
 WHERE photo_id = #{photoNo}
 
-//updatePhotoStatus(삭제, 복구)
+
+//updatePhotoStatus(사진삭제, 복구 플래그처리)
 UPDATE photo
-SET delete_date = sysdate
-WHERE photo_id = #{photoNo}
+WHERE delete_date = null
+where photo_id = #{photoNo}
 
 UPDATE photo
-SET delete_date null
-WHERE photo_id = #{photoNo}
+WHERE delete_date = SYSDATE
+where photo_id = #{photoNo}
 
-//updatreGroupStatus(삭제, 복구)
-UPDATE photo
-delete_date = null
-WHERE photo_id IN
-(SELECT 
-p.photo_id
-FROM photo p, groups g
-WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo})
 
-UPDATE photo
-delete_date = sysdate
-WHERE photo_id IN
-(SELECT 
-p.photo_id
-FROM photo p, groups g
-WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo})
+//updateGroupStatus(앨범삭제, 복구 플래그처리)
+UPDATE groups
+WHERE delete_date = null
+where group_id = #{groupNo}
 
-//updateGroupPhotoStatus(앨범안에 있는 사진 삭제플래그 처리(삭제, 복구 : 휴지통에서 영구삭제, 복구할 때 필요))
-UPDATE photo
-SET delete_date = sysdate
-WHERE photo_id IN
-(SELECT 
-p.photo_id
-FROM photo p, groups g
-WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo} AND g.group_type = 1)
+UPDATE groups
+WHERE delete_date = SYSDATE
+where group_id = #{groupNo}
 
-UPDATE photo
-SET delete_date = null
-WHERE photo_id IN
-(SELECT 
-p.photo_id
-FROM photo p, groups g
-WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo} AND g.group_type = 1)
 
-//deletePhoto(휴지통에서 사진삭제)
+//deletePhoto(사진 영구삭제)
 DELETE
 FROM photo
-WHERE delete_date IS NOT NULL AND photo_group_id IN 
-(SELECT group_id
-FROM groups
-WHERE nickname = #{value} AND delete_date IS NOT NULL)
-AND photo_group_id IS NOT NULL
+WHERE delete_date IS NOT NULL AND photo_group_id IS NOT NULL AND nickname= #{value}
 
-//deleteGroup(휴지통에서 앨범삭제)
+
+//deleteGroup(그룹 영구삭제)
 DELETE
 FROM groups
 WHERE delete_date IS NOT NULL AND group_type = 1 AND nickname = #{value}
 
-//getPhotoTotalCount(앨범안에 있는 사진 갯수)
+
+//deleteGroupInPhoto(그룹안에 있는 사진영구삭제 (휴지통비우기))
+DELETE
+FROM photo
+WHERE photo_group_id IN 
+(SELECT	group_id
+FROM groups
+WHERE delete_date IS NOT NULL AND nickname = #{value})
+
+
+//getPhotoTotalCount(앨범에 들어있는 사진 갯수)
 SELECT
 count(*)
 FROM photo
@@ -101,12 +89,10 @@ WHERE photo_group_id IN
 (SELECT
 g.group_id
 FROM groups g, photo p
-WHERE g.group_id = p.photo_group_id AND g.nickname = #{nickname} AND g.group_id = #{groupNo} AND g.group_type = '1')
-<if test="deleteDate != null">
-AND delete_date IS NOT NULL
-</if>
+WHERE g.group_id = p.photo_group_id AND g.nickname = #{nickname} AND g.group_id = #{groupNo} AND g.group_type = '1') AND delete_date IS NULL
 
-//getPhotoList(앨범안에 있는 사진목록)
+
+//getPhotoList(사진목록 조회)
 SELECT
 photo_id, photo_group_id, photo_name, photo_addr, latitude, longitude, photo_date, delete_date
 FROM photo
@@ -114,25 +100,36 @@ WHERE photo_group_id IN
 (SELECT
 g.group_id
 FROM groups g, photo p
-WHERE g.group_id = p.photo_group_id AND g.nickname = #{nickname} AND g.group_id = #{groupNo} AND g.group_type = '1')
-<if test="deleteDate != null">
-AND delete_date IS NOT NULL
-</if>
+WHERE g.group_id = p.photo_group_id AND g.nickname = #{nickname} AND g.group_id = #{groupNo} AND g.group_type = '1') AND delete_date IS NULL
+ORDER BY photo_id DESC
 
-//getGroupTotalCount(내 앨범 갯수)
+
+//getGroupTotalCount(앨범갯수)
 SELECT
 count(*)
 FROM groups
-WHERE nickname = #{nickname} AND group_type = '1'
-<if test="deleteDate != null">
-AND delete_date IS NOT NULL
-</if>
+WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NULL
 
-//getGroupList(내 앨범목록)
+
+//getGroupList(앨범 리스트 조회)
 SELECT
 group_id, group_name, nickname, delete_date, group_type
 FROM groups
-WHERE nickname = #{nickname} AND group_type = '1'
-<if test="deleteDate != null">
-AND delete_date IS NOT NULL
-</if>
+WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NULL
+ORDER BY group_id DESC
+
+
+//deletePhotoList(삭제처리된 사진목록 조회)
+SELECT
+photo_id, photo_group_id, photo_name, photo_addr, latitude, longitude, photo_date, delete_date
+FROM photo
+WHERE photo_group_id IS NOT NULL AND delete_date IS NOT NULL
+ORDER BY delete_date DESC
+
+
+//deleteGroupList(삭제처리된 앨범목록 조회)
+SELECT
+group_id, group_name, nickname, delete_date, group_type
+FROM groups
+WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NOT NULL
+ORDER BY delete_date DESC
