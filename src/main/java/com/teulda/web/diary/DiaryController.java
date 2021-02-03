@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.teulda.common.Group;
 import com.teulda.common.Page;
 import com.teulda.common.Search;
+import com.teulda.common.handler.getThumbnail;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.User;
@@ -78,11 +79,17 @@ public class DiaryController {
 		System.out.println("/diary/getDiary : GET");
 		//Business Logic
 		Diary diary = diaryService.getDiary(diaryNo);
+		// *********** 이미지 썸네일 연습  ***********
+		if (diary.getContent() != null) {
+			diary.setThumbnail(getThumbnail.getImgSrc(diary.getContent()));
+		}
+		System.out.println(diary.getThumbnail());
+		// *********** 이미지 썸네일 연습  ***********
 		
 		// Model 과 View 연결
 		model.addAttribute("diary", diary);
 		
-		if (status != null && status.equals("own")) { // 마이페이지-기록에서 내 기록만 찾는거면 
+		if (status != null && status.equals("own")) { // 마이페이지 - 기록에서 내 기록만 찾는거면 
 			return "forward:/diary/getMyDiary.jsp";
 		}
 		
