@@ -75,11 +75,29 @@ public class UserDaoImpl implements UserDao {
 	public List<User> getUserListPublic(Search search) throws Exception {
 		return sqlSession.selectList("UserMapper.getUserListPublic", search);
 	}
+	
+	@Override
+	public List<User> getUserBlackList(Search search) throws Exception {
+		return sqlSession.selectList("UserMapper.getUserBlackList", search);
+	}
+
+	@Override
+	public List<Report> getReportList(Search search) throws Exception {
+		return sqlSession.selectList("UserMapper.getReportList", search);
+	}
 
 	@Override
 	public int getTotalCount(Search search) {
 		return sqlSession.selectOne("UserMapper.getTotalCount", search);
-	}
+	}//관리자용
+	
+	public int getUserCount(Search search) {
+		return sqlSession.selectOne("UserMapper.getUserCount", search);
+	}//회원용
+	
+	public int getBlackCount(Search search) {
+		return sqlSession.selectOne("UserMapper.getBlackCount", search);
+	}//회원용
 
 	@Override
 	public void addReport(Report report) throws Exception {
@@ -98,15 +116,6 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
-	@Override
-	public List<User> getUserBlackList(Search search) throws Exception {
-		return sqlSession.selectList("UserMapper.getUserBlackList", search);
-	}
-
-	@Override
-	public List<Report> getReportList(Search search) throws Exception {
-		return sqlSession.selectList("UserMapper.getReportList", search);
-	}
 
 
 

@@ -98,6 +98,16 @@
 	<bean id="mailService" class="com.teulda.service.mail.impl.MailServiceImpl">
 	    <property name="javaMailSender" ref="javaMailSender" />
 	</bean>
+	
+	
+	
+	<!-- bean class="com.teulda.web.mail.MailController">
+	    <property name="userService" ref="userService" />
+	    <property name="mailService" ref="mailService" />
+	</bean>
+
+이메일 관련 끝 -->
+
 
 	<!-- 	:: exception resolver  선언 :: 서술적 / 선언적 예외처리 
 			:: Servlet 에서의 선언적 예외처리를 다시 생각하며....  -->

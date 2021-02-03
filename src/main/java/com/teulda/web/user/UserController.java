@@ -173,7 +173,7 @@ public class UserController {
 	@RequestMapping( value="listUser" )
 	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/user/listUser : GET / POST"+"debug");
+		System.out.println("/user/listUser :"+"debug");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -197,7 +197,7 @@ public class UserController {
 	@RequestMapping( value="listUserPublic" )
 	public String listUserPublic( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/user/listUserPublic : GET / POST"+"debug");
+		System.out.println("/user/listUserPublic :"+"debug");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -216,6 +216,30 @@ public class UserController {
 		model.addAttribute("search", search);
 		
 		return "forward:/user/listUserPublic.jsp";
+	}
+	
+	@RequestMapping( value="listBlacklist" )
+	public String listBlacklist( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+		
+		System.out.println("/user/listBlacklist :"+"debug");
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		Map<String , Object> map=userService.getUserBlackList(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		// Model 과 View 연결
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/user/listBlacklist.jsp";
 	}
 	
 	@RequestMapping( value="addReport", method=RequestMethod.GET )

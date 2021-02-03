@@ -33,13 +33,18 @@ public interface UserDao {
 	
 	public List<Report> getReportList(Search search) throws Exception ;//신고목록조회
 	
-	public int getTotalCount(Search search) throws Exception;//row카운트
+	public int getTotalCount(Search search) throws Exception;//관리자용
+	
+	public int getUserCount(Search search) throws Exception;//회원용
+	
+	public int getBlackCount(Search search) throws Exception;//회원용
 
 	public void addReport(Report report) throws Exception;//신고하기 완
 	
 	public void deleteReport(int reportNo) throws Exception;//신고내역삭제(관리자만) 완
 	
 	public Report getReport(int reportNo) throws Exception;//신고내역조회 완
+
 	
 	
 

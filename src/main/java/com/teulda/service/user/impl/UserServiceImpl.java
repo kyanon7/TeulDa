@@ -102,31 +102,6 @@ public class UserServiceImpl implements UserService {
 		userDao.deleteUser(nickname);
 	}
 
-	@Override
-	public Map<String, Object> getUserBlackList(Search search) throws Exception {
-
-		List<User> list= userDao.getUserBlackList(search);
-		int totalCount = userDao.getTotalCount(search);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list );
-		map.put("totalCount", new Integer(totalCount));
-		
-		return map;
-	}
-
-	@Override
-	public Map<String, Object> getReportList(Search search) throws Exception {
-
-		List<Report> list= userDao.getReportList(search);
-		int totalCount = userDao.getTotalCount(search);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list );
-		map.put("totalCount", new Integer(totalCount));
-		
-		return map;
-	}
 
 	@Override
 	public void checkPhone(String phone) throws Exception {
@@ -150,6 +125,32 @@ public class UserServiceImpl implements UserService {
 	public Map<String, Object> getUserListPublic(Search search) throws Exception {
 		// TODO Auto-generated method stub
 		List<User> list= userDao.getUserListPublic(search);
+		int totalCount = userDao.getUserCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> getUserBlackList(Search search) throws Exception {
+
+		List<User> list= userDao.getUserBlackList(search);
+		int totalCount = userDao.getTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> getReportList(Search search) throws Exception {
+
+		List<Report> list= userDao.getReportList(search);
 		int totalCount = userDao.getTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
