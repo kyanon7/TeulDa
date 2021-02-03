@@ -44,6 +44,10 @@
 			self.location = "/diary/listDiaryGroup";
 		});
 		
+		$("a:contains('기록 휴지통')").on("click", function () {
+			self.location = "/diary/listDeleteDiary";
+		});
+		
 	 });
 	</script>
 </html>

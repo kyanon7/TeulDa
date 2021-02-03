@@ -70,6 +70,7 @@ CREATE TABLE users (
 	status					CHAR(1)			DEFAULT 0,
 	role					CHAR(1)			DEFAULT 1,
 	scrap_count				NUMBER			DEFAULT 0,
+	report_count			NUMBER			DEFAULT 0,
 	PRIMARY KEY(nickname)
 );
 
@@ -140,7 +141,7 @@ CREATE TABLE diary (
 //해시태그 테이블
 CREATE TABLE hashtag (
 	hashtag_id		NUMBER			NOT NULL,
-	diary_id			NUMBER			NOT NULL	REFERENCES diary(diary_id),
+	diary_id		NUMBER			NOT NULL	REFERENCES diary(diary_id),
 	hashtag_name	VARCHAR2(50)	NOT NULL,
 	PRIMARY KEY(hashtag_id)
 );
@@ -151,9 +152,9 @@ CREATE TABLE review (
 	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
 	review_addr		VARCHAR2(300)	NOT NULL,
 	content			VARCHAR2(400)	NOT NULL,
-	review_photo		VARCHAR2(100),
+	review_photo	VARCHAR2(100),
 	review_date		DATE			NOT NULL,
-	star				CHAR(1)			NOT NULL,
+	star			CHAR(1)			NOT NULL,
 	is_allowed		CHAR(1)			NOT NULL,
 	PRIMARY KEY(review_id)
 );
@@ -161,7 +162,7 @@ CREATE TABLE review (
 //북마크 테이블
 CREATE TABLE bookmark (
 	bookmark_id		NUMBER			NOT NULL,
-	diary_id			NUMBER			NOT NULL,
+	diary_id		NUMBER			NOT NULL,
 	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
 	bookmark_date	DATE			NOT NULL,
 	PRIMARY KEY(bookmark_id)
@@ -170,9 +171,9 @@ CREATE TABLE bookmark (
 //구독 테이블
 CREATE TABLE subscribe (
 	subscribe_id		NUMBER			NOT NULL,
-	subscribe_nick	VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
-	target_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
-	subscribe_date	DATE			NOT NULL,
+	subscribe_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	target_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	subscribe_date		DATE			NOT NULL,
 	PRIMARY KEY(subscribe_id)
 );
 
@@ -221,6 +222,7 @@ CREATE TABLE photo (
 	delete_date				DATE,
 	description				VARCHAR2(100),
 	diary_photo_type		CHAR(1),
+	nickname				VARCHAR2(50) 	REFERENCES users(nickname),
 	PRIMARY KEY(photo_id)
 );
 

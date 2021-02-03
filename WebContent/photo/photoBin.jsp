@@ -26,6 +26,57 @@
  				alert("취소되었습니다.");
  			}
 		}
+		
+		$(function(){
+			
+			$("p:contains('앨범복구')").on("click", function () {
+				$.ajax(
+						{
+							url : "/photo/rest/updateGroupStatus" ,
+							method : "POST" ,
+							dataType : "text" ,
+							data : {
+								groupNo : $(this).children('input').val()
+							},
+							success : function(result) {
+								if (result == "Success") {
+									alert("그룹이 복구되었습니다.");
+									location.reload(); // 리로드 안하고 할 수 있게 해보기 
+								} else {
+									alert("그룹이 복구되지 않았습니다.");
+								}
+							}
+							
+				});
+				
+			});
+		})
+		
+		$(function(){		
+			
+			$("p:contains('사진복구')").on("click", function () {
+				$.ajax(
+						{
+							url : "/photo/rest/updatePhotoStatus" ,
+							method : "POST" ,
+							dataType : "text" ,
+							data : {
+								photoNo : $(this).children('input').val()
+							},
+							success : function(result) {
+								if (result == "Success") {
+									alert("사진이 복구되었습니다.");
+									location.reload(); // 리로드 안하고 할 수 있게 해보기 
+								} else {
+									alert("사진이 복구되지 않았습니다.");
+								}
+							}
+							
+				});
+				
+			});
+		})
+		
 		</script>
 	</head>
 
@@ -66,7 +117,9 @@
 									<h5 class="card-title" id = "${ groupgroupNo }">${ group.groupName }</h5>
 									<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
 									<p class="card-text" id="content">
-									<p class="card-text" style="text-align:right;"><small class="text-muted"><a href="#">복구</a></small></p>
+									<p class="card-text" id="updateGroupStatus" style="text-align:right;"><small class="text-muted">앨범복구</small>
+									<input type="hidden" value="${ group.groupNo }" style="float:right;">
+									<input type="text" value="${ group.deleteDate }" style="display:none;"></p>
 								</div>
 							</div>
 						</div>
@@ -97,7 +150,9 @@
 									<h5 class="card-title" id ="${photo.photoNo}">${photo.photoName}</h5>
 									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
 									<p class="card-text" id="content">
-									<p class="card-text" style="text-align:right;"><small class="text-muted">복구</small></p>
+									<p class="card-text" id="updatePhotoStatus" style="text-align:right;"><small class="text-muted">사진복구</small>
+									<input type="hidden" value="${ photo.photoNo }" style="float:right;">
+									<input type="text" value="${ photo.deleteDate }" style="display:none;"></p>
 								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
 									
 								</div>

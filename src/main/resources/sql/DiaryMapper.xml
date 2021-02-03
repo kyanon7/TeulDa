@@ -210,7 +210,7 @@
 	SELECT * 
 	FROM 	(select inner_table.*, rownum as row_seq
         	from    (SELECT  diary_id, title, diary_addr,
-                	diary_date, start_date, end_date,
+                	diary_date, start_date, end_date, 
                		content, delete_date, thumbnail, group_id
                 	FROM diary
                 	<where>

@@ -17,6 +17,40 @@
 		<style>
 		</style>
 		<script>
+		$(function() {
+
+			$("button:contains('그룹 이동')").on("click", function() {
+				$.ajax(
+						{
+							url : "/diary/rest/updateDiaryGroup" ,
+							method : "POST" ,
+							dataType : "text" ,
+							data : {
+								groupNo : $("input:radio[name=optionsRadios]:checked").val(), 
+								diaryNo : ${ diaryNo }
+							},
+							success : function(result) {
+								if (result == "Success") {
+									alert("선택하신 그룹으로 이동되었습니다.");
+									window.opener.location.reload(); // 부모창 새로고침하고 팝업창(자식창) 닫기
+									window.close(); // 팝업창 닫기 
+								} else {
+									alert("그룹이 이동되지 않았습니다.");
+								}
+							}
+							
+				});
+			});
+			
+// 			$("button:contains('그룹 이동')").on("click", function () {
+// 				alert("선택하신 그룹으로 이동되었습니다.");
+// 				// 자식창(팝업창)에서 부모창 컨트롤 (페이지 이동, 이동한 페이지로 값 전달) : opener.parent.location 
+// 				opener.parent.location = "/diary/updateDiaryGroup?groupNo="+$("input:radio[name=optionsRadios]:checked").val()
+// 								+"&diaryNo="+$("input:hidden").val();
+// 				window.close(); // 팝업창 닫기 
+// 			});
+
+		});
 		</script>
 	
 	</head>
@@ -24,21 +58,21 @@
 	<body>
 
 	<div class="container">
-		<div class="row">
-			
+		<div class="row"> 
 			<div class="form-group">
 			<c:set var="i" value="0" />
 			<c:forEach var="group" items="${ diaryGroupList }">
 				<c:set var="i" value="${ i+1 }" />
-					
-					<label class="form-check-label">
-          				<input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-          				${ group.groupName eq 'default2' ? '그룹 미지정' : group.groupName }
-        			</label> <br> 
-				
+					<label class="form-check-label"> 
+					<input type="radio" class="form-check-input" name="optionsRadios" id="${ group.groupNo }" value="${ group.groupNo }"> 
+					${ group.groupName eq 'default2' ? '그룹 미지정' : group.groupName }
+					</label> <br>
 			</c:forEach>
 			</div>
 		</div>
+		
+		<button type="button" class="btn btn-primary btn-sm">그룹 이동</button>
+		
 	</div>
 
   	

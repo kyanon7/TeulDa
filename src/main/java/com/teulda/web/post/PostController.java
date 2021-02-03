@@ -267,12 +267,14 @@ import com.teulda.service.user.UserService;
 		System.out.println("===========================");
 
 		model.addAttribute("comment", comment);
+		
+		return "forward:/post/getPost.jsp";
 
-		if(((User) session.getAttribute("user")).getNickname() != null && comment.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
-			return "forward:/post/getMyPost.jsp";
-		}else {
-			return "forward:/post/getPost.jsp";
-		}
+//		if(((User) session.getAttribute("user")).getNickname() != null && comment.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+//			return "redirect:/post/getMyPost?postNo="+comment.getPostNo();
+//		}else {
+//			return "redirect:/post/getPost?postNo="+comment.getPostNo();
+//		}
 	}
 	
 	@RequestMapping(value="listMyComment",  method= {RequestMethod.GET, RequestMethod.POST})

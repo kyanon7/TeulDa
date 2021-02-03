@@ -24,6 +24,9 @@
 	
 	function fncGetList(currentPage){
 		
+		/* var postCategory='${post.postCategory}' */
+		
+		
 		$("#currentPage").val(currentPage);
 		$("form[name='detailForm']").attr("method", "POST").attr("action", "/post/listPost").submit();
 		
@@ -50,8 +53,9 @@
 	$(function(){
 		
 		$("button:contains('Search')").on("click", function () { // 검색 버튼
+			
 			$("#searchSorting").val($(this).attr('value'));
-			$("#postCategory").val($(this).attr('value'));
+	
 			fncGetList(1);
 			/* self.loacation = "/post/listPost?postCategory=${postCategory}$searchCondition="+$(this).attr('value')+"&searchKeyword="+$(this).attr('value')	 */
 		});
@@ -59,10 +63,12 @@
 		
 		
 		$(function(){
+			
 		$(".breadcrumb-item").on("click", function(){
 			
+	
 			$("#searchSorting").val($(this).attr('value'));
-			$("#postCategory").val($(this).attr('value'));
+			
 			fncGetList(1); // currentpage : 1 
 			
 			
@@ -116,7 +122,7 @@
 				
 				<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
 				
-				  <input type="hidden" id="postCategory" name="postCategory" value=""/>   
+				  <input type="hidden" id="postCategory" name="postCategory" value="${postCategory}"/>   
 			
 					<ol class="breadcrumb">
  						 <li class="breadcrumb-item" value="0"><a ${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최신순</a></li>

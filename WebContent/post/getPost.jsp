@@ -22,7 +22,7 @@
 		function fncAddComment(){
 			
 			$("form").attr("method","POST").attr("action","/post/addComment").submit();
-
+			location.reload(true);
 		}
 		
 		$(function(){
@@ -90,22 +90,40 @@
  	<c:if test="${ !empty user }"> 		 
  		<form name="addComment">
 			 <br/><br/>
+			  <input type="hidden" name="postNo" value="${ post.postNo }"/>
 			 <input type="text" name="commentContents" class="form-control" placeholder="댓글달아봐요~"/>
 			 <button class="btn btn-info" type="submit">등록</button>
 			 <br/><br/>
 			 
 		</form>
  			 
- <table class="table table-hover">
- 		  <tr class="table-primary">
- 		  	<c:set var="i" value="0"/>
- 		  		<c:forEach var="comment" items = "${commentList}">
- 		  			<c:set var="i" value="${i+1}"/> 
-  			    <th scope="row">${comment.nickname}</th>
-  			    <td>${comment.commentContents} </td>
-  			  </c:forEach>
-   		 </tr>
- 	</table> 
+ <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+	<c:set var="i" value="0"/>	
+ 		 <c:forEach var="comment" items = "${commentList}">
+ 		 <c:set var="i" value="${i+1}"/> 
+ 		 <div class="toast-header">
+ 		   <strong class="mr-auto">${comment.nickname}</strong>
+   			 <small>${comment.commentDate}</small>
+   			 
+   			 <c:if test="${ sessionScope.user.nickname == comment.nickname }">
+   				<span class="badge badge-info">수정</span>
+  				<span class="badge badge-danger">삭제</span>
+    		</c:if>
+    		
+  			</div>
+ 			<div class="toast-body">
+  			  ${comment.commentContents}
+  			</div>
+  		</c:forEach>
+	</div>
+ 	
+ 	
+ 	
+ <!-- <div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
+  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+  <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+</div> -->
  		<%--  <table class="table table-hover">
  	   <tbody>
  	   			<c:set var = "i" value = "0" />
