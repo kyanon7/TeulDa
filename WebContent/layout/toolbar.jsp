@@ -83,15 +83,15 @@
 	            
 	            <c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
 			      	<a class="nav-link" id="user"  href="/user/listUser">User List</a>
-      			</c:if>
+      			</c:if><!-- 관리자용 유저리스트 -->
       			
       			<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
 			      	<a class="nav-link" id="user"  href="/user/listBlacklist">BlackList</a>
-      			</c:if>
+      			</c:if><!-- 관리자용 블랙리스트 -->
       			
       			<c:if test="${sessionScope.user.role eq '1'.charAt(0)}">
 			      	<a class="nav-link" id="user"  href="/user/listUserPublic">User List</a>
-      			</c:if>
+      			</c:if><!-- 사용자용 리스트(공개 및 사용자 리스트) -->
 	            
 	            <li class="nav-item">
 	               <a class="nav-link" href="/user/getUser?email=${sessionScope.user.email}"><img src="../resources/images/profile-user.svg" width="25" height="25" alt=""></a>

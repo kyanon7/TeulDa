@@ -22,6 +22,7 @@
 		<result property="status"				column="status"			jdbcType="CHAR" />
 		<result property="role"				column="role"		jdbcType="CHAR" />
 		<result property="scrapCount"				column="scrap_count"		jdbcType="NUMERIC" />
+		<result property="reportCount"				column="report_count"		jdbcType="NUMERIC" />
 	</resultMap>
 	
 	<resultMap id="reportSelectMap" type="com.teulda.service.domain.Report">
