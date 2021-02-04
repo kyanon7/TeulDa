@@ -16,21 +16,121 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<!-- Google 지도 API 사용 스크립트 추가 -->
 		
-		<script type="text/javascript">
+		<script>
 		
 		
-		function fncAddComment(){
-			
-			$("form").attr("method","POST").attr("action","/post/addComment").submit();
-			location.reload(true);
-		}
+		
 		
 		$(function(){
+			
 			$("button:contains('등록')").on("click", function(){
-				fncAddComment();
+		         
+		         $.ajax({
+		         url : "/post/rest/addComment",   
+		         type : "POST",
+		         //dataType : "text",
+		         headers: {
+		            "Content-Type": "application/json"
+		         },
+		         data : JSON.stringify({
+		               
+		            postNo : "${ post.postNo }",
+		            /* postNo : $("#postNo").val(), */
+		            commentContents : $('#commentContents').val()
+		         
+		         
+		         }),
+				success : function(result){
+					
+					if (result == "Success") {
+						alert("댓글이 등록되었습니다.");
+					 location.reload();
+					} else{
+						alert("댓글이 등록되지 않았습니다.");
+					}
+				}
+			});
 		});
-
 	});
+		
+		$(function(){
+			
+			$("button:contains('삭제')").on("click", function(){
+				
+				alert("버튼 클릭됨");
+				
+				$.ajax({
+				url : "/post/rest/deleteComment",	
+				type : "POST",
+		         //dataType : "text",
+		         headers: {
+		            "Content-Type": "application/json"
+		         },
+		         data : JSON.stringify({
+		               
+		           commentNo : $('#commentNo').val()
+		         
+		         
+		         }), 
+				
+				success : function(result){
+					
+					if (result == "Success") {
+						alert("댓글이 삭제되었습니다.");
+						location.reload();
+					} else{
+						alert("댓글이 삭제되지 않았습니다.");
+					}
+				}
+			});
+		});
+	});
+		
+		
+		
+		
+		$("#updateComment").on("click", function () {
+	   
+		    var commentContents = $("#commentContents").text();
+
+		    $("#commentContents").val(commentContents);
+		
+
+		});
+	
+		//댓글 수정
+		$(function(){
+			
+			$("#finalupdate").on("click", function(){
+				
+				alert("수정버튼이 클릭됨");
+				
+				$.ajax({
+				url : "/post/rest/updateComment",	
+				type : "POST",
+				headers: {
+		            "Content-Type": "application/json"
+		         },
+				//dataType : "text",
+				data : JSON.stringify({	
+					
+					commentContents : commnetContents
+				}), 
+				success : function(result){
+					
+					if (result == "Success") {
+						alert("댓글이 수정되었습니다.");
+						location.reload();
+					} else{
+						alert("댓글이 수정되지 않았습니다.");
+					}
+				}
+			});
+		});
+	});
+		
+		
+	
 		
 </script>		
 		
@@ -88,32 +188,38 @@
  			 <br/><br/>
  			 
  	<c:if test="${ !empty user }"> 		 
- 		<form name="addComment">
-			 <br/><br/>
-			  <input type="hidden" name="postNo" value="${ post.postNo }"/>
-			 <input type="text" name="commentContents" class="form-control" placeholder="댓글달아봐요~"/>
-			 <button class="btn btn-info" type="submit">등록</button>
+ 	<h4>댓글</h4>
 			 <br/><br/>
 			 
-		</form>
+			 <input type="text" name="commentContents" id="commentContents" class="form-control" placeholder="댓글을 작성해주세요." maxlength="200"/>
+			 <br/><br/>
+			 <button class="btn btn-info" type="submit">등록</button>
+		 	 <input type="hidden"  value="${ post.postNo }"/>  
+		 	 
  			 
- <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
 	<c:set var="i" value="0"/>	
  		 <c:forEach var="comment" items = "${commentList}">
+ 	  
  		 <c:set var="i" value="${i+1}"/> 
  		 <div class="toast-header">
  		   <strong class="mr-auto">${comment.nickname}</strong>
    			 <small>${comment.commentDate}</small>
    			 
    			 <c:if test="${ sessionScope.user.nickname == comment.nickname }">
-   				<span class="badge badge-info">수정</span>
-  				<span class="badge badge-danger">삭제</span>
+   				<button type='button' class='badge badge-info' data-toggle='modal' data-target='#modifyModal'>수정</button>
+   				 <input type="hidden"  id="nickname" value="${comment.nickname}">	
+   				<br/>
+  				<button type='button' class="badge badge-danger" id="deleteComment">삭제</button>	
+  				 <input type="hidden"  id="commentNo" value="${comment.commentNo}">					
     		</c:if>
+    		
     		
   			</div>
  			<div class="toast-body">
   			  ${comment.commentContents}
   			</div>
+  			 
   		</c:forEach>
 	</div>
  	
@@ -142,5 +248,29 @@
 					</div>
 				</div>
 		</div>
+		
+		
+<div class="modal fade" id="modifyModal" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title">댓글 수정</h3>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="commentContents">댓글 내용</label>
+                  <input class="form-control" id="commentContents" name="commentContents" placeholder="수정할 내용을 적어주세요">
+              </div>
+            
+          </div>
+          <div class="modal-footer">
+        	  <button type="button" id="finalupdate" class="btn btn-success modalModBtn">수정</button>
+       	      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
 	</body>
 </html>
