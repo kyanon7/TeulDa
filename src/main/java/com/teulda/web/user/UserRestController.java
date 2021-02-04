@@ -1,10 +1,17 @@
 package com.teulda.web.user;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.teulda.service.domain.User;
 import com.teulda.service.user.UserService;
 
 @RestController
@@ -15,6 +22,10 @@ public class UserRestController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	public UserRestController(){
+		System.out.println(this.getClass());
+	}
 	
 	/*
 	 * @RestController public class MemberRController {
@@ -38,5 +49,12 @@ public class UserRestController {
 	 * 
 	 * } }
 	 */
+	
+	@RequestMapping( value="rest/getUser/{email}", method=RequestMethod.GET)
+	public User getUser(@PathVariable String email) throws Exception {
 
+		System.out.println("/user/rest/getUser : GET");
+		
+		return userService.getUser(email);
+	}
 }
