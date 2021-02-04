@@ -54,6 +54,24 @@ public class PostRestController {
 
 	   }
 	
+	@RequestMapping(value="rest/updateComment", method = RequestMethod.POST)
+	public String updateComment(@RequestBody Comment comment, HttpSession session) throws Exception{
+		
+		System.out.println("/post/rest/updateComment :POST");
+		
+		User user = (User)session.getAttribute("user");
+		
+		comment.setNickname(user.getNickname());
+		
+		System.out.println("===========================");
+	    System.out.println("이건 CommentNo값입니다"+comment);
+	    System.out.println("===========================");
+	    
+	    postService.updateComment(comment);
+	    
+	    return "Success";
+	}
+	
 	@RequestMapping(value="rest/deleteComment", method=RequestMethod.POST)
 	public String deleteComment(@RequestBody Comment comment) throws Exception {
 		
@@ -69,17 +87,5 @@ public class PostRestController {
 		return "Success";
 	}
 	
-	@RequestMapping(value="rest/updateComment", method = RequestMethod.POST)
-	public String updateComment(@RequestBody Comment comment) throws Exception{
-		
-		System.out.println("/post/rest/updateComment :POST");
-		
-		System.out.println("===========================");
-	    System.out.println("이건 CommentNo값입니다"+comment);
-	    System.out.println("===========================");
-	    
-	    postService.updateComment(comment);
-	    
-	    return "Success";
-	}
+	
 }

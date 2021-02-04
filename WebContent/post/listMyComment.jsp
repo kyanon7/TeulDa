@@ -19,6 +19,22 @@
 		
 	<script type="text/javascript">
 	
+	function fncGetList(currentPage) {
+
+		/* var postCategory='${post.postCategory}' */
+
+		$("#currentPage").val(currentPage);
+		
+		
+		$("form[name='detailForm']").attr("method", "POST").attr("action",
+				"/post/listMyComment").submit();
+
+	}
+	
+	
+	
+	
+	
 	$(function(){
 		$(".ct_list_pop td:nth-child(5)").on("click", function(){
 			self.location = "/post/getPost?postNo="+$(this).attr('id')			
@@ -37,6 +53,19 @@
 		});
 	});
 	
+	
+	$(function() {
+
+		$("button:contains('Search')").on("click", function() { // 검색 버튼
+
+			$("#searchSorting").val($(this).attr('value'));
+
+			fncGetList(1);
+			/* self.loacation = "/post/listPost?postCategory=${postCategory}$searchCondition="+$(this).attr('value')+"&searchKeyword="+$(this).attr('value')	 */
+		});
+	});
+	
+	
 
 		</script>
 	</head>
@@ -47,6 +76,7 @@
 			<jsp:include page="../layout/toolbar.jsp"/>
 		</header><br/><br/>
 		<!-- End Header -->
+<form name="detailForm">
 
   		<div class="container">
   			<div class="row">
@@ -76,22 +106,41 @@
  						 <li class="breadcrumb-item"><a href="#">최신순</a></li>
   						 <li class="breadcrumb-item"><a href="#">조회순</a></li>
   				   </ol> -->
-  						  <form class="form-inline">
-    						  <input class="form-control mr-sm-2" type="text" placeholder="Search">
-    						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-   						 </form>
+  				   
+  				   <span class="badge badge-info">PAGE ${ resultPage.currentPage},
+							TOTAL ${ resultPage.totalCount }</span>  <input type="hidden" 
+							id="postCategory" name="postCategory" value="${postCategory}"/>
+						
+					<input type="hidden" name="nickname" id="nickname"
+							value="${nickname}">	
+  						 
    					<c:if test="${ !empty user }"> 
    					<a type="button" id="${nickname}" class="btn btn-outline-info">내 글 보기</a>
   					<a type="button" href="#" class="btn btn-outline-info">내 댓글 보기</a>
   					</c:if>
-   						  <div class="form-group">
-   							 <select class="custom-select">
-    						  <option selected="">Open this select menu</option>
-     						 <option value="1">제목</option>
-     						 <option value="2">내용</option>
-     					 <option value="3">제목+내용</option>
-     					 <option value="4">작성자</option>
-   					 </select>
+   					<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<select class="custom-select" name="searchCondition">
+								<%-- <option value="0"
+									${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>작성자</option>
+								<option value="1"
+									${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>제목</option> --%>
+								<option value="2"
+									${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>내용</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<input class="form-control mr-sm-2" name="searchKeyword"
+							type="text" placeholder="Search" id="inputDefault"
+							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+					</div>
+
+					<div class="col-md-3">
+						<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+					</div>
+				</div>
 				
 					<!-- <div class=".col-md-6"> -->
   					 	<table class="table table-hover">
@@ -125,15 +174,14 @@
 				</tr>
 				</tbody>
 				</table>
+				
+				<input type="hidden" id="currentPage" name="currentPage" value="" />
+						<!-- PageNavigation Start... -->
+						<jsp:include page="../common/pageNavigator.jsp" />
+						<!-- PageNavigation End... -->
 				</div>
+			</div>
 		</div>
-	</div>
-</div>
- 	
- 	<jsp:include page="../common/pageNavigator.jsp" />
+	</form>
 	</body>
-	
-	
-	
-	
 </html>

@@ -304,7 +304,7 @@
                 		post_type in ('1','2','3','4','5')
                 		</when> -->
                 	</choose>
-               				<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+               			<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
                 				<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
                 				AND nickname like '%'||#{search.searchKeyword}||'%'
@@ -330,16 +330,64 @@
 	</select>
 	
 	<select  id="getMycommentList"  parameterType="string"	 resultMap="commentSelectMap">
+	
+	SELECT * 
+	FROM 	(select inner_table.*, rownum as row_seq
+        	from    (SELECT  comment_id, post_id, content, comment_date, nickname
+                	FROM COMMENTS
+                 <where>
+                	nickname = #{nickname}
+                	
+                	<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                				<!-- <when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
+                				AND nickname like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> 
+                				AND title like '%'||#{search.searchKeyword}||'%'
+                				</when> -->
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> 
+                				AND content like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                			</choose>
+                		</if>
+                </where>
+					ORDER BY comment_id DESC
+					)inner_table
+      		WHERE ROWNUM &lt; = #{search.endRowNum} )
+	WHERE row_seq between #{search.startRowNum} and #{search.endRowNum}
+	
+	
+<!-- 	
 	SELECT *
 	FROM COMMENTS
 	WHERE nickname = #{nickname}
-	ORDER BY comment_id DESC
+	ORDER BY comment_id DESC -->
 	</select>
 	
 	<select  id="getMycommentTotalCount"  parameterType="search"	 resultType="int">
 	SELECT COUNT(*)
 	FROM (SELECT    comment_id, post_id, content, comment_date, nickname
-      	  FROM COMMENTS) countTable 
+      	  FROM COMMENTS
+      	   <where>
+                	nickname = #{nickname}
+                	
+                	<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                				<!-- <when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> 
+                				AND nickname like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> 
+                				AND title like '%'||#{search.searchKeyword}||'%'
+                				</when> -->
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> 
+                				AND content like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                			</choose>
+                		</if>
+                </where>
+					ORDER BY comment_id DESC
+      		  ) countTable 
 	</select>
 	
 	<update	id="updatePostViewCount"	parameterType="int">
