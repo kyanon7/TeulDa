@@ -59,9 +59,8 @@
 		
 		
 		$(function(){
-			$('.card-header small').on("click", function(){
-				$('#updateGroupName').attr("type", "text");
-				$('.card-header small').attr("style","display:none;")
+			$("p:contains('이름수정')").on("click", function(){
+				window.open("/photo/updateGroupName?groupNo="+$(this).children('input').val(), "updateGroupName", "width=350, height=150, left=550, top=250");
 			})
 		})
 		
@@ -117,7 +116,8 @@
 									<p class="card-text" id="content">
 									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
 									<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
-									<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small></p>
+									<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small>
+									<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
 <%-- 									${ diary.content } --%> 
 									<%-- <c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /> --%>
 								<div class="groupNo" style="display:none;">${group.groupNo}</div>

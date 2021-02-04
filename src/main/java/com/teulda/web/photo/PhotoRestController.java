@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.teulda.common.Group;
 import com.teulda.common.Photo;
+import com.teulda.service.domain.Diary;
 import com.teulda.service.photo.PhotoService;
 
 @RestController
@@ -34,6 +35,7 @@ public class PhotoRestController {
 	int pageSize;
 
 
+	//앨범 삭제 플래그처리
 	@RequestMapping(value="rest/updateGroupStatus", produces = "application/json")
 	public String updateGroupStatus(@RequestParam("groupNo") int groupNo) throws Exception {
 		
@@ -46,6 +48,7 @@ public class PhotoRestController {
 		return "Success";
 	}
 	
+	//사진 삭제 플래그처리
 	@RequestMapping(value="rest/updatePhotoStatus", produces = "application/json")
 	public String updatePhotoStatus(@RequestParam("photoNo") int photoNo) throws Exception {
 		
@@ -54,6 +57,34 @@ public class PhotoRestController {
 		System.out.println("DeleteDate =========== "+photo.getDeleteDate());
 		
 		photoService.updatePhotoStatus(photo);
+		
+		return "Success";
+	}
+	
+	//사진옮기기
+	@RequestMapping(value="rest/updateGroupNo", produces = "application/json")
+	public String updateGroupNo(@RequestParam("groupNo") int groupNo, @RequestParam("photoNo") int photoNo) throws Exception {
+		
+		Photo photo = new Photo();
+		photo.setPhotoGroupNo(groupNo);
+		photo.setPhotoNo(photoNo);
+		
+		photoService.updateGroupNo(photo);
+		
+		return "Success";
+	}
+	
+	//앨범명 수정
+	@RequestMapping(value="rest/updateGroupName", produces = "application/json")
+	public String updateGroupName(@RequestParam("groupNo") int groupNo, @RequestParam("groupName") String groupName) throws Exception {
+		
+		Group group = new Group();
+		group.setGroupNo(groupNo);
+		group.setGroupName(groupName);
+		
+		System.out.println("GroupNo ==== "+groupNo+" //// GroupName ==== "+groupName );
+		
+		photoService.updateGroupName(group);
 		
 		return "Success";
 	}

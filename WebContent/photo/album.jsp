@@ -28,6 +28,16 @@
 		});
 		
 		$(function(){
+			$("input[type='submit']").on("click", function(){
+				alert("click")
+				if(("#photoAddr").val() == null){
+					alert("주소를 입력해주세요.")
+				}
+			})
+		})
+		
+		
+		$(function(){
 			$("p:contains('이동')").on("click",function(){
 				window.open("/photo/listPhoto", "updateGroupNo", "width=400, height=300, left=100, top=50");
 			});
@@ -58,6 +68,12 @@
 			});
 		})
 		
+		$(function(){
+			$("img[src='../resources/images/folder.png']").on("click", function() { 
+				window.open('/photo/selectPhotoGroup?photoNo='+ $(this).attr('id'),'그룹 선택','width=1000, height=1000');
+			});
+		});
+		
 		</script>
 	</head>
 
@@ -80,7 +96,7 @@
 							        <input multiple="multiple" type="file" name="file"/>
 							        <input type="hidden" name="groupNo" value="${groupNo}"/>
 							        <!-- <input type="text" name="photoAddr" /> -->
-							        <input type="text" id="photoName" name="photoAddr" style="height: 38pt;" placeholder="주소를 입력해주세요" value=""/>
+							        <input type="text" id="photoAddr" name="photoAddr" style="height: 38pt;" placeholder="주소를 입력해주세요" value=""/>
 							        <input type="submit" class="btn btn-outline-info" value="사진등록" />
 							    </form><br/>
 							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
@@ -101,18 +117,16 @@
 						<div class="col-md-4">
 							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
 								<div class="card-header">
-<%-- 									<img src="../resources/images/marker_blue.png" height="12px"
-										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
 									<input type="hidden" id="updateGroupName" value="${photo.photoName}">
-									<small style="">${ photo.photoName}</small>
+									<%-- <small style="">${ photo.photoName}</small> --%>
+									<img src="../resources/images/folder.png" id="${ photo.photoNo }" height="13px" align="middle" style="float:right;">
 								</div>
 								<div class="card-body">
-									<h5 class="card-title" id ="${photo.photoNo}">${photo.photoName}</h5>
+									<h5 class="card-title" id ="${photo.photoNo}"><%-- ${photo.photoName} --%></h5>
 									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
-									<p class="card-text" id="content">
+									<p class="card-text" id="content">${photo.photoDate }
 									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
 									<input type="hidden" value="${ photo.photoNo }" style="float:right;"></p>
-									<p class="card-text" style="text-align:right;"><small class="text-muted">이동</small></p>
 								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
 								
 								</div>

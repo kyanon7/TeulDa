@@ -218,13 +218,29 @@
 		ORDER BY delete_date DESC
 	</select>
 	
-		<!-- SQL : SELECT GroupList(내 사진앨범 조회, 삭제처리한 앨범list 조회) -->
+	<!-- delete처리한 사진갯수 -->
+	<select id="deletePhotoTotalCount" parameterType="com.teulda.common.Group" resultType="int">
+		SELECT
+		count(*)
+		FROM photo
+		WHERE delete_date IS NOT NULL AND nickname = #{nickname}
+	</select>
+	
+	<!-- SQL : SELECT GroupList(내 사진앨범 조회, 삭제처리한 앨범list 조회) -->
 	<select id="deleteGroupList" parameterType="com.teulda.common.Group" resultMap="groupSelectMap">
 		SELECT
 		group_id, group_name, nickname, delete_date, group_type
 		FROM groups
 		WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NOT NULL
 		ORDER BY delete_date DESC
+	</select>
+	
+	<!-- delete 처리한 앨범 갯수 -->
+	<select id="deleteGroupTotalCount" parameterType="com.teulda.common.Group" resultType="int">
+		SELECT
+		count(*)
+		FROM groups
+		WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NOT NULL
 	</select>
 
 </mapper>
