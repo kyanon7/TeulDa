@@ -89,7 +89,7 @@
 	<delete id="deleteComment" parameterType="int">
 		DELETE
 		FROM COMMENTS
-		WHERE comment_id  = #{value}
+		WHERE comment_id  = #{commentNo}
 	</delete>
 	
 	
@@ -353,6 +353,17 @@
 		FROM COMMENTS
 		WHERE post_id = #{postNo}
 	</delete>
+	
+	
+	<select	 id="getNewPostNo"  parameterType="String" resultType="int">
+	SELECT post_id 
+	FROM
+	(SELECT * 
+	FROM post 
+	where nickname = #{nickname}
+	ORDER BY post_id DESC)
+	WHERE ROWNUM = 1
+	</select>
 	
 	
 	

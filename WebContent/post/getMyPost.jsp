@@ -16,7 +16,7 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<!-- Google 지도 API 사용 스크립트 추가 -->
 		
-		<script type="text/javascript">
+		<script>
 		
 		
 	$(function(){
@@ -29,7 +29,8 @@
 			dataType : "text",
 			data : {
 					
-				postNo : "${post.postNo}"    /* $("#postNo").val() */
+				postNo : $(this).children('input').val(),
+				/* postNo : $("#postNo").val(), */
 				commentContents : $("#commentContents").val()
 			
 			
@@ -38,27 +39,16 @@
 				
 				if (result == "Success") {
 					alert("댓글이 등록되었습니다.");
-					location.reload();
+					self.location = "post/getPost?postNo=${post.postNo}"
 				} else{
 					alert("댓글이 등록되지 않았습니다.");
 				}
 			}
-		})
+		});
 	});
-			
+});
 
 
-/*  	$(function(){
-			$("button:contains('등록')").on("click", function(){
-					alert($("#postNo").val());
-					self.location = "/post/addComment?postNo=${post.postNo}"
-					
-				});
-			});  */
-		
-		
-	
-		
 		$(function(){
 			$("out").on("click", function(){
 				
@@ -81,6 +71,39 @@
 
 		}  */
 		
+		$(function(){
+			$("span:contains('수정')").on("click",function(){
+				window.open("/photo/listPhoto", "updateGroupNo", "width=400, height=300, left=100, top=50");
+			});
+		});
+		
+		
+		$(function(){
+			
+			$("span:contains('지움')").on("click", function(){
+				alert("버튼 클릭됨");
+				
+				$.ajax({
+				url : "/post/rest/deleteComment",	
+				method : "POST",
+				dataType : "text",
+				data : {	
+					commentNo : $(this).children('input').val()
+				},
+				success : function(result){
+					
+					if (result == "Success") {
+						alert("댓글이 삭제되었습니다.");
+						location.reload();
+					} else{
+						alert("댓글이 삭제되지 않았습니다.");
+					}
+				}
+			});
+		});
+	});
+		
+		
 
 	
 			
@@ -91,13 +114,13 @@
 			});
 			
 			$("button:contains('취소')").on("click", function(){
-				self.location = "/post/listPost?postCategory=1"
+				self.location = "/post/listPost?postCategory=6"
 			});
 			
 			/* $("button:contains('등록')").on("click", function(){
 				fncAddComment();
 			});  */
-	});		
+			});		
 	</script>
 </head>
 	
@@ -160,7 +183,7 @@
 			<button class="btn btn-info" type="button">취소</button>
 			
 			
-		<form name="addComment" id="addComment">
+	<!-- 	<form name="addComment" id="addComment"> -->
 
 			<h4>댓글</h4>
 			 <br/><br/>
@@ -168,30 +191,10 @@
 			 <input type="text" name="commentContents" id="commentContents" class="form-control" placeholder="댓글을 작성해주세요." maxlength="200"/>
 			 <br/><br/>
 			 <button class="btn btn-info" type="submit">등록</button>
-			 <input type="hidden" name="postNo" id="postNo" value="${ post.postNo }"/>
-		</form>
-			 
-	 <%-- <table class="table table-hover">
- 		  <tr class="table-primary">
- 		  	<c:set var="i" value="0"/>
- 		  		<c:forEach var="comment" items = "${commentList}">
- 		  			<c:set var="i" value="${i+1}"/> 
-  			    <th scope="row">${comment.nickname} &emsp; &emsp; &emsp; ${comment.commentContents}  &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;${comment.commentDate}</th>
-  			  <c:if test="${ user.nickname == post.nickname }"> 	  
-  			    <span class="badge badge-info">수정</span>
-  				<span class="badge badge-danger">삭제</span>
-  				</c:if>
-  			    <td>${comment.commentContents} </td>
-  			  </c:forEach>
-   		 </tr>
- 	</table>  --%>
- 	
- 
- 	
- 
-		
-			
-	<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+		 	 <input type="hidden"  value="${ post.postNo }"/>  
+		<!-- </form> -->
+	
+	<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" id="delete">
 	<c:set var="i" value="0"/>	
  		 <c:forEach var="comment" items = "${commentList}">
  		 <c:set var="i" value="${i+1}"/> 
@@ -201,9 +204,10 @@
    			 
    			 <c:if test="${ sessionScope.user.nickname == comment.nickname }">
    				<span class="badge badge-info">수정</span>
-  				<span class="badge badge-danger">삭제</span>
+   				 <input type="hidden"  value="${ comment.commentNo }">  
+  				<span class="badge badge-danger" id="deleteComment">지움</span>
+  				 <input type="hidden"  value="${ comment.commentNo }">  
     		</c:if>
-    		
   			</div>
  			<div class="toast-body">
   			  ${comment.commentContents}

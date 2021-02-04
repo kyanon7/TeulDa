@@ -92,7 +92,7 @@
 			<div class="row">
 				
 				<div style="width: 100%;">
-				<br>
+				<br>			
 				<input type="text" name="postTitle" class="form-control" placeholder="제목"/>
 				<br><br> 
 				<textarea id="summernote" name="postContents"></textarea>

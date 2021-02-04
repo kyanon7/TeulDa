@@ -14,6 +14,9 @@ public interface PostService {
 	//게시글 조회
 	public Post getPost(int postNo) throws Exception;
 	
+	//방금 저장한 게시글 확인
+	public int getNewPostNo(String nickname) throws Exception;
+	
 	//게시글 작성
 	public void addPost(Post post) throws Exception;
 	
