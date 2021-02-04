@@ -24,6 +24,9 @@ public interface PhotoDao {
 	//photoTotalCount => 완료
 	public int getPhotoTotalCount(Group group) throws Exception;
 	
+	//photoTotalCount => 완료
+	public int deletePhotoTotalCount(Group group) throws Exception;
+	
 	//앨범등록 => 완료
 	public void addGroup(Group group) throws Exception;
 	
@@ -38,6 +41,9 @@ public interface PhotoDao {
 	
 	//groupTotalCount => 완료
 	public int getGroupTotalCount(Group group) throws Exception;
+	
+	//groupTotalCount => 완료
+	public int deleteGroupTotalCount(Group group) throws Exception;
 	
 	//앨범이름 변경 => 완료
 	public void updateGroupName(Group group) throws Exception;

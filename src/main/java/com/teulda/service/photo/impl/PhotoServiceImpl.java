@@ -138,9 +138,11 @@ public class PhotoServiceImpl implements PhotoService {
 	@Override
 	public Map<String, Object> deletePhotoList(Group group) throws Exception {
 		List<Photo> photoList = photoDao.deletePhotoList(group);
+		int totalCount = photoDao.deletePhotoTotalCount(group);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("photoList", photoList);
+		map.put("deletePhotoCount", totalCount);
 		
 		return map;
 	}
@@ -148,9 +150,11 @@ public class PhotoServiceImpl implements PhotoService {
 	@Override
 	public Map<String, Object> deleteGroupList(Group group) throws Exception {
 		List<Group> groupList = photoDao.deleteGroupList(group);
+		int totalCount = photoDao.deleteGroupTotalCount(group);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("groupList", groupList);
+		map.put("deleteGroupCount", totalCount);
 		
 		return map;
 	}
