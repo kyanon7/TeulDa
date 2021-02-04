@@ -16,10 +16,8 @@
 				})
 				.then(res => res.json())
 				.then(result => {
-					console.log(result);
-					console.log(result.nickname);
 
-					location.href = `http://localhost:3000?nickname=\${result.nickname}`
+					location.href = `https://powerful-inlet-24111.herokuapp.com?nickname=\${result.nickname}`
 					
 					// let form = document.createElement('form');
 					// form.setAttribute("charset", "UTF-8");
