@@ -37,12 +37,12 @@ public class PhotoController {
 		System.out.println(this.getClass());
 	}
 
-	@Value("#{commonProperties['pageUnit']}")
-//	@Value("#{commonProperties['pageUnit'] ?: 3}")
+//	@Value("#{commonProperties['pageUnit']}")
+	@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize']}")
-//	@Value("#{commonProperties['pageSize'] ?: 2}")
+//	@Value("#{commonProperties['pageSize']}")
+	@Value("#{commonProperties['pageSize'] ?: 5}")
 	int pageSize;
 	
 	//앨범 생성
@@ -149,8 +149,28 @@ public class PhotoController {
 		
 		model.addAttribute("groupList",  map.get("groupList"));
 		model.addAttribute("photoList", list.get("photoList"));
+		model.addAttribute("deleteGroupCount", map.get("deleteGroupCount"));
+		model.addAttribute("deletePhotoCount", list.get("deletePhotoCount"));
 		
 		return "forward:/photo/photoBin.jsp";
+	}
+	
+	@RequestMapping(value="selectPhotoGroup", method= RequestMethod.GET)
+	public String selectDiaryGroup(@RequestParam("photoNo") int photoNo, HttpSession session, Model model) throws Exception {
+		
+		System.out.println("/photo/selectPhotoGroup : GET");
+		
+		User user = (User) session.getAttribute("user");
+		
+		Group group = new Group();
+		group.setNickname(user.getNickname());
+		// 기록 그룹 찾기
+		Map<String, Object> groupList = photoService.getGroupList(group);
+		
+		model.addAttribute("groupList", groupList.get("groupList"));
+		model.addAttribute("photoNo", photoNo);
+		
+		return "forward:/photo/selectPhotoGroup.jsp";
 	}
 	
     @RequestMapping(value = "addPhoto", method=RequestMethod.POST)
@@ -218,5 +238,16 @@ public class PhotoController {
   		photoService.deleteGroup(user.getNickname());
   		
   		return "forward:/photo/photoBin";
+  	}
+  	
+  	@RequestMapping(value="updateGroupName")
+  	public String updateGroupName(@RequestParam("groupNo")int groupNo, Model model) throws Exception{
+  		
+  		photoService.getGroup(groupNo);
+  		System.out.println("GroupNo ========== "+groupNo);
+  		
+  		model.addAttribute("groupNo", groupNo);
+  		
+  		return "updateGroupName.jsp";
   	}
 }

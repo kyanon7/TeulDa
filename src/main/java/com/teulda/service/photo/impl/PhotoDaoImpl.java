@@ -150,5 +150,15 @@ public class PhotoDaoImpl implements PhotoDao {
 		return sqlSession.selectList("PhotoMapper.deleteGroupList", group);
 	}
 
+	@Override
+	public int deletePhotoTotalCount(Group group) throws Exception {
+		return sqlSession.selectOne("PhotoMapper.deletePhotoTotalCount", group);
+	}
+
+	@Override
+	public int deleteGroupTotalCount(Group group) throws Exception {
+		return sqlSession.selectOne("PhotoMapper.deleteGroupTotalCount", group);
+	}
+
 	
 }

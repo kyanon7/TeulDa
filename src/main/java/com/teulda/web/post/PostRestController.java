@@ -5,7 +5,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,40 +29,57 @@ public class PostRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value="rest/addComment", produces = "application/json")
-	public String addComment(@RequestParam("commentContents") String commentContents ,@RequestParam("postNo") int postNo, HttpSession session) throws Exception{
+	@RequestMapping(value="rest/addComment", method=RequestMethod.POST)
+	   public String addComment(@RequestBody Comment comment, HttpSession session) throws Exception{
+	      
+	      System.out.println("/post/rest/addComment");
+	      
+	      User user = (User)session.getAttribute("user");
+	      
+	      System.out.println("===========================");
+	      System.out.println("이건 User값입니다"+user);
+	      System.out.println("===========================");
+	      
+	      comment.setNickname(user.getNickname());
+	      
+	      System.out.println(comment);
+	      
+	      postService.addComment(comment);
+	      
+	      System.out.println("===========================");
+	      System.out.println("이건 comment값입니다"+comment);
+	      System.out.println("===========================");
+	      
+	      return "Success";
+
+	   }
+	
+	@RequestMapping(value="rest/deleteComment", method=RequestMethod.POST)
+	public String deleteComment(@RequestBody Comment comment) throws Exception {
 		
-		System.out.println("/post/rest/addComment");
+		System.out.println("/post/rest/deleteComment :POST");
 		
-		User user = (User)session.getAttribute("user");
 		
 		System.out.println("===========================");
-		System.out.println("이건 User값입니다"+user);
-		System.out.println("===========================");
+	    System.out.println("이건 CommentNo값입니다"+comment);
+	    System.out.println("===========================");
 		
-		Comment comment = new Comment();
-		
-		comment.setCommentContents(commentContents);
-		comment.setNickname(user.getNickname());
-		comment.setPostNo(postNo);
-		
-		postService.addComment(comment);
-		
-		System.out.println("===========================");
-		System.out.println("이건 comment값입니다"+comment);
-		System.out.println("===========================");
+		postService.deleteComment(comment.getCommentNo());
 		
 		return "Success";
-
 	}
 	
-	@RequestMapping(value="rest/deleteComment", produces = "application/json")
-	public String deleteComment(@RequestParam("commentNo") int commentNo) throws Exception {
+	@RequestMapping(value="rest/updateComment", method = RequestMethod.POST)
+	public String updateComment(@RequestBody Comment comment) throws Exception{
 		
-		System.out.println("/post/rest/deleteComment");
+		System.out.println("/post/rest/updateComment :POST");
 		
-		postService.deleteComment(commentNo);
-		
-		return "Success";
+		System.out.println("===========================");
+	    System.out.println("이건 CommentNo값입니다"+comment);
+	    System.out.println("===========================");
+	    
+	    postService.updateComment(comment);
+	    
+	    return "Success";
 	}
 }

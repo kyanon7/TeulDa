@@ -16,6 +16,7 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<script>
 		
+		
 		/* 완전 삭제 */
 		function removeCheck() {
 
@@ -103,7 +104,7 @@
 				</div>
 				<div class="col-md-9">
   					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">Delete Album List</a><br/><br/>
+  					<a href="#" class="list-group-item list-group-item-action active">Delete Album List&nbsp&nbsp${deleteGroupCount}</a><br/><br/>
 				<div class="row"> 
 					<c:set var="i" value="0" />
 					<c:forEach var = "group" items = "${ groupList }">
@@ -120,11 +121,13 @@
 									<p class="card-text" id="updateGroupStatus" style="text-align:right;"><small class="text-muted">앨범복구</small>
 									<input type="hidden" value="${ group.groupNo }" style="float:right;">
 									<input type="text" value="${ group.deleteDate }" style="display:none;"></p>
+									<p class="card-text" id="updatePhotoStatus" style="text-align:right;"><small class="text-muted">영구삭제</small></p>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
 					<!-- PageNavigation Start... -->
+					<input type="hidden" id="currentPage" name="currentPage" value=""/>
 					<jsp:include page="../common/pageNavigator.jsp" />
 					<!-- PageNavigation End... -->
 			    </div>
@@ -133,7 +136,7 @@
 				
 				<div class="col-md-9">
   					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">Delete Photo List</a><br/><br/>
+  					<a href="#" class="list-group-item list-group-item-action active">Delete Photo List&nbsp&nbsp${deletePhotoCount}</a><br/><br/>
 		          <div class="row"> 
 					<c:set var="i" value="0" />
 					<c:forEach var = "photo" items = "${ photoList }">
@@ -144,22 +147,26 @@
 <%-- 									<img src="../resources/images/marker_blue.png" height="12px"
 										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
 									<input type="hidden" id="updateGroupName" value="${photo.photoName}">
-									<small style="">${ photo.photoName}</small>
+									<%-- <small style="">${ photo.photoName}</small> --%>
 								</div>
 								<div class="card-body">
-									<h5 class="card-title" id ="${photo.photoNo}">${photo.photoName}</h5>
+									<%-- <h5 class="card-title" id ="${photo.photoNo}">${photo.photoName}</h5> --%>
 									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
-									<p class="card-text" id="content">
+									<p class="card-text" id="content">삭제일 : ${photo.deleteDate}
 									<p class="card-text" id="updatePhotoStatus" style="text-align:right;"><small class="text-muted">사진복구</small>
 									<input type="hidden" value="${ photo.photoNo }" style="float:right;">
 									<input type="text" value="${ photo.deleteDate }" style="display:none;"></p>
+									<p class="card-text" id="updatePhotoStatus" style="text-align:right;"><small class="text-muted">영구삭제</small></p>
 								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
 									
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-
+					<!-- PageNavigation Start... -->
+					<input type="hidden" id="currentPage" name="currentPage" value=""/>
+					<jsp:include page="../common/pageNavigator.jsp" />
+					<!-- PageNavigation End... -->
 			    </div>
 						</div>
 					</div>
