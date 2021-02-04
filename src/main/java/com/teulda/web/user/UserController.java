@@ -109,6 +109,19 @@ public class UserController {
 		return "redirect:/user/getUser?email="+user.getEmail();
 	}
 	
+	/*
+	 * @RequestMapping( value="updateReportCount", method=RequestMethod.POST )
+	 * public String updateReportCount( @ModelAttribute("reportCount") int
+	 * reportCount , Model model , HttpSession session) throws Exception{
+	 * 
+	 * System.out.println("/user/updateReportCount : POST"); //Business Logic
+	 * userService.updateReportCount(reportCount);
+	 * 
+	 * 
+	 * 
+	 * return "redirect:/"; }
+	 */
+	
 	@RequestMapping("deleteUser")
 	public String deleteUser(@RequestParam("nickname") String nickname) throws Exception {
 		
@@ -137,10 +150,15 @@ public class UserController {
 		User dbUser=userService.getUser(user.getEmail());
 		
 		if( user.getPassword().equals(dbUser.getPassword())){
+			if( user.getStatus()=='1'){
+				return "redirect:/user/ban.jsp";	
+			}
+			else {
 			session.setAttribute("user", dbUser);
-			System.out.println("dbUser디버깅"+dbUser);
+			System.out.println("dbUser디버깅"+dbUser);}
 		}
 		
+	
 		return "redirect:/index.jsp";
 	}// 로그인 하고 인덱스
 		
@@ -242,6 +260,30 @@ public class UserController {
 		return "forward:/user/listBlacklist.jsp";
 	}
 	
+	@RequestMapping( value="listReport" )
+	public String listReportlist( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+		
+		System.out.println("/user/listReport :"+"debug");
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		Map<String , Object> map=userService.getReportList(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		// Model 과 View 연결
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		//model.addAttribute("search", search);
+		
+		return "redirect:/user/listReport.jsp";
+	}
+	
 	@RequestMapping( value="addReport", method=RequestMethod.GET )
 	public String addReport(@RequestParam("targetNick") String targetNick, Model model) throws Exception{
 		
@@ -265,8 +307,8 @@ public class UserController {
 	
 	
 	@RequestMapping( value="addReport", method=RequestMethod.POST )
-	public String addReport( @ModelAttribute("report") Report report , Model model,
-			@RequestParam("targetNick") String targetNick, HttpServletRequest request ) throws Exception {
+	public String addReport( @ModelAttribute("report") Report report , User user, Model model,
+			@RequestParam("targetNick") String targetNick, HttpServletRequest request, int reportCount ) throws Exception {
 
 		System.out.println("/user/addReport : POST");
 		//Business Logic
@@ -274,8 +316,10 @@ public class UserController {
 		
 		System.out.println(targetNick+"디버그");
 		report.setTargetNick(targetNick);
+		user.setReportCount(reportCount);
 		
 		userService.addReport(report);
+		userService.updateReportCount(reportCount);
 		return "redirect:/";
 	}
 	

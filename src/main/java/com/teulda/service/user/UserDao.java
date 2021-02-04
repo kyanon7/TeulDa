@@ -25,6 +25,8 @@ public interface UserDao {
 
 	public void updateUser(User user) throws Exception ;//유저정보 수정 완
 	
+	public void updateReportCount(int reportCount) throws Exception;//유저 신고횟수 업데이트
+	
 	public void updateUserStatus(User status) throws Exception ;//유저상태 수정 완
 	
 	public void deleteUser(String nickname) throws Exception ;//유저탈퇴(삭제) 완

@@ -89,7 +89,12 @@ public class UserServiceImpl implements UserService {
 		userDao.updateUser(user);
 		
 	}
-
+	
+	@Override
+	public void updateReportCount(int reportCount) throws Exception {
+		userDao.updateReportCount(reportCount);
+		
+	}
 	
 	@Override
 	public void updateUserStatus(User status) throws Exception {
@@ -123,7 +128,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Map<String, Object> getUserListPublic(Search search) throws Exception {
-		// TODO Auto-generated method stub
+
 		List<User> list= userDao.getUserListPublic(search);
 		int totalCount = userDao.getUserCount(search);
 		

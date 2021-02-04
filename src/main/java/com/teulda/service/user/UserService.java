@@ -33,6 +33,8 @@ public interface UserService {
 	
 	public void updateUser(User user) throws Exception;//유저정보 업데이트 완
 	
+	public void updateReportCount(int reportCount) throws Exception;//유저 신고횟수 업데이트
+	
 	public void updateUserStatus(User status) throws Exception ;//유저상태 업데이트  
 	
 	public void deleteUser(String nickname) throws Exception ;//유저삭제 완
@@ -46,5 +48,7 @@ public interface UserService {
 	public Map<String , Object> getUserBlackList(Search search) throws Exception ;//블랙리스트 리스트
 	
 	public Map<String , Object> getReportList(Search search) throws Exception ;///신고리스트 리스트
+
+	
 	
 }

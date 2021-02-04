@@ -69,6 +69,10 @@
 
 
 		 $("form").attr("method" , "POST").attr("action" , "/user/addReport").submit();
+		 
+		 
+		 
+		 
 		}
 		
 		
@@ -86,13 +90,15 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 <div class="col-lg-10"><!-- 길이지정 -->
 	
+	<input type="hidden" name="reportCount" value="${user.reportCount}" />
   <input type="hidden" name="reporterNick" value="${user.nickname}" />
   <input type="hidden" name="targetNick" value="${targetNick}" />
 <div class="bs-component"><!-- 컴포넌트는 부트스트랩에서 정의한 UI 요소로 버튼, 경고창, 네비게이션바 와 같이 화면 구성에 필요한 요소들을 정의해둔 클래스 집합 입니다 -->
 <form data-dpmaxz-fid="4">
   <fieldset>
   	<input type="hidden" name="reporterNick" value="${user.nickname}" />
-  	<input type="text" name="targetNick" value="${targetNick}" />
+  	<input type="hidden" name="targetNick" value="${targetNick}" />
+  	<input type="hidden" name="reportCount" value="${user.reportCount}" />
   
   	<br/><br/>
 	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;신고</h1>

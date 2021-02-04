@@ -56,7 +56,9 @@ delete from subscribe
  DELETE FROM STAMP WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
  DELETE FROM POST WHERE NICKNAME = (SELECT NICKNAME FROM USERS WHERE NICKNAME='testUser2');
                                
-                               
+/////////////report count 업데이트
+UPDATE users 
+    set report_count = (SELECT COUNT(*)FROM report where target_nick = nickname)
                                
  //신고사유 보기                         
 SELECT r.reporter_nick, r.reason ,r.report_type,r.report_date,r.report_photo

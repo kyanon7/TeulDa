@@ -53,6 +53,13 @@
 					 else {alert("취소하였습니다.");}
 					});
 			});
+		 
+		 $(function() {
+				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				 $( "b" ).on("click" , function() {
+						self.location = "/user/listReport?targetNick=${user.nickname}"
+					});
+			});
 		 	
 		
 		
@@ -121,6 +128,10 @@
 	  			<a class="btn btn-outline-danger">회원신고</a>
 	  		</div>
 		</div>
+		
+		<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
+			      <b class="btn btn-outline-prime">신고내역</a>
+      	</c:if>
 		
 
 		

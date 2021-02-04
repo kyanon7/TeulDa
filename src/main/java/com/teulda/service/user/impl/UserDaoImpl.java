@@ -54,6 +54,12 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.update("UserMapper.updateUser", user);
 		
 	}
+	
+	@Override
+	public void updateReportCount(int reportCount) throws Exception {
+		sqlSession.update("UserMapper.updateReportCount", reportCount);
+		
+	}
 
 	@Override
 	public void updateUserStatus(User status) throws Exception {

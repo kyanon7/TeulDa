@@ -15,12 +15,7 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -35,7 +30,7 @@
 		//============= "수정"  Event 연결 =============
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn-primary" ).on("click" , function() {
+			$( "button.btn-outline-primary" ).on("click" , function() {
 				fncUpdateUser();
 			});
 		});	
@@ -79,7 +74,13 @@
 				$("input:text[name='password2']").focus();
 				return;
 			}
-		
+				
+			var value = "";	
+			if( $("input[name='phone2']").val() != ""  &&  $("input[name='phone3']").val() != "") {
+				var value = $("option:selected").val() + "-" 
+									+ $("input[name='phone2']").val() + "-" 
+									+ $("input[name='phone3']").val();
+			}
 			
 			//Debug...
 			//alert("phone : "+value);
@@ -98,39 +99,39 @@
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
 	
-
-<div class="col-lg-10"><!-- 길이지정 -->
-<div class="bs-component"><!-- 컴포넌트는 부트스트랩에서 정의한 UI 요소로 버튼, 경고창, 네비게이션바 와 같이 화면 구성에 필요한 요소들을 정의해둔 클래스 집합 입니다 -->
-<form data-dpmaxz-fid="4">
-  <fieldset>
-  
-  	<br/><br/>
-	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Join Our Site!</h1>
+	<!--  화면구성 div Start /////////////////////////////////////-->
+	<div class="container">
 	
-	<h3 class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;필수입력정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-    
-    
-	
-	<div class="form-group has-danger">
-		  <label class="form-control-label" for="inputInvalid">이메일</label>
-		  <input type="text"  class="form-control is-invalid" id="inputInvalid" value="${user.email }" readonly>
-		  <div class="invalid-feedback">이메일은 수정할 수 없습니다.</div>
-		</div>
+		<h1 class="text-center">개인정보 수정</h1>
+	    
+	    <!-- form Start /////////////////////////////////////-->
+		<form class="form">
 		
-	<div class="form-group has-danger">
-		  <label class="form-control-label" for="inputInvalid">닉네임</label>
-		  <input type="text"  class="form-control is-invalid" id="inputInvalid" value="${user.nickname}" readonly>
-		  <div class="invalid-feedback">닉네임은 수정할 수 없습니다.</div>
-		</div>
-	
-	<div class="form-group has-danger">
-		  <label class="form-control-label" for="inputInvalid">전화번호</label>
-		  <input type="text"  class="form-control is-invalid" id="inputInvalid" value="${user.phone}" readonly>
-		  <div class="invalid-feedback">휴대전화번호는 수정할 수 없습니다.</div>
-		</div>
-    
-    
-    <div class="form-group">
+		  <div class="form-group">
+		    <label for="email" class="col-form-label">이메일</label>
+		      <input type="text" class="form-control" id="email" name="email" value="${user.email }" readonly>
+		       <span id="helpBlock" class="help-block">
+		      	<strong class="text-danger">이메일 수정불가</strong>
+		      </span>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="nickname" class="col-form-label">닉네임</label>
+		      <input type="text" class="form-control" id="nickname" name="nickname" value="${user.nickname }" readonly>
+		       <span id="helpBlock" class="help-block">
+		      	<strong class="text-danger">닉네임 수정불가</strong>
+		      </span>
+		  </div>
+		  
+		   <div class="form-group">
+		    <label for="phone" class="col-form-label">전화번호</label>
+		      <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}" readonly>
+		       <span id="helpBlock" class="help-block">
+		      	<strong class="text-danger">전화번호 수정불가</strong>
+		      </span>
+		  </div>
+		
+		  <div class="form-group">
 		    <label for="password" class="col-form-label">비밀번호</label>
 		    <input type="password" class="form-control" id="password" name="password" placeholder="변경비밀번호">
 		  </div>
@@ -139,46 +140,34 @@
 		    <label for="password2" class="col-form-label">비밀번호 확인</label>
 		      <input type="password" class="form-control" id="password2" name="password2" placeholder="변경비밀번호 확인">
 		  </div>
-    
-    <div class="form-group">
-  		<label for="name" class="col-form-label">이름</label>
-		      <input type="text" class="form-control" id="name" name="name" value="${user.name}" placeholder="변경회원이름">	
-		</div>
-	</div>
-	
-	    
+		  
+		  <div class="form-group">
+		    <label for="name" class="col-form-label">이름</label>
+		      <input type="text" class="form-control" id="name" name="name" value="${user.name}" placeholder="변경회원이름">
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="class="col-form-label">주소</label>
+		      <input type="text" class="form-control" id="addressess" name="address"  value="${user.address}" placeholder="변경주소">
+		  </div>
+		  
+		  
+		  <input type="hidden" name="is_public" value="${user.isPublic}" />
+		  <input type="hidden" name="status" value="${user.status}" />
+		  <input type="hidden" name="role" value="${user.role}" />
 
-    <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file" data-dpmaxz-eid="7">
-      <small class="form-text text-muted" id="fileHelp">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-    </div>
-   
-     
-     
-   <div class="form-group">
+		  
+		  <div class="form-group">
 		    <div class="text-center">
-    <button class="btn btn-primary" type="submit">Submit</button>
-    <a class="btn btn-secondary" href="#" role="button">cancel</a>
+		      <button type="button" class="btn btn-outline-primary"  >수정</button>
+			  &nbsp;&nbsp;&nbsp;&nbsp;
+			  <a class="btn btn-outline-secondary" href="#" role="button">취소</a>
 		    </div>
 		  </div>
-
-  </fieldset>
-  
-</form>
-</div>
-
-		  
-		  
-
-		  
-		
 		 
 	    </form>
- 	
+ 	</div>
 	<!--  화면구성 div Start /////////////////////////////////////-->
-	
-	
  	
 </body>
 

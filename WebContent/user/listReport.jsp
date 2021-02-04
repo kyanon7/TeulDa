@@ -36,7 +36,7 @@
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetList(currentPage) {
 			$("#currentPage").val(currentPage)
-			$("form").attr("method" , "POST").attr("action" , "/user/listUser").submit();
+			$("form").attr("method" , "POST").attr("action" , "/user/listReport").submit();
 		}
 		
 		
@@ -54,7 +54,7 @@
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?email="+$(this).text().trim();
+				 self.location ="/user/getReport?targetNicks="+$(this).text().trim();
 			});
 						
 			//==> email LINK Event End User 에게 보일수 있도록 
@@ -69,11 +69,11 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$(".badge.badge-light" ).on("click" , function() {
 
-					var email = $(this).next().val();
+					var targetNick = $(this).next().val();
 				
 					$.ajax( 
 							{
-								url : "/user/json/getUser/"+email ,
+								url : "/user/json/getReport/"+targetNick ,
 								method : "GET" ,
 								dataType : "json" ,
 								headers : {
@@ -83,14 +83,14 @@
 								success : function(JSONData , status) {
 
 									var displayValue = "<h6>"
-																+"아이디 : "+JSONData.email+"<br/>"
-																+"이  름 : "+JSONData.name+"<br/>"
+																+"신고자: "+JSONData.reporterNick+"<br/>"
+																+"신고날짜 : "+JSONData.reportDate+"<br/>"
 																+"이메일 : "+JSONData.email+"<br/>"
 																+"ROLE : "+JSONData.role+"<br/>"
 																+"닉네임 : "+JSONData.nickname+"<br/>"
 																+"</h6>";
 									$("h6").remove();
-									$( "#"+email+"" ).html(displayValue);
+									$( "#"+targetNick+"" ).html(displayValue);
 								}
 						});
 						////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +122,7 @@
 	<div class="container">
 	
 		<div class="page-header text-center">
-	       <h2 class>BLACK LIST</h2>
+	       <h2 class>REPORT LIST</h2>
 	    </div>
 	    
 	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -155,45 +155,30 @@
         <thead>
    			 <tr>
       			<th align="center" scope="col">No</th>
-      			<th scope="col">이메일</th>
-      			<th scope="col">이름</th>
-      			<th scope="col">닉네임</th>
-      			<th scope="col">신고당한 횟수</th>
-      			<th scope="col">상태</th>
+      			<th scope="col">신고자</th>
+      			<th scope="col">신고날짜</th>
+      			<th scope="col">신고내용</th>
+      			<th scope="col">신고자료</th>
+      			<th scope="col">신고유형</th>
     		</tr>
   		</thead>
        
 		<tbody>
 		
 		  <c:set var="i" value="0" />
-		  <c:forEach var="user" items="${list}">
+		  <c:forEach var="report" items="${list}">
 			<c:set var="i" value="${ i+1 }" />
 			<tr class="table-light">
 			  <td align="left">${ i }</td>
-			  <td align="left"  title="Click : 회원정보 확인">${user.email}</td>
-			  <td align="left">${user.name}</td>
-			  <td align="left">${user.nickname}</td>
-			  <td align="left">${user.reportCount}</td>
-			  <td align="left">
-			  
-			  <c:if test="${user.status eq '0'.charAt(0)}">
-			    <c:out value="활성화" />
-			  </c:if>
-			  
-			  <c:if test="${user.status eq '1'.charAt(0)}">
-			    <c:out value="정지" />
-			  </c:if>
-			  
-			  <c:if test="${user.status eq '2'.charAt(0)}">
-			    <c:out value="휴면" />
-			  </c:if>
-			 
-			  
-			  
-			  </td>
+			  <td align="left"  title="Click : 신고정보 확인">${report.targetNick}</td>
+			  <td align="left">${report.reporterNick}</td>
+			  <td align="left">${report.reportDate}</td>
+			  <td align="left">${report.reason}</td>
+			  <td align="left">${report.photo}</td>
+			  <td align="left">${report.reportType}</td>
 		
 			  	
-			  	<input type="hidden" value="${user.email}">
+			  	<input type="hidden" value="${report.targetNick}">
 			  </td>
 			</tr>
           </c:forEach>
@@ -202,8 +187,6 @@
       
       </table>
 	  <!--  table End /////////////////////////////////////-->
-	  
-	  <small class="form-text text-muted" id="explain">신고당한 횟수가 10회 이상 인 회원들이 표시됩니다 .</small>
 	  
 	  	<div class="wrap">
 	   	<!-- PageNavigation Start... -->

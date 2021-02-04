@@ -63,7 +63,7 @@
 		            deleteCookie("setCookieYN");
 		        }
 		        
-		        document.fform.submit();
+		        document.form.submit();
 		    });
 		});
 	
