@@ -25,14 +25,14 @@
   		<div class="container">
 		<!--  row Start /////////////////////////////////////-->
 	
-				<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<br><br><br><br><br><br><br><br><br><br><br><br>
 			<div class="progress">
-			  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success	"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			  <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
 			</div>
 
-		 	 		<h1 class="text-center">정지유저 접근 불가<br></h1>
+		 	 		<h1 class="text-center"><br>최근 많은 신고를 받아 계정이 정지되었습니다.<br> 정지계정은 사이트에 로그인 하실 수 없습니다.</h1><br></h1>
 		 	 <div class="progress">
-			  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success	"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			  <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger	"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
 			</div>
 			
 				

@@ -149,14 +149,20 @@ public class UserController {
 		//Business Logic
 		User dbUser=userService.getUser(user.getEmail());
 		
+		
+		
 		if( user.getPassword().equals(dbUser.getPassword())){
-			if( user.getStatus()=='1'){
+			if( dbUser.getStatus()=='1'){
+				System.out.println("정지유저디버깅"+dbUser.getStatus());
 				return "redirect:/user/ban.jsp";	
 			}
 			else {
 			session.setAttribute("user", dbUser);
-			System.out.println("dbUser디버깅"+dbUser);}
 		}
+		
+		}
+		
+
 		
 	
 		return "redirect:/index.jsp";
@@ -263,7 +269,7 @@ public class UserController {
 	@RequestMapping( value="listReport" )
 	public String listReportlist( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/user/listReport :"+"debug");
+		System.out.println("/report/listReport :"+"debug");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -281,7 +287,7 @@ public class UserController {
 		model.addAttribute("resultPage", resultPage);
 		//model.addAttribute("search", search);
 		
-		return "redirect:/user/listReport.jsp";
+		return "redirect:/user/listReport";
 	}
 	
 	@RequestMapping( value="addReport", method=RequestMethod.GET )
