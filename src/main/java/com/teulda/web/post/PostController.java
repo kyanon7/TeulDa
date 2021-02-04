@@ -69,11 +69,18 @@ import com.teulda.service.user.UserService;
 		
 		System.out.println(post);
 		postService.addPost(post);
+		
+		Post newPost = 
+				postService.getPost(postService.getNewPostNo(user.getNickname()));
+		
+		System.out.println("==/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=");
+		System.out.println("이건 newPost입니다"+newPost);
+		System.out.println("==/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=");
+		
+		
+		model.addAttribute("post", newPost);
 
-		model.addAttribute("post", post);
-		
 		return "forward:/post/getPost.jsp";
-		
 	}
 	
 	@RequestMapping(value="listPost",  method= {RequestMethod.GET, RequestMethod.POST})
@@ -240,42 +247,42 @@ import com.teulda.service.user.UserService;
 		
 		postService.deletePost(postNo);
 		
-		return "forward:/post/listPost?postCategory=1";
+		return "forward:/post/listPost?postCategory=6";
 	}
 	
-	@RequestMapping(value="addComment", method = RequestMethod.POST)
-	public String addComment(@ModelAttribute("comment")Comment comment, @RequestParam int postNo, Model model, HttpSession session) throws Exception{
-		
-		System.out.println("/post/addComment");
-		
-		User user = (User) session.getAttribute("user");
-		
-		System.out.println("===========================");
-		System.out.println("이건 User값입니다"+user);
-		System.out.println("===========================");
-		
-		System.out.println(postNo);
-		
-		comment.setNickname(user.getNickname());
-		comment.setPostNo(postNo);
-		
-		
-		postService.addComment(comment);
-		
-		System.out.println("===========================");
-		System.out.println("이건 comment값입니다"+comment);
-		System.out.println("===========================");
-
-		model.addAttribute("comment", comment);
-		
-		return "forward:/post/getPost.jsp";
-
-//		if(((User) session.getAttribute("user")).getNickname() != null && comment.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
-//			return "redirect:/post/getMyPost?postNo="+comment.getPostNo();
-//		}else {
-//			return "redirect:/post/getPost?postNo="+comment.getPostNo();
-//		}
-	}
+//	@RequestMapping(value="addComment", method = RequestMethod.POST)
+//	public String addComment(@ModelAttribute("comment")Comment comment, @RequestParam int postNo, Model model, HttpSession session) throws Exception{
+//		
+//		System.out.println("/post/addComment");
+//		
+//		User user = (User) session.getAttribute("user");
+//		
+//		System.out.println("===========================");
+//		System.out.println("이건 User값입니다"+user);
+//		System.out.println("===========================");
+//		
+//		System.out.println(postNo);
+//		
+//		comment.setNickname(user.getNickname());
+//		comment.setPostNo(postNo);
+//		
+//		
+//		postService.addComment(comment);
+//		
+//		System.out.println("===========================");
+//		System.out.println("이건 comment값입니다"+comment);
+//		System.out.println("===========================");
+//
+//		model.addAttribute("comment", comment);
+//		
+//		return "forward:/post/getPost.jsp";
+//
+////		if(((User) session.getAttribute("user")).getNickname() != null && comment.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+////			return "redirect:/post/getMyPost?postNo="+comment.getPostNo();
+////		}else {
+////			return "redirect:/post/getPost?postNo="+comment.getPostNo();
+////		}
+//	}
 	
 	@RequestMapping(value="listMyComment",  method= {RequestMethod.GET, RequestMethod.POST})
 	public String listMyComment(@ModelAttribute("search") Search search, @RequestParam String nickname, Model model) throws Exception{

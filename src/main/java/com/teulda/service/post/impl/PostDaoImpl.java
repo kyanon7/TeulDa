@@ -189,6 +189,12 @@ public class PostDaoImpl implements PostDao {
 		return sqlSession.selectOne("PostMapper.getPostBynicknameTotalCount", map);
 	}
 
+	@Override
+	public int getNewPostNo(String nickname) throws Exception {
+	
+		return sqlSession.selectOne("postMapper.getNewPostNo", nickname);
+	}
+
 
 //	@Override
 //	public void deletePhotoUsePostNo(int postNo) throws Exception {

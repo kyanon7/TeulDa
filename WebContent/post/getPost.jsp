@@ -74,7 +74,7 @@
 			<div class="card border-secondary md-6" style="width: 55rem;">
   			<div class="card-header">
   			
-  			 작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 : ${fn:substring(post.postDate, 0, 10)} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  			글번호 : ${post.postNo}  &emsp;&emsp; 작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 : ${fn:substring(post.postDate, 0, 10)} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
   			 &nbsp; &nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 조회수 : ${post.viewCount} 
   			</div>
  			 <div class="card-body">

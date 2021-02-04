@@ -160,6 +160,12 @@ import com.teulda.service.post.PostService;
 		return map;
 	}
 
+	@Override
+	public int getNewPostNo(String nickname) throws Exception {
+		
+		return postDao.getNewPostNo(nickname);
+	}
+
 //	@Override
 //	public void deletePhoto(int photoNo) throws Exception {
 //		postDao.deletePhoto(photoNo);

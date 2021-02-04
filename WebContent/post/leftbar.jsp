@@ -8,13 +8,13 @@
 	</head>
 <body>
 			<div class="list-group">
-  					<a href="/post/listPost?postCategory=1" type="button" class="btn btn-info active">자유게시판</a>
+  					<a href="/post/listPost?postCategory=6" type="button" class="btn btn-info active">자유게시판</a>
   					
   					<c:if test="${ !empty user }">
   					<a type="button" href="/post/addPost" class="btn btn-outline-info">+ 새 글 작성</a><br/>
   					</c:if>
   					
-  					<a href="/post/listPost?postCategory=6" class="list-group-item list-group-item-action " type="button">자유 게시물</a>
+  					<a href="/post/listPost?postCategory=6" class="list-group-item list-group-item-action " type="button">모든 게시물</a>
   					<a href="/post/listPost?postCategory=1" class="list-group-item list-group-item-action " type="button">여행지 정보공유</a>
   					<a href="/post/listPost?postCategory=2" class="list-group-item list-group-item-action " type="button">맛집 정보공유</a>
   					<a href="/post/listPost?postCategory=3" class="list-group-item list-group-item-action " type="button">숙소 정보공유</a>

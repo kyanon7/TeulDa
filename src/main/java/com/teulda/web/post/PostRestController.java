@@ -13,8 +13,8 @@ import com.teulda.service.domain.Comment;
 import com.teulda.service.domain.User;
 import com.teulda.service.post.PostService;
 
-//@RestController
-//@RequestMapping("/post/*")
+@RestController
+@RequestMapping("/post/*")
 
 public class PostRestController {
 	
@@ -27,7 +27,7 @@ public class PostRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value="rest/addComment")
+	@RequestMapping(value="rest/addComment", produces = "application/json")
 	public String addComment(@RequestParam("commentContents") String commentContents ,@RequestParam("postNo") int postNo, HttpSession session) throws Exception{
 		
 		System.out.println("/post/rest/addComment");
@@ -52,5 +52,15 @@ public class PostRestController {
 		
 		return "Success";
 
+	}
+	
+	@RequestMapping(value="rest/deleteComment", produces = "application/json")
+	public String deleteComment(@RequestParam("commentNo") int commentNo) throws Exception {
+		
+		System.out.println("/post/rest/deleteComment");
+		
+		postService.deleteComment(commentNo);
+		
+		return "Success";
 	}
 }

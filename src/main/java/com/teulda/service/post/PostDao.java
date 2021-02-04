@@ -18,6 +18,9 @@ public interface PostDao {
 	//	POST SELECT ONE
 	public Post getPost(int postNo) throws Exception;
 	
+	// SELECT ONE
+	public int getNewPostNo(String nickname) throws Exception;
+	
 	//	POST UPDATE
 	public void updatePost(Post post) throws Exception;
 	
