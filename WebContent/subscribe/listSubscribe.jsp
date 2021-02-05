@@ -5,7 +5,7 @@
 <html lang="ko-KR">
 <head>
     <meta charset="UTF-8" />
-    <title>나의 후기 목록</title>
+    <title>나의 구독 목록</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.6.0/dist/lux/bootstrap.min.css" integrity="sha256-n1LAsYCohTi3YOpx8/Jhgf1i6BLuraa4Bnx/qTd4Vs0=" crossorigin="anonymous">
 

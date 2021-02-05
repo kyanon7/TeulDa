@@ -220,7 +220,7 @@
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT *
-											FROM users u, (SELECT target_nick, COUNT(target_nick) FROM report GROUP BY target_nick HAVING COUNT(target_nick) > 1) r
+											FROM users u, (SELECT target_nick, COUNT(target_nick) FROM report GROUP BY target_nick HAVING COUNT(target_nick) > 9) r
 											WHERE
        										(u.nickname = r.target_nick)
 			
