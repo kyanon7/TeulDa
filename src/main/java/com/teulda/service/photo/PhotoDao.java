@@ -65,4 +65,10 @@ public interface PhotoDao {
 	
 	//사진휴지통 => 완료
 	public void deleteGroup(String nickname) throws Exception;
+	
+	//사진 개별 영구삭제
+	public int removePhoto(int photoNo) throws Exception;
+	
+	//앨범 개별 영구삭제
+	public int removeGroup(int groupNo) throws Exception;
 }

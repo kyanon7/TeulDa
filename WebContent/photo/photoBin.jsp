@@ -78,6 +78,56 @@
 			});
 		})
 		
+		$(function(){		
+			
+			$("p:contains('사진삭제')").on("click", function () {
+				$.ajax(
+						{
+							url : "/photo/rest/removePhoto" ,
+							method : "POST" ,
+							dataType : "text" ,
+							data : {
+								photoNo : $(this).children('input').val()
+							},
+							success : function(result) {
+								if (result == "Success") {
+									alert("사진이 영구 삭제되었습니다.");
+									location.reload(); // 리로드 안하고 할 수 있게 해보기 
+								} else {
+									alert("사진이 영구 삭제되지 않았습니다.");
+								}
+							}
+							
+				});
+				
+			});
+		})
+		
+		$(function(){
+			
+			$("p:contains('앨범삭제')").on("click", function () {
+				$.ajax(
+						{
+							url : "/photo/rest/removeGroup" ,
+							method : "POST" ,
+							dataType : "text" ,
+							data : {
+								groupNo : $(this).children('input').val()
+							},
+							success : function(result) {
+								if (result == "Success") {
+									alert("앨범이 영구 삭제되었습니다.");
+									location.reload(); // 리로드 안하고 할 수 있게 해보기 
+								} else {
+									alert("앨범이 영구 삭제되지 않았습니다.");
+								}
+							}
+							
+				});
+				
+			});
+		})
+		
 		</script>
 	</head>
 
@@ -121,15 +171,12 @@
 									<p class="card-text" id="updateGroupStatus" style="text-align:right;"><small class="text-muted">앨범복구</small>
 									<input type="hidden" value="${ group.groupNo }" style="float:right;">
 									<input type="text" value="${ group.deleteDate }" style="display:none;"></p>
-									<p class="card-text" id="updatePhotoStatus" style="text-align:right;"><small class="text-muted">영구삭제</small></p>
+									<p class="card-text" id="deleteGroup" style="text-align:right;"><small class="text-muted">앨범삭제</small>
+									<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-					<!-- PageNavigation Start... -->
-					<input type="hidden" id="currentPage" name="currentPage" value=""/>
-					<jsp:include page="../common/pageNavigator.jsp" />
-					<!-- PageNavigation End... -->
 			    </div>
 				
 				<div class="col-md-3"></div>
@@ -156,17 +203,12 @@
 									<p class="card-text" id="updatePhotoStatus" style="text-align:right;"><small class="text-muted">사진복구</small>
 									<input type="hidden" value="${ photo.photoNo }" style="float:right;">
 									<input type="text" value="${ photo.deleteDate }" style="display:none;"></p>
-									<p class="card-text" id="updatePhotoStatus" style="text-align:right;"><small class="text-muted">영구삭제</small></p>
-								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
-									
+									<p class="card-text" id="deletePhoto" style="text-align:right;"><small class="text-muted">사진삭제</small>
+									<input type="hidden" value="${ photo.photoNo }" style="float:right;"></p>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-					<!-- PageNavigation Start... -->
-					<input type="hidden" id="currentPage" name="currentPage" value=""/>
-					<jsp:include page="../common/pageNavigator.jsp" />
-					<!-- PageNavigation End... -->
 			    </div>
 						</div>
 					</div>

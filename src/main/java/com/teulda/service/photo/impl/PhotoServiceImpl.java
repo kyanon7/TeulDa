@@ -159,6 +159,16 @@ public class PhotoServiceImpl implements PhotoService {
 		return map;
 	}
 
+	@Override
+	public void removePhoto(int photoNo) throws Exception {
+		photoDao.removePhoto(photoNo);
+	}
+
+	@Override
+	public void removeGroup(int groupNo) throws Exception {
+		photoDao.removeGroup(groupNo);
+	}
+
 	
 	
 }

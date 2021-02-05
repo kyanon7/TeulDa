@@ -165,6 +165,20 @@
 		WHERE delete_date IS NOT NULL AND nickname = #{value})
 	</delete>
 	
+	<!-- 휴지통에서 사진개별 영구삭제 -->
+	<delete id="removePhoto" parameterType="int">
+		DELETE
+		FROM photo
+		WHERE photo_id = #{photoNo}
+	</delete>
+	
+	<!-- 휴지통에서 앨범개별 영구삭제 -->
+	<delete id="removeGroup" parameterType="int">
+		DELETE
+		FROM groups
+		WHERE group_id = #{groupNo}
+	</delete>
+	
 	
 	
 	<!-- SQL : SELECT PhotoTotalCount(사진갯수, 삭제처리한 사진갯수) -->
@@ -242,5 +256,5 @@
 		FROM groups
 		WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NOT NULL
 	</select>
-
+	
 </mapper>
