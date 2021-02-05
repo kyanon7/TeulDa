@@ -267,7 +267,7 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="listReport" )
-	public String listReportlist( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+	public String listReport( @ModelAttribute("search") Search search , Model model ,@RequestParam("targetNick") String targetNick, HttpServletRequest request) throws Exception{
 		
 		System.out.println("/report/listReport :"+"debug");
 		
@@ -285,9 +285,10 @@ public class UserController {
 		// Model 과 View 연결
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("targetNick",targetNick);
 		//model.addAttribute("search", search);
 		
-		return "redirect:/user/listReport";
+		return "forward:/user/listReport.jsp";
 	}
 	
 	@RequestMapping( value="addReport", method=RequestMethod.GET )

@@ -54,7 +54,7 @@
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getReport?targetNicks="+$(this).text().trim();
+				 self.location ="/user/getReport?targetNick="+$(this).text().trim();
 			});
 						
 			//==> email LINK Event End User 에게 보일수 있도록 
@@ -134,8 +134,9 @@
 		    	</p>
 		    </div> --%>
 		    
-		    
+		    	<input type="hidden" name="targetNick" value="${targetNick}" />
 				  
+				  <input type="hidden" value="${user.nickname}">
 				  
 				 
 				  
@@ -160,6 +161,7 @@
       			<th scope="col">신고내용</th>
       			<th scope="col">신고자료</th>
       			<th scope="col">신고유형</th>
+      	
     		</tr>
   		</thead>
        
@@ -170,15 +172,14 @@
 			<c:set var="i" value="${ i+1 }" />
 			<tr class="table-light">
 			  <td align="left">${ i }</td>
-			  <td align="left"  title="Click : 신고정보 확인">${report.targetNick}</td>
-			  <td align="left">${report.reporterNick}</td>
+			  <td align="left"  title="Click : 신고정보 확인">${report.reporterNick}</td>
 			  <td align="left">${report.reportDate}</td>
+			  
 			  <td align="left">${report.reason}</td>
-			  <td align="left">${report.photo}</td>
+			  <td align="left">${report.reportPhoto}</td>
 			  <td align="left">${report.reportType}</td>
 		
-			  	
-			  	<input type="hidden" value="${report.targetNick}">
+		
 			  </td>
 			</tr>
           </c:forEach>

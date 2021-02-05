@@ -58,6 +58,7 @@
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "b" ).on("click" , function() {
 						self.location = "/user/listReport?targetNick=${user.nickname}"
+						
 					});
 			});
 		 	

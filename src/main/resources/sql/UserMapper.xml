@@ -209,7 +209,7 @@
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT *
-											FROM users u, (SELECT target_nick, COUNT(target_nick) FROM report GROUP BY target_nick HAVING COUNT(target_nick) > 2) r
+											FROM users u, (SELECT target_nick, COUNT(target_nick) FROM report GROUP BY target_nick HAVING COUNT(target_nick) > 1) r
 											WHERE
        										(u.nickname = r.target_nick)
 			
@@ -230,8 +230,9 @@
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT r.report_id, r.report_date, r.reason, r.reporter_nick, r.report_photo, r.target_nick, r.report_type
 												    FROM report r, users u
-												        WHERE
-												    (u.nickname = r.target_nick)
+												    	WHERE
+       										(u.nickname = r.target_nick)
+												       
 												) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 

@@ -43,7 +43,7 @@
 				});
 		});
 		
-		 $(function() {
+		 /* $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "a" ).on("click" , function() {
 					 var msg = "정말로 탈퇴하시겠습니까?";
@@ -56,7 +56,7 @@
 					 }
 					 else {alert("취소하였습니다.");}
 					});
-			});
+			}); */
 		
 		
 		
@@ -119,7 +119,7 @@
 		<div class="form-group">
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-outline-primary">회원정보수정</button>
-	  			<a class="btn btn-outline-danger">회원탈퇴</a>
+	  			<!--a class="btn btn-outline-danger">회원탈퇴</a-->
 	  		</div>
 		</div>
 		
