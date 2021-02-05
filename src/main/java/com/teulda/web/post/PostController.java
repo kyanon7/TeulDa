@@ -80,7 +80,7 @@ import com.teulda.service.user.UserService;
 		
 		model.addAttribute("post", newPost);
 
-		return "forward:/post/getPost.jsp";
+		return "forward:/post/getMyPost.jsp";
 	}
 	
 	@RequestMapping(value="listPost",  method= {RequestMethod.GET, RequestMethod.POST})

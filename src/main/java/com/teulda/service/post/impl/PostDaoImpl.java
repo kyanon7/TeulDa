@@ -192,7 +192,7 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public int getNewPostNo(String nickname) throws Exception {
 	
-		return sqlSession.selectOne("postMapper.getNewPostNo", nickname);
+		return sqlSession.selectOne("PostMapper.getNewPostNo", nickname);
 	}
 
 

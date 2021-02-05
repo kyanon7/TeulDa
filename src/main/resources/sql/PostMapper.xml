@@ -147,7 +147,7 @@
                 		</when>
                 	<when test="postCategory =='6'">
                 	post_type in ('1','2','3','4','5')
-               	 </when>
+               	    </when>
                 	
                 	<!-- 	<when test="postCategory == 6">
                 		post_type in ('1','2','3','4','5')
