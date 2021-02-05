@@ -53,5 +53,11 @@ public interface PhotoService {
 	//휴지통비우기(앨범 영구삭제) => 완료
 	public void deleteGroup(String nickname) throws Exception;
 	
+	//사진 개별 영구삭제
+	public void removePhoto(int photoNo) throws Exception;
+	
+	//앨범 개별 영구삭제
+	public void removeGroup(int groupNo) throws Exception;
+	
 	
 }

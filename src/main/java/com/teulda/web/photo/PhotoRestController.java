@@ -89,4 +89,22 @@ public class PhotoRestController {
 		return "Success";
 	}
 	
+	//사진 개별 영구삭제
+	@RequestMapping(value="rest/removePhoto", produces = "application/json")
+	public String removePhoto(@RequestParam("photoNo")int photoNo) throws Exception{
+		
+		photoService.removePhoto(photoNo);
+		
+		return "Success";
+	}
+	
+	//앨범 개별 영구삭제
+	@RequestMapping(value="rest/removeGroup", produces = "application/json")
+	public String removeGroup(@RequestParam("groupNo")int groupNo) throws Exception{
+		
+		photoService.removeGroup(groupNo);
+		
+		return "Success";
+	}
+	
 }
