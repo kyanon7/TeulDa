@@ -22,24 +22,84 @@
 		VALUES	(seq_bookmark_bookmark_id.nextval, #{diary_id}, #{nickname:VARCHAR}, SYSDATE})
 	</insert> 
 	
-<!-- 	<delete id="deleteBookmark"	parameterType="int">
+	<delete id="deleteBookmark"	parameterType="int">
 	 	DELETE
 	 	FROM BOOKMARK
-	 	WHERE bookmark_id = #{value}
+	 	WHERE bookmark_id = #{bookmark_id}
 	</delete>
 	
 	<select  id="getBookmarkList"  parameterType="int"	resultMap="bookmarkSelectMap">
+	
+	SELECT * 
+	FROM 	(select inner_table.*, rownum as row_seq
+        	from    (SELECT   bookmark_id, diary_id, nickname, bookmark_date
+                	FROM POST
+			<where>
+			
+					<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                			<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 제목 -->
+                				AND nickname like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 내용 -->
+                				AND title like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 장소 -->
+                				AND content like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                			</choose>
+                		</if>
+               		</where>
+               		<choose>
+        				<when test = "search.searchSorting eq '0'.toString()"> 
+        				ORDER BY post_date DESC
+        				</when>
+        				<when test = "search.searchSorting eq '1'.toString()"> 
+        				ORDER BY view_count DESC
+        				</when>
+        			</choose>
+        			) inner_table
+      		WHERE ROWNUM &lt; = #{search.endRowNum} )
+	WHERE row_seq between #{search.startRowNum} and #{search.endRowNum}
+	
+	
+	<!-- 
 		SELECT * 
 		FROM BOOKMARK
-		WHERE bookmark_id = #{value}
-		ORDER BY bookmark_id DESC
+		
+		ORDER BY bookmark_id DESC -->
 	</select>
 	
 	<select  id="getBookmarkTotalCount"  parameterType="search"	 resultType="int">
 		SELECT COUNT(*)
 		FROM (SELECT  bookmark_id, diary_id, nickname, bookmark_date
-      		  FROM BOOKMARK) countTable 
-	</select> -->
+      		  FROM BOOKMARK
+      		  <where>
+			
+					<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
+                			<choose>
+                			<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 제목 -->
+                				AND nickname like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '1'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 내용 -->
+                				AND title like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                				<when test="search.searchCondition eq '2'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 장소 -->
+                				AND content like '%'||#{search.searchKeyword}||'%'
+                				</when>
+                			</choose>
+                		</if>
+               		</where>
+               		<choose>
+        				<when test = "search.searchSorting eq '0'.toString()"> 
+        				ORDER BY post_date DESC
+        				</when>
+        				<when test = "search.searchSorting eq '1'.toString()"> 
+        				ORDER BY view_count DESC
+        				</when>
+        			</choose>
+      		  ) countTable 
+	</select> 
 	
-	</mapper>
+</mapper>
 	
