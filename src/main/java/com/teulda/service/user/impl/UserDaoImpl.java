@@ -66,6 +66,12 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.update("UserMapper.updateUserStatus", status);
 		
 	}
+	
+	@Override
+	public void updateUserStatusAuto(User status) throws Exception {
+		sqlSession.update("UserMapper.updateUserStatusAuto", status);
+		
+	}
 
 	@Override
 	public void deleteUser(String nickname) throws Exception {

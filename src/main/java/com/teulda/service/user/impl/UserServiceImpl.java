@@ -101,6 +101,12 @@ public class UserServiceImpl implements UserService {
 		userDao.updateUserStatus(status);
 		
 	}
+	
+	@Override
+	public void updateUserStatusAuto(User status) throws Exception {
+		userDao.updateUserStatusAuto(status);
+		
+	}
 
 	@Override
 	public void deleteUser(String nickname) throws Exception {

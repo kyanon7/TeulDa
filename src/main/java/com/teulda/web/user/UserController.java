@@ -315,7 +315,7 @@ public class UserController {
 	
 	@RequestMapping( value="addReport", method=RequestMethod.POST )
 	public String addReport( @ModelAttribute("report") Report report , User user, Model model,
-			@RequestParam("targetNick") String targetNick, HttpServletRequest request, int reportCount ) throws Exception {
+			@RequestParam("targetNick") String targetNick, HttpServletRequest request, int reportCount, User status ) throws Exception {
 
 		System.out.println("/user/addReport : POST");
 		//Business Logic
@@ -327,6 +327,7 @@ public class UserController {
 		
 		userService.addReport(report);
 		userService.updateReportCount(reportCount);
+		userService.updateUserStatusAuto(status);
 		return "redirect:/";
 	}
 	

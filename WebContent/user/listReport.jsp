@@ -41,26 +41,21 @@
 		
 		
 		//============= "검색"  Event  처리 =============	
-		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-outline-primary" ).on("click" , function() {
-				fncGetList(1);
-			});
-		 });
+		
 		
 		
 		//============= email 에 회원정보보기  Event  처리(Click) =============	
-		 $(function() {
+		/*  $(function() {
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getReport?targetNick="+$(this).text().trim();
-			});
+				 self.location ="/user/getUser?targetNick="+$(this).text().trim();
+			}); 
 						
 			//==> email LINK Event End User 에게 보일수 있도록 
 
 			
-		});	
+		});	*/
 		
 		
 		//============= email 에 회원정보보기  Event  처리 (double Click)=============
@@ -121,6 +116,9 @@
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
+		<input type="hidden" name="targetNick" value="${targetNick}" />
+				<input type="hidden" name="nickname" value="${user.nickname}" />
+	
 		<div class="page-header text-center">
 	       <h2 class>REPORT LIST</h2>
 	    </div>
@@ -135,8 +133,7 @@
 		    </div> --%>
 		    
 		    	<input type="hidden" name="targetNick" value="${targetNick}" />
-				  
-				  <input type="hidden" value="${user.nickname}">
+				<input type="hidden" name="nickname" value="${user.nickname}" />
 				  
 				 
 				  
@@ -172,9 +169,9 @@
 			<c:set var="i" value="${ i+1 }" />
 			<tr class="table-light">
 			  <td align="left">${ i }</td>
-			  <td align="left"  title="Click : 신고정보 확인">${report.reporterNick}</td>
+			  <!--td align="left"  title="Click : 신고정보 확인">${report.reporterNick}</td-->
+			  <td align="left">${report.reporterNick}</td>
 			  <td align="left">${report.reportDate}</td>
-			  
 			  <td align="left">${report.reason}</td>
 			  <td align="left">${report.reportPhoto}</td>
 			  <td align="left">${report.reportType}</td>

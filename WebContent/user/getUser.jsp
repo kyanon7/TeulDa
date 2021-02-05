@@ -83,6 +83,7 @@
 	    </div>
 	    
 	    <input type="hidden" name="targetNick" value="${user.nickname}" />
+	    <input type="hidden" name="nickname" value="${user.nickname}" />
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>닉네임</strong></div>

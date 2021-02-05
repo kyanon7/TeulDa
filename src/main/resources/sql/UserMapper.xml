@@ -88,6 +88,16 @@
 	<!-- < , >= &lt; , &gt; -->
 	
 	
+	<update	id="updateUserStatusAuto"	parameterType="com.teulda.service.domain.User" >
+		UPDATE users
+	   	<set>
+			status				=	'1',
+			update_status_date				=	SYSDATE
+	</set>
+	WHERE report_count > 9
+	</update>
+	
+	
 	<!--   SQL : UPDATE user_status
 	<update	id="updateUserStatusDate"	parameterType="com.teulda.service.domain.User" >
 		UPDATE users
@@ -109,6 +119,7 @@
 	 	DELETE 
 	 	FROM users
 	 	WHERE nickname = #{nickname}
+	 	
 	</delete>
 	
 	<!-- SQL : SELECT LIST 유저정보-->
@@ -516,5 +527,8 @@
 												 ) countTable						
 	 </select-->
 	 
+	 
+
+	
 
 </mapper>

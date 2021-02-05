@@ -29,6 +29,8 @@ public interface UserDao {
 	
 	public void updateUserStatus(User status) throws Exception ;//유저상태 수정 완
 	
+	public void updateUserStatusAuto(User status) throws Exception ;//유저상태 자동수정 
+	
 	public void deleteUser(String nickname) throws Exception ;//유저탈퇴(삭제) 완
 	
 	public List<User> getUserBlackList(Search search) throws Exception ;//블랙리스트목록조회
