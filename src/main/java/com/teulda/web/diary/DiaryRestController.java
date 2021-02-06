@@ -140,34 +140,34 @@ public class DiaryRestController {
 	}
 	
 	// 관광 정보 받아오기
-//	@RequestMapping(value = "rest/listTourInfo")
-//	public String listTourInfo() throws Exception {
-//
-//		StringBuffer result = new StringBuffer();
-//		try {
-//
-//			String urlstr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-//					+ "ServiceKey=lJpTJRFovHgys7VKxmp8BJCKylbIB%2FpHI%2Fgg%2FM1IV0Pg218n6YQVDT0eW%2BgLxJh1C4KVRtmnybIXRs1WJ7DUOQ%3D%3D"
-//					+ "&areaCode=35" 
-//					+ "&MobileOS=ETC" 
-//					+ "&MobileApp=AppTest" 
-//					+ "&_type=json";
-//			URL url = new URL(urlstr);
-//			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-//			urlconnection.setRequestMethod("GET");
-//
-//			BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
-//
-//			String returnLine;
-//			result.append("<xmp>");
-//			while ((returnLine = br.readLine()) != null) {
-//				result.append(returnLine + "\n");
-//			}
-//			urlconnection.disconnect();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return result + "</xmp>";
-//	}
+	@RequestMapping(value = "rest/listTourInfo")
+	public String listTourInfo() throws Exception {
+
+		StringBuffer result = new StringBuffer();
+		try {
+
+			String urlstr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
+					+ "ServiceKey=lJpTJRFovHgys7VKxmp8BJCKylbIB%2FpHI%2Fgg%2FM1IV0Pg218n6YQVDT0eW%2BgLxJh1C4KVRtmnybIXRs1WJ7DUOQ%3D%3D"
+					+ "&areaCode=35" 
+					+ "&MobileOS=ETC" 
+					+ "&MobileApp=AppTest" 
+					+ "&_type=json";
+			URL url = new URL(urlstr);
+			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+			urlconnection.setRequestMethod("GET");
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
+
+			String returnLine;
+			result.append("<xmp>");
+			while ((returnLine = br.readLine()) != null) {
+				result.append(returnLine + "\n");
+			}
+			urlconnection.disconnect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result + "</xmp>";
+	}
 }
