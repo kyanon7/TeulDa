@@ -159,7 +159,7 @@ public class DiaryServiceImpl implements DiaryService {
 		List <Diary> diaryList = diaryDao.getDiaryList(search);
 		
 		map.put("diaryList", diaryList);
-		map.put("diaryTotalCount", new Integer(diaryDao.getDiaryCount(search)));
+		map.put("totalCount", new Integer(diaryDao.getDiaryCount(search)));
 		
 		return map;
 	}

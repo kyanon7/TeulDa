@@ -1,4 +1,4 @@
-package com.teulda.service.searchnscrap;
+package com.teulda.service.search;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import com.teulda.common.Group;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Diary;
 
-public interface SearchNScrapService {
+public interface SearchService {
 
 	//스크랩 등록
 	public void addScrap(Diary diary) throws Exception;

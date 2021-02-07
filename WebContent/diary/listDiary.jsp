@@ -25,7 +25,7 @@
 
 <style>
 /* content 3줄 이상이면 자름 */
-p {
+#content {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;

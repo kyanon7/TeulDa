@@ -1,4 +1,4 @@
-package com.teulda.service.searchnscrap;
+package com.teulda.service.search;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.teulda.common.Search;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.HashTag;
 
-public interface SearchNScrapDao {
+public interface SearchDao {
 
 	// INSERT Scrap
 	public void addScrap(Diary diary) throws Exception;

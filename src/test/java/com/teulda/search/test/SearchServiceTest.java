@@ -1,4 +1,4 @@
-package com.teulda.searchnscrap.test;
+package com.teulda.search.test;
 
 import java.util.List;
 import java.util.Map;
@@ -14,15 +14,15 @@ import com.teulda.common.Group;
 import com.teulda.common.Search;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
-import com.teulda.service.searchnscrap.SearchNScrapDao;
-import com.teulda.service.searchnscrap.SearchNScrapService;
+import com.teulda.service.search.SearchDao;
+import com.teulda.service.search.SearchService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration	(locations = {	"classpath:config/context-common.xml",
 										"classpath:config/context-aspect.xml",
 										"classpath:config/context-mybatis.xml",
 										"classpath:config/context-transaction.xml" })
-public class SearchNScrapServiceTest {
+public class SearchServiceTest {
 
 	@Autowired
 	@Qualifier("diaryServiceImpl")
@@ -30,11 +30,11 @@ public class SearchNScrapServiceTest {
 	
 	@Autowired
 	@Qualifier("searchNScrapServiceImpl")
-	private SearchNScrapService searchNScrapService;
+	private SearchService searchService;
 	
 	@Autowired
 	@Qualifier("searchNScrapDaoImpl")
-	private SearchNScrapDao searchNScrapDao;
+	private SearchDao searchDao;
 	
 	//스크랩 등록
 	@Test
@@ -44,7 +44,7 @@ public class SearchNScrapServiceTest {
 		System.out.println("스크랩한 diary : "+diary); // 가져온 기록 확인
 		diary.setScrapNickname("king정인");
 		
-		searchNScrapService.addScrap(diary); // 가져온 기록 스크랩에 등록
+		searchService.addScrap(diary); // 가져온 기록 스크랩에 등록
 
 		System.out.println("Scrap 끝!!"); // test 종료
 	}
@@ -57,7 +57,7 @@ public class SearchNScrapServiceTest {
 		group.setGroupName("testGroupName");
 		group.setNickname("king정인");
 		
-		searchNScrapService.addScrapGroup(group);
+		searchService.addScrapGroup(group);
 	}
 	
 	//스크랩한 기록 조회
@@ -83,7 +83,7 @@ public class SearchNScrapServiceTest {
 		search.setPageSize(5);
 		search.setCurrentPage(2);
 		
-		Map<String, Object> map = searchNScrapService.getScrapList(search, "king정인", 'f');
+		Map<String, Object> map = searchService.getScrapList(search, "king정인", 'f');
 		System.out.println(map);
 	}
 	
