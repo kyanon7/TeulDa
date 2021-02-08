@@ -62,9 +62,15 @@ public interface DiaryDao {
 	
 	// SELECT LIST
 	public List<Diary> getDiaryList(Search search) throws Exception;
-	
+		
 	// 게시판 Page 처리를 위한 Row(totalCount) return 
 	public int getDiaryCount(Search search) throws Exception;
+	
+	// SELECT LIST
+	public List<Diary> getDiaryListByHashTag(Search search) throws Exception;
+	
+	// getDiaryListByHashTag 총 갯수 return
+	public int getDiaryByHashTagCount(Search search) throws Exception;
 
 	// UPDATE (기록 수정)
 	public void updateDiary(Diary diary) throws Exception;
