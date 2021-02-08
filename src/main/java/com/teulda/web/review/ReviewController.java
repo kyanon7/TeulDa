@@ -135,4 +135,18 @@ public class ReviewController {
 		return "redirect:/review/getReview?reviewNo="+review.getReviewNo();
 	}
 	
+	@RequestMapping(value="listTotalReview")
+	public String listTotalReview(Search search, Model model) throws Exception{
+		
+		System.out.println("/review/listTotalReview");
+		
+		if (search.getSearchSorting() == null || search.getSearchSorting().equals(null)) {
+			search.setSearchSorting("0");
+		}
+		
+		model.addAttribute("search", search);
+		
+		return "forward:/search/listTotalReview.jsp";
+	}
+	
 }
