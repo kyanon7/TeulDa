@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>통합검색 (기록)</title>
+<title>통합검색 - Diary</title>
 
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"

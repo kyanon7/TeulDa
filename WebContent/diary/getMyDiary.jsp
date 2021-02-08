@@ -37,8 +37,8 @@
 				}
 			});
 			
-			$("img[src='../resources/images/marker_blue.png']").on("click", function() { // 아이콘 사진 변경시 src 수정해주기 
-				history.go(-1); // 장소 선택하는 화면으로 감 
+			$("button:contains('확인')").on("click", function() { 
+				history.go(-1); 
 			});		
 		});
 		</script>
@@ -151,7 +151,7 @@
 							</div>
 					</div>
 
-					조회수 ${ diary.viewCount }회 | 북마크 ${ diary.bookmarkCount }회 | 스크랩 ${ diary.scrapCount }회
+					조회수 ${ diary.viewCount }회 | 북마크 ${ diary.bookmarkCount }회 
 					<button type="button" class="btn btn-primary btn-sm" style="float: right;" >확인</button>
 				</div>
 				
