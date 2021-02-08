@@ -87,7 +87,7 @@
   		<div class="container">
   		
   			<div class="row">
-  				<!-- diary toolbar로 빼도 될 듯 -->
+  				
   				  	<div class="col-md-3">
 						<div class="list-group">
 							<button type="button" class="btn btn-link disabled">~ 사진, 사진을 보자 ~</button>
@@ -103,12 +103,11 @@
 							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
 							<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
 						</div>
-	
-				</div>
+					</div>
 				
 				<div class="col-md-9">
   					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">It's My Album</a><br/><br/>
+  					<a href="#" class="list-group-item list-group-item-action active">주의!!) 사진 등록 시, 사진 이름이 한글일 경우 사진이 올라가지 않습니다.</a><br/><br/>
 
 		          <div class="row"> 
 					<c:set var="i" value="0" />
