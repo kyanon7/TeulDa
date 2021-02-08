@@ -70,7 +70,7 @@
 
 		 $("form").attr("method" , "POST").attr("action" , "/user/addReport").submit();
 		 
-		 
+		  
 		 
 		 
 		}
