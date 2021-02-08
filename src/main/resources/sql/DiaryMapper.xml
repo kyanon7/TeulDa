@@ -375,6 +375,35 @@
      	  ) countTable 
 	</select>
 	
+	<!-- SQL : SELECT LIST --> 
+	<!-- 통합검색에서 보이는 기록 리스트는 CLOB 형태인 content를 select하고있어 group by 불가능하여 따로 만든 쿼리 -->
+	<!-- 해시태그 안 작성한 기록은 보이지 않게 했음 d.diary_id = h.diary_id (+) << 이거 하면 보임 ! 그냥 안보이게 하는게 나은듯 -->
+	<select  id="getDiaryListByHashTag"  parameterType="search"	resultMap="diarySelectMap">
+	SELECT  d.diary_id, d.title, d.diary_addr, d.diary_date,
+            d.origin_nick, d.thumbnail, d.view_count, max(h.hashtag_name) 
+    FROM DIARY d, HASHTAG h 
+    WHERE   d.diary_id = h.diary_id 
+    		AND d.is_public = 't' AND d.delete_date is null AND d.scrap_nick is null
+    		<if test = "searchKeyword != null and searchKeyword !='' ">
+    		AND h.hashtag_name = '#'||#{searchKeyword} 
+    		</if>
+   	GROUP BY d.diary_id, d.title, d.diary_addr, d.diary_date, d.origin_nick, d.thumbnail, d.view_count
+	</select> 
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	<select  id="getDiaryByHashTagCount"  parameterType="search"	 resultType="int">
+	SELECT COUNT(*)
+	FROM (SELECT d.diary_id, max(h.hashtag_name) 
+      	  FROM DIARY d, HASHTAG h 
+       	  WHERE   d.diary_id = h.diary_id 
+    			  AND d.is_public = 't' AND d.delete_date is null AND d.scrap_nick is null
+    			  <if test = "searchKeyword != null and searchKeyword !='' ">
+    			  AND h.hashtag_name = '#'||#{searchKeyword} 
+    			  </if>
+   		  GROUP BY d.diary_id, d.title, d.diary_addr, d.diary_date, d.origin_nick, d.thumbnail, d.view_count        			
+     	  ) countTable 
+	</select>
+	
 	<!-- SQL : SELECT SUBSCRIBE DIARY LIST -->
 	<select  id="getSubscribeDiaryList"  parameterType="map"   resultMap="diarySelectMap">
 	SELECT diary_id, title, diary_addr, diary_date, origin_nick, start_date, end_date, thumbnail, group_id 

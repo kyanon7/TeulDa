@@ -280,10 +280,10 @@ public class DiaryController {
 	}
 	
 	// 통합 검색 (기록 검색) 
-	@RequestMapping(value="listTotalDiary", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="listTotalDiary", method = { RequestMethod.GET, RequestMethod.POST })
 	public String listTotalDiary(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
-		System.out.println("/diary/listTotalDiary : GET & POST");
+		System.out.println("/diary/listTotalDiary : POST");
 		
 		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 0번 ( 최근 작성 순 ) 으로 정렬되게 지정 
 		if (search.getSearchSorting() == null) {
@@ -301,6 +301,31 @@ public class DiaryController {
 		model.addAttribute("search", search); // 검색 정보가 담겨있음 
 		
 		return "forward:/search/listTotalDiary.jsp";
+	}
+	
+	// 통합 검색 (해시태그 검색)
+	@RequestMapping(value = "listTotalHashTag", method = { RequestMethod.GET, RequestMethod.POST })
+	public String listTotalHashTag(@ModelAttribute("search") Search search, 
+								   @RequestParam(value="hashTagName", required=false) String hashTagName, Model model) throws Exception {
+		
+		System.out.println("/diary/listTotalHashTag : GET & POST");
+		System.out.println(hashTagName);
+		
+		if (hashTagName != null) {
+			search.setSearchKeyword(hashTagName);
+		}
+		
+		System.out.println("보낼 Search " + search); 
+
+		// Business logic 수행
+		Map<String, Object> map = diaryService.getDiaryListByHashTag(search);
+
+		// Model 과 View 연결
+		model.addAttribute("diaryList", map.get("diaryList")); // 기록
+		model.addAttribute("totalCount", map.get("totalCount")); // 갯수
+		model.addAttribute("search", search); // 검색 정보가 담겨있음
+
+		return "forward:/search/listTotalHashTag.jsp";
 	}
 
 }

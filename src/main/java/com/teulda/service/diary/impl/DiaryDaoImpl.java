@@ -135,6 +135,16 @@ public class DiaryDaoImpl implements DiaryDao {
 	public int getDiaryCount(Search search) throws Exception {
 		return sqlSession.selectOne("DiaryMapper.getDiaryCount", search);
 	}
+		
+	@Override
+	public List<Diary> getDiaryListByHashTag(Search search) throws Exception {
+		return sqlSession.selectList("DiaryMapper.getDiaryListByHashTag", search);
+	}
+	
+	@Override
+	public int getDiaryByHashTagCount(Search search) throws Exception {
+		return sqlSession.selectOne("DiaryMapper.getDiaryByHashTagCount", search);
+	}
 
 	@Override
 	public void updateDiary(Diary diary) throws Exception {
