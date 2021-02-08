@@ -19,23 +19,23 @@
 	<insert	id="addBookmark"	parameterType="bookmark">
 		INSERT
 		INTO BOOKMARK (bookmark_id, diary_id, nickname, bookmark_date)
-		VALUES	(seq_bookmark_bookmark_id.nextval, #{diary_id}, #{nickname:VARCHAR}, SYSDATE})
+		VALUES	(seq_bookmark_bookmark_id.nextval, #{diaryNo}, #{nickname:VARCHAR}, SYSDATE)
 	</insert> 
 	
 	<delete id="deleteBookmark"	parameterType="int">
 	 	DELETE
 	 	FROM BOOKMARK
-	 	WHERE bookmark_id = #{bookmark_id}
+	 	WHERE bookmark_id = #{bookmarkNo}
 	</delete>
 	
-	<select  id="getBookmarkList"  parameterType="int"	resultMap="bookmarkSelectMap">
+	<select  id="getBookmarkList"  parameterType="map"	resultMap="bookmarkSelectMap">
 	
 	SELECT * 
 	FROM 	(select inner_table.*, rownum as row_seq
         	from    (SELECT   bookmark_id, diary_id, nickname, bookmark_date
-                	FROM POST
+                	FROM BOOKMARK
 			<where>
-			
+				nickname = #{nickname}
 					<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
                 			<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 제목 -->
@@ -49,15 +49,8 @@
                 				</when>
                 			</choose>
                 		</if>
-               		</where>
-               		<choose>
-        				<when test = "search.searchSorting eq '0'.toString()"> 
-        				ORDER BY post_date DESC
-        				</when>
-        				<when test = "search.searchSorting eq '1'.toString()"> 
-        				ORDER BY view_count DESC
-        				</when>
-        			</choose>
+              </where>
+        			ORDER BY bookmark_date DESC	
         			) inner_table
       		WHERE ROWNUM &lt; = #{search.endRowNum} )
 	WHERE row_seq between #{search.startRowNum} and #{search.endRowNum}
@@ -74,8 +67,8 @@
 		SELECT COUNT(*)
 		FROM (SELECT  bookmark_id, diary_id, nickname, bookmark_date
       		  FROM BOOKMARK
-      		  <where>
-			
+      		 <where>
+				nickname = #{nickname}
 					<if test="search.searchCondition != null"> <!-- 검색조건을 선택했을 때 그 조건에 적합한 데이터만 -->
                 			<choose>
                 			<when test="search.searchCondition eq '0'.toString() and search.searchKeyword !='' "> <!-- 검색조건 : 제목 -->
@@ -89,15 +82,8 @@
                 				</when>
                 			</choose>
                 		</if>
-               		</where>
-               		<choose>
-        				<when test = "search.searchSorting eq '0'.toString()"> 
-        				ORDER BY post_date DESC
-        				</when>
-        				<when test = "search.searchSorting eq '1'.toString()"> 
-        				ORDER BY view_count DESC
-        				</when>
-        			</choose>
+              </where>
+        			ORDER BY bookmark_date DESC	
       		  ) countTable 
 	</select> 
 	

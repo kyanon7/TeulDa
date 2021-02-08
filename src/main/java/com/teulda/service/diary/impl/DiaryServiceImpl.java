@@ -158,8 +158,34 @@ public class DiaryServiceImpl implements DiaryService {
 		
 		List <Diary> diaryList = diaryDao.getDiaryList(search);
 		
+		// 기록 목록 볼 때 해시태그까지 보여주기 
+		for (int i = 0; i < diaryList.size(); i++) {
+			List <HashTag> hashTagList = diaryDao.getHashTagList(diaryList.get(i).getDiaryNo());
+			diaryList.get(i).setHashTagList(hashTagList);
+		}
+		
 		map.put("diaryList", diaryList);
 		map.put("totalCount", new Integer(diaryDao.getDiaryCount(search)));
+		
+		return map;
+	}
+	
+	@Override
+	// 통합검색에서 해시태그 목록 보기를 위한 비즈니스 수행
+	public Map<String, Object> getDiaryListByHashTag(Search search) throws Exception {
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		List <Diary> diaryList = diaryDao.getDiaryListByHashTag(search);
+		
+		// 기록 목록 볼 때 해시태그까지 보여주기
+		for (int i = 0; i < diaryList.size(); i++) {
+			List<HashTag> hashTagList = diaryDao.getHashTagList(diaryList.get(i).getDiaryNo());
+			diaryList.get(i).setHashTagList(hashTagList);
+		}
+		
+		map.put("diaryList", diaryList);
+		map.put("totalCount", new Integer(diaryDao.getDiaryByHashTagCount(search)));
 		
 		return map;
 	}

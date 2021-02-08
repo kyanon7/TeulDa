@@ -44,6 +44,10 @@
 			self.location = "/diary/listDiaryGroup";
 		});
 		
+		$("a:contains('북마크 기록 목록')").on("click", function () {
+			self.location = "/bookmark/listBookmark?nickname=${sessionScope.user.nickname}";
+		});
+		
 		$("a:contains('기록 휴지통')").on("click", function () {
 			self.location = "/diary/listDeleteDiary";
 		});

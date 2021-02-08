@@ -8,8 +8,16 @@ public class Bookmark {
 	private int diaryNo; //기록번호
 	private String nickname; //기록 작성자
 	private Date bookmarkDate; //북마크한 일자
+	private Diary diary;
 	
-	
+	public Diary getDiary() {
+		return diary;
+	}
+
+	public void setDiary(Diary diary) {
+		this.diary = diary;
+	}
+
 	public int getBookmarkNo() {
 		return bookmarkNo;
 	}
@@ -41,16 +49,12 @@ public class Bookmark {
 	public void setBookmarkDate(Date bookmarkDate) {
 		this.bookmarkDate = bookmarkDate;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Bookmark [bookmarkNo=" + bookmarkNo + ", diaryNo=" + diaryNo + ", nickname=" + nickname
-				+ ", bookmarkDate=" + bookmarkDate + "]";
+				+ ", bookmarkDate=" + bookmarkDate + ", diary=" + diary + "]";
 	}
-
-	
-	
 	
 	
 }

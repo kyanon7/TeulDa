@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.teulda.common.Search;
 import com.teulda.service.domain.Bookmark;
+import com.teulda.service.domain.Diary;
 
 public interface BookmarkDao {
 
@@ -18,4 +19,6 @@ public interface BookmarkDao {
 	
 	// 북마크페이지
 	public int getBookmarkTotalCount(Search search, String nickname) throws Exception;
+	
+
 }

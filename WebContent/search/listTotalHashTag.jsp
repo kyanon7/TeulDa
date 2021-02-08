@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>통합검색 - Diary</title>
+<title>통합검색 - HashTag</title>
 
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"
@@ -39,7 +39,7 @@
 <script>
 function fncGetList() {
 	
-	$("form[name='detailForm']").attr("method", "POST").attr("action", "/diary/listTotalDiary").submit();
+	$("form[name='detailForm']").attr("method", "POST").attr("action", "/diary/listTotalHashTag").submit();
 
 }
 
@@ -58,10 +58,6 @@ $(function() {
 
 	$(".getDiary").on("click",function() {
 		self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id');
-	});
-
-	$(".card-text span").on("click",function() {
-		self.location = "/diary/listTotalHashTag?hashTagName="+$(this).children('input').val().replace('#', '');
 	});
 
 });
@@ -83,7 +79,7 @@ $(function() {
 	<div class="container">
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-				<a class="nav-link active" href="/diary/listTotalDiary">DIARY</a>
+				<a class="nav-link" href="/diary/listTotalDiary">DIARY</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="/review/listTotalReview">REVIEW</a>
@@ -92,38 +88,23 @@ $(function() {
 				<a class="nav-link" href="#users">USER</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/diary/listTotalHashTag">HASHTAG</a>
+				<a class="nav-link active" href="/diary/listTotalHashTag">HASHTAG</a>
 			</li>
 		</ul>
 		<br>
 		<div class="form-group">
+			<label class="col-form-label" for="inputDefault">해시태그가 포함된 기록만 보여집니다.</label>
 			<div class="row">
-				<div class="col-md-2">
-					<div class="form-group">
-							<select class="custom-select" name="searchCondition">
-								<option value="0"
-										${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>전체</option>
-								<option value="1"
-										${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>제목</option>
-								<option value="2"
-										${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>내용</option>
-								<option value="3"
-										${ ! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>장소</option>
-								<option value="4"
-										${ ! empty search.searchCondition && search.searchCondition==4 ? "selected" : "" }>작성자 닉네임</option>
-							</select> 
-					</div>
-				</div>
-				<div class="col-md-8">
+				<div class="col-md-4">
   					<input type="text" name="searchKeyword" class="form-control"
-								placeholder="검색어 입력" id="inputDefault"
+								placeholder="해시태그 입력" id="inputDefault"
 								value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
-  				</div>
-  				<div class="col-md-2">
+  				</div>  				
+  				<div class="col-md-4">
   					<button type="button" class="btn btn-primary">Search</button>
   				</div>
   			</div>
-  			
+  			<br> 
   			<div class="row">
   				<div class="col-md-2">
   					<span class="badge badge-info">TOTAL ${ totalCount }</span>
@@ -158,22 +139,18 @@ $(function() {
     								<h4 class="card-title">${ diary.title }</h4>
    									<h6 class="card-subtitle mb-2 text-muted"><img src="../resources/images/marker_blue.png" height="11px"
 											align="middle">&nbsp;${ diary.location }</h6>
-    								<p class="card-text" id="content"><c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /></p>
    				    				<p class="card-text">${ diary.writeDate } | 조회수 ${ diary.viewCount } 회</p> 
    				    			</div> 
    				    			<div class="card-text">
 									<c:set var="j" value="0" />
 										<c:forEach var = "hashTag" items = "${ diary.hashTagList }">
 											<c:set var="j" value="${ j+1 }" />
-											<span class="badge badge-info" id="listDiary">
-												<input type="hidden" value="${ hashTag.hashTagName }">
-												${ hashTag.hashTagName }
-											</span>&nbsp;&nbsp;
+											<span class="badge badge-info">${ hashTag.hashTagName }</span>&nbsp;&nbsp;
 										</c:forEach>
 								</div>
     					</div> 
     					<div class="col-md-4">
-    						<img src="../resources/images/photos/1612502602096145025276_885042925594069_2502250546813722604_n.jpg" style="float:right;" width="200px" height="200px">
+    						<img src="../resources/images/photos/1612502602096145025276_885042925594069_2502250546813722604_n.jpg" style="float:right;" width="180px" height="180px">
     					</div>
     				</div>
   				</div>
