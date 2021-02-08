@@ -25,7 +25,7 @@
 			class NavTabs extends React.Component{
 
 				render(){
-					return ReactDOM.createPortal(
+					return (
 					<ul className="nav nav-tabs">
 						<li className="nav-item">
 							<a className="nav-link" href="/diary/listTotalDiary">DIARY</a></li>
@@ -35,8 +35,7 @@
 							<a className="nav-link" >USER</a></li>
 						<li className="nav-item">
 							<a className="nav-link" href="/diary/listTotalHashTag">HASHTAG</a></li>
-					</ul>,
-					container
+					</ul>
 					);
 				}
 			}
@@ -57,7 +56,7 @@
 			}
 
 			ReactDOM.render(
-				<FormGroup/>,
+				<NavTabs/>,
 				container
 			);
 
