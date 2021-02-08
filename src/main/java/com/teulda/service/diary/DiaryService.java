@@ -40,6 +40,9 @@ public interface DiaryService {
 	
 	// 기록 목록 리스트 - 통합검색시 기록 목록 보여줄때 사용 
 	public Map<String, Object> getDiaryList(Search search) throws Exception;
+	
+	// 기록 목록 리스트 - 통합검색시 해시태그에 관한 기록 목록 보여줄때 사용 
+	public Map<String, Object> getDiaryListByHashTag(Search search) throws Exception;
 
 	// 기록 수정 - 완료
 	public void updateDiary(Diary diary) throws Exception;

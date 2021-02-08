@@ -33,6 +33,41 @@
         font-size: 32px;
         text-align: center;
     } */
+
+    .colorSquare {
+      box-shadow: 0px 0px 25px 0px #333;
+      width: 242px;
+      height: 242px;
+      margin-bottom: 15px;
+    }
+
+    .colorArea input {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #CCC;
+    }
+
+    .colorArea button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      background-color: #666;
+      color: #FFF;
+      border: 2px solid #666;
+    }
+
+    .colorArea button:hover {
+      background-color: #111;
+      border-color: #111;
+      cursor: pointer;
+    }
+
+    #colorHeading {
+      padding: 0;
+      margin: 50px;
+      margin-bottom: -20px;
+      font-family: sans-serif;
+    }
 </style>
 
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -44,100 +79,84 @@
         <script defer type="text/babel">
             const destination = document.querySelector("#container");
 
-            class Counter extends React.Component{
-                render(){
-                    let textStyle = {
-                        fontSize: 72,
-                        fontFamily: "sans-serif",
-                        fontWeight: "bold",
-                        color: "#333",
-                    };
+            class Colorizer extends React.Component {
+                
+                constructor(props, context) { super(props, context);
 
-                    return(
-                        <div style={textStyle}>
-                            {this.props.display}
-                        </div>
-                    );
-                }
-            }
-
-            class CounterParent extends React.Component{
-                constructor(props){
-                    super(props);
-
-                    this.state = {
-                        count: 0
-                    }
-
-                    this.increase = this.increase.bind(this);
+                this.state = {
+                    color: "",
+                    bgColor: "white"
                 }
 
-                increase(e){
-                    let currentCount = this.state.count;
+                this.colorValue = this.colorValue.bind(this);
+                this.setNewColor = this.setNewColor.bind(this);
+                }
 
-                    if(e.shiftKey){
-                        currentCount += 10;
-                    }else{
-                        currentCount += 1;
-                    }
-
+                colorValue(e) {
+                    this.setState({color: e.target.value});
+                }
+            
+                setNewColor(e){
                     this.setState({
-                        count: currentCount
+                        bgColor: this.state.color
                     });
+
+                    this._input.focus();
+                    this._input.value = "";
+
+                    e.preventDefault();
                 }
 
-                render(){
-                    let backgroundStyle = {
-                        padding: 50,
-                        backgroundColor: "#ffc53a",
-                        width: 250,
-                        height: 100,
-                        borderRadius: 10,
-                        textAlign: "center",
+                render() {
+                    const squareStyle = {
+                        backgroundColor: this.state.bgColor
                     };
 
-                    let buttonStyle = {
-                        fontSize: "1em",
-                        width: 30,
-                        height: 30,
-                        fontFamily: "sans-serif",
-                        fontWeight: "bold",
-                        lineHeight: "3px",
-                        color: "#333",
-                    };
+                    const self = this;
 
-                    return(
-                        <div style={backgroundStyle}>
-                            <Counter display={this.state.count} />
-                            <button onClick={this.increase} style={buttonStyle}>+</button>
-                            <PlusButton clickHandler={this.increase} />
+                    return (
+                        <div className="colorArea">
+                            <div style={squareStyle} className="colorSquare"></div>
+
+                            <form onSubmit={this.setNewColor}>
+                                <input onChange={this.colorValue} 
+                                        ref={
+                                            function(el) {
+                                                self._input = el;
+                                            }
+                                        }
+                                        placeholder="Enter a color value"></input>
+                                <button type="submit">go</button>
+                            </form>
+                            <ColorLabel color={this.state.bgColor}/>
                         </div>
                     );
                 }
             }
 
-            class PlusButton extends React.Component{
-                render(){
-                    return(
-                        <button onClick={this.props.clickHandler}>
-                            +
-                        </button>
+            const heading = document.querySelector("#colorHeading");
+
+            class ColorLabel extends React.Component {
+                render() {
+                    return ReactDOM.createPortal(
+                        ": " + this.props.color,
+                        heading
                     );
                 }
             }
 
             ReactDOM.render(
                 <div>
-                    <CounterParent />
-                </div>
-                ,destination
-            );
+                    <Colorizer/>
+                </div>,
+                destination
+            );            
 
         </script>
 
     </head>
     <body>
+        <h1 id="colorHeading">Colorizer</h1>
         <div id="container"></div>
-        
     </body>
 </html>

@@ -11,11 +11,17 @@ import org.springframework.stereotype.Service;
 import com.teulda.common.Search;
 import com.teulda.service.bookmark.BookmarkDao;
 import com.teulda.service.bookmark.BookmarkService;
+import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Bookmark;
+import com.teulda.service.domain.Diary;
 
 @Service("bookmarkServiceImpl")
 public class BookmarkServiceImpl implements BookmarkService {
 
+	@Autowired
+	@Qualifier("diaryServiceImpl")
+	private DiaryService diaryService;
+	
 	@Autowired
 	@Qualifier("bookmarkDaoImpl")
 	private BookmarkDao bookmarkDao;
@@ -52,10 +58,19 @@ public class BookmarkServiceImpl implements BookmarkService {
 			
 			List<Bookmark> bookmarkList = bookmarkDao.getBookmarkList(search, nickname);
 			
+			for(int i=0; i<bookmarkList.size(); i++) {
+				
+				Diary diary = new Diary();
+				diary = diaryService.getDiary(bookmarkList.get(i).getDiaryNo());
+				bookmarkList.get(i).setDiary(diary);
+			}
+			
+			
 			map.put("list", bookmarkList);
 			map.put("totalCount", new Integer(bookmarkDao.getBookmarkTotalCount(search, nickname)));
 			
 			return map;
 	}
+
 
 }

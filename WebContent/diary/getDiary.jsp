@@ -41,6 +41,73 @@
 				location.href = document.referrer; //뒤로가기 후 새로고침
 			});		
 		});
+		
+		
+		
+		
+		$(function () {
+			
+			$("span:contains('북마크 추가')").on("click", function () {
+				
+					$.ajax({
+			         url : "/bookmark/rest/addBookmark",   
+			         type : "POST",
+			         //dataType : "text",
+			         headers: {
+			            "Content-Type": "application/json"
+			         },
+			         data : JSON.stringify({
+			               
+			            diaryNo : "${ diary.diaryNo }"
+
+			         
+			         }),
+					success : function(result){
+						
+					if (result == "Success") {
+						alert("북마크 취소했습니다.");
+						 location.reload();
+					} else{
+						alert("북마크 취소 실패.");
+					}
+				}
+			});
+		});
+			
+	});
+		
+		
+	$(function () {
+			
+			$("span:contains('북마크 취소')").on("click", function () {
+				
+					$.ajax({
+			         url : "/bookmark/rest/addBookmark",   
+			         type : "POST",
+			         //dataType : "text",
+			         headers: {
+			            "Content-Type": "application/json"
+			         },
+			         data : JSON.stringify({
+			               
+			            diaryNo : "${ diary.diaryNo }"
+
+			         
+			         }),
+					success : function(result){
+						
+					if (result == "Success") {
+						alert("북마크 등록되었습니다.");
+						 location.reload();
+					} else{
+						alert("북마크 등록 실패.");
+					}
+				}
+			});
+		});
+			
+	});
+		
 		</script>
 		
 		
@@ -145,7 +212,7 @@
 						<span class="badge badge-success">북마크 추가</span> <!-- 임시니까 아이콘으로 바꿔도 ㄱㅊㄱㅊ  -->
 					</c:if> 
 					<button type="button" class="btn btn-primary btn-sm" style="float: right;" >확인</button>
-				
+					<input type="hidden" id="diaryNo" name="diaryNo" value="${diaryNo}" />
 			</div>
 		
 	</body>

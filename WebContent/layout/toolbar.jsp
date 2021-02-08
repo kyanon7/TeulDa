@@ -16,23 +16,11 @@
 				})
 				.then(res => res.json())
 				.then(result => {
-
-					// location.href = `https://powerful-inlet-24111.herokuapp.com?nickname=\${result.nickname}`
-
 					const chat = window.open(`https://powerful-inlet-24111.herokuapp.com?nickname=\${result.nickname}`, '_blank');
 					chat.focus();
-					
-					// let form = document.createElement('form');
-					// form.setAttribute("charset", "UTF-8");
-					// form.setAttribute("method", "POST");
-					// form.setAttribute("action", "http://localhost:3000/");
-					// form.setAttribute("nickname", result.nickname);
-					// form.setAttribute("password", result.password);
-					// document.body.appendChild(form);
-					// form.submit();
 				})
 				.catch(err => {
-					
+					console.error(err);
 				});
 			});
 		}

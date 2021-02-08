@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.teulda.common.Search;
 import com.teulda.service.bookmark.BookmarkDao;
 import com.teulda.service.domain.Bookmark;
+import com.teulda.service.domain.Diary;
 
 	@Repository("bookmarkDaoImpl")
 	public class BookmarkDaoImpl implements BookmarkDao {
@@ -49,7 +50,7 @@ import com.teulda.service.domain.Bookmark;
 		map.put("search", search);
 		map.put("nickname", nickname);
 		
-		return sqlSession.selectOne("BookmarkMapper.getBookmarkList", map);
+		return sqlSession.selectList("BookmarkMapper.getBookmarkList", map);
 	}
 
 	@Override
