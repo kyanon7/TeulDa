@@ -43,7 +43,7 @@ p {
 	function fncGetList(currentPage) {
 
 		$("#currentPage").val(currentPage);
-		$("form[name='detailForm']").attr("method", "POST").attr("action", "/diary/listDiary").submit();
+		$("form[name='detailForm']").attr("method", "POST").attr("action", "/bookmark/listBookmakr").submit();
 
 	}
 
@@ -53,15 +53,15 @@ p {
 			fncGetList(1); // currentpage : 1 
 		});
 
-		$(".breadcrumb-item").on("click", function() { // 정렬
+		/* $(".breadcrumb-item").on("click", function() { // 정렬
 
 			// <li> 클릭 시 해당 value 값 input type text 에 넣기
 			$("#searchSorting").val($(this).attr('value'));
 			fncGetList(1); // currentpage : 1 
-		});
+		}); */
 
 		$(".getDiary").on("click",function() {
-			self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id') + "&status=own";
+			self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id');
 		});
 
 		// 			$(".getProductSearch").on("click", function () { // 이미지 누르면 상품 보여지게 함
@@ -70,38 +70,7 @@ p {
 
 
 	});
-	
-	
-	
-	$(function() {
-		
-		$("button:contains('+ 새 기록 작성')").on("click", function () {
-			self.location = "/diary/selectMap.jsp";
-		});
-		
-		$("a:contains('여행 타임라인')").on("click", function () {
-			self.location = "/diary/timeline.jsp";
-		});
-		
-		$("a:contains('내 기록 지도')").on("click", function () {
-			self.location = "/diary/getDiaryMap.jsp";
-		});
-		
-		$("a:contains('내 기록 목록')").on("click", function () {
-			self.location = "/diary/listDiary";
-		});
-		
-		$("a:contains('내 기록 그룹')").on("click", function () {
-			self.location = "/diary/listDiaryGroup";
-		});
-		
-		$("a:contains('기록 휴지통')").on("click", function () {
-			self.location = "/diary/listDeleteDiary";
-		});
-		
-	 });
 
-	
 </script>
 
 </head>
@@ -120,19 +89,9 @@ p {
 		<div class="container">
 			<div class="row">
 				<!-- ======= Diary Left ToolBar ======= -->
-	<div class="col-md-3">
-		<!--  diary left toobar -->
-  		<div class="list-group">
-  			<button type="button" class="btn btn-info disabled">북마크 목록</button>
-  			<button type="button" class="btn btn-outline-info">+ 새 기록 작성</button><br/>
-  			<a href="#" class="list-group-item list-group-item-action">여행 타임라인</a>
-  			<a href="#" class="list-group-item list-group-item-action">내 기록 지도</a>
-  			<a href="#" class="list-group-item list-group-item-action">내 기록 목록</a>
-  			<a href="#" class="list-group-item list-group-item-action">내 기록 그룹</a>
-  			<a href="#" class="list-group-item list-group-item-action">북마크 기록 목록</a>
-  			<a href="#" class="list-group-item list-group-item-action">기록 휴지통</a>
-		</div>
-	</div> 
+			<div class="col-md-3">
+  					<jsp:include page="../diary/leftbar.jsp" />
+				</div>
 				<!-- End ToolBar -->
 
 				<div class="col-md-9">
@@ -148,9 +107,7 @@ p {
 									<option value="1"
 										${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>내용</option>
 									<option value="2"
-										${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>장소</option>
-									<option value="3"
-										${ ! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>원글 작성자</option>
+										${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>원글 작성자</option>
 								</select>
 
 							</div>
@@ -194,24 +151,23 @@ p {
 
 					<div class="row">
 						<c:set var="i" value="0" />
-						<c:forEach var="bookmark" items="${ bookmarkList }">
+						<c:forEach var="bookmark" items="${	list }">
 							<c:set var="i" value="${ i+1 }" />
 							<div class="col-md-4">
 								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
 									<div class="card-header">
 										<img src="../resources/images/marker_blue.png" height="12px"
-											align="middle">${ bookmark.bookmarkNo }&nbsp;&nbsp;${ diary.location } <br>
-										<small>${ diary.startDate } - ${ diary.endDate }</small>
+											align="middle">${ bookmark.bookmarkNo }<%-- &nbsp;&nbsp;${ diary.location } --%> <br>
+										<%-- <small>${ diary.startDate } - ${ diary.endDate }</small> - --%>
 									</div>
 									<div class="card-body">
 
-										<div class="getDiary" id="${ diary.diaryNo }">
-											<h5 class="card-title">${ diary.title }</h5>
+										<div class="getDiary" id="${ bookmark.diary.diaryNo }">
+											<h5 class="card-title">${ bookmark.diary.title }</h5> 
 											<p class="card-text" id="content">
-												<%-- 									${ diary.content } --%>
-												<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
-											</p>
-										</div>
+											<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /> 
+											</p> 
+										 </div> 
 									</div>
 								</div>
 							</div>

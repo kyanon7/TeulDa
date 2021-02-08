@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.teulda.common.Search;
 import com.teulda.service.domain.Bookmark;
+import com.teulda.service.domain.Diary;
 
 public interface BookmarkService {
 
