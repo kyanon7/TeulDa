@@ -1,6 +1,7 @@
 package com.teulda.service.user;
 
 import java.util.List;
+import java.util.Map;
 
 import com.teulda.common.Search;
 import com.teulda.service.domain.Report;
@@ -22,6 +23,8 @@ public interface UserDao {
 	public List<User> getUserList(Search search) throws Exception ;//유저목록 조회 완
 	
 	public List<User> getUserListPublic(Search search) throws Exception ;//유저목록 조회 완
+	
+	public List<User> getUserListTotal(Search search) throws Exception;//유저리스트 조회
 
 	public void updateUser(User user) throws Exception ;//유저정보 수정 완
 	

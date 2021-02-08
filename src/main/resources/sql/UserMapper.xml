@@ -98,21 +98,6 @@
 	</update>
 	
 	
-	<!--   SQL : UPDATE user_status
-	<update	id="updateUserStatusDate"	parameterType="com.teulda.service.domain.User" >
-		UPDATE users
-	   	<set>
-		<choose>
-			<when test="status= 1">
-			delete_date = null
-			</when>
-			<otherwise>
-			delete_date = SYSDATE
-			</otherwise>
-		</choose>
-	</set>
-	WHERE nickname = #{nickname}
-	</update> -->
 	
 	<!-- SQL : REMOVE 회원삭제-->
 	<delete id="deleteUser"	parameterType="com.teulda.service.domain.User">
@@ -122,8 +107,8 @@
 	 	
 	</delete>
 	
-	<!-- SQL : SELECT LIST 유저정보-->
-	<select  id="getUserList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
+	 <!-- SQL : SELECT LIST 유저정보
+	<select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT *
@@ -165,12 +150,125 @@
 												</where>) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>
+	 </select> -->
 	 
 	<!-- 부분검색바꿔주기 카운트 추가 --> 
+	
+	<!-- SQL : SELECT LIST --> 
+	 
 		
+		<select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
+	SELECT  *
+    FROM users
+        			<where>
+                			<choose>    
+                				<when test="searchCondition eq '0'.toString() and searchKeyword !='' "> 
+                				AND 
+            							(nickname LIKE '%'||#{searchKeyword}||'%'
+			                			OR user_addr LIKE '%'||#{searchKeyword}||'%'
+			                			OR like_addr LIKE '%'||#{searchKeyword}||'%')
+                				</when>           				
+                				<when test="searchCondition eq '1'.toString() and searchKeyword !='' "> 
+                				AND nickname LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				<when test="searchCondition eq '2'.toString() and searchKeyword !='' ">
+                				AND user_addr LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				<when test="searchCondition eq '3'.toString() and searchKeyword !='' "> 
+                				AND like_addr LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				
+                			</choose>
+            		</where>
+        			<choose>
+        				<when test = "searchSorting eq '0'.toString()"> 
+        				ORDER BY email DESC
+        				</when>
+        				<when test = "searchSorting eq '1'.toString()"> 
+        				ORDER BY nickname DESC
+        				</when>
+        				<when test = "searchSorting eq '2'.toString()">
+        				ORDER BY user_name DESC
+        				</when>
+        			</choose>
+	</select> 
+	
+	<select  id="getUserListPublic"  parameterType="search"	resultMap="userSelectMap">
+	SELECT  *
+    FROM users
+        			<where>
+       				(is_public in 't' AND role in '1')
+                			<choose>    
+                				<when test="searchCondition eq '0'.toString() and searchKeyword !='' "> 
+                				AND 
+            							(nickname LIKE '%'||#{searchKeyword}||'%'
+			                			OR user_addr LIKE '%'||#{searchKeyword}||'%'
+			                			OR like_addr LIKE '%'||#{searchKeyword}||'%')
+                				</when>           				
+                				<when test="searchCondition eq '1'.toString() and searchKeyword !='' "> 
+                				AND nickname LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				<when test="searchCondition eq '2'.toString() and searchKeyword !='' ">
+                				AND user_addr LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				<when test="searchCondition eq '3'.toString() and searchKeyword !='' "> 
+                				AND like_addr LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				
+                			</choose>
+            		</where>
+        			<choose>
+        				<when test = "searchSorting eq '0'.toString()"> 
+        				ORDER BY email DESC
+        				</when>
+        				<when test = "searchSorting eq '1'.toString()"> 
+        				ORDER BY nickname DESC
+        				</when>
+        				<when test = "searchSorting eq '2'.toString()">
+        				ORDER BY user_name DESC
+        				</when>
+        			</choose>
+	</select>
+	
+	
+	<select  id="getUserListTotal"  parameterType="search"	resultMap="userSelectMap">
+	SELECT  *
+    FROM users
+        			<where>
+       				(is_public in 't' AND role in '1')
+                			<choose>    
+                				<when test="searchCondition eq '0'.toString() and searchKeyword !='' "> 
+                				AND 
+            							(nickname LIKE '%'||#{searchKeyword}||'%'
+			                			OR user_addr LIKE '%'||#{searchKeyword}||'%'
+			                			OR like_addr LIKE '%'||#{searchKeyword}||'%')
+                				</when>           				
+                				<when test="searchCondition eq '1'.toString() and searchKeyword !='' "> 
+                				AND nickname LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				<when test="searchCondition eq '2'.toString() and searchKeyword !='' ">
+                				AND user_addr LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				<when test="searchCondition eq '3'.toString() and searchKeyword !='' "> 
+                				AND like_addr LIKE '%'||#{searchKeyword}||'%'
+                				</when>
+                				
+                			</choose>
+            		</where>
+        			<choose>
+        				<when test = "searchSorting eq '0'.toString()"> 
+        				ORDER BY email ASC
+        				</when>
+        				<when test = "searchSorting eq '1'.toString()"> 
+        				ORDER BY nickname ASC
+        				</when>
+        				<when test = "searchSorting eq '2'.toString()">
+        				ORDER BY user_name ASC
+        				</when>
+        			</choose>
+	</select>
 	<!-- SQL : SELECT LIST 유저정보-->
-	<select  id="getUserListPublic"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
+	<!-- <select  id="getUserListPublic"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT *
@@ -213,7 +311,7 @@
 												</where>) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>
+	 </select> -->
 	 
 	 
 	<select  id="getUserBlackList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
@@ -288,73 +386,11 @@
 	 </select-->
 	 
 	 
-	 
-	 
 	
-	
-	 <!--select  id="getUserBlackList"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  		FROM(
-			  	SELECT r.target_nick, (SELECT COUNT(*) 
-			  				FROM report r, users u
-									  where r.target_nick = #{tatgetNick} and r.target_nick = u.nickname)
-			                               FROM report r, users u
-			                               		where r.target_nick = #{tatgetNick}
-			                               			GROUP BY r.target_nick
-			  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-			  					FROM		(	SELECT nickname , user_name, user_addr, like_addr
-													FROM users
-													
-															
-													) inner_table
-								WHERE ROWNUM &lt;= #{endRowNum} )
-				WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select-->
 	 
 	 
 
-	<!-- SQL : SELECT ROW Count	-->
-	 <!-- <select  id="getTotalCount"  parameterType="search"	 resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM(	SELECT email
-					FROM users
-					<where>
-		      			(is_public = 't' AND role = '1')
-		      				<if test="searchCondition == null and searchKeyword !='' "> 
-		               		AND 
-		               		(nickname LIKE '%'||#{searchKeyword}||'%'
-		               		OR user_addr LIKE '%'||#{searchKeyword}||'%'
-		               		OR like_addr LIKE '%'||#{searchKeyword}||'%')
-		               	</if>
-		               	<if test="searchCondition != null"> 
-		               		<choose>
-		               			<when test="searchCondition == 0 and searchKeyword !='' "> 
-		               			AND nickname like '%'||#{searchKeyword}||'%'
-		               			</when>
-		               			<when test="searchCondition == 1 and searchKeyword !='' ">
-		               			AND user_addr like '%'||#{searchKeyword}||'%'
-		               			</when>
-		               			<when test="searchCondition == 2 and searchKeyword !='' "> 
-		               			AND like_addr like '%'||#{searchKeyword}||'%'
-		               			</when>
-		               		</choose>
-		               	</if>
-		           	</where>
-		       		<choose>
-		       			<when test = "searchSorting == 0"> 
-		       			ORDER BY diary_date DESC
-		       			</when>
-		       			<when test = "searchSorting == 1"> 
-		       			ORDER BY nickname DESC, diary_date DESC
-		       			</when>
-		       			<when test = "searchSorting == 2"> 
-		       			ORDER BY user_name DESC, diary_date DESC
-		       			</when>
-		       		</choose>
-    	  ) countTable 
-				
-	 </select> -->
+	
 	 
 	 <!-- SQL : SELECT ROW Count -->	 
 	 
@@ -379,7 +415,7 @@
 	  	FROM(	SELECT email
 						FROM users
 						<where>
-							(is_public in 't' AND role in '1')
+							
 								<if test="searchCondition != null and searchKeyword !='' ">
 									AND 
 			                			(nickname LIKE '%'||#{searchKeyword}||'%'
@@ -402,18 +438,20 @@
 			                		</if>
 								</where>
 						
-								<where>
-									<if test="searchSorting == 0 and searchKeyword !='' ">
-						 				ORDER BY user_email DESC
-									</if>
-									<if test="searchSorting == 1 and searchKeyword !='' ">
-						 				ORDER BY nickname DESC
-									</if>
-									<if test="searchSorting == 2 and searchKeyword !='' ">
-						 				ORDER BY user_name DESC
-									</if>
-									
-								</where> ) countTable						
+								<choose>
+			        				<when test = "searchSorting eq '0'.toString()">
+			        					ORDER BY email DESC
+			        				</when>
+			        				<when test = "searchSorting eq '1'.toString()">
+			        					ORDER BY nickname DESC
+			        				</when>
+			        				<when test = "searchSorting eq '2'.toString()">
+			        					ORDER BY user_name DESC
+			        				</when>
+			        			</choose>
+						
+						
+							) countTable						
 	 </select>
 	 
 	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
@@ -421,41 +459,39 @@
 	  	FROM(	SELECT email
 						FROM users
 						<where>
-       									
-												<if test="searchCondition != null and searchKeyword !='' ">
-													AND 
-							                			(nickname LIKE '%'||#{searchKeyword}||'%'
-							                			OR user_addr LIKE '%'||#{searchKeyword}||'%'
-							                			OR like_addr LIKE '%'||#{searchKeyword}||'%')
-													</if>
-													<if test="searchCondition != null">
-							                			<choose>
-							                				<when test="searchCondition == 0 and searchKeyword !='' "> 
+       									(is_public in 't' AND role in '1')
+													<choose>    
+							                				<when test="searchCondition eq '0'.toString() and searchKeyword !='' "> 
+								                				AND 
+								                				(nickname LIKE '%'||#{searchKeyword}||'%'
+									                			OR user_addr LIKE '%'||#{searchKeyword}||'%'
+									                			OR like_addr LIKE '%'||#{searchKeyword}||'%')
+							                				</when>           				
+							                				<when test="searchCondition eq '1'.toString() and searchKeyword !='' "> 
 							                				AND nickname like '%'||#{searchKeyword}||'%'
 							                				</when>
-							                				<when test="searchCondition == 1 and searchKeyword !='' "> 
+							                				<when test="searchCondition eq '2'.toString() and searchKeyword !='' "> 
 							                				AND user_addr like '%'||#{searchKeyword}||'%'
 							                				</when>
-							                				<when test="searchCondition == 2 and searchKeyword !='' "> 
+							                				<when test="searchCondition eq '3'.toString() and searchKeyword !='' "> 
 							                				AND like_addr like '%'||#{searchKeyword}||'%'
 							                				</when>
 							                				
 							                			</choose>
-							                		</if>
+							                		
 												</where>
 										
-												<where>
-													<if test="searchSorting == 0 and searchKeyword !='' ">
-										 				ORDER BY user_email DESC
-													</if>
-													<if test="searchSorting == 1 and searchKeyword !='' ">
-										 				ORDER BY nickname DESC
-													</if>
-													<if test="searchSorting == 2 and searchKeyword !='' ">
-										 				ORDER BY user_name DESC
-													</if>
-													
-												</where> ) countTable						
+												<choose>
+			        				<when test = "searchSorting eq '0'.toString()">
+			        					ORDER BY email DESC
+			        				</when>
+			        				<when test = "searchSorting eq '1'.toString()">
+			        					ORDER BY nickname DESC
+			        				</when>
+			        				<when test = "searchSorting eq '2'.toString()">
+			        					ORDER BY user_name DESC
+			        				</when>
+			        			</choose> ) countTable						
 	 </select>
 	 
 	

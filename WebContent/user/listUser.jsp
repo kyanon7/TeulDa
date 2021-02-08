@@ -1,8 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!--  ///////////////////////// JSTL  ////////////////////////// -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 
@@ -61,7 +59,16 @@
 
 			
 		});	
-		
+		 $(function() {
+
+				$("button:contains('검색')").on("click", function() { // 검색 버튼
+
+					$("#searchSorting").val($(this).attr('value'));
+
+					fncGetList(1);
+					
+				});
+			});
 		
 		//============= email 에 회원정보보기  Event  처리 (double Click)=============
 		 $(function() {
@@ -140,16 +147,18 @@
 			      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
-						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>거주지</option>
-						<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>관심지역</option>
+						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>통합검색</option>
+						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>닉네임</option>
+						<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>거주지</option>
+						<option value="3"  ${ ! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>관심지역</option>
 						&nbsp;&nbsp;&nbsp;&nbsp;
+						</select>
 						<label class="sr-only" for="searchKeyword">검색어</label>
 				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				    			 &nbsp;&nbsp;&nbsp;&nbsp;
 				    			  <button type="button" class="btn btn-outline-secondary btn-sm">검색</button>
-					</select>
+				
 				  </div>
 				  
 				  

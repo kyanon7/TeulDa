@@ -136,7 +136,20 @@ public class UserServiceImpl implements UserService {
 	public Map<String, Object> getUserListPublic(Search search) throws Exception {
 
 		List<User> list= userDao.getUserListPublic(search);
-		int totalCount = userDao.getUserCount(search);
+		int totalCount = userDao.getTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> getUserListTotal(Search search) throws Exception {
+
+		List<User> list= userDao.getUserListTotal(search);
+		int totalCount = userDao.getTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );

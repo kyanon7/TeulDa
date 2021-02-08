@@ -31,6 +31,8 @@ public interface UserService {
 	
 	public Map<String, Object> getUserListPublic(Search search) throws Exception;//유저리스트 조회
 	
+	public Map<String, Object> getUserListTotal(Search search) throws Exception;//유저리스트 조회
+	
 	public void updateUser(User user) throws Exception;//유저정보 업데이트 완
 	
 	public void updateReportCount(int reportCount) throws Exception;//유저 신고횟수 업데이트

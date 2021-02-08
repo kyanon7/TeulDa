@@ -242,6 +242,65 @@ public class UserController {
 		return "forward:/user/listUserPublic.jsp";
 	}
 	
+	@RequestMapping( value="listUserTotal" )
+	public String listUserTotal( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+		
+		System.out.println("/user/listUserTotal :"+"debug");
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		
+		if (search.getSearchSorting() == null) {
+			search.setSearchSorting("0");
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		Map<String , Object> map=userService.getUserListTotal(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		// Model 과 View 연결
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/search/listTotalUser.jsp";
+	}
+	
+	/*@RequestMapping(value="listUserTotal")
+	public String listTotalUser(@ModelAttribute("search") Search search, Model model,  HttpServletRequest request) throws Exception {
+		
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		if (search.getSearchSorting() == null) {
+			search.setSearchSorting("0");
+		}
+		
+		
+		
+		
+		System.out.println(" Search 디버깅 " + search);
+		
+		// Business logic 수행
+		Map<String, Object> map = userService.getUserListTotal(search); 
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		// Model 과 View 연결
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);  
+		model.addAttribute("search", search); 
+		
+		return "forward:/user/listTotalUser.jsp";
+	}*/
+	
 	@RequestMapping( value="listBlacklist" )
 	public String listBlacklist( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
@@ -330,6 +389,7 @@ public class UserController {
 		userService.updateUserStatusAuto(status);
 		return "redirect:/";
 	}
+	
 	
 	
 	
