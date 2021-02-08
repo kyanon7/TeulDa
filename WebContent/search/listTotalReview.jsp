@@ -18,7 +18,7 @@
         <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js" integrity="sha256-FiZMk1zgTeujzf/+vomWZGZ9r00+xnGvOgXoj0Jo1jA=" crossorigin="anonymous"></script>
 
 		<script defer type="text/babel">
-			const container = document.getElementById('container');
+			const form = document.querySelector('form');
 
 			console.log("${search}");
 
@@ -44,20 +44,99 @@
 
 				render(){
 					return(
-						<div className="row">
-							<div className="col-md-2">
-								<div className="form-group">
-
-								</div>
+						<div className="form-group">
+							<div className="row">
+								<SearchCondition/>
+								<SearchKeyword/>
+								<SearchButton/>
 							</div>
+						</div>
+					);
+				}
+			}
+
+			class UnderFormGroup extends React.Component{
+
+				render(){
+					return(
+						<div className="row">
+							<TotalCount/>
+							<div className="col-md-4"></div>
+							<SearchSorting/>
+						</div>
+					);
+				}
+			}
+
+			class SearchCondition extends React.Component{
+
+				render(){
+					return(
+						<div className="col-md-2">
+							<select className="custom-select" name="searchConditon"/>
 						</div>
 					)
 				}
 			}
 
+			class SearchKeyword extends React.Component{
+
+				render(){
+					return(
+						<div className="col-md-8">
+							<input className="form-control" type="text" name="searchKeyword" 
+									placeholder="검색어 입력" id="inputDefault" value=""/>
+						</div>
+					);
+				}
+			}
+
+			class SearchButton extends React.Component{
+
+				render(){
+					return(
+						<div className="col-md-2">
+							<button className="btn btn-primary" type="button">Search</button>
+						</div>
+					);
+				}
+			}
+
+			class TotalCount extends React.Component{
+
+				render(){
+					return(
+						<div className="col-md-2">
+							<span className="badge badge-info">TOTAL ${ totalCount }</span>
+						</div>
+					)
+				}
+			}
+
+			class SearchSorting extends React.Component{
+
+				render(){
+					return(
+						<div className="col-md-6">
+							<ol className="breadcrumb">
+								<li className="breadcrumb-item" value="0">
+									<a>최근 작성 순</a></li>
+								<li className="breadcrumb-item" value="1">
+									<a>조회수 높은 순</a></li>
+							</ol>
+							<input type="hidden" name="searchSorting" id="searchSorting" value="${ search.searchSorting }"/>
+						</div>
+					);
+				}
+			}
+
 			ReactDOM.render(
-				<NavTabs/>,
-				container
+				<div className="container">
+					<NavTabs/><br />
+					<FormGroup/>
+					<UnderFormGroup/>
+				</div>,
+				form
 			);
 
 		</script>
@@ -73,6 +152,7 @@
 
 	<form>
 		<div id="container" class="container"><br></div>
+		<ul className="nav nav-tabs"></ul>
 	</form>
 	</body>
 </html>
