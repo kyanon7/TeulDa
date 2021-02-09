@@ -59,6 +59,8 @@ import com.teulda.service.domain.User;
 		search.setPageSize(pageSize);
 		
 		Map<String,Object> map = bookmarkService.getBookmarkList(search, nickname);
+		
+		System.out.println("!!!!!!!!!!!!!!!!!!"+map);
 
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		

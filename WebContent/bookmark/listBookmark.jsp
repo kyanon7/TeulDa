@@ -39,11 +39,18 @@ p {
 </style>
 
 <script>
+
+
+
+
+
+
+
 	//검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 	function fncGetList(currentPage) {
 
 		$("#currentPage").val(currentPage);
-		$("form[name='detailForm']").attr("method", "POST").attr("action", "/bookmark/listBookmakr").submit();
+		$("form[name='detailForm']").attr("method", "POST").attr("action", "/bookmark/listBookmark").submit();
 
 	}
 
@@ -98,7 +105,7 @@ p {
 					<label class="col-form-label" for="inputDefault">북마크한 모든 기록을 한눈에 볼 수 있습니다.</label>
 					<br>
 				
-					<div class="row">
+					<%-- <div class="row">
 						<div class="col-md-2">
 							<div class="form-group">
 								<select class="custom-select" name="searchCondition">
@@ -120,7 +127,7 @@ p {
 						<div class="col-md-3">
 							<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 						</div>
-					</div>
+					</div> --%>
 
 					<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 					<input type="hidden" id="currentPage" name="currentPage" value="" />
@@ -157,15 +164,16 @@ p {
 								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
 									<div class="card-header">
 										<img src="../resources/images/marker_blue.png" height="12px"
-											align="middle">${ bookmark.bookmarkNo }<%-- &nbsp;&nbsp;${ diary.location } --%> <br>
-										<%-- <small>${ diary.startDate } - ${ diary.endDate }</small> - --%>
+											align="middle">원글 작성자 : ${ bookmark.diary.nickname }<%-- &nbsp;&nbsp;${ diary.location } --%> <br>
+										 <small>북마크 등록일자 : ${fn:substring(bookmark.bookmarkDate, 0, 10)}</small> 
 									</div>
 									<div class="card-body">
 
 										<div class="getDiary" id="${ bookmark.diary.diaryNo }">
-											<h5 class="card-title">${ bookmark.diary.title }</h5> 
+
+											<h5 class="card-title">제 목 : ${ bookmark.diary.title }</h5> 
 											<p class="card-text" id="content">
-											<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /> 
+											<c:out value='${bookmark.diary.content.replaceAll("\\\<.*?\\\>","")}' /> 
 											</p> 
 										 </div> 
 									</div>

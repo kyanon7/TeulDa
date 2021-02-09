@@ -139,6 +139,12 @@ import com.teulda.service.user.UserService;
 		
 		String sessionID = (String) session.getAttribute("sessionID");
 		
+		
+		System.out.println("////////////////////////////////");
+		System.out.println(sessionID);
+		System.out.println("////////////////////////////////");
+		
+		
 		Post post = postService.getPost(postNo);
 		List<Comment> commentList = postService.getCommentList(postNo);
 		
@@ -151,7 +157,7 @@ import com.teulda.service.user.UserService;
 		model.addAttribute("post", post);
 		
 		
-		if( sessionID == null || !post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+		if(!post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/post/getPost.jsp";
 		}else if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/post/getMyPost.jsp";
