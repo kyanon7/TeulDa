@@ -65,34 +65,22 @@
 					});
 			});
 		 
-		/* $(function() {
-				//구독
-				 $( "button:contains('구독')"  ).on("click" , function() {
-						self.location = "/subscribe/addSubscribe?nickname=${user.nickname}"
-						
-					});
-			});*/
 		 
 		 $(function(){
 				
 			 $( "button:contains('구독')"  ).on("click" , function() {
 			         
 			         $.ajax({
-			         url : "/subscribe/rest/addSubscribe/{nickname}",   
+			         url : "/subscribe/rest/addSubscribe/${user.nickname}",   
 			         type : "GET",
 			         //dataType : "text",
 			         headers: {
 			            "Content-Type": "application/json"
 			         },
-			         data : {
-			               
-			        	SubTargetNickname : "${user.nickname}",
-			            SubNickname : "${sessionScope.user.nickname}"
-			         },
-			            
 			            	success : function(result) {
-								if (result == "Success") {
+								if (result == true) {
 									alert("구독이 완료되었습니다.");
+									
 									location.reload();  
 								} else {
 									alert("구독안됨.");
@@ -104,15 +92,35 @@
 				
 				});
 			});
-		
 		 
-		/* $(function() {
-				//구독 취소
-				 $( "button:contains('구독 취소')"  ).on("click" , function() {
-						self.location = "/user/listReport?targetNick=${user.nickname}"
+		 $(function() {
+				//구독여부확인
+				
+			 $.ajax({
+		         url : "/subscribe/rest/checkSubscribe",   
+		         type : "GET",
+		         //dataType : "text",
+		         headers: {
+		            "Content-Type": "application/json"
+		         },
+		            	success : function(result) {
+							if (result == true) {
+								
+								i=0;
+								
+							} else {
+								i=1;
+							}
+						}
+		         
+		         
+		         });
+				
 						
 					});
-			});*/
+		
+		
+		 
 		 	
 		 
 		 console.log("${user.nickname}");
@@ -122,20 +130,16 @@
 			 $( "button:contains('구독 취소')"  ).on("click" , function() {
 			         
 			         $.ajax({
-			         url : "/subscribe/rest/deleteSubscribe/{nickname}",   
+			         url : "/subscribe/rest/deleteSubscribe/${user.nickname}",   
 			         type : "GET",
 			         //dataType : "text",
 			         headers: {
 			            "Content-Type": "application/json"
 			         },
-			         data : {
-			               
-			        	SubTargetNickname : "${ user.nickname }",
-			            SubNickname : "${sessionScope.user.nickname}"
-			         },
+			        
 			            
 			            	success : function(result) {
-								if (result == "Success") {
+								if (result == true) {
 									alert("구독이 취소되었습니다.");
 									location.reload(); // 리로드 안하고 할 수 있게 해보기 
 								} else {
@@ -227,16 +231,17 @@
 	  			<button type="button"  class="btn btn-outline-danger">회원신고</button>
 	  		</div>
 		</div>
+	
 
 	
-	<c:if test ="">
+
 		<div class="form-group">
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-outline-warning">구독 취소</button>
 	  			<a class="btn btn-outline-danger">회원신고</a>
 	  		</div>
 		</div>
-	</c:if>
+
 	
 	
 		
