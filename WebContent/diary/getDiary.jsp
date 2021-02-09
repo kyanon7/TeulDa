@@ -42,9 +42,7 @@
 			});		
 		});
 		
-		
-		
-		
+
 		$(function () {
 			
 			$("span:contains('북마크 추가')").on("click", function () {
@@ -65,10 +63,11 @@
 					success : function(result){
 						
 					if (result == "Success") {
-						alert("북마크 취소했습니다.");
+						alert("북마크 추가했습니다.");
 						 location.reload();
+					
 					} else{
-						alert("북마크 취소 실패.");
+						alert("북마크 추가 실패.");
 					}
 				}
 			});
@@ -82,7 +81,7 @@
 			$("span:contains('북마크 취소')").on("click", function () {
 				
 					$.ajax({
-			         url : "/bookmark/rest/addBookmark",   
+			         url : "/bookmark/rest/deleteBookmark",   
 			         type : "POST",
 			         //dataType : "text",
 			         headers: {
@@ -97,10 +96,11 @@
 					success : function(result){
 						
 					if (result == "Success") {
-						alert("북마크 등록되었습니다.");
+						alert("북마크 취소되었습니다.");
 						 location.reload();
+					
 					} else{
-						alert("북마크 등록 실패.");
+						alert("북마크 취소 실패.");
 					}
 				}
 			});
@@ -122,7 +122,7 @@
 		<div class="container">
 				
 					<div class="jumbotron">
-  						<h3 style="text-align: center;">${ diary.title }</h3>
+  						<h3 style="text-align: center;">${ diary.title } </h3>
   						<p style="text-align: center;"><img src="../resources/images/marker_blue.png" height="15px" align="middle">
   						${ diary.location } | ${ diary.startDate } ~ ${ diary.endDate }</p>
   						
@@ -209,8 +209,14 @@
 
 					조회수 ${ diary.viewCount }회 | 북마크 ${ diary.bookmarkCount }회 
 					<c:if test="${ sessionScope.user.nickname ne diary.nickname }"> <!-- 내가 작성한 기록은 북마크 못하게 하기 위함 -->
-						<span class="badge badge-success">북마크 추가</span> <!-- 임시니까 아이콘으로 바꿔도 ㄱㅊㄱㅊ  -->
-					</c:if> 
+					
+						<c:if test="${ empty bookmark.bookmarkNo}">
+						<span  class="badge badge-success" id="addBookmark">북마크 추가</span> <!-- 임시니까 아이콘으로 바꿔도 ㄱㅊㄱㅊ  -->
+						</c:if>
+						<c:if test="${ !empty bookmark.bookmarkNo}">
+						<span class="badge badge-outline-success" id="deleteBookmark">북마크 취소</span>
+						</c:if>
+ 					</c:if> 
 					<button type="button" class="btn btn-primary btn-sm" style="float: right;" >확인</button>
 					<input type="hidden" id="diaryNo" name="diaryNo" value="${diaryNo}" />
 			</div>

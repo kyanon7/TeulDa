@@ -150,7 +150,7 @@
 			
 		//게시글 삭제, 수정
 		$(function(){
-			$("button:contains('수정')").on("click", function(){
+			$("button:contains('게시글 수정')").on("click", function(){
 				self.location = "/post/updatePost?postNo=${post.postNo}"			
 			});
 			
@@ -240,7 +240,7 @@
 					<br />
 
 
-					<button class="btn btn-info" type="submit">수정</button>
+					<button class="btn btn-info" type="submit">게시글 수정</button>
 					<out class="btn btn-info" type="submit">삭제</out>
 					<button class="btn btn-info" type="button">취소</button>
 
@@ -327,5 +327,7 @@
 			</div>
 		</div>
 	</div>
+
+
 </body>
 </html>
