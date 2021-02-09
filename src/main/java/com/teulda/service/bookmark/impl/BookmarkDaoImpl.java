@@ -65,4 +65,11 @@ import com.teulda.service.domain.Diary;
 		
 	}
 
+	@Override
+	public int selectBookmarkNo(int diaryNo) throws Exception {
+		
+		return sqlSession.selectOne("BookmarkMapper", diaryNo);
+		
+	}
+
 }

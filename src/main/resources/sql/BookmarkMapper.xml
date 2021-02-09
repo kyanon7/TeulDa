@@ -87,5 +87,13 @@
       		  ) countTable 
 	</select> 
 	
+	<select id="selectBookmarkNo" parameterType="int"  resultType="int">
+	
+		SELECT NVL(max(bookmark_id), 0)
+        from BOOKMARK
+        where nickname = #{nickname} and diary_id = #{diaryNo}
+	
+	</select>
+	
 </mapper>
 	

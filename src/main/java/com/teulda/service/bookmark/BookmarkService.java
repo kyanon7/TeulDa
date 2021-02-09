@@ -18,4 +18,6 @@ public interface BookmarkService {
 	//북마크 목록 조회
 	public Map<String, Object> getBookmarkList(Search search, String nickname) throws Exception;
 	
+	//닉네임과 다이어리 번호로 북마크번호를 갖고있는지 확인
+	public int selectBookmarkNo(int diaryNo) throws Exception;
 }
