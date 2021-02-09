@@ -87,7 +87,7 @@
       		  ) countTable 
 	</select> 
 	
-	<select id="selectBookmarkNo" parameterType="int"  resultType="int">
+	<select id="selectBookmarkNo" parameterType="map"  resultType="int">
 	
 		SELECT NVL(max(bookmark_id), 0)
         from BOOKMARK

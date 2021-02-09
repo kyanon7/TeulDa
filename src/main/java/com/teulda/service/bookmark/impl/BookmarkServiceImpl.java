@@ -73,9 +73,9 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	@Override
-	public int selectBookmarkNo(int diaryNo) throws Exception {
+	public int selectBookmarkNo(int diaryNo, String nickname) throws Exception {
 		
-		return bookmarkDao.selectBookmarkNo(diaryNo);
+		return bookmarkDao.selectBookmarkNo(diaryNo, nickname);
 	}
 
 	

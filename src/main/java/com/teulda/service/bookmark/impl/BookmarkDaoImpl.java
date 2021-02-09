@@ -66,9 +66,13 @@ import com.teulda.service.domain.Diary;
 	}
 
 	@Override
-	public int selectBookmarkNo(int diaryNo) throws Exception {
+	public int selectBookmarkNo(int diaryNo, String nickname) throws Exception {
 		
-		return sqlSession.selectOne("BookmarkMapper", diaryNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("diaryNo", diaryNo);
+		map.put("nickname", nickname);
+		
+		return sqlSession.selectOne("BookmarkMapper.selectBookmarkNo", map);
 		
 	}
 

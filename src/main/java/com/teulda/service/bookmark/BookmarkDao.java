@@ -21,5 +21,5 @@ public interface BookmarkDao {
 	public int getBookmarkTotalCount(Search search, String nickname) throws Exception;
 	
 	// SELECT ONE
-	public int selectBookmarkNo(int diaryNo) throws Exception;
+	public int selectBookmarkNo(int diaryNo, String nickname) throws Exception;
 }
