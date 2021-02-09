@@ -142,6 +142,21 @@ public class DiaryDaoImpl implements DiaryDao {
 	}
 	
 	@Override
+	public List<Diary> getTopViewDiaryList() throws Exception {
+		return sqlSession.selectList("DiaryMapper.getTopViewDiaryList");
+	}
+	
+	@Override
+	public List<Diary> getTopBookmarkDiaryList() throws Exception {
+		return sqlSession.selectList("DiaryMapper.getTopBookmarkDiaryList");
+	}
+	
+	@Override
+	public List<HashTag> getTopUseHashTagList() throws Exception {
+		return sqlSession.selectList("DiaryMapper.getTopUseHashTagList");
+	}
+	
+	@Override
 	public int getDiaryByHashTagCount(Search search) throws Exception {
 		return sqlSession.selectOne("DiaryMapper.getDiaryByHashTagCount", search);
 	}

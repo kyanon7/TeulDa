@@ -86,7 +86,7 @@ $(function() {
 				<a class="nav-link active" href="/diary/listTotalDiary">DIARY</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/review/listTotalReview">REVIEW</a>
+				<a class="nav-link" href="/review/listTotalReview?searchKeyword=${ search.searchKeyword }">REVIEW</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="/user/listUserTotal">USER</a>

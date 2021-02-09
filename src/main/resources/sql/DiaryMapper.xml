@@ -404,6 +404,43 @@
      	  ) countTable 
 	</select>
 	
+	<!-- SQL : SELECT LIST --> 
+	<select  id="getTopViewDiaryList"  resultMap="diarySelectMap">
+	SELECT *
+	FROM
+	(SELECT diary_id, diary_addr, title, origin_nick, view_count
+ 	FROM DIARY 
+ 	ORDER BY view_count DESC 
+	)
+	WHERE ROWNUM &lt;= 9
+	</select> 
+	
+	<!-- SQL : SELECT LIST --> 
+	<select  id="getTopBookmarkDiaryList"  resultMap="diarySelectMap">
+	SELECT *
+	FROM
+	(   SELECT d.diary_id, d.diary_addr, d.title, d.origin_nick,
+      	(SELECT count(*)
+       	FROM BOOKMARK
+       	WHERE diary_id = d.diary_id) as bookmark_count
+    	FROM diary d
+    	ORDER BY bookmark_count DESC 
+	)
+	WHERE ROWNUM &lt;= 9
+	</select> 
+	
+	<!-- SQL : SELECT LIST --> 
+	<select  id="getTopUseHashTagList"  resultMap="hashTagSelectMap">
+	SELECT *
+	FROM
+	(   SELECT hashtag_name, count(*)
+    	FROM HASHTAG 
+    	GROUP BY hashtag_name
+    	ORDER BY count(*) DESC 
+	)
+	WHERE ROWNUM &lt;= 9
+	</select> 
+	
 	<!-- SQL : SELECT SUBSCRIBE DIARY LIST -->
 	<select  id="getSubscribeDiaryList"  parameterType="map"   resultMap="diarySelectMap">
 	SELECT diary_id, title, diary_addr, diary_date, origin_nick, start_date, end_date, thumbnail, group_id 

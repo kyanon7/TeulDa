@@ -336,5 +336,22 @@ public class DiaryController {
 
 		return "forward:/search/listTotalHashTag.jsp";
 	}
+	
+	// 메인화면 조회수 TOP, 북마크 횟수 TOP, 많이 사용된 해시태그 TOP 뽑아오기 
+	@RequestMapping(value="listMainRanking", method=RequestMethod.GET)
+	public String listMainRanking(Model model) throws Exception {
+		
+		System.out.println("/diary/listMainRanking : GET");
+		
+		// Business logic 수행
+		Map<String, Object> map = diaryService.getMainRankingList();
+		
+		// Model 과 View 연결
+		model.addAttribute("topViewDiaryList", map.get("topViewDiaryList")); // 조회수 TOP 
+		model.addAttribute("topBookmarkDiaryList", map.get("topBookmarkDiaryList")); // 북마크 횟수 TOP
+		model.addAttribute("topUseHashTagList", map.get("topUseHashTagList")); // 많이 사용된 해시태그 TOP 
+		
+		return "forward:/main.jsp";
+	}
 
 }
