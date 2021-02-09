@@ -70,7 +70,7 @@ public class SubscribeRestController {
 	@RequestMapping(value="rest/deleteSubscribe/{nickname}", method=RequestMethod.GET)
 	public boolean deleteSubscribe(@PathVariable String nickname, HttpSession session) throws Exception{
 		
-		System.out.println("/subscribe/rest/addSubscribe : GET");
+		System.out.println("/subscribe/rest/deleteSubscribe : GET");
 		
 		Subscribe subscribe = new Subscribe();
 		User user = (User) session.getAttribute("user");
@@ -80,15 +80,15 @@ public class SubscribeRestController {
 		return subscribeService.deleteSubscribe(subscribe);
 	}
 	
-	@RequestMapping(value="rest/checkSubscribe/", method=RequestMethod.GET)
-	public boolean checkSubscribe(@ModelAttribute("user") User targetuser, HttpSession session) throws Exception{
+	@RequestMapping(value="rest/checkSubscribe/{targetNickname}", method=RequestMethod.GET)
+	public boolean checkSubscribe(@PathVariable String targetNickname, HttpSession session) throws Exception{
 		
 		System.out.println("/subscribe/rest/checkSubscribe : GET");
 		
 		Subscribe subscribe = new Subscribe();
 		User user = (User) session.getAttribute("user");
 		subscribe.setSubNickname(user.getNickname());
-		subscribe.setSubTargetNickname(targetuser.getNickname());
+		subscribe.setSubTargetNickname(targetNickname);
 		
 		return subscribeService.checkSubscribe(subscribe);
 	}

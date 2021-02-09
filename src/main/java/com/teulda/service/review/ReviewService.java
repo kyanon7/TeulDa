@@ -2,6 +2,8 @@ package com.teulda.service.review;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.teulda.common.Search;
@@ -29,5 +31,4 @@ public interface ReviewService {
     
     //	파일 업로드
     public String uploadFile(Review review, String path, MultipartHttpServletRequest request) throws Exception;
-
 }

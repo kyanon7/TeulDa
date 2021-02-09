@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.teulda.common.Page;
 import com.teulda.common.Search;
@@ -52,7 +53,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="addReview", method=RequestMethod.POST)
-	public String addReview(@ModelAttribute("review") Review review, HttpSession session) throws Exception{
+	public String addReview(@ModelAttribute("review") Review review, MultipartHttpServletRequest request, HttpSession session) throws Exception{
 		
 		System.out.println("/review/addReview : POST");
 		
@@ -62,6 +63,7 @@ public class ReviewController {
 		}else if(session.getAttribute("user") != null && session.getAttribute("user") instanceof User){
 			User user = (User) session.getAttribute("user");
 			review.setNickname(user.getNickname());
+			reviewService.uploadFile(review, path, request);
 			reviewService.addReview(review);
 		}
 		
@@ -74,6 +76,7 @@ public class ReviewController {
 		System.out.println("/review/getReview : GET");
 		
 		Review review = reviewService.getReview(reviewNo);
+		review.setReviewPhoto(path+review.getReviewPhoto());
 		
 		model.addAttribute("review", review);
 		

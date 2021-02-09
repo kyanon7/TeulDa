@@ -84,11 +84,12 @@ public class ReviewServiceImpl implements ReviewService {
 			}
 			
 				String pathName = imageFile.getOriginalFilename();
-				int idx = pathName.lastIndexOf("\\");
-				if(idx == -1) {
-					idx = pathName.lastIndexOf("/");
-				}
-				fileName = identify+"_"+pathName.substring(idx + 1);
+//				int idx = pathName.lastIndexOf("\\");
+//				if(idx == -1) {
+//					idx = pathName.lastIndexOf("/");
+//				}
+//				fileName = identify+"_"+pathName.substring(idx + 1);
+				fileName = identify+"_"+pathName;
 				imageFile.transferTo(new File(path, fileName));
 				
 			}
