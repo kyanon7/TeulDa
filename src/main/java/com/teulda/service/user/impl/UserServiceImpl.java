@@ -39,10 +39,6 @@ public class UserServiceImpl implements UserService {
 		userDao.addUser(user);
 	}//유저추가 완
 
-	@Override
-	public void checkEmail(String email) throws Exception {
-		userDao.checkEmail(email);
-	}
 	
 	@Override
 	public boolean checkEmailDuplication(String email) throws Exception {

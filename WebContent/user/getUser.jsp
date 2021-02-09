@@ -29,18 +29,21 @@
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
-		
+	
+	/*
 		//============= 회원정보수정 Event  처리 =============	
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "button" ).on("click" , function() {
 					self.location = "/user/updateUser?email=${user.email}"
 				});
-		});
+		});*/
 		
 		 $(function() {
-				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-				 $( "a" ).on("click" , function() {
+				//신고
+				 $( "button:contains('회원신고')" ).on("click" , function() {
+					 
+					
 					 var msg = "정말로 신고하시겠습니까?";
 
 					 var flag = confirm(msg);
@@ -55,13 +58,100 @@
 			});
 		 
 		 $(function() {
-				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				//신고내역
 				 $( "b" ).on("click" , function() {
 						self.location = "/user/listReport?targetNick=${user.nickname}"
 						
 					});
 			});
+		 
+		/* $(function() {
+				//구독
+				 $( "button:contains('구독')"  ).on("click" , function() {
+						self.location = "/subscribe/addSubscribe?nickname=${user.nickname}"
+						
+					});
+			});*/
+		 
+		 $(function(){
+				
+			 $( "button:contains('구독')"  ).on("click" , function() {
+			         
+			         $.ajax({
+			         url : "/subscribe/rest/addSubscribe/{nickname}",   
+			         type : "GET",
+			         //dataType : "text",
+			         headers: {
+			            "Content-Type": "application/json"
+			         },
+			         data : {
+			               
+			        	SubTargetNickname : "${user.nickname}",
+			            SubNickname : "${sessionScope.user.nickname}"
+			         },
+			            
+			            	success : function(result) {
+								if (result == "Success") {
+									alert("구독이 완료되었습니다.");
+									location.reload();  
+								} else {
+									alert("구독안됨.");
+								}
+							}
+			         
+			         
+			         });
+				
+				});
+			});
+		
+		 
+		/* $(function() {
+				//구독 취소
+				 $( "button:contains('구독 취소')"  ).on("click" , function() {
+						self.location = "/user/listReport?targetNick=${user.nickname}"
+						
+					});
+			});*/
 		 	
+		 
+		 console.log("${user.nickname}");
+		 console.log("${sessionScope.user.nickname}");
+		 $(function(){
+				
+			 $( "button:contains('구독 취소')"  ).on("click" , function() {
+			         
+			         $.ajax({
+			         url : "/subscribe/rest/deleteSubscribe/{nickname}",   
+			         type : "GET",
+			         //dataType : "text",
+			         headers: {
+			            "Content-Type": "application/json"
+			         },
+			         data : {
+			               
+			        	SubTargetNickname : "${ user.nickname }",
+			            SubNickname : "${sessionScope.user.nickname}"
+			         },
+			            
+			            	success : function(result) {
+								if (result == "Success") {
+									alert("구독이 취소되었습니다.");
+									location.reload(); // 리로드 안하고 할 수 있게 해보기 
+								} else {
+									alert("구독취소안됨.");
+								}
+							}
+			         
+			         
+			         });
+				
+				});
+			});
+		 
+		
+	
+		 
 		
 		
 	</script>
@@ -100,8 +190,15 @@
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>주소</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>거주지</strong></div>
 			<div class="col-xs-8 col-md-4">${user.address}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>관심지역</strong></div>
+			<div class="col-xs-8 col-md-4">${user.likePlace}</div>
 		</div>
 		
 		<hr/>
@@ -123,13 +220,25 @@
 
 		
 
-		
+
 		<div class="form-group">
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-outline-success">구독</button>
+	  			<button type="button"  class="btn btn-outline-danger">회원신고</button>
+	  		</div>
+		</div>
+
+	
+	<c:if test ="">
+		<div class="form-group">
+	  		<div class="col-md-12 text-center ">
+	  			<button type="button" class="btn btn-outline-warning">구독 취소</button>
 	  			<a class="btn btn-outline-danger">회원신고</a>
 	  		</div>
 		</div>
+	</c:if>
+	
+	
 		
 		<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
 			      <b class="btn btn-outline-prime">신고내역</a>

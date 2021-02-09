@@ -321,3 +321,37 @@ WHERE nickname = 'king영진'
    AND is_public = 't'
    ORDER BY diary_date DESC
    </select>
+   
+// 조회수 TOP 기록
+
+select *
+from
+(select diary_id, diary_addr, title, origin_nick, view_count
+ from diary
+ order by view_count desc
+)
+where rownum <= 9;
+
+// 북마크 TOP 기록
+
+select * 
+from 
+(   select d.diary_id, d.diary_addr, d.title, d.origin_nick,
+      (select count(*)
+       from bookmark
+       where diary_id = d.diary_id) as bookmark_count
+    from diary d
+    order by bookmark_count desc
+)
+where rownum <= 9; 
+
+// 많이 사용된 해시태그 TOP
+
+select *
+from
+(   select hashtag_name, count(*)
+    from hashtag
+    group by hashtag_name
+    order by count(*) desc
+)
+where rownum <= 9;

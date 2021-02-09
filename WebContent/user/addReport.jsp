@@ -61,18 +61,8 @@
 			var reportPhoto=$("input[name='reportPhoto']").val();
 			var targetNick="${targetNick}";
 			
-		
-			
-			
-			
-		
-
-
 		 $("form").attr("method" , "POST").attr("action" , "/user/addReport").submit();
-		 
-		  
-		 
-		 
+		 		 
 		}
 		
 		

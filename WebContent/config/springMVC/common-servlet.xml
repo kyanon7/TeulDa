@@ -101,12 +101,12 @@
 	
 	
 	
-	<!-- bean class="com.teulda.web.mail.MailController">
+	<!--bean class="com.teulda.web.mail.MailController">
 	    <property name="userService" ref="userService" />
 	    <property name="mailService" ref="mailService" />
-	</bean>
+	</bean-->
 
-이메일 관련 끝 -->
+
 
 
 	<!-- 	:: exception resolver  선언 :: 서술적 / 선언적 예외처리 

@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8" />
-<title>자유게시판</title>
+<title>내 글 보기</title>
 
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"
@@ -38,10 +38,6 @@ function fncGetList(currentPage) {
 			"/post/listPostBynickname").submit();
 
 }
-
-
-
-
 
 	
 	$(function(){
@@ -120,13 +116,13 @@ function fncGetList(currentPage) {
 							<br />
 						</c:if>
 							<a href="/post/listPostBynickname?postCategory=6&nickname=${sessionScope.user.nickname}"
-								class="list-group-item list-group-item-action" type="button">자유게시글</a> 
+								class="list-group-item list-group-item-action" type="button">모든 게시물</a> 
 							<a href="/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}"
-								class="list-group-item list-group-item-action" type="button">여행지정보공유</a> 
+								class="list-group-item list-group-item-action" type="button">여행지 정보공유</a> 
 							<a href="/post/listPostBynickname?postCategory=2&nickname=${sessionScope.user.nickname}"
-								class="list-group-item list-group-item-action " type="button">맛집정보공유</a> 
+								class="list-group-item list-group-item-action " type="button">맛집 정보공유</a> 
 							<a href="/post/listPostBynickname?postCategory=3&nickname=${sessionScope.user.nickname}"					
-								class="list-group-item list-group-item-action " type="button">숙소정보공유</a>
+								class="list-group-item list-group-item-action " type="button">숙소 정보공유</a>
 							 <a href="/post/listPostBynickname?postCategory=4&nickname=${sessionScope.user.nickname}"
 								class="list-group-item list-group-item-action " type="button">Q&A</a>
 							<a href="/post/listPostBynickname?postCategory=5&nickname=${sessionScope.user.nickname}"
@@ -134,18 +130,14 @@ function fncGetList(currentPage) {
 					</div>
 				</div>
 
-				<div class=".col-md-9">
-					<div class="row"></div>
+				<div class="col-md-9">
+					<div class="row">
 					<div class="col-md-2">
 
 						<span class="badge badge-info">PAGE ${ resultPage.currentPage},
 							TOTAL ${ resultPage.totalCount }</span>  <input type="hidden" 
 							id="postCategory" name="postCategory" value="${postCategory}"/>  
 
-
-
-							<!-- <input type="hidden"
-							id="currentPage" name="currentPage" value="" /> -->
 						<input type="hidden" name="nickname" id="nickname"
 							value="${nickname}">
 
@@ -238,7 +230,7 @@ function fncGetList(currentPage) {
 						<!-- PageNavigation Start... -->
 						<jsp:include page="../common/pageNavigator.jsp" />
 						<!-- PageNavigation End... -->
-
+</div>
 					</div>
 				</div>
 			</div>

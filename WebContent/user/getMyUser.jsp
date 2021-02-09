@@ -18,12 +18,7 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -38,14 +33,14 @@
 		//============= 회원정보수정 Event  처리 =============	
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button" ).on("click" , function() {
+			 $("button:contains('회원정보수정')" ).on("click" , function() {
 					self.location = "/user/updateUser?email=${user.email}"
 				});
 		});
 		
-		 /* $(function() {
+		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-				 $( "a" ).on("click" , function() {
+				 $( "button:contains('회원탈퇴')" ).on("click" , function() {
 					 var msg = "정말로 탈퇴하시겠습니까?";
 
 					 var flag = confirm(msg);
@@ -56,7 +51,7 @@
 					 }
 					 else {alert("취소하였습니다.");}
 					});
-			}); */
+			});
 		
 		
 		
@@ -119,7 +114,7 @@
 		<div class="form-group">
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-outline-primary">회원정보수정</button>
-	  			<!--a class="btn btn-outline-danger">회원탈퇴</a-->
+	  			<button type="button" class="btn btn-outline-danger">회원탈퇴</button>
 	  		</div>
 		</div>
 		

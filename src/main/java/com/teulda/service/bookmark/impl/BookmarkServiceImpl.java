@@ -72,5 +72,17 @@ public class BookmarkServiceImpl implements BookmarkService {
 			return map;
 	}
 
+	@Override
+	public int selectBookmarkNo(int diaryNo, String nickname) throws Exception {
+		
+		return bookmarkDao.selectBookmarkNo(diaryNo, nickname);
+	}
+
+	@Override
+	public int findBookmarkNo(int diaryNo, String nickname) throws Exception {
+		
+		return bookmarkDao.findBookmarkNo(diaryNo, nickname);
+	}
+
 	
 }

@@ -74,14 +74,16 @@
   		<!-- ======= Header ======= -->
 		<header>
 			<jsp:include page="../layout/toolbar.jsp"/>
-		</header><br/><br/>
+		</header>
+		<br/>
+		<br/>
 		<!-- End Header -->
-<form name="detailForm">
+			<form name="detailForm">
 
   		<div class="container">
   			<div class="row">
   				<!-- diary toolbar로 빼도 될 듯 -->
-  				<div class="col-md-2">
+  				<div class="col-md-3">
   					<jsp:include page="../post/leftbar.jsp"/>
   				</div>
   					
@@ -101,23 +103,34 @@
 				</div>  --%>
 				
 			
-				<div class=".col-md-10">
-				<!-- 	<ol class="breadcrumb">
- 						 <li class="breadcrumb-item"><a href="#">최신순</a></li>
-  						 <li class="breadcrumb-item"><a href="#">조회순</a></li>
-  				   </ol> -->
-  				   
-  				   <span class="badge badge-info">PAGE ${ resultPage.currentPage},
-							TOTAL ${ resultPage.totalCount }</span>  <input type="hidden" 
-							id="postCategory" name="postCategory" value="${postCategory}"/>
-						
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-2">
+
+							<span class="badge badge-info">PAGE ${ resultPage.currentPage},
+								TOTAL ${ resultPage.totalCount }</span> <input type="hidden"
+								id="postCategory" name="postCategory" value="${postCategory}" />
+
+							<%-- <ol class="breadcrumb">
+								<li class="breadcrumb-item" value="0"><a
+									${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>최신순</a></li>
+								<li class="breadcrumb-item" value="1"><a
+									${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>조회순</a></li>
+							</ol> --%>
+							<input type="hidden" name="searchSorting" id="searchSorting"
+								value="${ search.searchSorting }">
+							<!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
+
+						</div>
 					<input type="hidden" name="nickname" id="nickname"
 							value="${nickname}">	
-  						 
+  					<div class="col-md-7">	 
    					<c:if test="${ !empty user }"> 
    					<a type="button" id="${nickname}" class="btn btn-outline-info">내 글 보기</a>
   					<a type="button" href="#" class="btn btn-outline-info">내 댓글 보기</a>
   					</c:if>
+  					</div>
+  					</div>
    					<div class="row">
 					<div class="col-md-2">
 						<div class="form-group">
@@ -141,6 +154,8 @@
 						<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 					</div>
 				</div>
+				
+				<div class="row">
 				
 					<!-- <div class=".col-md-6"> -->
   					 	<table class="table table-hover">
@@ -182,6 +197,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</form>
 	</body>
 </html>
