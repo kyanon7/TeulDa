@@ -53,11 +53,10 @@
 	
 	<!-- SQL : SELECT ONE (실질적으로 사용은 안할 듯) -->
 	<select id="getPhoto" parameterType="int" resultMap="photoSelectMap">
-		SELECT
-		photo_id, photo_group_id, post_id, diary_id, photo_name, photo_addr, 
-		latitude, longitude, photo_date, delete_date, description, diary_photo_type
-		FROM photo
-		WHERE photo_id = #{value}
+		SELECT ROWNUM,
+		photo_name
+		from (SELECT * FROM photo ORDER BY photo_id ASC)
+		WHERE photo_group_id = #{value} AND ROWNUM = 1;
 	</select>
 	
 	<!-- SQL : SELECT ONE (실질적으로 사용은 안할 듯) -->
