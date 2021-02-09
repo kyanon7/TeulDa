@@ -130,19 +130,16 @@ import com.teulda.service.user.UserService;
 		
 		System.out.println("/post/getPost : GET");
 
-//		User user = (User) session.getAttribute("user");
-//		
-//		System.out.println("===========================");
-//		System.out.println("이건 User값입니다"+user);
-//		System.out.println("===========================");
+		User user = (User) session.getAttribute("user");
 		
+		System.out.println("===========================");
+		System.out.println("이건 User값입니다"+user);
+		System.out.println("===========================");
 		
-		String sessionID = (String) session.getAttribute("sessionID");
-		
-		
-		System.out.println("////////////////////////////////");
-		System.out.println(sessionID);
-		System.out.println("////////////////////////////////");
+		System.out.println(session);
+//		System.out.println("////////////////////////////////");
+//		System.out.println(sessionID);
+//		System.out.println("////////////////////////////////");
 		
 		
 		Post post = postService.getPost(postNo);
@@ -157,7 +154,7 @@ import com.teulda.service.user.UserService;
 		model.addAttribute("post", post);
 		
 		
-		if(!post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+		if(user==null || !post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/post/getPost.jsp";
 		}else if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/post/getMyPost.jsp";
