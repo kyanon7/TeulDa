@@ -100,7 +100,9 @@ public class DiaryController {
 		
 		// 조회수 증가한 상태로 jsp에 넘기기 위해 다시한번 getDiary 
 		Diary diary2 = diaryService.getDiary(diaryNo);
-		//diary2.setBookmarkNo(bookmarkService.selectBookmarkNo(diaryNo)); 
+		
+		// getDiary 할 기록이 내가 북마크 한 기록이면 bookmarkNo가 있을거고, 안한 기록이면 0일것임 ! 
+		diary2.setBookmarkNo(bookmarkService.selectBookmarkNo(diaryNo, user.getNickname())); 
 		
 		// Model 과 View 연결
 		model.addAttribute("diary", diary2);
