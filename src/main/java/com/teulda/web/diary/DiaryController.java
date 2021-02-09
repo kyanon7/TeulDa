@@ -23,6 +23,7 @@ import com.teulda.common.Group;
 import com.teulda.common.Page;
 import com.teulda.common.Search;
 import com.teulda.common.handler.getThumbnail;
+import com.teulda.service.bookmark.BookmarkService;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.User;
@@ -36,6 +37,10 @@ public class DiaryController {
 	@Autowired
 	@Qualifier("diaryServiceImpl")
 	private DiaryService diaryService;
+	
+	@Autowired
+	@Qualifier("bookmarkServiceImpl")
+	private BookmarkService bookmarkService;
 	
 	public DiaryController() {
 		System.out.println(this.getClass()); // 디버깅 위함
@@ -98,6 +103,7 @@ public class DiaryController {
 		
 		// 조회수 증가한 상태로 jsp에 넘기기 위해 다시한번 getDiary 
 		Diary diary2 = diaryService.getDiary(diaryNo);
+		//diary2.setBookmarkNo(bookmarkService);
 		
 		// Model 과 View 연결
 		model.addAttribute("diary", diary2);

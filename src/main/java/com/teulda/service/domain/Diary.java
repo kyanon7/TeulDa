@@ -41,6 +41,8 @@ public class Diary { // 기록
 	// private List<String> photoList; // 사진 파일명 여러개
 	private List<Photo> photoList;
 
+	private int bookmarkNo; // getDiary 할 때 북마크 하나만 추가하기 위해 사용
+
 	public int getDiaryNo() {
 		return diaryNo;
 	}
@@ -273,6 +275,14 @@ public class Diary { // 기록
 		this.photoList = photoList;
 	}
 
+	public int getBookmarkNo() {
+		return bookmarkNo;
+	}
+
+	public void setBookmarkNo(int bookmarkNo) {
+		this.bookmarkNo = bookmarkNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Diary [diaryNo=" + diaryNo + ", title=" + title + ", location=" + location + ", latitude=" + latitude
@@ -283,7 +293,7 @@ public class Diary { // 기록
 				+ ", scrapDate=" + scrapDate + ", groupNo=" + groupNo + ", groupName=" + groupName + ", currency="
 				+ currency + ", transBill=" + transBill + ", roomBill=" + roomBill + ", foodBill=" + foodBill
 				+ ", tourBill=" + tourBill + ", shopBill=" + shopBill + ", isPublic=" + isPublic + ", hashTagList="
-				+ hashTagList + ", photoList=" + photoList + "]";
+				+ hashTagList + ", photoList=" + photoList + ", bookmarkNo=" + bookmarkNo + "]";
 	}
 
 }
