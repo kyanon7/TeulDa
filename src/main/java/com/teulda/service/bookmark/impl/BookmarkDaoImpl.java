@@ -76,4 +76,14 @@ import com.teulda.service.domain.Diary;
 		
 	}
 
+	@Override
+	public int findBookmarkNo(int diaryNo, String nickname) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("diaryNo", diaryNo);
+		map.put("nickname", nickname);
+		
+		return sqlSession.selectOne("BookmarkMapper.findBookmarkNo", map);
+	}
+
 }

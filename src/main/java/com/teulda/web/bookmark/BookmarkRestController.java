@@ -52,15 +52,22 @@ public class BookmarkRestController {
 	}
 	
 	@RequestMapping(value="rest/deleteBookmark", method=RequestMethod.POST)
-	public String deleteBookmark(@RequestBody Bookmark bookmark) throws Exception{
+	public String deleteBookmark(@RequestBody Bookmark bookmark, HttpSession session) throws Exception{
 		
 		System.out.println("/bookmark/rest/deleteBookmark :POST");
+		
+		User user = (User) session.getAttribute("user");
+		
+		bookmark.setNickname(user.getNickname());
 		
 		System.out.println("===========================");
 	    System.out.println("이건 bookmark값입니다"+bookmark);
 	    System.out.println("===========================");
 	    
-	    bookmarkService.deleteBookmark(bookmark.getBookmarkNo());
+	    
+	   int bookmarkNo = bookmarkService.findBookmarkNo(bookmark.getDiaryNo(), bookmark.getNickname());
+	    
+	    bookmarkService.deleteBookmark(bookmarkNo);
 	    
 	    return "Success";
 	}

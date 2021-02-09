@@ -22,4 +22,7 @@ public interface BookmarkDao {
 	
 	// SELECT ONE
 	public int selectBookmarkNo(int diaryNo, String nickname) throws Exception;
+	
+	//SELECT ONE
+	public int findBookmarkNo(int diaryNo, String nickname) throws Exception;
 }
