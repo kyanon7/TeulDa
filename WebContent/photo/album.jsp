@@ -116,6 +116,7 @@
 						<div class="col-md-4">
 							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
 								<div class="card-header">
+									${photo.photoAddr}
 									<input type="hidden" id="updateGroupName" value="${photo.photoName}">
 									<%-- <small style="">${ photo.photoName}</small> --%>
 									<img src="../resources/images/folder.png" id="${ photo.photoNo }" height="13px" align="middle" style="float:right;">

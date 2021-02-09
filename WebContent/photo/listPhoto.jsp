@@ -111,7 +111,7 @@
 									<small style="">${ group.groupName}</small>
 								</div>
 								<div class="card-body">
-									<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
+									<a href="/photo/album?groupNo=${group.groupNo}"><%-- <img class="card-img-top" src="..." alt="${group.groupName}"> --%>${group.groupName}</a>
 									<h5 class="card-title" id ="${group.groupNo}">${ group.groupName }</h5>
 									<p class="card-text" id="content">
 									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>

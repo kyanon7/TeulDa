@@ -90,7 +90,7 @@ ADD CONSTRAINT USERS_UK2 UNIQUE
 CREATE TABLE groups (
 	group_id		NUMBER				NOT NULL,
 	group_name		VARCHAR2(30)		NOT NULL,
-	nickname		VARCHAR2(50)		NOT NULL	REFERENCES users(nickname),
+	nickname		VARCHAR2(50)		NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	delete_date		DATE,
 	group_type		CHAR(1)				NOT NULL,
 	PRIMARY KEY(group_id)
@@ -102,8 +102,8 @@ CREATE TABLE report (
 	report_date			DATE			NOT NULL,
 	report_photo		VARCHAR2(100),
 	reason				VARCHAR2(100)	NOT NULL,
-	reporter_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
-	target_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	reporter_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
+	target_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	report_type			VARCHAR2(20)	NOT NULL,
 	PRIMARY KEY(report_id)
 );
@@ -117,16 +117,16 @@ CREATE TABLE diary (
 	longitude			NUMBER				NOT NULL,
 	diary_date			DATE				NOT NULL,
 	last_update_date	DATE,
-	origin_nick			VARCHAR2(50)		NOT NULL	REFERENCES users(nickname),
+	origin_nick			VARCHAR2(50)		NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	start_date			VARCHAR2(20)		NOT NULL,
 	end_date			VARCHAR2(20)		NOT NULL,
 	content				CLOB,
 	thumbnail			VARCHAR2(100),
 	view_count			NUMBER				DEFAULT 0,
 	delete_date			DATE,
-	scrap_nick			VARCHAR2(50)					REFERENCES users(nickname),
+	scrap_nick			VARCHAR2(50)					REFERENCES users(nickname) ON DELETE CASCADE,
 	scrap_date			DATE,
-	group_id			NUMBER							REFERENCES groups(group_id),
+	group_id			NUMBER							REFERENCES groups(group_id) ON DELETE CASCADE,
 	currency			VARCHAR2(20),
 	trans_bill			NUMBER,
 	room_bill			NUMBER,
@@ -141,7 +141,7 @@ CREATE TABLE diary (
 //해시태그 테이블
 CREATE TABLE hashtag (
 	hashtag_id		NUMBER			NOT NULL,
-	diary_id		NUMBER			NOT NULL	REFERENCES diary(diary_id),
+	diary_id		NUMBER			NOT NULL	REFERENCES diary(diary_id) ON DELETE CASCADE,
 	hashtag_name	VARCHAR2(50)	NOT NULL,
 	PRIMARY KEY(hashtag_id)
 );
@@ -149,7 +149,7 @@ CREATE TABLE hashtag (
 //후기 테이블
 CREATE TABLE review (
 	review_id		NUMBER			NOT NULL,
-	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	review_addr		VARCHAR2(300)	NOT NULL,
 	content			VARCHAR2(400)	NOT NULL,
 	review_photo	VARCHAR2(100),
@@ -163,7 +163,7 @@ CREATE TABLE review (
 CREATE TABLE bookmark (
 	bookmark_id		NUMBER			NOT NULL,
 	diary_id		NUMBER			NOT NULL,
-	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	bookmark_date	DATE			NOT NULL,
 	PRIMARY KEY(bookmark_id)
 );
@@ -171,8 +171,8 @@ CREATE TABLE bookmark (
 //구독 테이블
 CREATE TABLE subscribe (
 	subscribe_id		NUMBER			NOT NULL,
-	subscribe_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
-	target_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	subscribe_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
+	target_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	subscribe_date		DATE			NOT NULL,
 	PRIMARY KEY(subscribe_id)
 );
@@ -182,14 +182,14 @@ CREATE TABLE stamp (
 	stamp_id		NUMBER			NOT NULL,
 	stamp_name		VARCHAR2(50)	NOT NULL,
 	stamp_date		DATE			NOT NULL,
-	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	PRIMARY KEY(stamp_id)
 );
 
 //게시글 테이블
 CREATE TABLE post (
 	post_id			NUMBER			NOT NULL,
-	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	title			VARCHAR2(100)	NOT NULL,
 	content			CLOB,
 	post_date		DATE			NOT NULL,
@@ -201,19 +201,19 @@ CREATE TABLE post (
 //댓글 테이블
 CREATE TABLE comments (
 	comment_id		NUMBER			NOT NULL,
-	post_id			NUMBER			NOT NULL	REFERENCES post(post_id),
+	post_id			NUMBER			NOT NULL	REFERENCES post(post_id) ON DELETE CASCADE,
 	content			VARCHAR2(300),
 	comment_date	DATE			NOT NULL,
-	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	PRIMARY KEY(comment_id)
 );
 
 //사진 테이블
 CREATE TABLE photo (
 	photo_id				NUMBER			NOT NULL,
-	photo_group_id			NUMBER			REFERENCES groups(group_id),
-	post_id					NUMBER			REFERENCES post(post_id),
-	diary_id				NUMBER			REFERENCES diary(diary_id),
+	photo_group_id			NUMBER			REFERENCES groups(group_id) ON DELETE CASCADE,
+	post_id					NUMBER			REFERENCES post(post_id) ON DELETE CASCADE,
+	diary_id				NUMBER			REFERENCES diary(diary_id) ON DELETE CASCADE,
 	photo_name				VARCHAR2(100)	NOT NULL,
 	photo_addr				VARCHAR2(300),
 	latitude				NUMBER,
@@ -222,7 +222,7 @@ CREATE TABLE photo (
 	delete_date				DATE,
 	description				VARCHAR2(100),
 	diary_photo_type		CHAR(1),
-	nickname				VARCHAR2(50) 	REFERENCES users(nickname),
+	nickname				VARCHAR2(50) 	REFERENCES users(nickname) ON DELETE CASCADE,
 	PRIMARY KEY(photo_id)
 );
 
@@ -237,20 +237,20 @@ CREATE TABLE chat_room (
 	max					NUMBER			NOT NULL,
 	total				NUMBER			NOT NULL,
 	is_allowed			CHAR(1)			NOT NULL,
-	head_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),	
+	head_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,	
 	PRIMARY KEY(chatroom_id)
 );
 
 //채팅참여자 테이블
 CREATE TABLE chat_member (
-	chatroom_id		NUMBER			NOT NULL	REFERENCES chat_room(chatroom_id),
-	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname),
+	chatroom_id		NUMBER			NOT NULL	REFERENCES chat_room(chatroom_id) ON DELETE CASCADE,
+	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	PRIMARY KEY(chatroom_id)
 );
 
 //채팅내역 테이블
 CREATE TABLE chat_history (
-	chatroom_id		NUMBER			NOT NULL	REFERENCES chat_room(chatroom_id),
+	chatroom_id		NUMBER			NOT NULL	REFERENCES chat_room(chatroom_id) ON DELETE CASCADE,
 	message			VARCHAR2(400)	NOT NULL,
 	chat_date		DATE			NOT NULL,
 	nickname		VARCHAR2(50)	NOT NULL,
