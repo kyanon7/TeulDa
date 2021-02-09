@@ -122,7 +122,7 @@ public class UserController {
 	 * return "redirect:/"; }
 	 */
 	
-	@RequestMapping("deleteUser")
+	@RequestMapping(value="deleteUser", method=RequestMethod.GET)
 	public String deleteUser(@RequestParam("nickname") String nickname) throws Exception {
 		
 		
@@ -130,7 +130,8 @@ public class UserController {
 		//Business Logic
 		userService.deleteUser(nickname);
 		
-		return "redirect:/index.jsp";
+		//return "redirect:/index.jsp";
+		return "redirect:/diary/listMainRanking";
 	}
 	
 	
@@ -165,7 +166,8 @@ public class UserController {
 
 		
 	
-		return "redirect:/index.jsp";
+		//return "redirect:/index.jsp";
+		return "redirect:/diary/listMainRanking";
 	}// 로그인 하고 인덱스
 		
 	
@@ -176,7 +178,8 @@ public class UserController {
 		
 		session.invalidate();
 		
-		return "redirect:/index.jsp";
+		//return "redirect:/index.jsp";
+		return "redirect:/diary/listMainRanking";
 	}
 	
 	
@@ -242,7 +245,7 @@ public class UserController {
 		return "forward:/user/listUserPublic.jsp";
 	}
 	
-	@RequestMapping( value="listUserTotal" )
+	@RequestMapping( value="listUserTotal", method = { RequestMethod.GET, RequestMethod.POST } )
 	public String listUserTotal( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
 		System.out.println("/user/listUserTotal :"+"debug");
@@ -387,7 +390,8 @@ public class UserController {
 		userService.addReport(report);
 		userService.updateReportCount(reportCount);
 		userService.updateUserStatusAuto(status);
-		return "redirect:/";
+		//return "redirect:/";
+		return "redirect:/diary/listMainRanking";
 	}
 	
 	

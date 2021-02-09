@@ -20,7 +20,7 @@
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
     	 body >  div.container{ 
-            margin-top: 50px;
+            margin-top: 60px;
         }
     </style>
     
@@ -35,6 +35,11 @@
 			});
 		});	
 		
+		$(function() {
+		 $('').mouseover(function(){
+		    $('body').append('<p>이메일, 닉네임, 전화번호는 바꾸실 수 없습니다.</p>')
+		  })
+		
 		
 		//============= "취소"  Event 처리 및  연결 =============
 		$(function() {
@@ -44,19 +49,6 @@
 			});
 		});	
 		
-		//=============이메일" 유효성Check  Event 처리 =============
-		 $(function() {
-			 
-			 $("input[name='email']").on("change" , function() {
-					
-				 var email=$("input[name='email']").val();
-			    
-				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("이메일 형식이 아닙니다.");
-			     }
-			});
-			 
-		});	
 		
 		///////////////////////////////////////////////////////////////////////
 		function fncUpdateUser() {
@@ -65,7 +57,12 @@
 			var pw_confirm=$("input[name='password2']").val();
 			
 			if(name == null || name.length <1){
-				alert("이름은  반드시 입력하셔야 합니다.");
+				alert("이름은 반드시 입력하셔야 합니다.");
+				return;
+			}
+			
+			if(pw == null || pw.length <1){
+				alert("비밀번호는 반드시 입력하셔야 합니다.");
 				return;
 			}
 			
@@ -75,15 +72,9 @@
 				return;
 			}
 				
-			var value = "";	
-			if( $("input[name='phone2']").val() != ""  &&  $("input[name='phone3']").val() != "") {
-				var value = $("option:selected").val() + "-" 
-									+ $("input[name='phone2']").val() + "-" 
-									+ $("input[name='phone3']").val();
-			}
+		
 			
-			//Debug...
-			//alert("phone : "+value);
+			
 			$("input:hidden[name='phone']").val( value );
 				
 			$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
@@ -107,25 +98,25 @@
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="form">
 		
-		  <div class="form-group">
-		    <label for="email" class="col-form-label">이메일</label>
-		      <input type="text" class="form-control" id="email" name="email" value="${user.email }" readonly>
+		  <div class="form-group has-danger">
+		    <label for="email" class="col-form-label" for="inputInvalid">이메일</label>
+		      <input type="text" class="form-control is-invalid" id="email" name="email" value="${user.email }" readonly>
 		       <span id="helpBlock" class="help-block">
 		      	<strong class="text-danger">이메일 수정불가</strong>
 		      </span>
 		  </div>
 		  
-		  <div class="form-group">
-		    <label for="nickname" class="col-form-label">닉네임</label>
-		      <input type="text" class="form-control" id="nickname" name="nickname" value="${user.nickname }" readonly>
+		  <div class="form-group has-danger">
+		    <label for="nickname" class="col-form-label" for="inputInvalid">닉네임</label>
+		      <input type="text" class="form-control is-invalid" id="nickname" name="nickname" value="${user.nickname }" readonly>
 		       <span id="helpBlock" class="help-block">
 		      	<strong class="text-danger">닉네임 수정불가</strong>
 		      </span>
 		  </div>
 		  
-		   <div class="form-group">
-		    <label for="phone" class="col-form-label">전화번호</label>
-		      <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}" readonly>
+		   <div class="form-group has-danger">
+		    <label for="phone" class="col-form-label" for="inputInvalid">전화번호</label>
+		      <input type="text" class="form-control is-invalid" id="phone" name="phone" value="${user.phone}" readonly>
 		       <span id="helpBlock" class="help-block">
 		      	<strong class="text-danger">전화번호 수정불가</strong>
 		      </span>
@@ -147,8 +138,13 @@
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="ssn" class="class="col-form-label">주소</label>
-		      <input type="text" class="form-control" id="addressess" name="address"  value="${user.address}" placeholder="변경주소">
+		    <label for="address" class="class="col-form-label">거주지 주소</label>
+		      <input type="text" class="form-control" id="address" name="address"  value="${user.address}" placeholder="변경거주지">
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="likePlace" class="class="col-form-label">관심 지역</label>
+		      <input type="text" class="form-control" id="likePlace" name="likePlace"  value="${user.likePlace}" placeholder="변경관심지역">
 		  </div>
 		  
 		  
@@ -161,7 +157,7 @@
 		    <div class="text-center">
 		      <button type="button" class="btn btn-outline-primary"  >수정</button>
 			  &nbsp;&nbsp;&nbsp;&nbsp;
-			  <a class="btn btn-outline-secondary" href="#" role="button">취소</a>
+			  <a class="btn btn-outline-secondary" href="javascript:history.go(-1)" role="button">취소</a>
 		    </div>
 		  </div>
 		 

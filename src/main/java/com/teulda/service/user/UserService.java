@@ -13,8 +13,6 @@ public interface UserService {
 	
 	public void addUser(User user) throws Exception;//유저추가 완
 	
-	public void checkEmail(String email) throws Exception ;//이메일 인증
-	
 	public void checkPhone(String phone) throws Exception ;//휴대폰 인증
 
 	public boolean checkEmailDuplication(String email) throws Exception;//이메일 중복체크

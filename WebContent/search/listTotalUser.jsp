@@ -137,7 +137,7 @@
 				<a class="nav-link active"  href="/user/listUserTotal">USER</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link"  href="#hashtags">HASHTAG</a>
+				<a class="nav-link"  href="/diary/listTotalHashTag"">HASHTAG</a>
 			</li>
 		</ul>
 		<br>

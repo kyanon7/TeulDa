@@ -33,10 +33,6 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.insert("UserMapper.addUser", user);	
 	}
 
-	@Override
-	public void checkEmail(String email) throws Exception {
-		
-	}
 
 	@Override
 	public void checkPhone(String phone) throws Exception {

@@ -14,8 +14,6 @@ public interface UserDao {
 	// INSERT
 	public void addUser(User user) throws Exception ;//가입 완
 	
-	public void checkEmail(String email) throws Exception ;//이메일인증
-	
 	public void checkPhone(String phone) throws Exception ;//핸드폰인증
 	
 	public User getUser(String email) throws Exception ;//유저정보 조회 완

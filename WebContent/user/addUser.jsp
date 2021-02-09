@@ -103,94 +103,75 @@
     	<jsp:include page="/layout/toolbar.jsp"/>
 	
    	<!-- ToolBar End /////////////////////////////////////-->
-<!-- Forms -->
-<div class="col-lg-10"><!-- 왼쪽길이지정 -->
-      
-      <div class="bs-docs-section">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="page-header">
-            <br>
-              <h1 id="forms" ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Join Our Site!</h1>
-            </div>
-          </div>
-        </div>
+<div class="col-lg-10"><!-- 길이지정 -->
+<div class="bs-component"><!-- 컴포넌트는 부트스트랩에서 정의한 UI 요소로 버튼, 경고창, 네비게이션바 와 같이 화면 구성에 필요한 요소들을 정의해둔 클래스 집합 입니다 -->
+<form data-dpmaxz-fid="4">
+  <fieldset>
+  
+  	<br/><br/>
+	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Join Our Site!</h1>
+	
+	<h3 class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;필수입력정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+    
+    
+    <div class="form-group">
+  		<label for="email" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;E-mail</label>	
+  		<input type="text" class="form-control" placeholder="E-mail" name="email" id="email" >
+	</div>
+    
+   
 
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="bs-component">
-              <form>
-                <fieldset>
-                 
-                  
-                  <div class="form-group">
-			  		<label for="email" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;E-mail</label>	
-			  		
-			  		<input type="text" class="form-control" placeholder="E-mail" name="email" id="email" >
-			  		<small class="form-text text-danger" id="emailHelp">필수입력사항입니다.</small>	  	
-				  </div>
-			    
-			    <div class="form-group">
-			  		<label for="password" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;비밀번호</label>
-			  	
-			  		<input type="password" class="form-control" placeholder="password" name="password" id="password" >
-			
-				</div>
-			    
-			    <div class="form-group">
-			  		<label for="name" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;이름</label>
-			
-			  		<input type="text" class="form-control" placeholder="name" name="name" id="name" >	
-			
-				</div>
-				
-				<div class="form-group">
-			  		<label for="nickname" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;닉네임</label>
-			  		
-			  		<input type="text" class="form-control" placeholder="nickname" name="nickname" id="nickname" >
-			
-				</div>
-				
-				<div class="form-group">
-			  		<label for="phone" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;전화번호</label>
-			 
-			  		<input type="text" class="form-control" placeholder="phone" name="phone" id="phone" >
-			
-				</div>
-				
-				  <div class="col-lg-4 offset-lg-1">
-            <form class="bs-component">
-              
-              
-              <div class="form-group">
+    <div class="form-group">
+  		<label for="password" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;비밀번호</label>
+  		
+  		<input type="password" class="form-control" placeholder="password" name="password" id="password" >
+  		
+	</div>
+    
+    <div class="form-group">
+  		<label for="name" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;이름</label>
+  		
+  		<input type="text" class="form-control" placeholder="name" name="name" id="name" >	
+		
+	</div>
+	
+	<div class="form-group">
+  		<label for="nickname" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;닉네임</label>
+  		
+  		<input type="text" class="form-control" placeholder="nickname" name="nickname" id="nickname" >
+		
+	</div>
+	
+	<div class="form-group">
+  		<label for="phone" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;전화번호</label>
+  		<input type="text" class="form-control" placeholder="phone" name="phone" id="phone" >
+		<small class="form-text text-muted" id="emailHelp">11자 이상 입력</small>		
+	</div>
+		<h3 class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;선택입력정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+	<div class="form-group">
 			  		<label for="address" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;주소</label>	
 			  		<input type="text" class="form-control" placeholder="주소" name="address" id="address" >
 			  </div>
-
 			  
-			   <div class="form-group">
+			  <div class="form-group">
 			  		<label for="likePlace" class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;관심지역</label>	
 			  		<input type="text" class="form-control" placeholder="관심지역" name="likePlace" id="likePlace" >
 			  </div>
-			  </form>
-			  </div>
-			  
-                
-            
-                    
-                  </fieldset>
-                  
-                 
+	
+	    
 
-                
-              </form>
-            </div>
-          </div>
+    <div class="form-group">
+      <label for="exampleInputFile">File input</label>
+      <input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file" data-dpmaxz-eid="7">
+      <small class="form-text text-muted" id="fileHelp">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+    </div>
+   
      
-
+      
+   
+    <button class="btn btn-primary" type="submit">Submit</button>
    
   </fieldset>
-      <button class="btn btn-primary" type="submit">Submit</button>
   
 </form>
 </div>
