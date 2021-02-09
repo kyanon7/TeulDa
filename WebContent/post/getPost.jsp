@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
 <meta charset="UTF-8" />
 <title>게시글 조회</title>
 <!-- jQuery CDN -->
@@ -24,7 +26,22 @@
 	crossorigin="anonymous"></script>
 <!-- Google 지도 API 사용 스크립트 추가 -->
 
+
+<style>
+/* content 3줄 이상이면 자름 */
+body {
+    background-image: url("https://thumbs.gfycat.com/AncientGreenColt-size_restricted.gif");
+    background-repeat: no-repeat;
+	background-size: 85% auto;
+    
+}
+
+</style>
+
 <script>
+
+
+
 		
 		
 		
@@ -157,16 +174,15 @@
 	</header>
 	<br />
 	<br />
-
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<jsp:include page="../post/leftbar.jsp" />
 			</div>
 
 			<div class="row">
 
-				<div class="col-md-10">
+				<div class="col-md-9">
 
 					<c:if test="${post.postCategory eq '0'.charAt(0)}">
 						<h4>자유 게시글</h4>
@@ -299,6 +315,8 @@
 		</div>
 	</div>
 
+
+	
 
 </body>
 </html>

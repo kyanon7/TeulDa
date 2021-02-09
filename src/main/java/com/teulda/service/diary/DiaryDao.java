@@ -69,6 +69,15 @@ public interface DiaryDao {
 	// SELECT LIST
 	public List<Diary> getDiaryListByHashTag(Search search) throws Exception;
 	
+	// SELECT LIST
+	public List<Diary> getTopViewDiaryList() throws Exception;
+	
+	// SELECT LIST
+	public List<Diary> getTopBookmarkDiaryList() throws Exception;
+	
+	// SELECT LIST
+	public List<HashTag> getTopUseHashTagList() throws Exception;
+	
 	// getDiaryListByHashTag 총 갯수 return
 	public int getDiaryByHashTagCount(Search search) throws Exception;
 

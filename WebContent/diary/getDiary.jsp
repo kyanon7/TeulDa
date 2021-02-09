@@ -57,8 +57,7 @@
 			         data : JSON.stringify({
 			               
 			            diaryNo : "${ diary.diaryNo }"
-
-			         
+			  
 			         }),
 					success : function(result){
 						
@@ -80,6 +79,7 @@
 			
 			$("span:contains('북마크 취소')").on("click", function () {
 				
+					alert("버튼눌림");
 					$.ajax({
 			         url : "/bookmark/rest/deleteBookmark",   
 			         type : "POST",
@@ -210,10 +210,10 @@
 					조회수 ${ diary.viewCount }회 | 북마크 ${ diary.bookmarkCount }회 
 					<c:if test="${ sessionScope.user.nickname ne diary.nickname }"> <!-- 내가 작성한 기록은 북마크 못하게 하기 위함 -->
 					
-						<c:if test="${ empty bookmark.bookmarkNo}">
+						<c:if test="${ diary.bookmarkNo == 0 }">
 						<span  class="badge badge-success" id="addBookmark">북마크 추가</span> <!-- 임시니까 아이콘으로 바꿔도 ㄱㅊㄱㅊ  -->
 						</c:if>
-						<c:if test="${ !empty bookmark.bookmarkNo}">
+						<c:if test="${ diary.bookmarkNo != 0 }">
 						<span class="badge badge-outline-success" id="deleteBookmark">북마크 취소</span>
 						</c:if>
  					</c:if> 

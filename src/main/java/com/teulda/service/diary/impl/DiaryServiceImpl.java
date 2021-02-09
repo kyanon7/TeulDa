@@ -189,6 +189,18 @@ public class DiaryServiceImpl implements DiaryService {
 		
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> getMainRankingList() throws Exception {
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("topViewDiaryList", diaryDao.getTopViewDiaryList());
+		map.put("topBookmarkDiaryList", diaryDao.getTopBookmarkDiaryList());
+		map.put("topUseHashTagList", diaryDao.getTopUseHashTagList());
+		
+		return map;
+	}
 
 	@Override
 	// 기록 수정을 위한 비즈니스 수행 (+ 해시태그 새로 생성, 사진 새로 추가) 

@@ -26,7 +26,7 @@
 
 <script>
 	
-		
+
 		//댓글 등록
 	$(function(){
 		
@@ -258,7 +258,7 @@
 					<!-- </form> -->
 
 					<div class="toast show" role="alert" aria-live="assertive"
-						aria-atomic="true">
+						aria-atomic="true" id="comment">
 						<c:set var="i" value="0" />
 						<c:forEach var="comment" items="${commentList}">
 

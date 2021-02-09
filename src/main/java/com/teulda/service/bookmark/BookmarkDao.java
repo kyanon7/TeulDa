@@ -20,5 +20,9 @@ public interface BookmarkDao {
 	// 북마크페이지
 	public int getBookmarkTotalCount(Search search, String nickname) throws Exception;
 	
-
+	// SELECT ONE
+	public int selectBookmarkNo(int diaryNo, String nickname) throws Exception;
+	
+	//SELECT ONE
+	public int findBookmarkNo(int diaryNo, String nickname) throws Exception;
 }

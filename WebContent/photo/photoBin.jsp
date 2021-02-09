@@ -166,7 +166,7 @@
 								</div>
 								<div class="card-body">
 									<h5 class="card-title" id = "${ groupgroupNo }">${ group.groupName }</h5>
-									<a href="/photo/album?groupNo=${group.groupNo}"><img class="card-img-top" src="..." alt="${group.groupName}"></a>
+									<a href="/photo/album?groupNo=${group.groupNo}"><%-- <img class="card-img-top" src="..." alt="${group.groupName}"> --%>${group.groupName}</a>
 									<p class="card-text" id="content">
 									<p class="card-text" id="updateGroupStatus" style="text-align:right;"><small class="text-muted">앨범복구</small>
 									<input type="hidden" value="${ group.groupNo }" style="float:right;">

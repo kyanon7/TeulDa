@@ -23,6 +23,7 @@ import com.teulda.common.Group;
 import com.teulda.common.Page;
 import com.teulda.common.Search;
 import com.teulda.common.handler.getThumbnail;
+import com.teulda.service.bookmark.BookmarkService;
 import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.User;
@@ -36,6 +37,10 @@ public class DiaryController {
 	@Autowired
 	@Qualifier("diaryServiceImpl")
 	private DiaryService diaryService;
+	
+	@Autowired
+	@Qualifier("bookmarkServiceImpl")
+	private BookmarkService bookmarkService;
 	
 	public DiaryController() {
 		System.out.println(this.getClass()); // 디버깅 위함
@@ -74,21 +79,18 @@ public class DiaryController {
 	// 내 기록 조회 (getDiary?diaryNo=번호&status=own) & 공개 기록 조회 (getDiary?diaryNo=번호)
 	@RequestMapping(value="getDiary", method=RequestMethod.GET)
 	public String getDiary(@RequestParam("diaryNo") int diaryNo, 
-							@RequestParam(value="status", required=false) String status, HttpSession session, Model model) throws Exception {
+						   @RequestParam(value="status", required=false) String status, HttpSession session, Model model) throws Exception {
 		
 		System.out.println("/diary/getDiary : GET");
 		//Business Logic
 		Diary diary = diaryService.getDiary(diaryNo);
-		// *********** 이미지 썸네일 연습  ***********
-		if (diary.getContent() != null) {
-			diary.setThumbnail(getThumbnail.getImgSrc(diary.getContent()));
-		}
-		System.out.println(diary.getThumbnail());
-		// *********** 이미지 썸네일 연습  ***********
+//		// *********** 이미지 썸네일 연습  ***********
+//		if (diary.getContent() != null) {
+//			diary.setThumbnail(getThumbnail.getImgSrc(diary.getContent()));
+//		}
+//		System.out.println(diary.getThumbnail());
+//		// *********** 이미지 썸네일 연습  ***********
 		
-		if (status != null && status.equals("own")) { // 마이페이지 - 기록에서 내 기록만 찾는거면 
-			return "forward:/diary/getMyDiary.jsp";
-		}
 		
 		// 조회하려고 하는 기록이 내가 쓴 기록이 아닐 시 조회수 증가 
 		User user = (User) session.getAttribute("user");
@@ -99,8 +101,15 @@ public class DiaryController {
 		// 조회수 증가한 상태로 jsp에 넘기기 위해 다시한번 getDiary 
 		Diary diary2 = diaryService.getDiary(diaryNo);
 		
+		// getDiary 할 기록이 내가 북마크 한 기록이면 bookmarkNo가 있을거고, 안한 기록이면 0일것임 ! 
+		diary2.setBookmarkNo(bookmarkService.selectBookmarkNo(diaryNo, user.getNickname())); 
+		
 		// Model 과 View 연결
 		model.addAttribute("diary", diary2);
+		
+		if (status != null && status.equals("own")) { // 마이페이지 - 기록에서 내 기록만 찾는거면 
+			return "forward:/diary/getMyDiary.jsp";
+		}
 		
 		return "forward:/diary/getDiary.jsp"; // (타 모듈에서 기록 찾는거면) 
 	}
@@ -326,6 +335,23 @@ public class DiaryController {
 		model.addAttribute("search", search); // 검색 정보가 담겨있음
 
 		return "forward:/search/listTotalHashTag.jsp";
+	}
+	
+	// 메인화면 조회수 TOP, 북마크 횟수 TOP, 많이 사용된 해시태그 TOP 뽑아오기 
+	@RequestMapping(value="listMainRanking", method=RequestMethod.GET)
+	public String listMainRanking(Model model) throws Exception {
+		
+		System.out.println("/diary/listMainRanking : GET");
+		
+		// Business logic 수행
+		Map<String, Object> map = diaryService.getMainRankingList();
+		
+		// Model 과 View 연결
+		model.addAttribute("topViewDiaryList", map.get("topViewDiaryList")); // 조회수 TOP 
+		model.addAttribute("topBookmarkDiaryList", map.get("topBookmarkDiaryList")); // 북마크 횟수 TOP
+		model.addAttribute("topUseHashTagList", map.get("topUseHashTagList")); // 많이 사용된 해시태그 TOP 
+		
+		return "forward:/main.jsp";
 	}
 
 }
