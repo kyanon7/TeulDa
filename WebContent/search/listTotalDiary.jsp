@@ -89,7 +89,7 @@ $(function() {
 				<a class="nav-link" href="/review/listTotalReview">REVIEW</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#users">USER</a>
+				<a class="nav-link" href="/user/listUserTotal">USER</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="/diary/listTotalHashTag">HASHTAG</a>
