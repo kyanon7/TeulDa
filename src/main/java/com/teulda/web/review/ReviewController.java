@@ -40,6 +40,9 @@ public class ReviewController {
 //	@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
+	@Value("#{commonProperties['coolPath']}")
+	String path;
+	
 	@RequestMapping(value="addReview", method=RequestMethod.GET)
 	public String addReview() throws Exception{
 		
@@ -135,18 +138,51 @@ public class ReviewController {
 		return "redirect:/review/getReview?reviewNo="+review.getReviewNo();
 	}
 	
-	@RequestMapping(value="listTotalReview")
-	public String listTotalReview(Search search, Model model) throws Exception{
+	@RequestMapping(value="listTotalReview", method=RequestMethod.GET)
+	public String listTotalReview(@RequestParam(required=false) String searchKeyword, @ModelAttribute("search") Search search, Model model) throws Exception{
 		
-		System.out.println("/review/listTotalReview");
+		System.out.println("/review/listTotalReview : GET");
 		
-		if (search.getSearchSorting() == null || search.getSearchSorting().equals(null)) {
-			search.setSearchSorting("0");
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
 		}
 		
+		search.setPageSize(pageSize);
+
+		if(searchKeyword != null && !searchKeyword.equals(null)) {
+			search.setSearchSorting("0");
+			search.setSearchCondition("4");
+			search.setSearchKeyword(searchKeyword);	
+		}
+		
+		Map<String, Object> map = reviewService.getReviewList(search);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
 		return "forward:/search/listTotalReview.jsp";
 	}
 	
+	@RequestMapping(value="listTotalReview", method=RequestMethod.POST)
+	public String listTotalReview(@ModelAttribute("search") Search search, Model model) throws Exception{
+		
+		System.out.println("/review/listTotalReview : POST");
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = reviewService.getReviewList(search);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/search/listTotalReview.jsp";
+	}
 }

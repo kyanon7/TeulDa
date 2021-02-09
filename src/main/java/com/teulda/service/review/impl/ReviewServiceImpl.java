@@ -1,12 +1,16 @@
 package com.teulda.service.review.impl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.teulda.common.Search;
 import com.teulda.service.domain.Review;
@@ -65,5 +69,32 @@ public class ReviewServiceImpl implements ReviewService {
     public void deleteReview(int reviewNo) throws Exception {
     	reviewDao.deleteReview(reviewNo);
     }
+    
+    @Override
+    public String uploadFile(Review review, String path, MultipartHttpServletRequest request) throws Exception{
+		
+		MultipartFile imageFile = request.getFile("imageFile");
+		String fileName = "";
+		String identify = UUID.randomUUID().toString();
+		
+		if(!imageFile.isEmpty() && !imageFile.getOriginalFilename().equals("")) {
+			File file = new File(path);
+			if(file.exists() == false) {
+				file.mkdirs();
+			}
+			
+				String pathName = imageFile.getOriginalFilename();
+				int idx = pathName.lastIndexOf("\\");
+				if(idx == -1) {
+					idx = pathName.lastIndexOf("/");
+				}
+				fileName = identify+"_"+pathName.substring(idx + 1);
+				imageFile.transferTo(new File(path, fileName));
+				
+			}
+			review.setReviewPhoto(fileName);
+		
+		return fileName;
+	}
 
 }

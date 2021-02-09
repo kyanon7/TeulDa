@@ -61,6 +61,9 @@ public class ReviewRestController {
 		
 		System.out.println("/review/rest/listTotalReview : POST");
 		
+		System.out.println(search);
+		
+		
 		Map<String, Object> map = reviewService.getReviewList(search);
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		

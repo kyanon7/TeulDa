@@ -90,6 +90,11 @@
 											<when test="searchCondition == 3 and searchKeyword !='' ">
 												WHERE LOWER(r.nickname) IN LOWER(#{searchKeyword})
 											</when>
+											<otherwise>
+												WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%') OR
+												LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%') OR
+												LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
+											</otherwise>
 										</choose>
 									</when>
 								</choose>
@@ -144,6 +149,11 @@
 								<when test="searchCondition == 3 and searchKeyword !='' ">
 									WHERE LOWER(r.nickname) IN LOWER(#{searchKeyword})
 								</when>
+								<otherwise>
+									WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%') OR
+									LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%') OR
+									LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
+								</otherwise>
 							</choose>
 						</if>
 					  ) countTable

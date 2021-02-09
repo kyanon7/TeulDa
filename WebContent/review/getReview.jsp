@@ -28,7 +28,7 @@
 				});
 				
 				document.querySelector(".list").addEventListener('click', function(){
-					location.href = "/review/listReview";
+					history.back();
 				});
 			});
 
