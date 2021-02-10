@@ -111,7 +111,7 @@
 					<div class="card border-light mb-3" style="max-width: 20rem;">
   						<div class="card-header">${ diary.nickname }</div>
   						<div class="getDiary" id="${ diary.diaryNo }">
- 							<div class="card-body">
+ 						<div class="card-body">
  							<h5 class="card-title">
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
     						<h5 class="card-title">${ diary.title }</h5>

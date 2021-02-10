@@ -62,6 +62,12 @@ public class DiaryController {
 		
 		User user = (User) session.getAttribute("user");
 		
+//		*********** 정규식 이용 이미지 썸네일 추출 ***********
+		if (diary.getContent() != null) {
+			diary.setThumbnail(getThumbnail.getImgSrc(diary.getContent()));
+		}
+//		*********** 정규식 이용 이미지 썸네일 추출 *********** 
+		
 		diary.setNickname(user.getNickname());
 		// Business Logic
 		System.out.println(diary); // for debug 
@@ -82,15 +88,8 @@ public class DiaryController {
 						   @RequestParam(value="status", required=false) String status, HttpSession session, Model model) throws Exception {
 		
 		System.out.println("/diary/getDiary : GET");
-		//Business Logic
+		// Business Logic
 		Diary diary = diaryService.getDiary(diaryNo);
-//		// *********** 이미지 썸네일 연습  ***********
-//		if (diary.getContent() != null) {
-//			diary.setThumbnail(getThumbnail.getImgSrc(diary.getContent()));
-//		}
-//		System.out.println(diary.getThumbnail());
-//		// *********** 이미지 썸네일 연습  ***********
-		
 		
 		// 세션에 담긴 유저 정보 불러옴 
 		User user = (User) session.getAttribute("user");
@@ -138,6 +137,13 @@ public class DiaryController {
 	public String updateDiary(@ModelAttribute("diary") Diary diary, Model model) throws Exception {
 		
 		System.out.println("/diary/updateDiary : POST");
+		
+//		*********** 정규식 이용 이미지 썸네일 추출 ***********
+		if (diary.getContent() != null) {
+			diary.setThumbnail(getThumbnail.getImgSrc(diary.getContent()));
+		}
+//		*********** 정규식 이용 이미지 썸네일 추출 *********** 
+		
 		//Business Logic
 		diaryService.updateDiary(diary);
 		
