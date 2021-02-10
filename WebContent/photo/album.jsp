@@ -15,6 +15,10 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		
+		<style>
+			
+		</style>
+		
 		<script>
 		
 		$(function(){
@@ -35,13 +39,6 @@
 				}
 			})
 		})
-		
-		
-		$(function(){
-			$("p:contains('이동')").on("click",function(){
-				window.open("/photo/listPhoto", "updateGroupNo", "width=400, height=300, left=100, top=50");
-			});
-		});
 		
 		$(function(){
 			
@@ -70,7 +67,7 @@
 		
 		$(function(){
 			$("img[src='../resources/images/folder.png']").on("click", function() { 
-				window.open('/photo/selectPhotoGroup?photoNo='+ $(this).attr('id'),'그룹 선택','width=1000, height=1000');
+				window.open('/photo/selectPhotoGroup?photoNo='+ $(this).attr('id'),'그룹 선택','width=450, height=300, left=460, top=150');
 			});
 		});
 		
@@ -96,7 +93,7 @@
 							        <input multiple="multiple" type="file" name="file"/>
 							        <input type="hidden" name="groupNo" value="${groupNo}"/>
 							        <!-- <input type="text" name="photoAddr" /> -->
-							        <input type="text" id="photoAddr" name="photoAddr" style="height: 38pt;" placeholder="주소를 입력해주세요" value=""/>
+							        <input type="text" id="photoAddr" name="photoAddr" style="" placeholder="주소를 입력해주세요" value=""/>
 							        <input type="submit" class="btn btn-outline-info" value="사진등록" />
 							    </form><br/>
 							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
