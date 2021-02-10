@@ -97,7 +97,7 @@
 		<div class="container">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link" href="/diary/listTotalDiary">DIARY</a>
+					<a class="nav-link" href="/diary/listTotalDiary?searchKeyword=${ search.searchKeyword }">DIARY</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" href="/review/listTotalReview?searchKeyword=${ search.searchKeyword }">REVIEW</a>
@@ -106,7 +106,7 @@
 					<a class="nav-link"  href="/user/listUserTotal">USER</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/diary/listTotalHashTag">HASHTAG</a>
+					<a class="nav-link" href="/diary/listTotalHashTag?hashTagName=${ search.searchKeyword }">HASHTAG</a>
 				</li>
 			</ul>
 			<br>
@@ -175,7 +175,7 @@
 									</div> 
 								</div> 
 							<div class="col-md-4">
-								<img src="../resources/images/photos/1612502602096145025276_885042925594069_2502250546813722604_n.jpg" style="float:right;" width="200px" height="200px">
+								<img src="../resources/images/review/${review.reviewPhoto}" style="float:right;" width="200px" height="200px">
 							</div>
 						</div>
 					  </div>
