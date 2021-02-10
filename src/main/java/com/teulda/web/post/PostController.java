@@ -88,8 +88,11 @@ import com.teulda.service.user.UserService;
 		
 		System.out.println("/post/listPost : GET / POST");
 		
-		//User user = (User) session.getAttribute("user");
-		
+//		User user = (User) session.getAttribute("user");
+//		
+//		String email = user.getEmail();
+//		
+//		System.out.println(email);
 		
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
@@ -117,6 +120,7 @@ import com.teulda.service.user.UserService;
 		System.out.println(resultPage);
 		System.out.println("////////////////////////////////");
 		
+		//model.addAttribute("email", email);
 		model.addAttribute("postCategory", postCategory);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -131,6 +135,10 @@ import com.teulda.service.user.UserService;
 		System.out.println("/post/getPost : GET");
 
 		User user = (User) session.getAttribute("user");
+//		
+//		String email = user.getEmail();
+//		
+//		System.out.println(email);
 		
 		System.out.println("===========================");
 		System.out.println("이건 User값입니다"+user);
@@ -150,18 +158,21 @@ import com.teulda.service.user.UserService;
 		System.out.println(commentList);
 		System.out.println("////////////////////////////////");
 		
+//		model.addAttribute("email", email);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("post", post);
 		
 		
-		if(user==null || !post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+		if(user == null) {
 			return "forward:/post/getPost.jsp";
 		}else if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/post/getMyPost.jsp";
-		}else{
+		}else {
 			postService.updatePostViewCount(postNo);
 			return "forward:/post/getPost.jsp";
-
+		}
+		
+	
 //		if(((User) session.getAttribute("user")).getNickname() != null && post.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 //			return "forward:/post/getMyPost.jsp";
 //		}else if(((User) session.getAttribute("user")).getNickname() == null) {
@@ -169,7 +180,7 @@ import com.teulda.service.user.UserService;
 //		}else{
 //			postService.updatePostViewCount(postNo);
 //			return "forward:/post/getPost.jsp";
-		}
+		
 	}
 	
 //	@RequestMapping(value="getPost", method=RequestMethod.GET)
