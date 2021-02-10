@@ -36,6 +36,9 @@
 	height: 3.5em;
 	/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
 }
+.card-body {
+	overflow: auto;
+}
 </style>
 
 <script>
@@ -149,18 +152,17 @@
 						<c:forEach var="diary" items="${ diaryList }">
 							<c:set var="i" value="${ i+1 }" />
 							<div class="col-md-4">
-								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
+								<div class="card bg-light mb-3" style="max-width: 20rem;">
 									<div class="card-header">
 										<img src="../resources/images/marker_blue.png" height="12px"
 											align="middle">&nbsp;&nbsp;${ diary.location } <br>
 										<small>${ diary.startDate } - ${ diary.endDate }</small>
 									</div>
 									<div class="card-body">
-
 										<div class="getDiary" id="${ diary.diaryNo }">
 											<h5 class="card-title">${ diary.title }</h5>
+											<p class="card-text"><img src="${ diary.thumbnail }" width="210px" height="210px">
 											<p class="card-text" id="content">
-												<%-- 									${ diary.content } --%>
 												<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
 											</p>
 										</div>
