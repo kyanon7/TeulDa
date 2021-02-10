@@ -103,7 +103,7 @@
 					<a class="nav-link active" href="/review/listTotalReview?searchKeyword=${ search.searchKeyword }">REVIEW</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link"  href="/user/listUserTotal">USER</a>
+					<a class="nav-link"  href="/user/listUserTotal?searchKeyword=${ search.searchKeyword }">USER</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/diary/listTotalHashTag?hashTagName=${ search.searchKeyword }">HASHTAG</a>
