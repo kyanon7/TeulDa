@@ -92,17 +92,24 @@ public class DiaryController {
 //		// *********** 이미지 썸네일 연습  ***********
 		
 		
-		// 조회하려고 하는 기록이 내가 쓴 기록이 아닐 시 조회수 증가 
+		// 세션에 담긴 유저 정보 불러옴 
 		User user = (User) session.getAttribute("user");
-		if (!(user.getNickname().equals(diary.getNickname()))) {
-			diaryService.updateDiaryViewCount(diaryNo);
-		}
 		
+		if (user == null) { // 비회원 일 때
+			diaryService.updateDiaryViewCount(diaryNo); // 조회수 증가
+		} else { // 로그인 했을 때 
+			if (!(user.getNickname().equals(diary.getNickname()))) { // 조회하려고 하는 기록이 내가 쓴 기록이 아닐 시 
+				diaryService.updateDiaryViewCount(diaryNo); // 조회수 증가 
+			}
+		}
+
 		// 조회수 증가한 상태로 jsp에 넘기기 위해 다시한번 getDiary 
 		Diary diary2 = diaryService.getDiary(diaryNo);
 		
-		// getDiary 할 기록이 내가 북마크 한 기록이면 bookmarkNo가 있을거고, 안한 기록이면 0일것임 ! 
-		diary2.setBookmarkNo(bookmarkService.selectBookmarkNo(diaryNo, user.getNickname())); 
+		if (user != null) { // 로그인 했을 때 
+			// getDiary 할 기록이 내가 북마크 한 기록이면 bookmarkNo가 있을거고, 안한 기록이면 0일것임 ! 
+			diary2.setBookmarkNo(bookmarkService.selectBookmarkNo(diaryNo, user.getNickname())); 
+		}
 		
 		// Model 과 View 연결
 		model.addAttribute("diary", diary2);
@@ -290,23 +297,38 @@ public class DiaryController {
 	
 	// 통합 검색 (기록 검색) 
 	@RequestMapping(value="listTotalDiary", method = { RequestMethod.GET, RequestMethod.POST })
-	public String listTotalDiary(@ModelAttribute("search") Search search, Model model) throws Exception {
+	public String listTotalDiary(@ModelAttribute("search") Search search, 
+								@RequestParam(value="searchKeyword", required=false) String searchKeyword,
+								Model model) throws Exception {
 		
-		System.out.println("/diary/listTotalDiary : POST");
+		System.out.println("/diary/listTotalDiary : GET & POST");
 		
+		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 첫 페이지를 1이라고 지정 
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
 		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 0번 ( 최근 작성 순 ) 으로 정렬되게 지정 
 		if (search.getSearchSorting() == null) {
 			search.setSearchSorting("0");
 		}
+		// GET 방식으로 넘어왔을 때 searchKeyword 담아서 보내기 위함 
+		if (searchKeyword != null) {
+			search.setSearchCondition("0"); // 전체 검색 
+			search.setSearchKeyword(searchKeyword);
+		}
+		
+		search.setPageSize(10); // pageSize 지정 
 		
 		System.out.println("보낼 Search " + search);
 		
 		// Business logic 수행
 		Map<String, Object> map = diaryService.getDiaryList(search); 
+		Page resultPage	= // 페이지 나누는 것을 추상화 & 캡슐화 한 Page 클래스 이용 
+				new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
 		// Model 과 View 연결
 		model.addAttribute("diaryList", map.get("diaryList")); // 기록
-		model.addAttribute("totalCount", map.get("totalCount")); // 갯수 
+		model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
 		model.addAttribute("search", search); // 검색 정보가 담겨있음 
 		
 		return "forward:/search/listTotalDiary.jsp";
@@ -320,18 +342,27 @@ public class DiaryController {
 		System.out.println("/diary/listTotalHashTag : GET & POST");
 		System.out.println(hashTagName);
 		
+		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 첫 페이지를 1이라고 지정 
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		// GET 방식으로 넘어왔을 때 searchKeyword 담아서 보내기 위함 
 		if (hashTagName != null) {
 			search.setSearchKeyword(hashTagName);
 		}
+		
+		search.setPageSize(10); // pageSize 지정 
 		
 		System.out.println("보낼 Search " + search); 
 
 		// Business logic 수행
 		Map<String, Object> map = diaryService.getDiaryListByHashTag(search);
+		Page resultPage	= // 페이지 나누는 것을 추상화 & 캡슐화 한 Page 클래스 이용 
+				new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 
 		// Model 과 View 연결
 		model.addAttribute("diaryList", map.get("diaryList")); // 기록
-		model.addAttribute("totalCount", map.get("totalCount")); // 갯수
+		model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
 		model.addAttribute("search", search); // 검색 정보가 담겨있음
 
 		return "forward:/search/listTotalHashTag.jsp";

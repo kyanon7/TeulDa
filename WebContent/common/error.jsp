@@ -25,7 +25,7 @@
 
 			
 
-		 	 		<h1 class="text-center">미구현</h1>
+		 	 		<h1 class="text-center">빡친 마음을 가라앉히고 심호흡을 한번 한 후 다시 코딩해 보세요</h1>
 		 
 			  
 			

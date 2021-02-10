@@ -25,6 +25,18 @@
 			$(".getDiary").on("click",function() {
 				self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id');
 			});
+			
+			$("button:contains('S e a r c h')").on("click",function() {
+				self.location = "/diary/listTotalDiary?searchKeyword="+ $('input[name=searchKeyword]').val();
+			});
+			
+			$("#hashTag1 li").on("click",function() {
+				self.location = "/diary/listTotalHashTag?hashTagName="+$(this).children('input').val().replace('#', '');
+			});
+			
+			$("#hashTag2 li").on("click",function() {
+				self.location = "/diary/listTotalHashTag?hashTagName="+$(this).children('input').val().replace('#', '');
+			});
 
 		});
 		
@@ -40,29 +52,55 @@
 		<!-- End Header -->
 
 	<div class="container">
-	 	<br>
+  	    
+  	    <br>
+		
+		<h4><img src = "/resources/images/crown.png" width="20px">&nbsp; top use hashtag <img src = "/resources/images/crown.png" width="20px"></h4>
+				
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-3">
+			<ul class="list-group" id="hashTag1">
+				<c:set var="i" value="0"/>
+				<c:forEach var="hashTag" items="${ topUseHashTagList }" end="4">
+					<c:set var="i" value="${ i+1 }" />
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					<span class="badge badge-primary badge-pill">${ i }
+					</span> ${ hashTag.hashTagName }
+					<input type="hidden" value="${ hashTag.hashTagName }">
+				</li>
+				</c:forEach>
+			</ul>
+			</div>
+			
+			<div class="col-md-3">
+			<ul class="list-group" id="hashTag2">
+				<c:set var="i" value="5"/>
+				<c:forEach var="hashTag" items="${ topUseHashTagList }" begin="5" end="9">
+					<c:set var="i" value="${ i+1 }" />
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					<span class="badge badge-primary badge-pill">${ i }
+					</span> ${ hashTag.hashTagName }
+					<input type="hidden" value="${ hashTag.hashTagName }">
+				</li>
+				</c:forEach>
+			</ul>
+			</div>	
+			<div class="col-md-3"></div>	
+		</div> 
+		
+	    <br> <br>
 		<div class="row">
 			<div class="col-md-10">
   					<input type="text" name="searchKeyword" class="form-control"
-								placeholder="검색어 입력" id="inputDefault"
-								value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+								placeholder="검색어를 입력하세요" id="inputDefault">
 			</div>
 			<div class="col-md-2">
-  				<button type="button" class="btn btn-primary"> S e a r c h </button>
+  				<button type="button" class="btn btn-primary">S e a r c h</button>
   			</div>
   	    </div>
-  	    
-  	    <br>
-  	    <b>많이 사용된 해시태그 뽑아온건데.. 뷰를 어떻게 하면 좋을까요? >> </b>
-  	    <c:set var="i" value="0" />
-		<c:forEach var="hashTag" items="${ topUseHashTagList }">
-			<c:set var="i" value="${ i+1 }" />
-			<span class="badge badge-info" id="listDiary"> 
-				<input type="hidden" value="${ hashTag.hashTagName }"> ${ hashTag.hashTagName }
-			</span>&nbsp;&nbsp;
-		</c:forEach>
-		
-  	    <br><br>
+
+		<br><br>
 
 		<h4><img src = "/resources/images/crown.png" width="20px">&nbsp; top view count diary <img src = "/resources/images/crown.png" width="20px"></h4>
   	    <div class="row">

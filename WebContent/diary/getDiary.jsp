@@ -131,7 +131,7 @@
   								<img src="../resources/images/user.png" height="30px">
   								<h6 style="text-align: center;">${ diary.nickname }</h6>
   							</div>
-  							<c:if test="${ sessionScope.user.nickname eq diary.nickname }">
+  							<c:if test="${ ! empty sessionScope.user && sessionScope.user.nickname eq diary.nickname }">
   							<div class="col-md-9" align="right">
   								<span class="badge badge-info">수정</span>
   								<span class="badge badge-danger">삭제</span>
@@ -208,7 +208,7 @@
 					</div>
 
 					조회수 ${ diary.viewCount }회 | 북마크 ${ diary.bookmarkCount }회 
-					<c:if test="${ sessionScope.user.nickname ne diary.nickname }"> <!-- 내가 작성한 기록은 북마크 못하게 하기 위함 -->
+					<c:if test="${ ! empty sessionScope.user && sessionScope.user.nickname ne diary.nickname }"> <!-- 내가 작성한 기록은 북마크 못하게 하기 위함 -->
 					
 						<c:if test="${ diary.bookmarkNo == 0 }">
 						<span  class="badge badge-success" id="addBookmark">북마크 추가</span> <!-- 임시니까 아이콘으로 바꿔도 ㄱㅊㄱㅊ  -->

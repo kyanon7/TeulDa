@@ -298,9 +298,11 @@
 	<!-- 통합검색에서 보이는 기록 리스트는 공개 기록이여야 하며, 삭제일자가 없어야 하며, 스크랩된 기록이 아니여야 한다 -->
 	<!-- searchCondition : 제목/내용/여행장소/작성자 닉네임 & searchSorting : 최신순/조회수 많은 순 -->
 	<select  id="getDiaryList"  parameterType="search"	resultMap="diarySelectMap">
-	SELECT  diary_id, title, diary_addr, diary_date,
-            origin_nick, content, thumbnail, view_count
-    FROM DIARY
+	SELECT * 
+	FROM 	(select inner_table.*, rownum as row_seq
+        	from  (SELECT  diary_id, title, diary_addr, diary_date,
+            			   origin_nick, content, thumbnail, view_count
+    			   FROM DIARY
         			<where>
        				(is_public = 't' AND delete_date is null AND scrap_nick is null)
                 			<choose>    
@@ -332,7 +334,9 @@
         				<when test = "searchSorting eq '1'.toString()"> <!-- 1 : 조회수 높은 순 -->
         				ORDER BY view_count DESC, diary_date DESC
         				</when>
-        			</choose>
+        			</choose> ) inner_table
+      		WHERE ROWNUM &lt; = #{endRowNum} )
+	WHERE row_seq between #{startRowNum} and #{endRowNum} 
 	</select> 
 	
 	<!-- SQL : SELECT ROW Count -->	 
@@ -379,15 +383,20 @@
 	<!-- 통합검색에서 보이는 기록 리스트는 CLOB 형태인 content를 select하고있어 group by 불가능하여 따로 만든 쿼리 -->
 	<!-- 해시태그 안 작성한 기록은 보이지 않게 했음 d.diary_id = h.diary_id (+) << 이거 하면 보임 ! 그냥 안보이게 하는게 나은듯 -->
 	<select  id="getDiaryListByHashTag"  parameterType="search"	resultMap="diarySelectMap">
-	SELECT  d.diary_id, d.title, d.diary_addr, d.diary_date,
-            d.origin_nick, d.thumbnail, d.view_count, max(h.hashtag_name) 
-    FROM DIARY d, HASHTAG h 
-    WHERE   d.diary_id = h.diary_id 
-    		AND d.is_public = 't' AND d.delete_date is null AND d.scrap_nick is null
-    		<if test = "searchKeyword != null and searchKeyword !='' ">
-    		AND h.hashtag_name = '#'||#{searchKeyword} 
-    		</if>
-   	GROUP BY d.diary_id, d.title, d.diary_addr, d.diary_date, d.origin_nick, d.thumbnail, d.view_count
+	SELECT * 
+	FROM 	(select inner_table.*, rownum as row_seq
+        	from (	SELECT  	d.diary_id, d.title, d.diary_addr, d.diary_date,
+            					d.origin_nick, d.thumbnail, d.view_count, max(h.hashtag_name) 
+    				FROM DIARY d, HASHTAG h 
+    				WHERE   d.diary_id = h.diary_id 
+    						AND d.is_public = 't' AND d.delete_date is null AND d.scrap_nick is null
+    						<if test = "searchKeyword != null and searchKeyword !='' ">
+    						AND h.hashtag_name = '#'||#{searchKeyword} 
+    						</if>
+   					GROUP BY d.diary_id, d.title, d.diary_addr, d.diary_date, d.origin_nick, d.thumbnail, d.view_count
+        			) inner_table
+      		WHERE ROWNUM &lt; = #{endRowNum} )
+	WHERE row_seq between #{startRowNum} and #{endRowNum} 
 	</select> 
 	
 	<!-- SQL : SELECT ROW Count -->	 
@@ -438,7 +447,7 @@
     	GROUP BY hashtag_name
     	ORDER BY count(*) DESC 
 	)
-	WHERE ROWNUM &lt;= 9
+	WHERE ROWNUM &lt;= 10
 	</select> 
 	
 	<!-- SQL : SELECT SUBSCRIBE DIARY LIST -->

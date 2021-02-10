@@ -37,8 +37,9 @@
 }
 </style>
 <script>
-function fncGetList() {
+function fncGetList(currentPage) {
 	
+	$("#currentPage").val(currentPage);
 	$("form[name='detailForm']").attr("method", "POST").attr("action", "/diary/listTotalDiary").submit();
 
 }
@@ -46,14 +47,14 @@ function fncGetList() {
 $(function() {
 
 	$("button:contains('Search')").on("click", function() { // 검색 버튼
-		fncGetList(); 
+		fncGetList(1); 
 	});
 
 	$(".breadcrumb-item").on("click", function() { // 정렬
 
 		// <li> 클릭 시 해당 value 값 input type text 에 넣기
 		$("#searchSorting").val($(this).attr('value'));
-		fncGetList();  
+		fncGetList(1);  
 	});
 
 	$(".getDiary").on("click",function() {
@@ -83,7 +84,7 @@ $(function() {
 	<div class="container">
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-				<a class="nav-link active" href="/diary/listTotalDiary">DIARY</a>
+				<a class="nav-link active" href="/diary/listTotalDiary?searchKeyword=${ search.searchKeyword }">DIARY</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="/review/listTotalReview?searchKeyword=${ search.searchKeyword }">REVIEW</a>
@@ -92,7 +93,7 @@ $(function() {
 				<a class="nav-link" href="/user/listUserTotal">USER</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/diary/listTotalHashTag">HASHTAG</a>
+				<a class="nav-link" href="/diary/listTotalHashTag?hashTagName=${ search.searchKeyword }">HASHTAG</a>
 			</li>
 		</ul>
 		<br>
@@ -124,9 +125,12 @@ $(function() {
   				</div>
   			</div>
   			
+  			<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+			<input type="hidden" id="currentPage" name="currentPage" value="" />
+  			
   			<div class="row">
   				<div class="col-md-2">
-  					<span class="badge badge-info">TOTAL ${ totalCount }</span>
+  					<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
   				</div>
   				<div class="col-md-4"></div>
   				<div class="col-md-6">
@@ -181,6 +185,9 @@ $(function() {
 		<br>
 		</c:forEach>
 		
+		<!-- PageNavigation Start... -->
+		<jsp:include page="../common/pageNavigator.jsp" />
+		<!-- PageNavigation End... -->
 		
 	</div>
 	</form> 
