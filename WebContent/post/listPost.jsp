@@ -29,6 +29,8 @@
 
 
 <script type="text/javascript">
+
+
 	function fncGetList(currentPage) {
 
 		/* var postCategory='${post.postCategory}' */
@@ -38,7 +40,17 @@
 				"/post/listPost").submit();
 
 	}
+	
+	
+	//닉네임 누르면 프로필로 이동
+	$(function(){
+	
+			$(".ct_list_pop td:nth-child(3)").on("click", function(){
+				self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+			});
+		});
 
+	//제목 누르면 해당 게시물조회
 	$(function() {
 		$(".ct_list_pop td:nth-child(5)").on("click", function() {
 			self.location = "/post/getPost?postNo=" + $(this).attr('id')
@@ -202,7 +214,7 @@
 									<tr class="ct_list_pop">
 										<td align="left">${post.postNo}</td>
 										<td></td>
-										<td align="left">${post.nickname}</td>
+										<td align="left" id="${post.nickname}">${post.nickname}</td>
 										<td></td>
 										<td align="left" id="${post.postNo}">${post.postTitle}</td>
 										<td></td>

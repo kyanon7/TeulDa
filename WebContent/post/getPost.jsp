@@ -30,9 +30,9 @@
 <style>
 /* content 3줄 이상이면 자름 */
 body {
-    background-image: url("https://thumbs.gfycat.com/AncientGreenColt-size_restricted.gif");
+    background-image: url("https://img.wallpapersafari.com/desktop/1920/1080/12/18/ZFBfjd.jpg");
     background-repeat: no-repeat;
-	background-size: 85% auto;
+	background-size: 110% auto;
     
 }
 
@@ -40,11 +40,14 @@ body {
 
 <script>
 
+		//닉네임 클릭시 프로필로 이동
+		$(function(){
+			
+			$(".nickname").on("click", function(){
+				self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+			});
+		});
 
-
-		
-		
-		
 		
 		$(function(){
 			
@@ -206,12 +209,15 @@ body {
 
 					<br />
 					<br />
-					<div class="card border-secondary md-6" style="width: 55rem;">
-						<div class="card-header">글번호 : ${post.postNo} &emsp;&emsp;
-							작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 :
+					<div class="card border-secondary  md-6" style="width: 50rem;">
+						<div class="card-header"><div class="nickname"id="${post.nickname}">작성자 : ${post.nickname}</div>
+						<hr>
+							글번호 : ${post.postNo} &emsp;&emsp;
+							 &nbsp; &nbsp; 작성일자 :
 							${fn:substring(post.postDate, 0, 10)}
 							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-							&nbsp; &nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+							&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+							&emsp;&emsp;
 							조회수 : ${post.viewCount}</div>
 						<div class="card-body"></div>
 						<div class="card-title">

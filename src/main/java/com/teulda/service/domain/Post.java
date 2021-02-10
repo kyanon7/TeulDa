@@ -88,12 +88,16 @@ public class Post {
 	public void setPhotoList(List<Photo> photoList) {
 		this.photoList = photoList;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Post [postNo=" + postNo + ", postTitle=" + postTitle + ", postContents=" + postContents + ", postDate="
 				+ postDate + ", postCategory=" + postCategory + ", viewCount=" + viewCount + ", nickname=" + nickname
 				+ ", commentList=" + commentList + ", photoList=" + photoList + "]";
 	}
+
+	
+	
+	
 	
 }

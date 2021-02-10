@@ -33,8 +33,8 @@
 });
 	function fncAddPost(){
 		
- 		/* var postCategory = $("#postCategory option:selected").val();
-		var postTitle = $("#title").val();	
+		/* var postTitle = $("input[name:'title']").val();	
+		var postConetents= $("textarea[name:'content']").val();	
 	
 	
 		if(postCategory == null || postCategory.length<1){
@@ -44,7 +44,7 @@
 		if(postTtile == null || postTtile.length<1){
 			alert("제목은 반드시 입력하여야 합니다.");
 			return;
-		} */
+		}  */
 	
 	$("form").attr("method","POST").attr("action","/post/addPost").submit();
 }
@@ -77,7 +77,7 @@
  			 <div class="col-md-10">
  			 	<form name="addPost">
  			 	
-   					<select class="form-control" id="postCategory" style="width: 200px; height: 50px;">
+   					<select class="form-control" name="postCategory" style="width: 200px; height: 50px;">
     				<option>게시판 유형</option>
    			  	    <option  value="1" >여행지 정보공유</option>
     				<option  value="2">맛집 정보공유</option>
@@ -92,7 +92,7 @@
 				
 				<div style="width: 100%;">
 				<br>			
-				<input type="text" id="postTitle" class="form-control" placeholder="제목"/>
+				<input type="text" name="postTitle" class="form-control" placeholder="제목"/>
 				<br><br> 
 				<textarea id="summernote" name="postContents"></textarea>
 				<!-- <input id="subBtn" type="button" value="등록" style="float: right;"/>

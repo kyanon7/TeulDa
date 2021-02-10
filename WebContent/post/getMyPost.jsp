@@ -25,6 +25,15 @@
 <!-- Google 지도 API 사용 스크립트 추가 -->
 
 <script>
+
+
+	//닉네임 클릭시 프로필로 이동
+	$(function(){
+		
+		$(".nickname").on("click", function(){
+			self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+		});
+	});
 	
 
 		//댓글 등록
@@ -193,13 +202,13 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<jsp:include page="../post/leftbar.jsp" />
 			</div>
 
 			<div class="row">
 
-				<div class="col-md-10">
+				<div class="col-md-9">
 
 					<c:if test="${post.postCategory eq '0'.charAt(0)}">
 						<h4>자유 게시글</h4>
@@ -223,16 +232,19 @@
 
 					<br />
 					<br />
-					<div class="card border-secondary md-6" style="width: 55rem;">
-						<div class="card-header">글번호 : ${post.postNo} &emsp;&emsp;
-							작성자 : ${post.nickname} &nbsp; &nbsp; 작성일자 :
+					<div class="card border-secondary md-6" style="width: 50rem;">
+						<div class="card-header"><div class="nickname"id="${post.nickname}">작성자 : ${post.nickname}</div>					
+						<hr>
+							제목 : ${post.postTitle} &emsp;&emsp;
+							 &nbsp; &nbsp; 작성일자 :
 							${fn:substring(post.postDate, 0, 10)}
 							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-							&nbsp; &nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+							&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+							
 							조회수 : ${post.viewCount}</div>
 						<div class="card-body"></div>
 						<div class="card-title">
-							<h4>${post.postTitle}</h4>
+							
 						</div>
 						<p class="card-text">${post.postContents}</p>
 					</div>

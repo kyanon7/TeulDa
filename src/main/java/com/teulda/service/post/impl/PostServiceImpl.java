@@ -8,18 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.teulda.common.Photo;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Comment;
-import com.teulda.service.domain.Diary;
 import com.teulda.service.domain.Post;
 import com.teulda.service.post.PostDao;
 import com.teulda.service.post.PostService;
+import com.teulda.service.user.UserService;
 
 	@Service("postServiceImpl")
 	public class PostServiceImpl implements PostService {
 	
 	//setter 인젝션	
+		
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
+		
 	@Autowired
 	@Qualifier("postDaoImpl")
 	private PostDao postDao;
@@ -60,6 +64,7 @@ import com.teulda.service.post.PostService;
 	public void addPost(Post post) throws Exception {
 		
 		postDao.addPost(post);	// 포스트 디비 생성
+		
 		
 //		List <Photo> photoList = post.getPhotoList();
 //		

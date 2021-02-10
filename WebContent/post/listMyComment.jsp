@@ -19,6 +19,19 @@
 		
 	<script type="text/javascript">
 	
+	
+	//닉네임 누르면 프로필로 이동
+	$(function(){
+	
+			$(".ct_list_pop td:nth-child(3)").on("click", function(){
+				self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+			});
+		});
+	
+	
+	
+	
+	
 	function fncGetList(currentPage) {
 
 		/* var postCategory='${post.postCategory}' */
@@ -178,7 +191,7 @@
   						<tr class="ct_list_pop">
 								<td align="left">${comment.commentNo}</td>
 								<td></td> 
-								<td align="left">${comment.nickname}</td>
+								<td align="left" id="${comment.nickname}">${comment.nickname}</td>
 								<td></td>
 								<td align="left" id="${comment.postNo}">${comment.commentContents}</td>
 								<td></td>			
