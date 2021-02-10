@@ -53,6 +53,13 @@
 		WHERE email = #{email}
 	</select>
 	
+	<!-- SQL : SELECT ONE 이메일로회원정보상세조회-->
+	<select	id="getUserNick"	 parameterType="String"	 resultMap="userSelectMap">
+		SELECT *
+		FROM users
+		WHERE nickname = #{nickname}
+	</select>
+	
 	<!-- SQL : UPDATE 회원정보 업데이트 -->
 	<update	id="updateUser"	parameterType="com.teulda.service.domain.User" >
 		UPDATE users

@@ -50,11 +50,11 @@ public class UserRestController {
 	 * } }
 	 */
 	
-	@RequestMapping( value="rest/getUser/{email}", method=RequestMethod.GET)
-	public User getUser(@PathVariable String email) throws Exception {
+	@RequestMapping( value="rest/getUser/{nickname}", method=RequestMethod.GET)
+	public User getUser(@PathVariable String nickname) throws Exception {
 
 		System.out.println("/user/rest/getUser : GET");
 		
-		return userService.getUser(email);
+		return userService.getUser(nickname);
 	}
 }

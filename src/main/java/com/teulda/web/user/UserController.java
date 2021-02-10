@@ -64,6 +64,21 @@ public class UserController {
 		return "redirect:/user/successJoin.jsp";
 	}
 	
+	@RequestMapping(value="deleteUser", method=RequestMethod.GET)
+	public String deleteUser(@RequestParam("email") String email, Model model, HttpSession session) throws Exception {
+		
+		
+		System.out.println("/user/deleteUser");
+		//Business Logic
+		User user = userService.getUser(email);
+		session.invalidate();
+		System.out.println("디버그"+user.getNickname());
+		userService.deleteUser(user.getNickname());
+		
+		//return "redirect:/index.jsp";
+		return "redirect:/diary/listMainRanking";
+	}
+	
 
 	@RequestMapping( value="getUser", method=RequestMethod.GET  )
 	public String getUser( @RequestParam(value="email") String email , Model model, HttpSession session ) throws Exception {
@@ -71,6 +86,22 @@ public class UserController {
 		System.out.println("/user/getUser : GET");
 		//Business Logic
 		User user = userService.getUser(email);
+		// Model 과 View 연결
+		model.addAttribute("user", user);
+		
+		if(((User) session.getAttribute("user")).getNickname() != null && user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+			return "forward:/user/getMyUser.jsp";
+		}else {
+			return "forward:/user/getUser.jsp";
+		}
+	}
+	
+	@RequestMapping( value="getUserNick", method=RequestMethod.GET  )
+	public String getUserNick( @RequestParam(value="nickname") String nickname , Model model, HttpSession session ) throws Exception {
+		
+		System.out.println("/user/getUser : GET");
+		//Business Logic
+		User user = userService.getUserNick(nickname);
 		// Model 과 View 연결
 		model.addAttribute("user", user);
 		
@@ -109,6 +140,8 @@ public class UserController {
 		return "redirect:/user/getUser?email="+user.getEmail();
 	}
 	
+	
+	
 	/*
 	 * @RequestMapping( value="updateReportCount", method=RequestMethod.POST )
 	 * public String updateReportCount( @ModelAttribute("reportCount") int
@@ -122,17 +155,7 @@ public class UserController {
 	 * return "redirect:/"; }
 	 */
 	
-	@RequestMapping(value="deleteUser", method=RequestMethod.GET)
-	public String deleteUser(@RequestParam("nickname") String nickname) throws Exception {
-		
-		
-		System.out.println("/user/deleteUser");
-		//Business Logic
-		userService.deleteUser(nickname);
-		
-		//return "redirect:/index.jsp";
-		return "redirect:/diary/listMainRanking";
-	}
+	
 	
 	
 	@RequestMapping( value="login", method=RequestMethod.GET )

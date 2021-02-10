@@ -15,12 +15,17 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
-	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
     	 body >  div.container{ 
-            margin-top: 60px;
+            margin-top: 50px;
         }
     </style>
     
@@ -35,11 +40,6 @@
 			});
 		});	
 		
-		$(function() {
-		 $('').mouseover(function(){
-		    $('body').append('<p>이메일, 닉네임, 전화번호는 바꾸실 수 없습니다.</p>')
-		  })
-		
 		
 		//============= "취소"  Event 처리 및  연결 =============
 		$(function() {
@@ -49,6 +49,8 @@
 			});
 		});	
 		
+		//=============이메일" 유효성Check  Event 처리 =============
+		 
 		
 		///////////////////////////////////////////////////////////////////////
 		function fncUpdateUser() {
@@ -57,12 +59,7 @@
 			var pw_confirm=$("input[name='password2']").val();
 			
 			if(name == null || name.length <1){
-				alert("이름은 반드시 입력하셔야 합니다.");
-				return;
-			}
-			
-			if(pw == null || pw.length <1){
-				alert("비밀번호는 반드시 입력하셔야 합니다.");
+				alert("이름은  반드시 입력하셔야 합니다.");
 				return;
 			}
 			
@@ -72,9 +69,15 @@
 				return;
 			}
 				
-		
+			var value = "";	
+			if( $("input[name='phone2']").val() != ""  &&  $("input[name='phone3']").val() != "") {
+				var value = $("option:selected").val() + "-" 
+									+ $("input[name='phone2']").val() + "-" 
+									+ $("input[name='phone3']").val();
+			}
 			
-			
+			//Debug...
+			//alert("phone : "+value);
 			$("input:hidden[name='phone']").val( value );
 				
 			$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
@@ -138,26 +141,27 @@
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="address" class="class="col-form-label">거주지 주소</label>
-		      <input type="text" class="form-control" id="address" name="address"  value="${user.address}" placeholder="변경거주지">
+		    <label for="address" class="class="col-form-label">주소</label>
+		      <input type="text" class="form-control" id="address" name="address"  value="${user.address}" placeholder="거주지">
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="likePlace" class="class="col-form-label">관심 지역</label>
-		      <input type="text" class="form-control" id="likePlace" name="likePlace"  value="${user.likePlace}" placeholder="변경관심지역">
+		    <label for="likePlace" class="class="col-form-label">관심지역</label>
+		      <input type="text" class="form-control" id="likePlace" name="likePlace"  value="${user.likePlace}" placeholder="관심지역">
 		  </div>
-		  
-		  
-		  <input type="hidden" name="is_public" value="${user.isPublic}" />
+
+          <input type="hidden" name="is_public" value="${user.isPublic}" />
 		  <input type="hidden" name="status" value="${user.status}" />
 		  <input type="hidden" name="role" value="${user.role}" />
+		  
+		  
 
 		  
 		  <div class="form-group">
 		    <div class="text-center">
 		      <button type="button" class="btn btn-outline-primary"  >수정</button>
 			  &nbsp;&nbsp;&nbsp;&nbsp;
-			  <a class="btn btn-outline-secondary" href="javascript:history.go(-1)" role="button">취소</a>
+			  <a class="btn btn-outline-secondary" href="#" role="button">취소</a>
 		    </div>
 		  </div>
 		 

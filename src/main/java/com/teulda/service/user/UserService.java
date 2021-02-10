@@ -25,6 +25,8 @@ public interface UserService {
 	
 	public User getUser(String nickname) throws Exception;//유저정보 조회 완
 	
+	public User getUserNick(String nickname) throws Exception;//유저정보 조회 완
+	
 	public Map<String, Object> getUserList(Search search) throws Exception;//유저리스트 조회
 	
 	public Map<String, Object> getUserListPublic(Search search) throws Exception;//유저리스트 조회

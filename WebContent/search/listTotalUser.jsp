@@ -128,16 +128,16 @@
 	<div class="container">
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-				<a class="nav-link" href="/diary/listTotalDiary">DIARY</a>
+				<a class="nav-link" href="/diary/listTotalDiary?searchKeyword=${ search.searchKeyword }">DIARY</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link"  href="/review/listTotalReview">REVIEW</a>
+				<a class="nav-link" href="/review/listTotalReview?searchKeyword=${ search.searchKeyword }">REVIEW</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active"  href="/user/listUserTotal">USER</a>
+				<a class="nav-link active"  href="/user/listUserTotal?searchKeyword=${ search.searchKeyword }">USER</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link"  href="/diary/listTotalHashTag"">HASHTAG</a>
+				<a class="nav-link" href="/diary/listTotalHashTag?hashTagName=${ search.searchKeyword }">HASHTAG</a>
 			</li>
 		</ul>
 		<br>

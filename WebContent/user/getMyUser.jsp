@@ -37,7 +37,7 @@
 					self.location = "/user/updateUser?email=${user.email}"
 				});
 		});
-		
+		console.log("${user.nickname}")
 		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "button:contains('회원탈퇴')" ).on("click" , function() {
@@ -46,7 +46,7 @@
 					 var flag = confirm(msg);
 
 					 if(flag==true) {
-					 $("form").attr("method" , "POST").attr("action" , "/user/deleteUser").submit();
+					 $("form").attr("method" , "GET").attr("action" , "/user/deleteUser?email=${user.email}").submit();
 					 alert("탈퇴되었습니다.");
 					 }
 					 else {alert("취소하였습니다.");}
@@ -67,7 +67,8 @@
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
-	
+	<form>
+		<input type="hidden" name="email" value="${user.email}" />
 		<div class="page-header">
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
@@ -87,8 +88,15 @@
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>주소</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>거주지</strong></div>
 			<div class="col-xs-8 col-md-4">${user.address}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>관심지역</strong></div>
+			<div class="col-xs-8 col-md-4">${user.likePlace}</div>
 		</div>
 		
 		<hr/>
@@ -121,7 +129,7 @@
 
 		
 		<br/>
-		
+		</form>
  	</div>
  	<!--  화면구성 div Start /////////////////////////////////////-->
 

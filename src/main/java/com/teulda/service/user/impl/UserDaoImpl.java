@@ -43,7 +43,11 @@ public class UserDaoImpl implements UserDao {
 	public User getUser(String email) throws Exception {
 		return (User) sqlSession.selectOne("UserMapper.getUser" , email);
 	}
-
+	
+	@Override
+	public User getUserNick(String nickname) throws Exception {
+		return (User) sqlSession.selectOne("UserMapper.getUserNick" , nickname);
+	}
 	
 	@Override
 	public void updateUser(User user) throws Exception {

@@ -92,8 +92,8 @@ public class UserServiceTest {
 		public void testDeleteUser() throws Exception{
 			
 			System.out.println("유저삭제 디버깅");
-			User user = userService.getUser("testUser");
-			userService.deleteUser("testUser");
+			User user = userService.getUser("0101");
+			userService.deleteUser("0101");
 			System.out.println(user);
 			
 		}

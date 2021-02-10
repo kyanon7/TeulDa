@@ -17,6 +17,8 @@ public interface UserDao {
 	public void checkPhone(String phone) throws Exception ;//핸드폰인증
 	
 	public User getUser(String email) throws Exception ;//유저정보 조회 완
+	
+	public User getUserNick(String nickname) throws Exception ;//유저정보 조회 완
 
 	public List<User> getUserList(Search search) throws Exception ;//유저목록 조회 완
 	
