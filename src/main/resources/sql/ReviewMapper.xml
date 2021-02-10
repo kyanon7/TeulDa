@@ -80,22 +80,29 @@
 										<choose>
 											<when test="searchCondition == 0 and searchKeyword !='' ">
 												WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%')
+												AND is_allowed IN 't'
 											</when>
 											<when test="searchCondition == 1 and searchKeyword !='' ">
 												WHERE LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%')
+												AND is_allowed IN 't'
 											</when>
 											<when test="searchCondition == 2 and searchKeyword !='' ">
 												WHERE LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
+												AND is_allowed IN 't'
 											</when>
 											<when test="searchCondition == 3 and searchKeyword !='' ">
 												WHERE LOWER(r.nickname) IN LOWER(#{searchKeyword})
 											</when>
 											<otherwise>
-												WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%') OR
+												WHERE (LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%') OR
 												LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%') OR
-												LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
+												LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%'))
+												AND is_allowed IN 't'
 											</otherwise>
 										</choose>
+									</when>
+									<when test="searchCondition == null">
+										AND is_allowed IN 't'
 									</when>
 								</choose>
 								<choose>
@@ -135,27 +142,36 @@
 		FROM	(SELECT r.review_id, r.nickname, r.review_addr, r.content, 
 						r.review_photo, r.review_date, r.star, r.is_allowed
 						FROM review r
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%')
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-									WHERE LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%')
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-									WHERE LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
-								</when>
-								<when test="searchCondition == 3 and searchKeyword !='' ">
-									WHERE LOWER(r.nickname) IN LOWER(#{searchKeyword})
-								</when>
-								<otherwise>
-									WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%') OR
-									LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%') OR
-									LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
-								</otherwise>
-							</choose>
-						</if>
+						<choose>
+							<when test="searchCondition != null">
+								<choose>
+									<when test="searchCondition == 0 and searchKeyword !='' ">
+										WHERE LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%')
+										AND is_allowed IN 't'
+									</when>
+									<when test="searchCondition == 1 and searchKeyword !='' ">
+										WHERE LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%')
+										AND is_allowed IN 't'
+									</when>
+									<when test="searchCondition == 2 and searchKeyword !='' ">
+										WHERE LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%')
+										AND is_allowed IN 't'
+									</when>
+									<when test="searchCondition == 3 and searchKeyword !='' ">
+										WHERE LOWER(r.nickname) IN LOWER(#{searchKeyword})
+									</when>
+									<otherwise>
+										WHERE (LOWER(r.review_addr) LIKE LOWER('%'||#{searchKeyword}||'%') OR
+										LOWER(r.content) LIKE LOWER('%'||#{searchKeyword}||'%') OR
+										LOWER(r.nickname) LIKE LOWER('%'||#{searchKeyword}||'%'))
+										AND is_allowed IN 't'
+									</otherwise>
+								</choose>
+							</when>
+							<when test="searchCondition == null">
+								AND is_allowed IN 't'
+							</when>
+						</choose>
 					  ) countTable
 	  </select>
 	

@@ -76,21 +76,17 @@ public class ReviewServiceImpl implements ReviewService {
 		MultipartFile imageFile = request.getFile("imageFile");
 		String fileName = "";
 		String identify = UUID.randomUUID().toString();
+		String reviewPath = request.getSession().getServletContext().getRealPath(path);
 		
 		if(!imageFile.isEmpty() && !imageFile.getOriginalFilename().equals("")) {
-			File file = new File(path);
+			File file = new File(reviewPath);
 			if(file.exists() == false) {
 				file.mkdirs();
 			}
 			
 				String pathName = imageFile.getOriginalFilename();
-//				int idx = pathName.lastIndexOf("\\");
-//				if(idx == -1) {
-//					idx = pathName.lastIndexOf("/");
-//				}
-//				fileName = identify+"_"+pathName.substring(idx + 1);
 				fileName = identify+"_"+pathName;
-				imageFile.transferTo(new File(path, fileName));
+				imageFile.transferTo(new File(reviewPath, fileName));
 				
 			}
 			review.setReviewPhoto(fileName);

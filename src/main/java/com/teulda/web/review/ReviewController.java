@@ -2,6 +2,7 @@ package com.teulda.web.review;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="getReview", method=RequestMethod.GET)
-	public String getReview(@RequestParam int reviewNo, Model model) throws Exception{
+	public String getReview(@RequestParam int reviewNo, HttpServletRequest request, Model model) throws Exception{
 		
 		System.out.println("/review/getReview : GET");
 		
@@ -150,7 +151,7 @@ public class ReviewController {
 			search.setCurrentPage(1);
 		}
 		
-		search.setPageSize(pageSize);
+		search.setPageSize(10);
 
 		if(searchKeyword != null && !searchKeyword.equals(null)) {
 			search.setSearchSorting("0");
@@ -177,7 +178,7 @@ public class ReviewController {
 			search.setCurrentPage(1);
 		}
 
-		search.setPageSize(pageSize);
+		search.setPageSize(10);
 		
 		Map<String, Object> map = reviewService.getReviewList(search);
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);

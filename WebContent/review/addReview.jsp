@@ -16,8 +16,9 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha256-7dA7lq5P94hkBsWdff7qobYkp9ope/L5LQy2t/ljPLo=" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/rateyo@2.3.5/src/jquery.rateyo.js" integrity="sha256-Sq0rSsEMzpXVg0elKKGMr0h0buMHMdRApm944Lh6XoA=" crossorigin="anonymous"></script>
 		<script src="../resources/js/multiUploadFields.js"></script>
+		<script src="../resources/js/googleMap.js"></script>
 
-		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABfHCGnA7XGz4lch9JFD8ECEu2BuuKHOI&callback=initAutocomplete&libraries=places&v=weekly" defer></script>
 		
 		<style>
 			.select-img img {
@@ -31,7 +32,21 @@
 
 		<script type="text/javascript">
 
-		window.addEventListener('DOMContentLoaded', function(){
+		document.addEventListener('DOMContentLoaded', function(){
+			const place = document.getElementById('pac-input');
+			const fileButton = document.querySelector('div.input-group');
+			const array = [place, fileButton];
+
+			array.forEach(each => {
+				each.addEventListener('keydown', event => {
+					if (event.key === 'Enter') {
+						event.preventDefault();
+					};
+				}, true);
+			});
+		});
+
+		document.addEventListener('DOMContentLoaded', function(){
 
 			const up = document.getElementById('up');
 			const fileImage = document.querySelector('.select-img img');
@@ -51,7 +66,7 @@
 			});
 		});
 
-		window.addEventListener('DOMContentLoaded', function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			const submit = document.querySelector("button[type='submit']");
 			const form = document.querySelector("form");
 
@@ -62,7 +77,19 @@
 			});
 		});
 
-		window.addEventListener('DOMContentLoaded', function(){
+		document.addEventListener('DOMContentLoaded', () => {
+			const customSwitch = document.getElementById('customSwitch1');
+			const allowed = document.querySelector('input[name="isAllowed"]');
+			customSwitch.addEventListener('click', () => {
+				if(customSwitch.checked){
+					allowed.value = 't';
+				}else{
+					allowed.value = 'f';
+				}
+			});
+		});
+
+		document.addEventListener('DOMContentLoaded', function(){
 			const cancel = document.querySelector(".cancel");
 
 			cancel.addEventListener('click', function(){
@@ -73,7 +100,7 @@
 		let normalFill = $("#rateYo").rateYo("option", "fullStar"); //returns true
 		$("#rateYo").rateYo("option", "fullStar", true); //returns a jQuery Element
 
-		window.addEventListener('DOMContentLoaded', function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			$("#rateYo").rateYo({
 				rating: 2,
 				fullStar: true,
@@ -83,7 +110,7 @@
 			document.form.star.value = star;
 		});
 
-		window.addEventListener('DOMContentLoaded', function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			$("#rateYo").click(function () {
 				let star = $("#rateYo").rateYo().rateYo("rating");
 				document.form.star.value = star;
@@ -113,19 +140,27 @@
 
 						<div class="select-img"><img src="" /></div>
 
-						<div class="form-group" wfd-id="361">
-							<label for="inputPlace" wfd-id="362"><!--장소--></label>
+						<div class="form-group">
+							<label for="pac-input"><!--장소--></label>
 							<small class="form-text text-muted">장소</small>
-							<input type="place" class="form-control" id="inputPlace" name="reviewPlace" aria-describedby="palceHelp" placeholder="예) 서울시 강남구, 부산 해운대 앞바다" wfd-id="516">
-							<input type="hidden" name="isAllowed" value="f"/>
-							<!-- <small id="placeHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+							<input type="place" class="form-control" id="pac-input" name="reviewPlace" 
+									aria-describedby="placeHelp" placeholder="후기를 쓰고 싶은 장소를 검색하고 자유롭게 작성하세요." >
+							<div id="map"></div>
+							<input type="hidden" name="isAllowed" value="t"/>
 						</div>
-						<div class="form-group" wfd-id="351">
-							<label for="textarea" wfd-id="352"><!--본문--></label>
-							<small class="form-text text-muted">후기 내용을 200자 내외로 여기에 적어주세요.</small>
-							<textarea class="form-control" id="textarea" name="reviewContents" rows="3" wfd-id="527"></textarea>
+						<div class="form-group">
+							<label for="textarea"><!--본문--></label>
+							<small class="form-text text-muted">내용</small>
+							<textarea class="form-control" id="textarea" name="reviewContents" rows="3" placeholder="후기 내용을 200자 내외로 여기에 적어주세요."></textarea>
 						</div>
 
+						<div class="row justify-content-end">
+							<div class="custom-control custom-switch">
+								<input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+								<label class="custom-control-label" for="customSwitch1">공개/비공개</label>
+							</div>
+						</div>
+						
 						<div class="container-fullwidth">
 							<div class="row">
 							  <div class="col-sm-offset-2 col-sm-12"><br><br>
