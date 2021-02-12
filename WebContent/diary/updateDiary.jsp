@@ -190,7 +190,7 @@
 					
 					<input type="text" name="title" class="form-control" placeholder="제목 (반드시 입력)" value="${ diary.title }"><br>
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-1">
 									<img src="../resources/images/marker_blue.png" height="40px">
@@ -202,13 +202,18 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-2">
-							<input type="text" name="startDate" class="form-control" placeholder="여행 시작날" value="${ diary.startDate }">
+					</div><br>
+					<div class="row">
+						<div class="col-md-6">
+							<label>&nbsp; 여행 시작날짜</label>
+							<input type="date" name="startDate" class="form-control" placeholder="여행 시작날" value="${ diary.startDate }">
 						</div>
-						<div class="col-md-2">
-							<input type="text" name="endDate" class="form-control" placeholder="여행 종료날" value="${ diary.endDate }">
+						<div class="col-md-6">
+							<label>&nbsp; 여행 시작날짜</label>
+							<input type="date" name="endDate" class="form-control" placeholder="여행 종료날" value="${ diary.endDate }">
 						</div>
 					</div>
+					
 					<br>
 					<!-- form 안에 에디터를 사용하는 경우 -->
 					<textarea id="summernote" name="content">${ diary.content }</textarea>
