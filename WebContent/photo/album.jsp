@@ -14,11 +14,11 @@
 		<!-- Bootstrap CDN -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
 		
 		<style>
 			
 		</style>
-		
 		<script>
 		
 		$(function(){
@@ -74,71 +74,67 @@
 		</script>
 	</head>
 
-	<body>
-  		<!-- ======= Header ======= -->
-		<header>
-			<jsp:include page="../layout/toolbar.jsp"/>
-		</header><br/><br/>
-		<!-- End Header -->
-		
-  		<div class="container">
-  		
-  			<div class="row">
-  				
-  				  	<div class="col-md-3">
-						<div class="list-group">
-							<button type="button" class="btn btn-link disabled">~ 사진, 사진을 보자 ~</button>
-							<button type="button" id="addPhoto" class="btn btn-outline-info"> + 사진등록</button><br/>
-							  	<form name="fileForm" action="/photo/addPhoto" method="post" enctype="multipart/form-data" style="display:none;">
-							        <input multiple="multiple" type="file" name="file"/>
-							        <input type="hidden" name="groupNo" value="${groupNo}"/>
-							        <!-- <input type="text" name="photoAddr" /> -->
-							        <input type="text" id="photoAddr" name="photoAddr" style="" placeholder="주소를 입력해주세요" value=""/>
-							        <input type="submit" class="btn btn-outline-info" value="사진등록" />
-							    </form><br/>
-							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
-							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
-							<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
-						</div>
-					</div>
-				
-				<div class="col-md-9">
-  					<div class="list-group">
-  					<a href="#" class="list-group-item list-group-item-action active">주의!!) 사진 등록 시, 사진 이름이 한글일 경우 사진이 올라가지 않습니다.</a><br/><br/>
+<body>
+ 		<!-- ======= Header ======= -->
+<header>
+	<jsp:include page="../layout/toolbar.jsp"/>
+</header><br/><br/>
+<!-- End Header -->
 
-		          <div class="row"> 
+	<div class="container">
+	
+		<div class="row">
+				
+			<div class="col-md-3">
+				<div class="list-group">
+					<button type="button" class="btn btn-link disabled">~ 사진, 사진을 보자 ~</button>
+					<button type="button" id="addPhoto" class="btn btn-outline-info"> + 사진등록</button><br/>
+						<form name="fileForm" action="/photo/addPhoto" method="post" enctype="multipart/form-data" style="display:none;">
+							<input multiple="multiple" type="file" name="file"/>
+							<input type="hidden" name="groupNo" value="${groupNo}"/>
+							<input type="text" id="photoAddr" name="photoAddr" style="" placeholder="주소를 입력해주세요" value=""/>
+							<input type="submit" class="btn btn-outline-info" value="사진등록" />
+						</form><br/>
+					<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
+					<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
+				</div>
+			</div>
+		
+		<div class="col-md-9">
+			<div class="list-group">
+			<a href="#" class="list-group-item list-group-item-action active">주의!!) 사진 등록 시, 사진 이름이 한글일 경우 사진이 올라가지 않습니다.</a><br/><br/>
+				<div class="row"> 
 					<c:set var="i" value="0" />
-					<c:forEach var = "photo" items = "${ photoList }">
+						<c:forEach var = "photo" items = "${ photoList }">
 						<c:set var="i" value="${ i+1 }" />
-						<div class="col-md-4">
-							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
-								<div class="card-header">
-									${photo.photoAddr}
-									<input type="hidden" id="updateGroupName" value="${photo.photoName}">
-									<%-- <small style="">${ photo.photoName}</small> --%>
-									<img src="../resources/images/folder.png" id="${ photo.photoNo }" height="13px" align="middle" style="float:right;">
-								</div>
-								<div class="card-body">
-									<h5 class="card-title" id ="${photo.photoNo}"><%-- ${photo.photoName} --%></h5>
-									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
-									<p class="card-text" id="content">${photo.photoDate }
-									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
-									<input type="hidden" value="${ photo.photoNo }" style="float:right;"></p>
-								<div class="groupNo" style="display:none;">${photo.photoNo}</div>
-								
+							<div class="col-md-4">
+								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
+									<div class="card-header" style="color:black">
+										${photo.photoAddr}
+										<input type="hidden" id="updateGroupName" value="${photo.photoName}">
+										<img src="../resources/images/folder.png" id="${ photo.photoNo }" height="13px" align="middle" style="float:right;">
+									</div>
+									<div class="card-body">
+										<h5 class="card-title" id ="${photo.photoNo}"></h5>
+										<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
+										<p class="card-text" id="content">등록일 : ${photo.photoDate }
+										<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
+										<input type="hidden" value="${ photo.photoNo }" style="float:right;"></p>
+									<div class="groupNo" style="display:none;">${photo.photoNo}</div>
+											
+									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
-
-			    </div>
-		            
-					</div>
+						</c:forEach>
+				
 				</div>
-			
+			 
 			</div>
-  		</div>
-	</body>
+		</div>
+	
+		</div>
+	</div>
+</body>
 	
 	
 	

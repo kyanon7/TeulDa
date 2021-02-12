@@ -146,7 +146,6 @@
 						<div class="list-group">
 							<button type="button" class="btn btn-link disabled">~ 삭제한 사진을 봅시다 ~</button>
 							<button type="button" id="deletePhoto" class="btn btn-outline-info" onclick="removeCheck()"> 휴지통 비우기</button><br/>
-							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
 							<a href="/photo/listPhoto" class="list-group-item list-group-item-action"><center>내 사진 목록&nbsp&nbsp${totalCount}</center></a>
 							<a href="/photo/photoBin" class="list-group-item list-group-item-action active"><center>사진 휴지통</center></a>
 						</div>
@@ -155,18 +154,17 @@
 				<div class="col-md-9">
   					<div class="list-group">
   					<a href="#" class="list-group-item list-group-item-action active">Delete Album List&nbsp&nbsp${deleteGroupCount}</a><br/><br/>
-				<div class="row"> 
+				<div class="row" style="padding: 10px; height: 500px; min-height: 100px; overflow: auto;"> 
 					<c:set var="i" value="0" />
 					<c:forEach var = "group" items = "${ groupList }">
 						<c:set var="i" value="${ i+1 }" />
 						<div class="col-md-4">
-							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
-								<div class="card-header">
-									<small>${ group.groupName}</small>
+							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 12rem;">
+								<div class="card-header" style="color:black">
+									<small>삭제일 : ${ group.deleteDate}</small>
 								</div>
 								<div class="card-body">
 									<h5 class="card-title" id = "${ groupgroupNo }">${ group.groupName }</h5>
-									<a href="/photo/album?groupNo=${group.groupNo}"><%-- <img class="card-img-top" src="..." alt="${group.groupName}"> --%>${group.groupName}</a>
 									<p class="card-text" id="content">
 									<p class="card-text" id="updateGroupStatus" style="text-align:right;"><small class="text-muted">앨범복구</small>
 									<input type="hidden" value="${ group.groupNo }" style="float:right;">
@@ -181,16 +179,16 @@
 				
 				<div class="col-md-3"></div>
 				
-				<div class="col-md-9">
+				<div class="col-md-12">
   					<div class="list-group">
   					<a href="#" class="list-group-item list-group-item-action active">Delete Photo List&nbsp&nbsp${deletePhotoCount}</a><br/><br/>
-		          <div class="row"> 
+		          <div class="row" style="padding: 10px; height: 500px; min-height: 100px; overflow: auto;"> 
 					<c:set var="i" value="0" />
 					<c:forEach var = "photo" items = "${ photoList }">
 						<c:set var="i" value="${ i+1 }" />
 						<div class="col-md-4">
 							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
-								<div class="card-header">
+								<div class="card-header" style="color:black">
 <%-- 									<img src="../resources/images/marker_blue.png" height="12px"
 										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
 									<input type="hidden" id="updateGroupName" value="${photo.photoName}">

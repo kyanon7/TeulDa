@@ -29,6 +29,7 @@
 		<result	property="nickname"		column="nickname"		jdbcType="VARCHAR"/>
 		<result	property="deleteDate"	column="delete_date"	jdbcType="DATE"/>
 		<result	property="groupType"	column="group_type"		jdbcType="VARCHAR"/>
+		<result	property="groupDate"	column="groupdate"		jdbcType="DATE"/>
 	</resultMap>
 	 
 	
@@ -45,18 +46,18 @@
 	<!-- SQL : INSERT PHOTO 앨범등록 -->
 	<insert id="addGroup"	parameterType="com.teulda.common.Group">
 		INSERT 
-		INTO groups ( group_id, group_name, nickname, delete_date, group_type)
-		VALUES ( seq_groups_group_id.nextval, '${groupName}', '${nickname}', null, '1')
+		INTO groups ( group_id, group_name, nickname, delete_date, group_type, groupdate)
+		VALUES ( seq_groups_group_id.nextval, '${groupName}', '${nickname}', null, '1', sysdate)
 	</insert>
 	
 	
 	
 	<!-- SQL : SELECT ONE (실질적으로 사용은 안할 듯) -->
 	<select id="getPhoto" parameterType="int" resultMap="photoSelectMap">
-		SELECT ROWNUM,
-		photo_name
-		from (SELECT * FROM photo ORDER BY photo_id ASC)
-		WHERE photo_group_id = #{value} AND ROWNUM = 1;
+		SELECT
+		*
+		from photo
+		where photo_id = ${value}
 	</select>
 	
 	<!-- SQL : SELECT ONE (실질적으로 사용은 안할 듯) -->
@@ -73,7 +74,7 @@
 	<update id="updateGroupName" parameterType="com.teulda.common.Group">
 		UPDATE groups
 		<set>
-			group_name = #{groupName}
+		group_name = #{groupName}
 		</set>
 		WHERE group_id = #{groupNo}
 	</update>
@@ -82,7 +83,7 @@
 	<update id="updateGroupNo" parameterType="com.teulda.common.Photo">
 		UPDATE photo
 		<set>
-			photo_group_id = #{photoGroupNo}
+		photo_group_id = #{photoGroupNo}
 		</set>
 		WHERE photo_id = #{photoNo}
 	</update>
@@ -91,14 +92,14 @@
 	<update id="updatePhotoStatus" parameterType="com.teulda.common.Photo">
 		UPDATE photo
 		<set>
-			<choose>
-				<when test="deleteDate != null">
-					delete_date = null
-				</when>
-				<otherwise>
-					delete_date = sysdate
-				</otherwise>
-			</choose>
+		<choose>
+		<when test="deleteDate != null">
+		delete_date = null
+		</when>
+		<otherwise>
+		delete_date = sysdate
+		</otherwise>
+		</choose>
 		</set>
 		WHERE photo_id = #{photoNo}
 	</update>
@@ -107,39 +108,19 @@
 	<update id="updateGroupStatus" parameterType="com.teulda.common.Group">
 		UPDATE groups
 		<set>
-			<choose>
-				<when test="deleteDate != null">
-					delete_date = null
-				</when>
-				<otherwise>
-					delete_date = sysdate
-				</otherwise>
-			</choose>
+		<choose>
+		<when test="deleteDate != null">
+		delete_date = null
+		</when>
+		<otherwise>
+		delete_date = sysdate
+		</otherwise>
+		</choose>
 		</set>
 		WHERE group_id = #{groupNo} AND group_type = 1
 	</update>
 	
-	<!-- SQL : UPDATE GroupPhotoStatus(앨범 안에 있는 사진) 삭제, 복구 -->
-<!-- 	<update id="updateGroupPhotoStatus" parameterType="com.teulda.common.Group">
-		UPDATE photo
-		<set>
-			<choose>
-				<when test="deleteDate != null">
-					delete_date = null
-				</when>
-				<otherwise>
-					delete_date = sysdate
-				</otherwise>
-			</choose>
-		</set>
-		WHERE photo_id IN
-		(SELECT 
-		p.photo_id
-		FROM photo p, groups g
-		WHERE g.group_id = p.photo_group_id AND p.photo_group_id = #{groupNo} AND g.group_type = 1)
-	</update>
 
- -->
 	<!-- SQL : DELETE Photo 완전삭제(휴지통) -->
 	<!-- delete_date가 null이 아닌 나의 모든 사진과 앨범, 앨범에 들어있는 사진들 삭제 -->
 	<delete id="deletePhoto" parameterType="String">
@@ -216,7 +197,7 @@
 	<!-- SQL : SELECT GroupList(내 사진앨범 조회, 삭제처리한 앨범list 조회) -->
 	<select id="getGroupList" parameterType="com.teulda.common.Group" resultMap="groupSelectMap">
 		SELECT
-		group_id, group_name, nickname, delete_date, group_type
+		group_id, group_name, nickname, delete_date, group_type, groupdate
 		FROM groups
 		WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NULL
 		ORDER BY group_id DESC
