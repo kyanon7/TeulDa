@@ -52,8 +52,11 @@
  		$(function(){
 			$('button:contains("만들기")').on("click", function(){
 				alert($("#groupName").val());
+				if($("#groupName").val() == ""){
+				alert("앨범명을 입력해주세요");	
+				}else{
 				self.location = "/photo/addGroup?groupName="+$("#groupName").val();
-				
+				}
 			});
 		});
 		
@@ -87,7 +90,6 @@
 							<!-- <input type="text" readonly="" class="form-control-plaintext" id="groupName" placeholder="앨범명을 입력해주세여."> -->
 							<button type="button" class="btn btn-outline-info">만들기</button>
 						</span><br/>
-							<a href="/photo/getPhotoMap" class="list-group-item list-group-item-action"><center>내 사진 지도</center></a>
 							<a href="/photo/listPhoto" class="list-group-item list-group-item-action active"><center>내 앨범 목록&nbsp&nbsp${totalCount}</center></a>
 							<a href="/photo/photoBin" class="list-group-item list-group-item-action"><center>사진 휴지통</center></a>
 						</div>
@@ -103,23 +105,19 @@
 					<c:forEach var = "group" items = "${ groupList }">
 						<c:set var="i" value="${ i+1 }" />
 						<div class="col-md-4">
-							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
-								<div class="card-header">
-<%-- 									<img src="../resources/images/marker_blue.png" height="12px"
-										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
+							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 12rem;">
+								<div class="card-header" style="color:black">
 									<input type="hidden" id="updateGroupName" value="${group.groupName}">
-									<small style="">${ group.groupName}</small>
+									<small style="">앨범 생성일 : ${ group.groupDate}</small>
 								</div>
 								<div class="card-body">
-									<a href="/photo/album?groupNo=${group.groupNo}"><%-- <img class="card-img-top" src="..." alt="${group.groupName}"> --%>${group.groupName}</a>
-									<h5 class="card-title" id ="${group.groupNo}">${ group.groupName eq 'default1' ? '그룹 미지정' : group.groupName }</h5>
+									<a href="/photo/album?groupNo=${group.groupNo}">
+									<h5 class="card-title" id ="${group.groupNo}">${ group.groupName eq 'default1' ? '그룹 미지정' : group.groupName }</h5></a>
 									<p class="card-text" id="content">
 									<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
 									<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
 									<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small>
 									<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
-<%-- 									${ diary.content } --%> 
-									<%-- <c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' /> --%>
 								<div class="groupNo" style="display:none;">${group.groupNo}</div>
 									
 								</div>

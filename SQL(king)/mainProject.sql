@@ -93,6 +93,7 @@ CREATE TABLE groups (
 	nickname		VARCHAR2(50)		NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	delete_date		DATE,
 	group_type		CHAR(1)				NOT NULL,
+	groupdate		DATE,
 	PRIMARY KEY(group_id)
 );
 
