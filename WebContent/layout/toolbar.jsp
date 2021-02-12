@@ -7,7 +7,7 @@
 		if(document.getElementById('chat')){
 			document.getElementById('chat').addEventListener('click', () => {
 			
-				fetch('/user/rest/getUser/${user.email}', {
+				fetch('/user/rest/getUserNick/${user.nickname}', {
 					method: 'GET',
 					headers: {
 						"Content-Type": "application/json"
@@ -16,7 +16,7 @@
 				})
 				.then(res => res.json())
 				.then(result => {
-					const chat = window.open(`https://powerful-inlet-24111.herokuapp.com?nickname=\${result.nickname}`, '_blank');
+					const chat = window.open(`https://teuldachatting.herokuapp.com?nickname=\${result.nickname}`, '_blank');
 					chat.focus();
 				})
 				.catch(err => {

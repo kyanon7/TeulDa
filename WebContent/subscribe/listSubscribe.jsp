@@ -8,6 +8,8 @@
     <title>나의 구독 목록</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.6.0/dist/lux/bootstrap.min.css" integrity="sha256-n1LAsYCohTi3YOpx8/Jhgf1i6BLuraa4Bnx/qTd4Vs0=" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="../resources/css/simple-sidebar.css" rel="stylesheet">
 
     <style>
         /* .card-columns {
@@ -34,14 +36,41 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha256-7dA7lq5P94hkBsWdff7qobYkp9ope/L5LQy2t/ljPLo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react@17.0.1/umd/react.development.js" integrity="sha256-vgei20o/SJ6umW3ivqyJho3ehzJtQ0/7RXS6Z17uC9A=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.1/umd/react-dom.development.js" integrity="sha256-qMfhc+Y8DYwzdUxp1SsKc0nlW57lOIeoPaZ5pZs+MqA=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js" integrity="sha256-FiZMk1zgTeujzf/+vomWZGZ9r00+xnGvOgXoj0Jo1jA=" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     
     <script type="text/javascript">
 
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById("menu-toggle").addEventListener('click', e => {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        });
 
-        window.addEventListener('DOMContentLoaded', function(){
+        document.addEventListener('DOMContentLoaded', () => {
+            const userList = document.querySelectorAll('a.list-group-item-action');
+            userList.forEach(each => {
+                each.addEventListener('click', () => {
+                    
+                    fetch('/user/rest/getUserNick/'+each.textContent, {
+                        method: 'GET',
+                        headers: {
+                        "Content-Type": "application/json"
+                        },
+                        credentials : "same-origin"
+                    })
+                    .then(res => {
+                        return res.json();
+                    })
+                    .then(result => {
+                        location.href = "/user/getUser?email="+result.email;
+                    })
+                    .catch(err => console.error(err));
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function(){
 
             fetch('/subscribe/rest/listSubscribe', {
                 method: 'POST',
@@ -101,10 +130,14 @@
                     cardFrame.setAttribute("class", "col-auto mb-2");
                     // div.appendChild(cardFrame);
 
+                    const subLink = document.createElement("a");
+                    subLink.setAttribute("href", "#");
+                    cardFrame.appendChild(subLink);
+
                     const cardHead = document.createElement("div");
                     cardHead.setAttribute("class", "card");
                     cardHead.setAttribute("style", "width: 14.5rem;");
-                    cardFrame.appendChild(cardHead);
+                    subLink.appendChild(cardHead);
 
                     const cardEmbed = document.createElement("div");
                     cardEmbed.setAttribute("class", "embed-responsive embed-responsive-16by9");
@@ -165,7 +198,6 @@
                     // let before;
 
                     let targetList;
-                    console.log(diaryList);
                     // if(diaryListWeekBefore.length > 0){
                     //     week = period;
                     //     week.textContent = "이번 주";
@@ -196,6 +228,7 @@
                         let today = new Date();
                         let last = Math.ceil((today.getTime() - lastUp.getTime())/1000/60/60/24);
 
+                        subLink.setAttribute("href", "/diary/getDiary?diaryNo="+target.diaryNo);
                         cardImage.setAttribute("src", target.thumbnail);
                         cardImage.setAttribute("alt", target.thumbnail);
 
@@ -261,6 +294,7 @@
                 // 초기 데이터 생성
                 addData(currentPage);
                 observeLastChild(io);
+
             })
             .catch(err =>{
 
@@ -277,25 +311,28 @@
     <header>
         <jsp:include page="../layout/toolbar.jsp"/>
     </header>
-    <br />
 
-    <div id="container">
+    <div class="d-flex" id="wrapper">
 
-        <div class="row">
-            <div class="col-lg-2">
-              <div class="list-group">
-                <ul class="list-group"><li class="h4 list-group-item disabled border-0" >구독</li></ul>
-                <c:set var = "i" value = "0" />
-                <c:forEach var = "subscribe" items = "${subscribeList}">
-                  <c:set var = "i" value = "${i+1}" />
-                  <a href="#" class="list-group-item list-group-item-action border-0">${subscribe.subTargetNickname}</a>
-                </c:forEach>
-              </div>
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading border-0">구독</div>
+            <div class="list-group list-group-flush">
+
+            <c:forEach var = "subscribe" items = "${subscribeList}">
+
+            <a href="#" class="list-group-item list-group-item-action bg-light border-0">${subscribe.subTargetNickname}</a>
+
+            </c:forEach>
             </div>
+        </div>
 
-            <div class="col-lg-10 border-0 subList" style="background-color: rgb(247, 247, 247);"><br /></div>
+        <div id="page-content-wrapper">
+            <div class="custom-menu">
+                <button type="button" id="menu-toggle" class="btn btn-primary btn-sm">< ></button>
+            </div>
+            <div class="border-0 subList" style="background-color: rgb(247, 247, 247);"><br /></div>
         </div>
     </div>
 
-    
-</body></html>
+</body>
+</html>
