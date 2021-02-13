@@ -74,21 +74,21 @@
 					});
 			}  
 			
-			$('#currency').change(function() { // 추후 수정예정 - 지출내역 화폐 관련 
+			$('#currency').change(function() { // 지출내역 화폐 관련 
 				var state = $('#currency option:selected').val();
-				var currency = $('#showCurrency').val();
+
 				if (state == 'KRW') {
-					$('#showCurrency').val('₩');
+					$('.input-group-prepend span').html('₩');
 				} else if (state == 'USD') {
-					$('#showCurrency').val('$');
+					$('.input-group-prepend span').html('$');
 				} else if (state == 'JPY') {
-					$('#showCurrency').val('¥');
+					$('.input-group-prepend span').html('¥');
 				} else if (state == 'EUR') {
-					$('#showCurrency').val('€');
+					$('.input-group-prepend span').html('€');
 				} else if (state == 'AUD') {
-					$('#showCurrency').val('A$');
+					$('.input-group-prepend span').html('A$');
 				} else {
-					$('#showCurrency').val('');
+					$('.input-group-prepend span').html('');
 				}
 			});
 			
@@ -101,6 +101,7 @@
 		$(function () {
 			
 			$("button:contains('등록')").on("click", function() {
+				alert("등록이 완료되었습니다!"); 
 				addDiary();
 			});
 			
@@ -155,7 +156,7 @@
 			<div class="col-md-9">
 				<form name="addDiary">
 
-					<input type="text" name="title" class="form-control" placeholder="제목 (반드시 입력)"><br>
+					<input type="text" name="title" class="form-control" placeholder="제목"><br>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="row">
@@ -172,11 +173,11 @@
 					</div><br>
 					<div class="row">
 						<div class="col-md-6">
-							<label>&nbsp; 여행 시작날짜</label>
+							<label class="control-label">&nbsp; 여행 시작날짜</label>
 							<input type="date" name="startDate" class="form-control" data-placeholder="여행 시작날">
 						</div>
 						<div class="col-md-6">
-							<label>&nbsp; 여행 종료날짜</label>
+							<label class="control-label">&nbsp; 여행 종료날짜</label>
 							<input type="date" name="endDate" class="form-control" data-placeholder="여행 종료날">
 						</div>
 					</div>
@@ -185,54 +186,110 @@
 					<textarea id="summernote" name="content"></textarea>
 					<br>
 							
-							<hr class="my-4">
+					<hr class="my-4">
 							
-							<h5>EXPENSE (임시 구현)</h5>
-							<table class="table table-hover">
-								<thead>
-									<tr class="table-light">
-										<th scope="col">분 류</th>
-										<th scope="col">금 액</th>
-										<th scope="col"><select class="form-control" name="currency" style="width: 100px; height: 50px;">
+					<h5>EXPENSES</h5>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label">통화 선택</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<select class="form-control" id="currency" name="currency">
 												<option value="NONE">통화</option>
 												<option value="KRW">KRW</option>
 												<option value="USD">USD</option>
 												<option value="JPY">JPY</option>
 												<option value="EUR">EUR</option>
 												<option value="AUD">AUD</option>
-										</select></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="table-light">
-										<th scope="row">교통비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="transBill" style="width: 100px;"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">숙박비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="roomBill" style="width: 100px;"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">식비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="foodBill" style="width: 100px;"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">관광비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="tourBill" style="width: 100px;"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">쇼핑비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="shopBill" style="width: 100px;"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-								</tbody>
-							</table>
-							
-							<hr class="my-4">
+										</select>
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="control-label">교통비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="0" class="form-control" name="transBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label">숙박비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="0" class="form-control" name="roomBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="control-label">식비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="0" class="form-control" name="foodBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label">관광비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="0" class="form-control" name="tourBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="control-label">쇼핑비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="0" class="form-control" name="shopBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<hr class="my-4">
 							
 							<h5>HASHTAG</h5>					
 								<input placeholder="태그 입력 후 Enter 또는 Space Bar (10글자 이하)" 
@@ -271,16 +328,6 @@
 			</div>
 		</div>
 	</div>
-
-	기록 작성 화면 ! 
-  	<br>
-  	여행지 위치 : ${ param.location }
-  	<br>
-  	여행지 위도 : ${ param.latitude }
-  	<br>
-  	여행지 경도 : ${ param.longitude }
-  	<br>
-  	
-  	
+	<br>
 	</body>
 </html>

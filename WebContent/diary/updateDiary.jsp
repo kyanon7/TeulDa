@@ -165,6 +165,42 @@
 				
 			});
 			
+			// ================ 지출내역  ================ //
+			var state = '${ diary.currency }';
+
+			if (state == 'KRW') {
+				$('.input-group-prepend span').html('₩');
+			} else if (state == 'USD') {
+				$('.input-group-prepend span').html('$');
+			} else if (state == 'JPY') {
+				$('.input-group-prepend span').html('¥');
+			} else if (state == 'EUR') {
+				$('.input-group-prepend span').html('€');
+			} else if (state == 'AUD') {
+				$('.input-group-prepend span').html('A$');
+			} else {
+				$('.input-group-prepend span').html('');
+			}
+			// ==========================================
+				
+			$('#currency').change(function() { // 지출내역 화폐 관련 
+				var state = $('#currency option:selected').val();
+
+				if (state == 'KRW') {
+					$('.input-group-prepend span').html('₩');
+				} else if (state == 'USD') {
+					$('.input-group-prepend span').html('$');
+				} else if (state == 'JPY') {
+					$('.input-group-prepend span').html('¥');
+				} else if (state == 'EUR') {
+					$('.input-group-prepend span').html('€');
+				} else if (state == 'AUD') {
+					$('.input-group-prepend span').html('A$');
+				} else {
+					$('.input-group-prepend span').html('');
+				}
+			});
+			
 		});
 		
 		</script>
@@ -219,52 +255,108 @@
 					<textarea id="summernote" name="content">${ diary.content }</textarea>
 					<br>
 							
-							<hr class="my-4">
+					<hr class="my-4">
 							
-							<h5>EXPENSE (임시 구현)</h5>
-							<table class="table table-hover">
-								<thead>
-									<tr class="table-light">
-										<th scope="col">분 류</th>
-										<th scope="col">금 액</th>
-										<th scope="col"><select class="form-control" name="currency" style="width: 100px; height: 50px;">
-												<option value="NONE">통화</option>
-												<option value="KRW">KRW</option>
-												<option value="USD">USD</option>
-												<option value="JPY">JPY</option>
-												<option value="EUR">EUR</option>
-												<option value="AUD">AUD</option>
-										</select></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="table-light">
-										<th scope="row">교통비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="transBill" style="width: 100px;" value="${ diary.transBill }"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">숙박비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="roomBill" style="width: 100px;" value="${ diary.roomBill }"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">식비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="foodBill" style="width: 100px;" value="${ diary.foodBill }"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">관광비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="tourBill" style="width: 100px;" value="${ diary.tourBill }"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">쇼핑비</th>
-										<td><input class="form-control form-control-sm" type="number" value="0" name="shopBill" style="width: 100px;" value="${ diary.shopBill }"></td>
-										<td><input class="form-control form-control-sm" type="text" id="showCurrency" style="width: 100px;" readonly></td>
-									</tr>
-								</tbody>
-							</table>
+					<h5>EXPENSES</h5>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label">통화 선택</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<select class="form-control" id="currency" name="currency">
+												<option value="NONE" ${ diary.currency eq 'NONE' ? "selected" : "" }>통화</option>
+												<option value="KRW" ${ diary.currency eq 'KRW' ? "selected" : "" }>KRW</option>
+												<option value="USD" ${ diary.currency eq 'USD' ? "selected" : "" }>USD</option>
+												<option value="JPY" ${ diary.currency eq 'JPY' ? "selected" : "" }>JPY</option>
+												<option value="EUR" ${ diary.currency eq 'EUR' ? "selected" : "" }>EUR</option>
+												<option value="AUD" ${ diary.currency eq 'AUD' ? "selected" : "" }>AUD</option>
+										</select>
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="control-label">교통비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="${ diary.transBill }" class="form-control" name="transBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label">숙박비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="${ diary.roomBill }" class="form-control" name="roomBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="control-label">식비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="${ diary.foodBill }" class="form-control" name="foodBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label">관광비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="${ diary.tourBill }" class="form-control" name="tourBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="control-label">쇼핑비</label>
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"></span>
+										</div>
+										<input type="text" value="${ diary.shopBill }" class="form-control" name="shopBill">
+										<div class="input-group-append">
+											<span class="input-group-text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 							
 							<hr class="my-4">
 							
