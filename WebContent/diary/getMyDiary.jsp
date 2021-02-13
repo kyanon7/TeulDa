@@ -39,8 +39,28 @@
 			
 			$("button:contains('확인')").on("click", function() { 
 				history.go(-1); 
-			});		
-		});
+			});
+			
+			// ================ 지출내역  ================ //
+			var state = '${ diary.currency }';
+
+			if (state == 'KRW') {
+				$("td:even").prepend('₩ &nbsp;');
+			} else if (state == 'USD') {
+				$("td:even").prepend('$ &nbsp;');
+			} else if (state == 'JPY') {
+				$("td:even").prepend('¥ &nbsp;');
+			} else if (state == 'EUR') {
+				$("td:even").prepend('€ &nbsp;');
+			} else if (state == 'AUD') {
+				$("td:even").prepend('A$ &nbsp;');
+			} else {
+				
+			}
+			// ==========================================
+			
+
+			});
 		</script>
 		
 		
@@ -100,7 +120,11 @@
  						
  						<hr class="my-4">
 							
-							<h5 style="text-align: center;">EXPENSE (임시 구현)</h5>
+							<h5 style="text-align: center;">EXPENSES
+							<br><a href=#none id="show" onclick="if(hide.style.display=='none') {hide.style.display='';show.innerText='▲'} else {hide.style.display='none';show.innerText='▼'}">▼</a>
+							</h5>
+							
+							<div id="hide" style="display: none">
 							<table class="table table-hover">
 								<thead>
 									<tr class="table-light">
@@ -137,6 +161,7 @@
 									</tr>
 								</tbody>
 							</table>
+							</div> 
 							
 							<hr class="my-4">
 							

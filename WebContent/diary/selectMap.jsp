@@ -159,7 +159,7 @@
 	        // 클릭한 위치 확인
 	        map.addListener('click', function(e) {
 	        	
-	        	alert(e.latLng.lat());
+	        	// alert(e.latLng.lat());
 	        	// console.log(e);
 	        	
 	        	// 위도 & 경도 좌표를 요청할 객체를 만들어 줌
@@ -170,12 +170,23 @@
 	        	
 	        	console.log(latlng);
 	        	
+	        	var flagIcon = new google.maps.MarkerImage("../resources/images/flag.png"); // 마커 아이콘
+       			var marker = new google.maps.Marker({position: latlng, map: map, icon: flagIcon}); // 클릭한 위치에 마커 생성 
+	        	
 	        	geocoder.geocode({'location' : latlng}, function(results, status) {
 	        		
 	        		if (status === "OK")
 	        		{
 	        			var jData = results; // results : Json 형태
 	        			var address = jData[3]; // Json 형태의 배열중 3번째 주소를 가져옴 (나라-시-동-(면-리) 까지) 
+	        			
+	        			var result = confirm("선택하신 여행지 주소는 [ "+address.formatted_address+" ] 입니다. \n현재 여행지에 대한 기록을 작성하시겠습니까?");
+	    				if(result) { // 확인 
+	    					location.href="addDiary.jsp?location="+address.formatted_address+"&latitude="+latlng.lat+"&longitude="+latlng.lng;
+	    				} else { // 취소 
+	    					marker.setMap(null); // 생성한 마커 삭제 
+	    				}
+	        			
 	        			console.log('******************');
 	        			console.log(address.formatted_address);
 	        			console.log(latlng);
@@ -201,13 +212,14 @@
 // 	        				}
 // 	        			});
 
-					location.href="addDiary.jsp?location="+address.formatted_address+"&latitude="+latlng.lat+"&longitude="+latlng.lng;
+					// location.href="addDiary.jsp?location="+address.formatted_address+"&latitude="+latlng.lat+"&longitude="+latlng.lng;
 	        				
 	        			//console.log(results);
 	        			//alert(results);
 	        			//alert(JSON.stringify(results));
 	        		} else {
-	        			alert("주소를 못 가지고 왔습니다. 사람 사는 곳이 아닌 것 같습니다.");
+	        			alert("선택한 여행지의 위치정보를 받아올 수 없습니다. 다른 곳을 선택해주세요.");
+	        			marker.setMap(null); // 생성한 마커 삭제 
 	        		}
 	        	}); 
 	        	
