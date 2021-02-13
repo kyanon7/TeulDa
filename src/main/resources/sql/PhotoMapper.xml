@@ -29,7 +29,7 @@
 		<result	property="nickname"		column="nickname"		jdbcType="VARCHAR"/>
 		<result	property="deleteDate"	column="delete_date"	jdbcType="DATE"/>
 		<result	property="groupType"	column="group_type"		jdbcType="VARCHAR"/>
-		<result	property="groupDate"	column="groupdate"		jdbcType="DATE"/>
+		<result	property="groupDate"	column="group_date"		jdbcType="DATE"/>
 	</resultMap>
 	 
 	
@@ -46,7 +46,7 @@
 	<!-- SQL : INSERT PHOTO 앨범등록 -->
 	<insert id="addGroup"	parameterType="com.teulda.common.Group">
 		INSERT 
-		INTO groups ( group_id, group_name, nickname, delete_date, group_type, groupdate)
+		INTO groups ( group_id, group_name, nickname, delete_date, group_type, group_date)
 		VALUES ( seq_groups_group_id.nextval, '${groupName}', '${nickname}', null, '1', sysdate)
 	</insert>
 	
@@ -197,7 +197,7 @@
 	<!-- SQL : SELECT GroupList(내 사진앨범 조회, 삭제처리한 앨범list 조회) -->
 	<select id="getGroupList" parameterType="com.teulda.common.Group" resultMap="groupSelectMap">
 		SELECT
-		group_id, group_name, nickname, delete_date, group_type, groupdate
+		group_id, group_name, nickname, delete_date, group_type, group_date
 		FROM groups
 		WHERE nickname = #{nickname} AND group_type = '1' AND delete_date IS NULL
 		ORDER BY group_id DESC
