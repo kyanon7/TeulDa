@@ -58,17 +58,24 @@ public class ReviewController {
 		
 		System.out.println("/review/addReview : POST");
 		
+		String nav = "redirect:/review/listReview";
+		
 		if(session == null) {
 			throw new Exception();
 			
 		}else if(session.getAttribute("user") != null && session.getAttribute("user") instanceof User){
 			User user = (User) session.getAttribute("user");
-			review.setNickname(user.getNickname());
+			String nickname = user.getNickname(); 
+			
+			review.setNickname(nickname);
 			reviewService.uploadFile(review, path, request);
 			reviewService.addReview(review);
+			int lastNo = reviewService.getLastMyReview(nickname);
+			
+			nav = "redirect:/review/getReview?reviewNo="+lastNo;
 		}
 		
-		return "redirect:/review/listReview";
+		return nav;
 	}
 	
 	@RequestMapping(value="getReview", method=RequestMethod.GET)

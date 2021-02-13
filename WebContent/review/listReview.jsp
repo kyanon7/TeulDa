@@ -18,7 +18,7 @@
 
 		<script type="text/javascript">
 
-			window.addEventListener('DOMContentLoaded', function(){
+			document.addEventListener('DOMContentLoaded', () => {
 				const reviewNo = document.querySelectorAll('.review td:nth-child(2)');
 				reviewNo.forEach(function(each){
 					let target = each.querySelector('a');
@@ -29,16 +29,16 @@
 				});
 			});
 			
-			window.addEventListener('DOMContentLoaded', function(){
+			document.addEventListener('DOMContentLoaded', () => {
 				const writeDown = document.querySelector("button[type='button'].btn.btn-primary")
 				writeDown.addEventListener('click', function(){
 					location.href = "/review/addReview";
 				});
 			});
 
-			window.addEventListener('DOMContentLoaded', function(){
+			document.addEventListener('DOMContentLoaded', () => {
 				const stars = document.querySelectorAll('.review td:nth-child(4)');
-				stars.forEach(function(each, index){
+				stars.forEach( (each, index) => {
 					let star = each.querySelector("div[style='display:none']").textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim();
 					$(".rateYo").eq(index).rateYo({
 						rating: star,
@@ -47,6 +47,15 @@
 					});
 				});
 			});
+
+			// document.addEventListener('DOMContentLoaded', () => {
+			// 	const rowSelect = document.querySelectorAll('tr.review');
+			// 	rowSelect.forEach( each => {
+			// 		each.addEventListener('mouseenter', e => {
+			// 			console.log(e);
+			// 		});
+			// 	});
+			// });
 			
 			function fncGetList(currentPage){
 				let pageNo = document.querySelector('#currentPage')

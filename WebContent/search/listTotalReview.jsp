@@ -138,7 +138,7 @@
 				  
 				  <div class="row">
 					  <div class="col-md-2">
-						  <span class="badge badge-info">TOTAL ${ resultPage.totalCount }</span>
+						  <span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
 					  </div>
 					  <div class="col-md-4"></div>
 					  <div class="col-md-6">

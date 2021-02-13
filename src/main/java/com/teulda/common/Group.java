@@ -11,6 +11,7 @@ public class Group {
 	private Date deleteDate;
 	private String groupType; // 사진 그룹 : 1 / 기록 그룹 : 2 / 스크랩 그룹 : 3
 	private int contentCount; // 그룹 안에 들어간 사진 or 기록 갯수
+	private Date groupDate; //그룹생성일
 
 	public int getGroupNo() {
 		return groupNo;
@@ -60,10 +61,19 @@ public class Group {
 		this.contentCount = contentCount;
 	}
 
+	public Date getGroupDate() {
+		return groupDate;
+	}
+
+	public void setGroupDate(Date groupDate) {
+		this.groupDate = groupDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Group [groupNo=" + groupNo + ", groupName=" + groupName + ", nickname=" + nickname + ", deleteDate="
-				+ deleteDate + ", groupType=" + groupType + ", contentCount=" + contentCount + "]";
+				+ deleteDate + ", groupType=" + groupType + ", contentCount=" + contentCount + ", groupDate="
+				+ groupDate + "]";
 	}
 
 }
