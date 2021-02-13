@@ -286,8 +286,8 @@ VALUES ('king정인', 'email5', 1234, '박정인', '010-4444-4444', null, null, 
 
 
 INSERT
-INTO groups (group_id, group_name, nickname, delete_date, group_type)
-VALUES (seq_groups_group_id.nextval, 'default1', 'king성영', null, 1);
+INTO groups (group_id, group_name, nickname, delete_date, group_type, group_date)
+VALUES (seq_groups_group_id.nextval, 'default1', 'king성영', null, 1, sysdate);
 
 INSERT
 INTO groups (group_id, group_name, nickname, delete_date, group_type)
@@ -300,8 +300,8 @@ VALUES (seq_groups_group_id.nextval, 'default3', 'king성영', null, 3);
 
 
 INSERT
-INTO groups (group_id, group_name, nickname, delete_date, group_type)
-VALUES (seq_groups_group_id.nextval, 'default1', 'king제현', null, 1);
+INTO groups (group_id, group_name, nickname, delete_date, group_type, group_date)
+VALUES (seq_groups_group_id.nextval, 'default1', 'king제현', null, 1, sysdate);
 
 INSERT
 INTO groups (group_id, group_name, nickname, delete_date, group_type)
@@ -314,8 +314,8 @@ VALUES (seq_groups_group_id.nextval, 'default3', 'king제현', null, 3);
 
 
 INSERT
-INTO groups (group_id, group_name, nickname, delete_date, group_type)
-VALUES (seq_groups_group_id.nextval, 'default1', 'king채경', null, 1);
+INTO groups (group_id, group_name, nickname, delete_date, group_type, group_date)
+VALUES (seq_groups_group_id.nextval, 'default1', 'king채경', null, 1, sysdate);
 
 INSERT
 INTO groups (group_id, group_name, nickname, delete_date, group_type)
@@ -328,8 +328,8 @@ VALUES (seq_groups_group_id.nextval, 'default3', 'king채경', null, 3);
 
 
 INSERT
-INTO groups (group_id, group_name, nickname, delete_date, group_type)
-VALUES (seq_groups_group_id.nextval, 'default1', 'king주원', null, 1);
+INTO groups (group_id, group_name, nickname, delete_date, group_type, group_date)
+VALUES (seq_groups_group_id.nextval, 'default1', 'king주원', null, 1, sysdate);
 
 INSERT
 INTO groups (group_id, group_name, nickname, delete_date, group_type)
@@ -342,8 +342,8 @@ VALUES (seq_groups_group_id.nextval, 'default3', 'king주원', null, 3);
 
 
 INSERT
-INTO groups (group_id, group_name, nickname, delete_date, group_type)
-VALUES (seq_groups_group_id.nextval, 'default1', 'king정인', null, 1);
+INTO groups (group_id, group_name, nickname, delete_date, group_type, group_date)
+VALUES (seq_groups_group_id.nextval, 'default1', 'king정인', null, 1, sysdate);
 
 INSERT
 INTO groups (group_id, group_name, nickname, delete_date, group_type)
