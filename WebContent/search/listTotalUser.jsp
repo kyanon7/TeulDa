@@ -46,8 +46,8 @@
 		 $(function() {
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?email="+$(this).text().trim();
+			$( "td:nth-child(4)" ).on("click" , function() {
+				 self.location ="/user/getUserNick?nickname="+$(this).text().trim();
 			});
 						
 			//==> email LINK Event End User 에게 보일수 있도록 
@@ -163,6 +163,8 @@
   				</div>
   			</div>
   			
+  			<!-- <input type="hidden" id="currentPage" name="currentPage" value="" /> -->
+  			
   			<div class="row">
   				<div class="col-md-2">
   					<span class="badge badge-info">TOTAL ${resultPage.totalCount}</span>
@@ -228,11 +230,11 @@
       </table>
 	  <!--  table End /////////////////////////////////////-->
 	  
-	  	<div class="wrap">
+	  	
 	   	<!-- PageNavigation Start... -->
-
+		<%-- <jsp:include page="../common/pageNavigator.jsp" /> --%>
 		<!-- PageNavigation End... -->
-		</div>
+		
 
  	</div>
  	<!--  화면구성 div End /////////////////////////////////////-->

@@ -97,20 +97,36 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="getUserNick", method=RequestMethod.GET  )
-	public String getUserNick( @RequestParam(value="nickname") String nickname , Model model, HttpSession session ) throws Exception {
+	public String getUserNick( @RequestParam(value="nickname", required=false) String nickname , Model model, HttpSession session ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		//Business Logic
 		User user = userService.getUserNick(nickname);
 		// Model 과 View 연결
 		model.addAttribute("user", user);
+		System.out.println("디버그"+user.getNickname());//조회하려는 사람
+		System.out.println("디버그"+((User) session.getAttribute("user")));
+		/*
+		 * if(((User) session.getAttribute("user")).getNickname() != null &&
+		 * user.getNickname().equals(((User)
+		 * session.getAttribute("user")).getNickname())) { return
+		 * "forward:/user/getMyUser.jsp"; }else { return "forward:/user/getUser.jsp"; }
+		 */
 		
-		if(((User) session.getAttribute("user")).getNickname() != null && user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+		
+		//return "forward:/user/getUserNot.jsp";
+		
+		if(((User) session.getAttribute("user")) != null && user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/user/getMyUser.jsp";
-		}else {
+		}if (((User) session.getAttribute("user")) == null ) {
+			return "forward:/user/getUserNot.jsp";
+		}if(((User) session.getAttribute("user")).getNickname() != null && !user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/user/getUser.jsp";
-		}
+		}else
+			return "forward:/user/getUserNot.jsp";
 	}
+	
+	
 	
 
 	@RequestMapping( value="updateUser", method=RequestMethod.GET )
