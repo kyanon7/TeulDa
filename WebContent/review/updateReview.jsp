@@ -48,7 +48,6 @@
 		});
 
 		document.addEventListener('DOMContentLoaded', function(){
-
 			const up = document.getElementById('up');
 			const fileImage = document.querySelector('.select-img img');
 
@@ -133,11 +132,11 @@
 
 			<div class="col-lg-6">
 
-				<form name="form">
+				<form name="form" enctype="multipart/form-data">
 					<fieldset>
 						<legend>후기 수정</legend><br />
 
-						<div class="select-img"><img src="${review.reviewPhoto}" /></div>
+						<div class="select-img"><img src="${review.reviewPhoto}" style="width: 90%;" onerror="this.style.display='none';"/></div>
 
 						<div class="form-group">
 							<label for="pac-input"><!--장소--></label>
@@ -147,7 +146,7 @@
 									aria-describedby="placeHelp" placeholder="후기를 쓰고 싶은 장소를 검색하고 자유롭게 작성하세요." >
 							<div id="map"></div>
 							<input type="hidden" name="reviewNo" value="${review.reviewNo}"/>
-							<input type="hidden" name="isAllowed" value="{review.isAllowed}"/>
+							<input type="hidden" name="isAllowed" value="${review.isAllowed}"/>
 						</div>
 						<div class="form-group">
 							<label for="textarea"><!--본문--></label>
@@ -171,7 +170,7 @@
 						  <div class="input-group-btn">
 							<span class="fileUpload btn btn-success">
 								<span class="upl" id="upload">Upload single file</span>
-								<input type="file" class="upload up" id="up" name="reviewPhoto" value="${review.reviewPhoto}"/>
+								<input type="file" class="upload up" id="up" name="imageFile"/>
 							  </span><!-- btn-orange -->
 						   </div><!-- btn -->
 						   </div><!-- group -->

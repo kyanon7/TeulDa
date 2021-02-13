@@ -90,7 +90,7 @@
 						<fieldset>
 							<legend>후기</legend><br />
 
-							<div class="select-img"><img src="${review.reviewPhoto}" style="width: 90%;"/></div>
+							<div class="select-img"><img src="${review.reviewPhoto}" style="width: 90%;" onerror="this.style.display='none';"/></div>
 
 							<div class="form-group" wfd-id="361">
 								<label for="inputPlace" wfd-id="362"></label>
