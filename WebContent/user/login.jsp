@@ -182,7 +182,7 @@
 				      </div>
 					  
 					  <div class="form-group">
-					    <div class="text-right">
+					    <div class="text-center">
 					      <button type="" class="btn btn-outline-success">로그인</button>
 					      &nbsp;&nbsp;&nbsp;
 					      <a class="btn btn-outline-primary" href="/user/addUser" role="button">회원가입</a>
@@ -191,7 +191,7 @@
 					  
 					  
 					  
-					   <a id="kakao-login-btn"></a>
+					   <!-- <a id="kakao-login-btn"></a>
 						    <a href="http://developers.kakao.com/logout"></a>
 						    <script type='text/javascript'>
 						        //<![CDATA[
@@ -206,9 +206,9 @@
 						            fail: function (err) {
 						                alert(JSON.stringify(err));
 						            }
-						        });
+						        }); -->
 						        
-						      //]]>
+						     
 						    </script>
 					  
 					  
@@ -216,7 +216,7 @@
 					  
 					  
 					   <div></div>
-						    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">dfd</div>
+						    <!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">dfd</div>
 						    <script>
 						        function onSignIn(googleUser) {
 						            // Useful data for your client-side scripts:
@@ -231,17 +231,17 @@
 						            // The ID token you need to pass to your backend:
 						            var id_token = googleUser.getAuthResponse().id_token;
 						            console.log("ID Token: " + id_token);
-						        };
+						        }; -->
 						    </script>
 					  
 					  <div class="form-group">
-					    <div class="text-center">
+					    <!-- <div class="text-center">
 					      <button type="button" class="btn btn-outline-danger">Google Login</button>
 					    </div>
 					    &nbsp;&nbsp;
 					    <div class="text-center">
 					      <button type="button" class="btn btn-outline-warning">&nbsp;Kakao Login&nbsp;</button>
-			
+			 -->
 					    </div>
 					  </div>
 					  

@@ -183,7 +183,7 @@ public class UserController {
 	}//로그인 뷰로 이동하는 메소드
 	
 	@RequestMapping( value="login", method=RequestMethod.POST )
-	public String login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
+	public String login(@ModelAttribute("user") User user , HttpSession session , Model model ) throws Exception{
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
@@ -200,6 +200,10 @@ public class UserController {
 			session.setAttribute("user", dbUser);
 		}
 		
+		}else {
+			//model.addAttribute("msg", "메세지");
+			//model.addAttribute("url", "/user/login.jsp");
+			return "redirect:/user/login.jsp";
 		}
 		
 
