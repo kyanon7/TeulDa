@@ -71,7 +71,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
     
     @Override
-    public String uploadFile(Review review, String path, MultipartHttpServletRequest request) throws Exception{
+    public void uploadFile(Review review, String path, MultipartHttpServletRequest request) throws Exception{
 		
 		MultipartFile imageFile = request.getFile("imageFile");
 		String fileName = "";
@@ -84,14 +84,11 @@ public class ReviewServiceImpl implements ReviewService {
 				file.mkdirs();
 			}
 			
-				String pathName = imageFile.getOriginalFilename();
-				fileName = identify+"_"+pathName;
-				imageFile.transferTo(new File(reviewPath, fileName));
-				
-			}
+			String pathName = imageFile.getOriginalFilename();
+			fileName = identify+"_"+pathName;
+			imageFile.transferTo(new File(reviewPath, fileName));
 			review.setReviewPhoto(fileName);
-		
-		return fileName;
+		}
 	}
 
 }

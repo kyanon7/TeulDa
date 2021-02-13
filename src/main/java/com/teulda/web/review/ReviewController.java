@@ -130,6 +130,7 @@ public class ReviewController {
 			String writer = review.getNickname();
 			
 			if(writer.equals(user.getNickname())) {
+				review.setReviewPhoto(path+review.getReviewPhoto());
 				model.addAttribute("review", review);
 			}else {
 				throw new Exception();
@@ -140,10 +141,11 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="updateReview", method=RequestMethod.POST)
-	public String updateReview(@ModelAttribute("review") Review review) throws Exception{
+	public String updateReview(@ModelAttribute("review") Review review, MultipartHttpServletRequest request) throws Exception{
 		
 		System.out.println("/review/updateReview : POST");
 		
+		reviewService.uploadFile(review, path, request);
 		reviewService.updateReview(review);
 		
 		return "redirect:/review/getReview?reviewNo="+review.getReviewNo();

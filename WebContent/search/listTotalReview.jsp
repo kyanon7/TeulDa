@@ -102,9 +102,11 @@
 				<li class="nav-item">
 					<a class="nav-link active" href="/review/listTotalReview?searchKeyword=${ search.searchKeyword }">REVIEW</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link"  href="/user/listUserTotal?searchKeyword=${ search.searchKeyword }">USER</a>
-				</li>
+				<c:if test="${ !empty user }">
+					<li class="nav-item">
+						<a class="nav-link"  href="/user/listUserTotal?searchKeyword=${ search.searchKeyword }">USER</a>
+					</li>
+				</c:if>
 				<li class="nav-item">
 					<a class="nav-link" href="/diary/listTotalHashTag?hashTagName=${ search.searchKeyword }">HASHTAG</a>
 				</li>
@@ -175,7 +177,7 @@
 									</div> 
 								</div> 
 							<div class="col-md-4">
-								<img src="../resources/images/review/${review.reviewPhoto}" style="float:right;" width="200px" height="200px">
+								<img src="../resources/images/review/${review.reviewPhoto}" style="float:right;" width="200px" height="200px" onerror="this.remove ? this.remove() : this.removeNode();">
 							</div>
 						</div>
 					  </div>

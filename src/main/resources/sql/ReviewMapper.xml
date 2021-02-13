@@ -52,8 +52,9 @@
 	   	<set>
 			review_addr 	= #{reviewPlace}, 
 			content			= #{reviewContents}, 
-			review_photo	= #{reviewPhoto},
-			<!-- review_date		= #{reviewDate}, -->
+			<if test="reviewPhoto != null and !reviewPhoto.equals('')">
+				review_photo	= #{reviewPhoto:VARCHAR},
+			</if>
 			star			= #{star},
 			is_allowed		= #{isAllowed}
 		</set>
@@ -139,7 +140,7 @@
 	<!-- SQL : SELECT ROW COUNT -->
 	<select	id="getTotalCount"	parameterType="com.teulda.common.Search"	resultType="int">
 		SELECT COUNT(*)
-		FROM	(SELECT r.review_id, r.nickname, r.review_addr, r.content, 
+		FROM	(SELECT	r.review_id, r.nickname, r.review_addr, r.content, 
 						r.review_photo, r.review_date, r.star, r.is_allowed
 						FROM review r
 						<choose>

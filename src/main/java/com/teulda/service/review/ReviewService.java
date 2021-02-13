@@ -30,5 +30,5 @@ public interface ReviewService {
     public void deleteReview(int reviewNo) throws Exception;
     
     //	파일 업로드
-    public String uploadFile(Review review, String path, MultipartHttpServletRequest request) throws Exception;
+    public void uploadFile(Review review, String path, MultipartHttpServletRequest request) throws Exception;
 }

@@ -231,6 +231,7 @@
                         subLink.setAttribute("href", "/diary/getDiary?diaryNo="+target.diaryNo);
                         cardImage.setAttribute("src", target.thumbnail);
                         cardImage.setAttribute("alt", target.thumbnail);
+                        cardImage.setAttribute("onerror", "this.remove ? this.remove() : this.removeNode();");
 
                         nicks.textContent = target.nickname;
                         title.textContent = target.title;
