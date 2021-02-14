@@ -50,7 +50,7 @@
     
 <!-- SQL : SELECT SUBSCRIBE DIARY LIST -->
    <select  id="getSubscribeDiaryList"  parameterType="map"   resultMap="diarySelectMap">
-   SELECT diary_id, title, diary_addr, diary_date, origin_nick, start_date, end_date, thumbnail, group_id 
+   SELECT *
    FROM diary
    WHERE origin_nick IN 
    <foreach collection="subscriberList" item="userList" index="index" open="(" close=")" separator=",">#{userList}</foreach>

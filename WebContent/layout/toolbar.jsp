@@ -16,7 +16,7 @@
 				})
 				.then(res => res.json())
 				.then(result => {
-					const chat = window.open(`https://teuldachatting.herokuapp.com?nickname=\${result.nickname}`, '_blank');
+					const chat = window.open('https://teuldachats.herokuapp.com/', '_blank');
 					chat.focus();
 				})
 				.catch(err => {
