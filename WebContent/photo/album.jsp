@@ -17,10 +17,38 @@
 
 		
 		<style>
-			
+			/* .card-img-top {
+			  transform: scale(1);
+			  -webkit-transform: scale(1);
+			  -moz-transform: scale(1);
+			  -ms-transform: scale(1);
+			  -o-transform: scale(1);
+			  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+			}
+			/*.card-img-top:hover {
+			  transform: scale(2.2);
+			  -webkit-transform: scale(2.2);
+			  -moz-transform: scale(2.2);
+			  -ms-transform: scale(2.2);
+			  -o-transform: scale(2.2);
+			} */
+			/* .card-body {width:325px; height:280px; overflow:hidden }   /* 부모를 벗어나지 않고 내부 이미지만 확대 */ */
 		</style>
+		
 		<script>
 		
+		  function zoomIn(event) {
+			    event.target.style.transform = "scale(2.2)";
+			    event.target.style.zIndex = 1;
+			    event.target.style.transition = "all 0.5s";
+			  }
+
+		  function zoomOut(event) {
+			    event.target.style.transform = "scale(1)";
+			    event.target.style.zIndex = 0;
+			    event.target.style.transition = "all 0.5s";
+			  }
+			  
 		$(function(){
 			$("#addPhoto").on("click", function(){
 				if($('form[name="fileForm"]').css("display") == "none"){
@@ -116,7 +144,7 @@
 									</div>
 									<div class="card-body">
 										<h5 class="card-title" id ="${photo.photoNo}"></h5>
-										<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
+										<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)"/>
 										<p class="card-text" id="content">등록일 : ${photo.photoDate }
 										<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
 										<input type="hidden" value="${ photo.photoNo }" style="float:right;"></p>
