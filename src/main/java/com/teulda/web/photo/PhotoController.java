@@ -248,6 +248,6 @@ public class PhotoController {
   		
   		model.addAttribute("groupNo", groupNo);
   		
-  		return "updateGroupName.jsp";
+  		return "forward:/photo/updateGroupName.jsp";
   	}
 }
