@@ -42,15 +42,11 @@
 	}
 	
 	
-$(function(){
+	$(function(){
 		
-		$(".nickname").on("click", function(){
-			
-			if("${sessionScope.user.nickname}"!=null){
+		$(".ct_list_pop td:nth-child(3)").on("click", function(){
+
 			self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
-			}else{
-			self.loacation="/user/login"
-			}
 		});
 	});
 

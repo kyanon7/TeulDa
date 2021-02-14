@@ -34,7 +34,7 @@
 });
 	function fncAddPost(){
 		
-		var postTitle = $("input[name:'postTitle']").val();	
+		/* var postTitle = $("input[name:'postTitle']").val();	
 		var postCategory= $("select[name:'postCategory']").val();	
 	
 	
@@ -45,7 +45,7 @@
 		if(postTtile == null || postTtile.length<1){
 			alert("제목은 반드시 입력하여야 합니다.");
 			return;
-		}  
+		}   */
 	
 	$("form").attr("method","POST").attr("action","/post/addPost").submit();
 }
@@ -81,7 +81,7 @@
   			</div>
  			 <div class="col-md-8">
  			 	<form name="addPost">
- 			 	
+ 			 		<small class="form-text text-muted">게시판 유형</small>
    					<select class="form-control" name="postCategory" style="width: 200px; height: 50px;">
     				<option>게시판 유형</option>
    			  	    <option  value="1" >여행지 정보공유</option>
@@ -96,7 +96,8 @@
 			<div class="row">
 				
 				<div style="width: 100%;">
-				<br>			
+				<br>
+				<small class="form-text text-muted">제 목</small>			
 				<input type="text" name="postTitle" class="form-control" placeholder="제목"/>
 				<br><br> 
 				<textarea id="summernote" name="postContents"></textarea>

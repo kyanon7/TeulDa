@@ -31,10 +31,20 @@
 
 <script>
 
-		//닉네임 클릭시 프로필로 이동
+	
+	
+	//닉네임 클릭시 프로필로 이동
+	$(function(){
+		
+		$(".nickname").on("click", function(){
+	
+			self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+		});
+	});
+		//댓글 닉네임 클릭시 프로필로 이동
 		$(function(){
 			
-			$(".nickname").on("click", function(){
+			$("strong").on("click", function(){
 				self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
 			});
 		});
@@ -76,8 +86,7 @@
 		$(function(){
 			
 			$("button:contains('삭제')").on("click", function(){
-				
-				alert("버튼 클릭됨");
+
 				
 				$.ajax({
 				url : "/post/rest/deleteComment",	
@@ -128,7 +137,6 @@
 			
 			$("#finalupdate").on("click", function(){
 				
-				alert("버튼 클릭됨");
 				
 				$.ajax({
 				url : "/post/rest/updateComment",	
@@ -229,12 +237,14 @@
 						<br />
 				
 					<c:if test="${ !empty user }">
-
+ 						<div class="input-group">
 						<input type="text" name="commentContents" id="commentContents"
 							class="form-control" placeholder="댓글을 작성해주세요." maxlength="200" />
-						<br/>
+						<span class="input-group-btn">
 						<button class="btn btn-info" type="submit">등록</button>
 						<input type="hidden" value="${ post.postNo }" />
+						</span>
+						</div>
 					<br/>
 					<br/>
 					</c:if>
@@ -244,7 +254,7 @@
 
 								<c:set var="i" value="${i+1}" />
 								<div class="toast-header">
-									<strong class="mr-auto">${comment.nickname}</strong> <small>${comment.commentDate}</small>
+									<strong class="mr-auto" id="${comment.nickname}">${comment.nickname}</strong> <small>${comment.commentDate}</small>
 										&emsp;
 									<c:if
 										test="${ sessionScope.user.nickname == comment.nickname }">
@@ -291,11 +301,12 @@
 						
     </table> -->
 					
-					
+					<%-- 
 					<input type="hidden" id="currentPage" name="currentPage" value="" />
 						<!-- PageNavigation Start... -->
 					<jsp:include page="../common/pageNavigator.jsp" />
-						<!-- PageNavigation End... -->
+						<!-- PageNavigation End... --> --%>
+					<br/><br/><br/>
 				</div>
 			</div>
 		</div>

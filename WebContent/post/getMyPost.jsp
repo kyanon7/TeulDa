@@ -26,17 +26,21 @@
 
 <script>
 
+	//댓글 닉네임 클릭시 프로필로 이동
+	$(function(){
+		
+		$("strong").on("click", function(){
+			self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+		});
+	});
+
 
 	//닉네임 클릭시 프로필로 이동
 	$(function(){
 		
 		$(".nickname").on("click", function(){
-			
-			if("${ !empty user }"){
+	
 			self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
-			}else{
-			self.loacation="/user/login"
-			}
 		});
 	});
 	
@@ -95,7 +99,7 @@
 		
 		$("#finalupdate").on("click", function(){
 			
-			alert("버튼 클릭됨");
+		
 			
 			$.ajax({
 			url : "/post/rest/updateComment",	
@@ -130,7 +134,7 @@
 		
 		$("button:contains('삭제')").on("click", function(){
 			
-			alert("버튼 클릭됨");
+		
 			
 			$.ajax({
 			url : "/post/rest/deleteComment",	
@@ -272,14 +276,18 @@
 					<br/>
 					<h4>&emsp;댓글</h4>
 					<br />
-					<br /> <input type="text" name="commentContents"
+					<br /> 
+					 <div class="input-group">
+					<input type="text" name="commentContents"
 						id="commentContents" class="form-control"
 						placeholder="댓글을 작성해주세요." maxlength="200" /> <br />
-					<br />
+					<span class="input-group-btn">
 					<button class="btn btn-info" type="submit">등록</button>
 					
 					<input type="hidden" value="${ post.postNo }" />
 					<!-- </form> -->
+					</span>
+					</div>
 					<br/>
 					<br/>
 					<div class="toast show" role="alert" aria-live="assertive"
@@ -289,7 +297,7 @@
 
 							<c:set var="i" value="${i+1}" />
 							<div class="toast-header">
-								<strong class="mr-auto">${comment.nickname}</strong> <small>${comment.commentDate}</small>
+								<strong class="mr-auto" id="${comment.nickname}">${comment.nickname}</strong> <small>${comment.commentDate}</small>
 									&emsp;
 								<c:if test="${ sessionScope.user.nickname == comment.nickname }">
 									<button type='button' class='badge badge-info'
@@ -325,10 +333,11 @@
 					<!-- 	</tbody>
     </table> -->
     
-    <input type="hidden" id="currentPage" name="currentPage" value="" />
+  <%--   <input type="hidden" id="currentPage" name="currentPage" value="" />
 						<!-- PageNavigation Start... -->
 						<jsp:include page="../common/pageNavigator.jsp" />
-						<!-- PageNavigation End... -->
+						<!-- PageNavigation End... --> --%>
+						<br/><br/><br/>
 				</div>
 			</div>
 		</div>
