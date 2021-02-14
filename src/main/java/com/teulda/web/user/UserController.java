@@ -1,7 +1,12 @@
 package com.teulda.web.user;
 
+import java.io.File;
+import java.util.Map;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.teulda.common.Group;
 import com.teulda.common.Page;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Report;
@@ -43,8 +52,12 @@ public class UserController {
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
 	@Value("#{commonProperties['pageSize']}")
-	int pageSize;
+	int pageSize;	
+	@Value("#{commonProperties['corudPath']}") 
+	String path;
+	 
 	
+
 	
 	@RequestMapping( value="addUser", method=RequestMethod.GET )
 	public String addUser() throws Exception{
@@ -55,11 +68,28 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="addUser", method=RequestMethod.POST )
-	public String addUser( @ModelAttribute("user") User user ) throws Exception {
+	public String addUser( @ModelAttribute("user") User user, Group group, MultipartHttpServletRequest request
+			) throws Exception {
 
+		
+		/*
+		 * String path =
+		 * "/Users/82105/git/TeulDa/WebContent/resources/images/profilePhoto";
+		 */
+		 
+		
 		System.out.println("/user/addUser : POST");
 		//Business Logic
+		
+		
+		
+		
+		//Business Logic
+		//user.setProfilePhoto(fileName);
+		userService.uploadFile(user, path, request);
 		userService.addUser(user);
+		userService.addGroup1(group);
+		userService.addGroup2(group);
 		
 		return "redirect:/user/successJoin.jsp";
 	}
@@ -289,7 +319,8 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="listUserTotal", method = { RequestMethod.GET, RequestMethod.POST } )
-	public String listUserTotal( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+	public String listUserTotal( @ModelAttribute("search") Search search , @RequestParam(value="searchKeyword", required=false) String searchKeyword,
+			Model model , HttpServletRequest request) throws Exception{
 		
 		System.out.println("/user/listUserTotal :"+"debug");
 		
@@ -299,6 +330,10 @@ public class UserController {
 		
 		if (search.getSearchSorting() == null) {
 			search.setSearchSorting("0");
+		}
+		if (searchKeyword != null) {
+			search.setSearchCondition("0"); // 전체 검색 
+			search.setSearchKeyword(searchKeyword);
 		}
 		search.setPageSize(pageSize);
 		

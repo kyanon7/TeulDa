@@ -45,6 +45,19 @@
 		VALUES	 (	#{nickname} , #{email} , #{password} , #{name}, #{phone:VARCHAR}, #{address:VARCHAR},
 							#{likePlace:VARCHAR}, #{birth:VARCHAR}, #{profilePhoto:VARCHAR}, #{statusDate:VARCHAR}, 't' ,'0','1')
 	</insert>
+	
+	<!-- SQL : 회원가입 시 GROUP추가-->
+	<insert	id="addGroup1"	parameterType="group" >
+	INSERT
+	INTO groups (group_id, group_name, nickname, delete_date, group_type)
+	VALUES (seq_groups_group_id.nextval, 'default1', #{nickname}, null, 1)
+	</insert>
+	
+	<insert	id="addGroup2"	parameterType="group" >
+	INSERT
+	INTO groups (group_id, group_name, nickname, delete_date, group_type)
+	VALUES (seq_groups_group_id.nextval, 'default2', #{nickname}, null, 2)
+	</insert>
 	 
 	<!-- SQL : SELECT ONE 회원정보상세조회-->
 	<select	id="getUser"	 parameterType="String"	 resultMap="userSelectMap">
@@ -240,7 +253,10 @@
 	
 	<select  id="getUserListTotal"  parameterType="search"	resultMap="userSelectMap">
 	SELECT  *
-    FROM users
+    FROM (select inner_table.*, rownum as row_seq 
+    		FROM (SELECT  nickname , email, user_name , phone_number, user_addr, like_addr, user_photo, 
+		is_public, status, role
+    			FROM users
         			<where>
        				(is_public in 't' AND role in '1')
                 			<choose>    
@@ -272,7 +288,9 @@
         				<when test = "searchSorting eq '2'.toString()">
         				ORDER BY user_name ASC
         				</when>
-        			</choose>
+        			</choose>) inner_table
+      		WHERE ROWNUM &lt; = #{endRowNum} )
+	WHERE row_seq between #{startRowNum} and #{endRowNum} 
 	</select>
 	<!-- SQL : SELECT LIST 유저정보-->
 	<!-- <select  id="getUserListPublic"  parameterType="com.teulda.service.domain.User"	resultMap="userSelectMap">

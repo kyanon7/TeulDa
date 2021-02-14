@@ -72,6 +72,8 @@
 		<div class="page-header">
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
+	    
+	    <div class="select-img"><img src="${user.profilePhoto}" style="width: 90%;"/></div>
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>닉네임</strong></div>

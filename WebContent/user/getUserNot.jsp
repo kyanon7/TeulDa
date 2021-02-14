@@ -213,6 +213,8 @@
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
 	    
+	    <%-- <div class="select-img"><img src="${user.profilePhoto}" style="width: 90%;"/></div> --%>
+	    
 	    <input type="hidden" name="targetNick" value="${user.nickname}" />
 	    <input type="hidden" name="nickname" value="${user.nickname}" />
 	

@@ -220,6 +220,8 @@
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
 	    
+	    <div class="select-img"><img src="${user.profilePhoto}" style="width: 90%;"/></div>
+	    
 	    <input type="hidden" name="targetNick" value="${user.nickname}" />
 	    <input type="hidden" name="nickname" value="${user.nickname}" />
 	
@@ -251,19 +253,8 @@
 		
 		<hr/>
 		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>휴대전화번호</strong></div>
-			<div class="col-xs-8 col-md-4">${ !empty user.phone ? user.phone : ''}	</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>이 메 일</strong></div>
-			<div class="col-xs-8 col-md-4">${user.email}</div>
-		</div>
-		
-		<hr/>
+	
+	
 		
 
 		

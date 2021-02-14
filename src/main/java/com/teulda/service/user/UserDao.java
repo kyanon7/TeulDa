@@ -3,6 +3,7 @@ package com.teulda.service.user;
 import java.util.List;
 import java.util.Map;
 
+import com.teulda.common.Group;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
@@ -13,6 +14,10 @@ public interface UserDao {
 	
 	// INSERT
 	public void addUser(User user) throws Exception ;//가입 완
+	
+	public void addGroup1(Group group) throws Exception;//그룹추가
+	
+	public void addGroup2(Group group) throws Exception;//그룹추가
 	
 	public void checkPhone(String phone) throws Exception ;//핸드폰인증
 	
