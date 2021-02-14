@@ -83,17 +83,17 @@
 	               <div class="dropdown-menu" >
 	               <a class="dropdown-item" id="post" href="/post/listPost?postCategory=6">자유게시판</a>
 	               <a class="dropdown-item" href="/diary/listTotalDiary">통합검색</a>
+	               <a class="dropdown-item" id="subscribe" href="/subscribe/listSubscribe">구독</a>
 	               <div class="dropdown-divider"></div>
 	               <a class="dropdown-item" id="chat" href="#">채팅</a>
 	               </div>
 	            </li>
 	            <li class="nav-item dropdown" >
-	               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page</a>
+	               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Diary</a>
 	               <div class="dropdown-menu" >
 	               <a class="dropdown-item" href="/diary/selectMap.jsp">기록</a>
 	               <a class="dropdown-item" id="photo" href="/photo/listPhoto">앨범</a>
 	               <a class="dropdown-item" id="review" href="/review/listReview">후기</a>
-	               <a class="dropdown-item" id="subscribe" href="/subscribe/listSubscribe">구독</a>
 	               </div>
 	            </li>
 	         </ul>

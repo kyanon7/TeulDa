@@ -58,7 +58,7 @@
   	    
   	    <br>
 		
-		<h4><img src = "/resources/images/crown.png" width="20px">&nbsp; top use hashtag <img src = "/resources/images/crown.png" width="20px"></h4>
+		<h4><img src = "/resources/images/crown.png" width="20px">&nbsp; Now trending hashtags <img src = "/resources/images/crown.png" width="20px"></h4>
 				
 		<div class="row">
 			<div class="col-md-3"></div>
@@ -105,7 +105,7 @@
 
 		<br><br>
 
-		<h4><img src = "/resources/images/crown.png" width="20px">&nbsp; top view count diary <img src = "/resources/images/crown.png" width="20px"></h4>
+		<h4><img src = "/resources/images/crown.png" width="20px">&nbsp; Most viewed diary <img src = "/resources/images/crown.png" width="20px"></h4>
   	    <div class="row">
   	    	<c:set var="i" value="0" />
   	    	<c:forEach var="diary" items="${ topViewDiaryList }">
@@ -127,7 +127,7 @@
   	    </div> 
   	    
   	    <br><br>
-  	    <h4><img src = "/resources/images/crown.png" width="20px">&nbsp; top bookmark count diary <img src = "/resources/images/crown.png" width="20px"></h4>
+  	    <h4><img src = "/resources/images/crown.png" width="20px">&nbsp; Most bookmarked diary <img src = "/resources/images/crown.png" width="20px"></h4>
   	    <div class="row">
   	    	<c:set var="i" value="0" />
   	    	<c:forEach var="diary" items="${ topBookmarkDiaryList }">
