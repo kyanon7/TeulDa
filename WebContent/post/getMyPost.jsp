@@ -200,9 +200,11 @@
 	<br />
 	<br />
 
-	<div class="container">
+
 		<div class="row">
-			<div class="col-md-3">
+		<div class="col-md-1">
+		</div>
+			<div class="col-md-2">
 				<jsp:include page="../post/leftbar.jsp" />
 			</div>
 
@@ -211,22 +213,22 @@
 				<div class="col-md-9">
 
 					<c:if test="${post.postCategory eq '0'.charAt(0)}">
-						<h4>자유 게시글</h4>
+						<h4>&emsp;자유 게시글</h4>
 					</c:if>
 					<c:if test="${post.postCategory eq '1'.charAt(0)}">
-						<h4>여행지 정보공유</h4>
+						<h4>&emsp;여행지 정보공유</h4>
 					</c:if>
 					<c:if test="${post.postCategory eq '2'.charAt(0)}">
-						<h4>맛집 정보공유</h4>
+						<h4>&emsp;맛집 정보공유</h4>
 					</c:if>
 					<c:if test="${post.postCategory eq '3'.charAt(0)}">
-						<h4>숙소 정보공유</h4>
+						<h4>&emsp;숙소 정보공유</h4>
 					</c:if>
 					<c:if test="${post.postCategory eq '4'.charAt(0)}">
-						<h4>Q&A</h4>
+						<h4>&emsp;Q&A</h4>
 					</c:if>
 					<c:if test="${post.postCategory eq '5'.charAt(0)}">
-						<h4>잡담</h4>
+						<h4>&emsp;잡담</h4>
 					</c:if>
 
 
@@ -235,14 +237,17 @@
 					<div class="card border-secondary md-6" style="width: 50rem;">
 						<div class="card-header"><div class="nickname"id="${post.nickname}">작성자 : ${post.nickname}</div>					
 						<hr>
-							제목 : ${post.postTitle} &emsp;&emsp;
+							글번호 : ${post.postNo} &emsp;&emsp;
 							 &nbsp; &nbsp; 작성일자 :
 							${fn:substring(post.postDate, 0, 10)}
 							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-							&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-							
+							&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+							&emsp;&emsp;
+						
 							조회수 : ${post.viewCount}</div>
-						<div class="card-body"></div>
+						<div class="card-body">
+						<h4>${post.postTitle}</h4>
+						</div>
 						<div class="card-title">
 							
 						</div>
@@ -250,34 +255,37 @@
 					</div>
 					<br />
 					<br />
+					
 
 
 					<button class="btn btn-info" type="submit">게시글 수정</button>
 					<out class="btn btn-info" type="submit">삭제</out>
 					<button class="btn btn-info" type="button">취소</button>
-
+					<br/>
 
 					<!-- 	<form name="addComment" id="addComment"> -->
-
-					<h4>댓글</h4>
+					<br/>
+					<h4>&emsp;댓글</h4>
 					<br />
 					<br /> <input type="text" name="commentContents"
 						id="commentContents" class="form-control"
 						placeholder="댓글을 작성해주세요." maxlength="200" /> <br />
 					<br />
 					<button class="btn btn-info" type="submit">등록</button>
+					
 					<input type="hidden" value="${ post.postNo }" />
 					<!-- </form> -->
-
+					<br/>
+					<br/>
 					<div class="toast show" role="alert" aria-live="assertive"
-						aria-atomic="true" id="comment">
+						aria-atomic="true" id="comment" style="width: 400px;">
 						<c:set var="i" value="0" />
 						<c:forEach var="comment" items="${commentList}">
 
 							<c:set var="i" value="${i+1}" />
 							<div class="toast-header">
 								<strong class="mr-auto">${comment.nickname}</strong> <small>${comment.commentDate}</small>
-
+									&emsp;
 								<c:if test="${ sessionScope.user.nickname == comment.nickname }">
 									<button type='button' class='badge badge-info'
 										data-toggle='modal' data-target='#modifyModal'>수정</button>
@@ -311,10 +319,15 @@
       			 </c:forEach> --%>
 					<!-- 	</tbody>
     </table> -->
+    
+    <input type="hidden" id="currentPage" name="currentPage" value="" />
+						<!-- PageNavigation Start... -->
+						<jsp:include page="../common/pageNavigator.jsp" />
+						<!-- PageNavigation End... -->
 				</div>
 			</div>
 		</div>
-	</div>
+	
 
 	<div class="modal fade" id="modifyModal" role="dialog">
 		<div class="modal-dialog">

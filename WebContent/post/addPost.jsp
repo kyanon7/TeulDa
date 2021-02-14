@@ -24,7 +24,8 @@
 	$(document).ready(function() {
 		  $('#summernote').summernote({
 	    	placeholder: '게시글을 남겨주세요',
-	    	 height: 450,     
+	    	 height: 450,  
+	    	 width: 800,
    		     minHeight: null,
    		     maxHeight: null,
    		     focus: true, 
@@ -33,8 +34,8 @@
 });
 	function fncAddPost(){
 		
-		/* var postTitle = $("input[name:'title']").val();	
-		var postConetents= $("textarea[name:'content']").val();	
+		var postTitle = $("input[name:'postTitle']").val();	
+		var postCategory= $("select[name:'postCategory']").val();	
 	
 	
 		if(postCategory == null || postCategory.length<1){
@@ -44,7 +45,7 @@
 		if(postTtile == null || postTtile.length<1){
 			alert("제목은 반드시 입력하여야 합니다.");
 			return;
-		}  */
+		}  
 	
 	$("form").attr("method","POST").attr("action","/post/addPost").submit();
 }
@@ -65,16 +66,20 @@
 </head>
 <body>
 	<jsp:include page="../layout/toolbar.jsp"/>
+	<br/>
 
 
-	<div class="container">
   			<div class="row">
+  			<div class="col-md-1">
+  			</div>
   				<div class="col-md-2">
   					<jsp:include page="../post/leftbar.jsp" />
 			</div>
 				
 			<div class="row">
- 			 <div class="col-md-10">
+			<div class="col-md-1">
+  			</div>
+ 			 <div class="col-md-8">
  			 	<form name="addPost">
  			 	
    					<select class="form-control" name="postCategory" style="width: 200px; height: 50px;">
@@ -98,7 +103,6 @@
 				<!-- <input id="subBtn" type="button" value="등록" style="float: right;"/>
 				<input id="cancleBtn" type="button" value="취소" style="float: right;"/> -->
 				<br>
-		
 				<button class="btn btn-info" type="submit">등록</button>
 				<button class="btn btn-info" type="button">취소</button>
 				</div>
@@ -108,6 +112,6 @@
 		</div>
 	</div>
 </div>
-</div>
+
 </body>
 </html>

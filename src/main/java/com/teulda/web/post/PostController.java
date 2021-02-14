@@ -101,7 +101,7 @@ import com.teulda.service.user.UserService;
 		if (search.getSearchSorting() == null) {
 			search.setSearchSorting("0");
 		}
-		search.setPageSize(pageSize);
+		search.setPageSize(7);
 		//search.setSearchSorting("3");
 		
 		System.out.println("////////////////////////////////");
@@ -114,7 +114,7 @@ import com.teulda.service.user.UserService;
 		System.out.println(postCategory);
 		System.out.println("////////////////////////////////");
 		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, 7);
 		
 		System.out.println("////////////////////////////////");
 		System.out.println(resultPage);
@@ -237,13 +237,13 @@ import com.teulda.service.user.UserService;
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}
-		search.setPageSize(pageSize);
+		search.setPageSize(7);
 		//search.setSearchSorting("3");
 		
 		
 		Map<String, Object> map = postService.getPostListBynickname(search, nickname, postCategory);
 
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, 7);
 		System.out.println(resultPage);
 		
 		model.addAttribute("postCategory", postCategory);
@@ -312,13 +312,13 @@ import com.teulda.service.user.UserService;
 		if (search.getSearchSorting() == null) {
 			search.setSearchSorting("0");
 		}
-		search.setPageSize(pageSize);
+		search.setPageSize(7);
 		//search.setSearchSorting("3");
 		
 		
 		Map<String, Object> map = postService.getMycommentList(search, nickname);
 
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, 7);
 		System.out.println(resultPage);
 		
 		model.addAttribute("nickname", nickname);

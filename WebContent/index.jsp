@@ -15,26 +15,55 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	
 		<style>
-		button{position: absolute;top: 50%;left: 50%;margin:-100px 0 0 -100px}
+		/* button{position: absolute;top: 60%;left: 60%;margin:-100px 0 0 -100px} */
+		h5{font-size: xx-large ;color :   #f5f5f5; position: absolute;top: 55%;left: 48%;margin:-100px 0 0 -100px}
+		#video {
+		     position: absolute;
+		      top: 0;
+		     left: 0;
+		  /*   min-width: 0;
+		     min-height: 0; */
+		     width: 100%;
+		     height: 100%;
+		     z-index: -1;
+		     overflow: hidden;
+		}
+		@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
+		
+		h5{
+			
+			 font-family: 'Nanum Brush Script', cursive;
+		}
 		</style>
 		<script>
 		$(function() {
 
-			$("button:contains('Start')").on("click", function() { // 검색 버튼
+			$("h5").on("click", function() { // 검색 버튼
 				self.location = "/diary/listMainRanking";
 			});
 
 		});
+
 		</script>
-	
+
 	</head>
 
 	<body>
 	<div class="container">
 		<div class="row">
-			<button type="button" class="btn btn-outline-info">Start</button>
+			<h5>지나간 추억을 다시 틀다</h5>
+	<!-- 		<button type="button" class="btn btn-outline-info">Start</button> -->
 		</div>
 	</div>
+
+	<video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+      <source src="../resources/video/mainPage.mp4">
+
+	</video>
+
+
+
+
 
 	</body>
 </html>

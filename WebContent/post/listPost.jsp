@@ -114,10 +114,12 @@
 
 	<form name="detailForm">
 
-		<div class="container">
+	
 			<div class="row">
+			<div class="col-md-1">
+			</div>
 				<!-- diary toolbar로 빼도 될 듯 -->
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<jsp:include page="../post/leftbar.jsp" />
 				</div>
 
@@ -238,7 +240,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+	
 	</form>
 </body>
 </html>
