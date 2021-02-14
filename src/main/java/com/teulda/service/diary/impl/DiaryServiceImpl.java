@@ -248,6 +248,12 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 	
 	@Override
+	// 기록 그룹 이름 변경을 위한 비즈니스 수행
+	public void updateDiaryGroup(Group group) throws Exception {
+		diaryDao.updateDiaryGroup(group);
+	}
+	
+	@Override
 	// 기록 조회수 증가를 위한 비즈니스 수행 
 	public void updateDiaryViewCount(int diaryNo) throws Exception {
 		diaryDao.updateDiaryViewCount(diaryNo);

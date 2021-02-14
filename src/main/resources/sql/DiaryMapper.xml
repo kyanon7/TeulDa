@@ -515,6 +515,13 @@
 	</update>
 	
 	<!-- SQL : UPDATE -->
+	<update	id="updateDiaryGroupName"	parameterType="group">
+	UPDATE groups
+	SET group_name = #{groupName}
+	WHERE group_id = #{groupNo}
+	</update>
+	
+	<!-- SQL : UPDATE -->
 	<update	id="updateDiaryViewCount"	parameterType="int">
 	UPDATE diary
 	SET view_count = view_count + 1

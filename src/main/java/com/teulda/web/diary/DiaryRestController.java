@@ -147,7 +147,7 @@ public class DiaryRestController {
 		group.setGroupNo(groupNo);
 		group.setGroupName(groupName);
 		
-		// diaryService.updateDiaryGroupName(group);
+		diaryService.updateDiaryGroup(group);
 		
 		return "Success";
 	}

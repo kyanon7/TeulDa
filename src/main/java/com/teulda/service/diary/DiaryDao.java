@@ -89,6 +89,9 @@ public interface DiaryDao {
 
 	// UPDATE (기록 그룹 수정 - 그룹 옮김)
 	public void updateDiaryGroup(Diary diary) throws Exception;
+	
+	// UPDATE (기록 그룹 이름 변경)
+	public void updateDiaryGroup(Group group) throws Exception;
 
 	// UPDATE (기록 조회수 증가) 
 	public void updateDiaryViewCount(int diaryNo) throws Exception;

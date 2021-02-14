@@ -175,6 +175,11 @@ public class DiaryDaoImpl implements DiaryDao {
 	public void updateDiaryGroup(Diary diary) throws Exception {
 		sqlSession.update("DiaryMapper.updateDiaryGroup", diary);
 	}
+	
+	@Override
+	public void updateDiaryGroup(Group group) throws Exception {
+		sqlSession.update("DiaryMapper.updateDiaryGroupName", group);
+	}
 
 	@Override
 	public void updateDiaryViewCount(int diaryNo) throws Exception {

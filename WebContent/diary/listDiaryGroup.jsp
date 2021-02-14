@@ -120,12 +120,14 @@
 									</div>
 									</div>
 									<div class="card-body">
-										<c:if test="${ group.contentCount == 0 && group.groupName ne 'default2' }"> <!-- 기본 폴더는 삭제되면 안 됨 -->
+										<c:if test="${ group.contentCount == 0 && group.groupName ne 'default2' }"> <!-- 그룹안에 한개라도 있거나, 기본 그룹은 삭제되면 안 됨 -->
 										<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
 										<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
 										</c:if>
+										<c:if test="${ group.groupName ne 'default2' }"> <!-- 기본 그룹은 이름 수정되면 안 됨 -->
 										<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small>
 										<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
+										</c:if> 
 									</div>
 								</div>
 							</div>

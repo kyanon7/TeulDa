@@ -370,3 +370,8 @@ where diary_id in (select diary_id
                    from diary
                    where delete_date is not null and origin_nick = 'king주원')
 
+// 그룹 이름 수정
+
+update groups
+set group_name = '하이하이'
+where group_id = 10121
