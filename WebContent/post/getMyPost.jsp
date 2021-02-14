@@ -31,7 +31,12 @@
 	$(function(){
 		
 		$(".nickname").on("click", function(){
+			
+			if("${ !empty user }"){
 			self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+			}else{
+			self.loacation="/user/login"
+			}
 		});
 	});
 	
@@ -60,7 +65,7 @@
 				
 				if (result == "Success") {
 					alert("댓글이 등록되었습니다.");
-				 location.reload();
+					 location.reload();
 				} else{
 					alert("댓글이 등록되지 않았습니다.");
 				}
