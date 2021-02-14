@@ -123,6 +123,14 @@
 				
 			}
 			// ==========================================
+				
+			// 닉네임 누르면 프로필로 이동
+			$(function(){
+			
+				$("img[src='../resources/images/user.png']").on("click", function(){
+					self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+				});
+			});
 			
 	});
 	
@@ -147,7 +155,7 @@
   						
   						<div class="row">
   							<div class="col-md-3">
-  								<img src="../resources/images/user.png" height="30px">
+  								<img src="../resources/images/user.png" height="30px" id="${ diary.nickname }">
   								<h6 style="text-align: center;">${ diary.nickname }</h6>
   							</div>
   							<c:if test="${ ! empty sessionScope.user && sessionScope.user.nickname eq diary.nickname }">
@@ -235,7 +243,7 @@
 					<c:if test="${ ! empty sessionScope.user && sessionScope.user.nickname ne diary.nickname }"> <!-- 내가 작성한 기록은 북마크 못하게 하기 위함 -->
 					
 						<c:if test="${ diary.bookmarkNo == 0 }">
-						<span  class="badge badge-success" id="addBookmark">북마크 추가</span> <!-- 임시니까 아이콘으로 바꿔도 ㄱㅊㄱㅊ  -->
+						<span  class="badge badge-success" id="addBookmark">북마크 추가</span> 
 						</c:if>
 						<c:if test="${ diary.bookmarkNo != 0 }">
 						<span class="badge badge-outline-success" id="deleteBookmark">북마크 취소</span>

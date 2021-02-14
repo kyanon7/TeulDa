@@ -205,6 +205,16 @@ public class DiaryDaoImpl implements DiaryDao {
 	public void deletePhotoUseDiaryNo(int diaryNo) throws Exception {
 		sqlSession.delete("DiaryMapper.deletePhotoUseDiaryNo", diaryNo);
 	}
+	
+	@Override
+	public void deleteBinDiary(String nickname) throws Exception {
+		sqlSession.delete("DiaryMapper.deleteBinDiary", nickname);
+	}
+	
+	@Override
+	public void deleteBinDiaryHashTag(String nickname) throws Exception {
+		sqlSession.delete("DiaryMapper.deleteBinDiaryHashTag", nickname);	
+	}
 
 	@Override
 	public void deleteHashTag(int hashTagNo) throws Exception {

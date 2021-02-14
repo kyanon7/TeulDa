@@ -108,6 +108,12 @@ public interface DiaryDao {
 	// DELETE (기록 영구삭제할때 기록번호로 포함된 사진 싹 다 찾아서 삭제)
 	public void deletePhotoUseDiaryNo(int diaryNo) throws Exception;
 	
+	// DELETE (휴지통에 있는 모든 기록 영구삭제)
+	public void deleteBinDiary(String nickname) throws Exception;
+	
+	// DELETE (휴지통에 있는 모든 기록에 포함된 해시태그 삭제)
+	public void deleteBinDiaryHashTag(String nickname) throws Exception;
+	
 	// DELETE (해시태그 번호로 해시태그 삭제 - ajax로 바로 삭제)
 	public void deleteHashTag(int hashTagNo) throws Exception;
 	

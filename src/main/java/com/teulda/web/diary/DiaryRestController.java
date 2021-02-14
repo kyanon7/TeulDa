@@ -139,6 +139,20 @@ public class DiaryRestController {
 		return "Success";
 	}
 	
+	// updateGroupName.jsp 에서 기록 그룹 이름 수정
+	@RequestMapping(value="rest/updateGroupName", produces = "application/json")
+	public String updateGroupName(@RequestParam("groupNo") int groupNo, @RequestParam("groupName") String groupName) throws Exception {
+		
+		Group group = new Group();
+		group.setGroupNo(groupNo);
+		group.setGroupName(groupName);
+		
+		// diaryService.updateDiaryGroupName(group);
+		
+		return "Success";
+	}
+	
+	/*
 	// 관광 정보 받아오기
 	@RequestMapping(value = "rest/listTourInfo")
 	public String listTourInfo() throws Exception {
@@ -170,4 +184,7 @@ public class DiaryRestController {
 
 		return result + "</xmp>";
 	}
+	*/ 
+	
+	
 }

@@ -548,6 +548,22 @@
 	WHERE diary_id = #{diaryNo}
 	</delete>
 	
+	<!-- SQL : DELETE (휴지통 기록 전체삭제) -->
+	<delete 	id="deleteBinDiary"  parameterType="String">
+	DELETE
+	FROM diary
+	WHERE delete_date is not null and origin_nick = #{nickname}
+	</delete>
+	
+	<!-- SQL : DELETE (휴지통 기록에 포함된 해시태그 삭제) -->
+	<delete 	id="deleteBinDiaryHashTag"  parameterType="String">
+	DELETE
+	FROM hashtag
+	WHERE diary_id in (SELECT diary_id 
+                   		FROM diary
+                   		WHERE delete_date is not null and origin_nick = #{nickname})
+	</delete>
+	
 	<!-- SQL : DELETE -->
 	<delete 	id="deletePhotoUseDiaryNo"  parameterType="int" >
 	DELETE

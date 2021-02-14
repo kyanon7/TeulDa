@@ -64,6 +64,10 @@
 					
 				});
 				
+				$("p:contains('이름수정')").on("click", function(){
+					window.open("/diary/updateGroupName?groupNo="+$(this).children('input').val(), "updateGroupName", "width=350, height=150, left=550, top=250");
+				}); 
+				
 			});
 			
 		</script>
@@ -108,18 +112,20 @@
 
 
 							<div class="col-md-4">
-								<div class="card bg-light mb-3" style="max-width: 20rem; height: 7rem;">
+								<div class="card bg-light mb-3" style="max-width: 20rem; height: 9rem;">
 									<div class="listDiaryByGroup" id="${ group.groupNo }">
 									<div class="card-header">
 										${ group.groupName eq 'default2' ? '그룹 미지정' : group.groupName }
 										<span class="badge badge-primary badge-pill" style="float:right;">${ group.contentCount }</span>
 									</div>
-									<div class="card-body">
-										<c:if test="${ group.contentCount == 0 }">
-											<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
-											<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
-										</c:if>
 									</div>
+									<div class="card-body">
+										<c:if test="${ group.contentCount == 0 && group.groupName ne 'default2' }"> <!-- 기본 폴더는 삭제되면 안 됨 -->
+										<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
+										<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
+										</c:if>
+										<p class="card-text" style="text-align:right;"><small class="text-muted">이름수정</small>
+										<input type="hidden" value="${ group.groupNo }" style="float:right;"></p>
 									</div>
 								</div>
 							</div>

@@ -65,8 +65,11 @@ public interface DiaryService {
 //	// 스크랩 추가 할 시 회원 계정에서 스크랩 추가 횟수 증가 (addScrap 할 때 이 메소드 같이 돌려주기) 
 //	public void updateUserScrapCount(String originNickname) throws Exception;
 
-	// 기록 영구삭제 - 완료
+	// 기록 영구삭제 (낱개로 기록 영구삭제)
 	public void deleteDiary(int diaryNo) throws Exception;
+	
+	// 기록 영구삭제 (휴지통 비우기)
+	public void deleteDiary(String nickname) throws Exception; 
 	
 	// 해시태그 삭제 (기록 수정시 사용) - ajax 이용 할 듯? RestController - 완료 
 	public void deleteHashTag(int hashTagNo) throws Exception;
