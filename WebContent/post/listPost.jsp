@@ -42,13 +42,17 @@
 	}
 	
 	
-	//닉네임 누르면 프로필로 이동
-	$(function(){
-	
-			$(".ct_list_pop td:nth-child(3)").on("click", function(){
-				self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
-			});
+$(function(){
+		
+		$(".nickname").on("click", function(){
+			
+			if("${sessionScope.user.nickname}"!=null){
+			self.location = "/user/getUserNick?nickname=" + $(this).attr('id')
+			}else{
+			self.loacation="/user/login"
+			}
 		});
+	});
 
 	//제목 누르면 해당 게시물조회
 	$(function() {

@@ -38,7 +38,7 @@
 		<script>
 		$(function() {
 
-			$("h5").on("click", function() { // 검색 버튼
+			$("video").on("click", function() { // 검색 버튼
 				self.location = "/diary/listMainRanking";
 			});
 
@@ -51,7 +51,7 @@
 	<body>
 	<div class="container">
 		<div class="row">
-			<h5>지나간 추억을 다시 틀다</h5>
+			<h5>여행의 추억을 틀다</h5>
 	<!-- 		<button type="button" class="btn btn-outline-info">Start</button> -->
 		</div>
 	</div>
