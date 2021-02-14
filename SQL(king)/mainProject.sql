@@ -64,7 +64,7 @@ CREATE TABLE users (
 	user_addr				VARCHAR2(300),
 	like_addr				VARCHAR2(300),
 	birth					DATE,
-	user_photo				VARCHAR2(100),
+	user_photo				VARCHAR2(300),
 	update_status_date		DATE,
 	is_public				CHAR(1),
 	status					CHAR(1)			DEFAULT 0,
@@ -101,7 +101,7 @@ CREATE TABLE groups (
 CREATE TABLE report (
 	report_id			NUMBER			NOT NULL,
 	report_date			DATE			NOT NULL,
-	report_photo		VARCHAR2(100),
+	report_photo		VARCHAR2(300),
 	reason				VARCHAR2(100)	NOT NULL,
 	reporter_nick		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
 	target_nick			VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
@@ -112,7 +112,7 @@ CREATE TABLE report (
 //기록 테이블
 CREATE TABLE diary (
 	diary_id			NUMBER				NOT NULL,
-	title				VARCHAR2(100)		NOT NULL,
+	title				VARCHAR2(300)		NOT NULL,
 	diary_addr			VARCHAR2(300)		NOT NULL,
 	latitude			NUMBER				NOT NULL,
 	longitude			NUMBER				NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE diary (
 	start_date			VARCHAR2(20)		NOT NULL,
 	end_date			VARCHAR2(20)		NOT NULL,
 	content				CLOB,
-	thumbnail			VARCHAR2(100),
+	thumbnail			VARCHAR2(300),
 	view_count			NUMBER				DEFAULT 0,
 	delete_date			DATE,
 	scrap_nick			VARCHAR2(50)					REFERENCES users(nickname) ON DELETE CASCADE,
@@ -191,7 +191,7 @@ CREATE TABLE stamp (
 CREATE TABLE post (
 	post_id			NUMBER			NOT NULL,
 	nickname		VARCHAR2(50)	NOT NULL	REFERENCES users(nickname) ON DELETE CASCADE,
-	title			VARCHAR2(100)	NOT NULL,
+	title			VARCHAR2(300)	NOT NULL,
 	content			CLOB,
 	post_date		DATE			NOT NULL,
 	view_count		NUMBER			DEFAULT 0,
@@ -215,7 +215,7 @@ CREATE TABLE photo (
 	photo_group_id			NUMBER			REFERENCES groups(group_id) ON DELETE CASCADE,
 	post_id					NUMBER			REFERENCES post(post_id) ON DELETE CASCADE,
 	diary_id				NUMBER			REFERENCES diary(diary_id) ON DELETE CASCADE,
-	photo_name				VARCHAR2(100)	NOT NULL,
+	photo_name				VARCHAR2(300)	NOT NULL,
 	photo_addr				VARCHAR2(300),
 	latitude				NUMBER,
 	longitude				NUMBER,
