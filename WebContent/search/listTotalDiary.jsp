@@ -89,9 +89,11 @@ $(function() {
 			<li class="nav-item">
 				<a class="nav-link" href="/review/listTotalReview?searchKeyword=${ search.searchKeyword }">REVIEW</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="/user/listUserTotal?searchKeyword=${ search.searchKeyword }">USER</a>
-			</li>
+			<c:if test="${ !empty user }">
+				<li class="nav-item">
+					<a class="nav-link"  href="/user/listUserTotal?searchKeyword=${ search.searchKeyword }">USER</a>
+				</li>
+			</c:if>
 			<li class="nav-item">
 				<a class="nav-link" href="/diary/listTotalHashTag?hashTagName=${ search.searchKeyword }">HASHTAG</a>
 			</li>
