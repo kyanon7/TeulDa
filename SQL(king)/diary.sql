@@ -355,3 +355,18 @@ from
     order by count(*) desc
 )
 where rownum <= 9;
+
+// 휴지통 기록 비우기 (전체삭제)
+
+delete
+from diary
+where delete_date is not null and origin_nick = 'king주원' 
+
+// 휴지통으로 이동된 기록에 포함된 해시태그 전체삭제
+
+delete
+from hashtag
+where diary_id in (select diary_id 
+                   from diary
+                   where delete_date is not null and origin_nick = 'king주원')
+

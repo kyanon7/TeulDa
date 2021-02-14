@@ -265,11 +265,18 @@ public class DiaryServiceImpl implements DiaryService {
 //	}
 
 	@Override
-	// 기록 영구삭제를 위한 비즈니스 수행 
+	// 기록 영구삭제 (낱개로 기록 영구삭제) 를 위한 비즈니스 수행 
 	public void deleteDiary(int diaryNo) throws Exception {
 		diaryDao.deleteHashTagUseDiaryNo(diaryNo);
 		diaryDao.deletePhotoUseDiaryNo(diaryNo);
 		diaryDao.deleteDiary(diaryNo);
+	}
+	
+	// 기록 영구삭제 (휴지통 비우기) 위한 비즈니스 수행
+	@Override
+	public void deleteDiary(String nickname) throws Exception {
+		diaryDao.deleteBinDiaryHashTag(nickname);
+		diaryDao.deleteBinDiary(nickname);
 	}
 	
 	// 해시태그 번호로 해시태그 삭제를 위한 비즈니스 수행 

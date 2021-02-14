@@ -291,12 +291,34 @@ public class DiaryController {
 		return "forward:/diary/listDeleteDiary"; 
 	}
 	
+  	@RequestMapping(value="updateGroupName")
+  	public String updateGroupName(@RequestParam("groupNo")int groupNo, Model model) throws Exception{
+  		
+  		model.addAttribute("groupNo", groupNo);
+  		
+  		return "forward:/diary/updateGroupName.jsp";
+  	}
+	
+	// 기록 낱개로 영구삭제 
 	@RequestMapping(value="deleteDiary", method=RequestMethod.GET)
 	public String deleteDiary(@RequestParam("diaryNo") int diaryNo, Model model) throws Exception {
 		
 		System.out.println("/diary/deleteDiary : GET");
 		
 		diaryService.deleteDiary(diaryNo);
+		
+		return "forward:/diary/listDeleteDiary"; 
+	}
+	
+	// 휴지통에 담긴 전체 기록 영구삭제
+	@RequestMapping(value="deleteBinDiary", method=RequestMethod.GET)
+	public String deleteBinDiary(HttpSession session) throws Exception {
+		
+		System.out.println("/diary/deleteBinDiary : GET");
+		
+		User user = (User)session.getAttribute("user");
+		
+		diaryService.deleteDiary(user.getNickname());
 		
 		return "forward:/diary/listDeleteDiary"; 
 	}

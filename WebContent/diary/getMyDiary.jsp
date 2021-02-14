@@ -84,7 +84,7 @@
 					<div class="jumbotron">
 						<h6 style="text-align: center;">
 						<c:choose>
-							<c:when test="${ diary.groupName eq 'default2' }">기본 그룹</c:when>
+							<c:when test="${ diary.groupName eq 'default2' }"></c:when> <!-- 그룹 미지정일땐 아무것도 안 보이게 함 -->
 							<c:otherwise>${ diary.groupName }</c:otherwise>
 						</c:choose>
 						</h6>

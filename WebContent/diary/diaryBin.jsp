@@ -53,6 +53,16 @@
 					alert("영구삭제 되었습니다!"); 
 				}
 			});
+			
+			$("button:contains('휴지통 비우기')").on("click", function () {
+				
+				var result = confirm("휴지통에 담긴 기록을 영구삭제 하시겠습니까? \n다시 되돌릴 수 없습니다!");
+				if(result)
+				{
+					self.location = "/diary/deleteBinDiary";
+					alert("영구삭제 되었습니다!"); 
+				}
+			});
 
 		});
 		</script>
@@ -78,7 +88,10 @@
 				<ul class="list-group">
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 						기록 휴지통
+						<div>
+						<button type="button" class="btn btn-primary btn-sm">휴지통 비우기</button>
 						<span class="badge badge-primary badge-pill">${ totalCount }</span>
+						</div>
 					</li>
 				</ul><br> 
 				
