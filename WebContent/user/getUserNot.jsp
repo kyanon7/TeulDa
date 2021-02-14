@@ -246,6 +246,7 @@
 		
 		<hr/>
 		
+	<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>휴대전화번호</strong></div>
 			<div class="col-xs-8 col-md-4">${ !empty user.phone ? user.phone : ''}	</div>
@@ -259,6 +260,7 @@
 		</div>
 		
 		<hr/>
+	</c:if>
 		
 
 		
