@@ -27,16 +27,7 @@
 <!-- Google 지도 API 사용 스크립트 추가 -->
 
 
-<style>
-/* content 3줄 이상이면 자름 */
-body {
-    background-image: url("https://img.wallpapersafari.com/desktop/1920/1080/12/18/ZFBfjd.jpg");
-    background-repeat: no-repeat;
-	background-size: 110% auto;
-    
-}
 
-</style>
 
 <script>
 
@@ -177,9 +168,11 @@ body {
 	</header>
 	<br />
 	<br />
-	<div class="container">
+	
 		<div class="row">
-			<div class="col-md-3">
+		<div class="col-md-1">
+		</div>
+			<div class="col-md-2">
 				<jsp:include page="../post/leftbar.jsp" />
 			</div>
 
@@ -218,38 +211,41 @@ body {
 							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 							&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 							&emsp;&emsp;
+						
 							조회수 : ${post.viewCount}</div>
-						<div class="card-body"></div>
+						<div class="card-body">
+						<h4>${post.postTitle}</h4>
+						</div>
 						<div class="card-title">
-							<h4>${post.postTitle}</h4>
+							
 						</div>
 						<p class="card-text">${post.postContents}</p>
 					</div>
 					<br />
 					<br />
 
-					<c:if test="${ !empty user }">
+					
 						<h4>댓글</h4>
 						<br />
-						<br />
+				
+					<c:if test="${ !empty user }">
 
 						<input type="text" name="commentContents" id="commentContents"
 							class="form-control" placeholder="댓글을 작성해주세요." maxlength="200" />
-						<br />
-						<br />
+						<br/>
 						<button class="btn btn-info" type="submit">등록</button>
 						<input type="hidden" value="${ post.postNo }" />
-
-
-						<div class="toast show" role="alert" aria-live="assertive"
-							aria-atomic="true">
+					<br/>
+					<br/>
+					</c:if>
+						<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true"  style="width: 400px;" >			
 							<c:set var="i" value="0" />
 							<c:forEach var="comment" items="${commentList}">
 
 								<c:set var="i" value="${i+1}" />
 								<div class="toast-header">
 									<strong class="mr-auto">${comment.nickname}</strong> <small>${comment.commentDate}</small>
-
+										&emsp;
 									<c:if
 										test="${ sessionScope.user.nickname == comment.nickname }">
 										<button type='button' class='badge badge-info'
@@ -268,6 +264,8 @@ body {
 
 							</c:forEach>
 						</div>
+						
+						
 
 
 
@@ -289,13 +287,19 @@ body {
       			 </tr>
       			 </c:forEach> --%>
 						<!-- 	</tbody>
+						
+						
     </table> -->
-					</c:if>
+					
+					
+					<input type="hidden" id="currentPage" name="currentPage" value="" />
+						<!-- PageNavigation Start... -->
+					<jsp:include page="../common/pageNavigator.jsp" />
+						<!-- PageNavigation End... -->
 				</div>
 			</div>
 		</div>
-	</div>
-
+	
 
 	<div class="modal fade" id="modifyModal" role="dialog">
 		<div class="modal-dialog">
@@ -320,9 +324,6 @@ body {
 			</div>
 		</div>
 	</div>
-
-
-	
 
 </body>
 </html>
