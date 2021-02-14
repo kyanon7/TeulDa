@@ -5,6 +5,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.teulda.common.Group;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
@@ -12,6 +15,10 @@ import com.teulda.service.domain.User;
 public interface UserService {
 	
 	public void addUser(User user) throws Exception;//유저추가 완
+	
+	public void addGroup1(Group group) throws Exception;//그룹추가
+	
+	public void addGroup2(Group group) throws Exception;//그룹추가
 	
 	public void checkPhone(String phone) throws Exception ;//휴대폰 인증
 
@@ -52,6 +59,8 @@ public interface UserService {
 	public Map<String , Object> getUserBlackList(Search search) throws Exception ;//블랙리스트 리스트
 	
 	public Map<String , Object> getReportList(Search search) throws Exception ;///신고리스트 리스트
+
+	public String uploadFile(User user, String path, MultipartHttpServletRequest request) throws Exception;
 
 	
 	

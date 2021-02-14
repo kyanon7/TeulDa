@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.teulda.common.Group;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
@@ -31,6 +32,14 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void addUser(User user) throws Exception {
 		sqlSession.insert("UserMapper.addUser", user);	
+	}
+	
+	public void addGroup1(Group group) throws Exception {
+		sqlSession.insert("UserMapper.addGroup1", group);
+	}
+	
+	public void addGroup2(Group group) throws Exception {
+		sqlSession.insert("UserMapper.addGroup2", group);
 	}
 
 

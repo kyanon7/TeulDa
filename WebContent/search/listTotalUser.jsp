@@ -163,7 +163,7 @@
   				</div>
   			</div>
   			
-  			<!-- <input type="hidden" id="currentPage" name="currentPage" value="" /> -->
+  			 <input type="hidden" id="currentPage" name="currentPage" value="" /> 
   			
   			<div class="row">
   				<div class="col-md-2">
@@ -232,7 +232,7 @@
 	  
 	  	
 	   	<!-- PageNavigation Start... -->
-		<%-- <jsp:include page="../common/pageNavigator.jsp" /> --%>
+		<jsp:include page="../common/pageNavigator.jsp" />
 		<!-- PageNavigation End... -->
 		
 

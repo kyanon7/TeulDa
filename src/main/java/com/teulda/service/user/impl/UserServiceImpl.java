@@ -1,8 +1,10 @@
 package com.teulda.service.user.impl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,9 +13,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.teulda.common.Group;
 import com.teulda.common.Search;
 import com.teulda.service.domain.Report;
+import com.teulda.service.domain.Review;
 import com.teulda.service.domain.User;
 import com.teulda.service.user.UserDao;
 import com.teulda.service.user.UserService;
@@ -38,6 +44,18 @@ public class UserServiceImpl implements UserService {
 	public void addUser(User user) throws Exception {
 		userDao.addUser(user);
 	}//유저추가 완
+	
+	@Override
+	public void addGroup1(Group group) throws Exception {
+		userDao.addGroup1(group);
+		
+	}
+
+	@Override
+	public void addGroup2(Group group) throws Exception {
+		userDao.addGroup2(group);
+		
+	}
 
 	
 	@Override
@@ -218,6 +236,33 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	 @Override
+	    public String uploadFile(User user, String path, MultipartHttpServletRequest request) throws Exception{
+			
+			MultipartFile imageFile = request.getFile("imageFile");
+			String fileName = "";
+			String identify = UUID.randomUUID().toString();
+			String userPath = request.getSession().getServletContext().getRealPath(path);
+			//String userPath = "/Users/82105/git/TeulDa/WebContent/resources/images/profilePhoto";
+			
+			if(!imageFile.isEmpty() && !imageFile.getOriginalFilename().equals("")) {
+				File file = new File(userPath);
+				if(file.exists() == false) {
+					file.mkdirs();
+				}
+				
+					String pathName = imageFile.getOriginalFilename();
+					fileName = identify+"_"+pathName;
+					imageFile.transferTo(new File(userPath, fileName));
+					
+				}
+				user.setProfilePhoto(fileName);
+			
+			return fileName;
+		}
+
+
 
 
 	//@Override
