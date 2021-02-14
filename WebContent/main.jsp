@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-	    <title>MAIN</title>
+	    <title>TEULDA</title>
 	    
 	   	<!-- jQuery CDN -->
 		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -17,6 +17,9 @@
 		<style>
 		h4 {
 			text-align:center;
+		}
+		.card-body {
+			overflow: auto;
 		}
 		</style>
 		<script>
@@ -108,14 +111,14 @@
   	    	<c:forEach var="diary" items="${ topViewDiaryList }">
   	    		<c:set var="i" value="${ i+1 }" />
   	    		<div class="col-md-4">
-					<div class="card border-light mb-3" style="max-width: 20rem;">
+					<div class="card bg-light mb-3" style="max-width: 20rem; height: 28rem;">
   						<div class="card-header">${ diary.nickname }</div>
   						<div class="getDiary" id="${ diary.diaryNo }">
  						<div class="card-body">
  							<h5 class="card-title">
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
     						<h5 class="card-title">${ diary.title }</h5>
-    						<p class="card-text"><img src = "/resources/images/example.jpg" width="270px" height="270px"></p>
+    						<p class="card-text"><img src="${ diary.thumbnail }" width="270px" height="270px"></p>
  				 			</div>
  				 		</div>
 					</div>
@@ -130,14 +133,14 @@
   	    	<c:forEach var="diary" items="${ topBookmarkDiaryList }">
   	    		<c:set var="i" value="${ i+1 }" />
   	    		<div class="col-md-4">
-					<div class="card border-light mb-3" style="max-width: 20rem;">
+					<div class="card bg-light mb-3" style="max-width: 20rem; height: 28rem;">
   						<div class="card-header">${ diary.nickname }</div>
   						<div class="getDiary" id="${ diary.diaryNo }">
  							<div class="card-body">
  							<h5 class="card-title">
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
     						<h5 class="card-title">${ diary.title }</h5>
-    						<p class="card-text"><img src = "/resources/images/example2.jpg" width="270px" height="270px"></p>
+    						<p class="card-text"><img src="${ diary.thumbnail }" width="276px" height="276px"></p>
  				 			</div>
  				 		</div>
 					</div>

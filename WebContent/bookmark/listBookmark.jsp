@@ -25,7 +25,7 @@
 
 <style>
 /* content 3줄 이상이면 자름 */
-p {
+#content {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -36,21 +36,19 @@ p {
 	height: 3.5em;
 	/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
 }
+
+.card-body {
+	overflow: auto;
+}
 </style>
 
 <script>
-
-
-
-
-
-
-
 	//검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 	function fncGetList(currentPage) {
 
 		$("#currentPage").val(currentPage);
-		$("form[name='detailForm']").attr("method", "POST").attr("action", "/bookmark/listBookmark").submit();
+		$("form[name='detailForm']").attr("method", "POST").attr("action",
+				"/bookmark/listBookmark").submit();
 
 	}
 
@@ -67,17 +65,15 @@ p {
 			fncGetList(1); // currentpage : 1 
 		}); */
 
-		$(".getDiary").on("click",function() {
-			self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id');
+		$(".getDiary").on("click", function() {
+			self.location = "/diary/getDiary?diaryNo=" + $(this).attr('id');
 		});
 
 		// 			$(".getProductSearch").on("click", function () { // 이미지 누르면 상품 보여지게 함
 		// 				self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=search";
 		// 			});
 
-
 	});
-
 </script>
 
 </head>
@@ -102,7 +98,7 @@ p {
 				<!-- End ToolBar -->
 
 				<div class="col-md-9">
-					<label class="col-form-label" for="inputDefault">북마크한 모든 기록을 한눈에 볼 수 있습니다.</label>
+					<label class="col-form-label" for="inputDefault">북마크한 타 회원의 기록을 한눈에 볼 수 있습니다.</label>
 					<br>
 				
 					<%-- <div class="row">
@@ -131,47 +127,25 @@ p {
 
 					<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 					<input type="hidden" id="currentPage" name="currentPage" value="" />
-
-					<span class="badge badge-info">PAGE ${ resultPage.currentPage},
-						TOTAL ${ resultPage.totalCount }</span>
-						
-						<!--  정렬은 필요없을듯 한데? -->
-						
-						
-					<%-- <ol class="breadcrumb" style="float: right;">
-						<li class="breadcrumb-item" value="0"><a
-							${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>
-							최근 등록 순</a></li>
-						<li class="breadcrumb-item" value="1"><a
-							${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>
-							최근 여행 순</a></li>
-						<li class="breadcrumb-item" value="2"><a
-							${ ! empty search.searchSorting && search.searchSorting==2 ? "style=font-weight:350;" : "" }>
-							오래된 여행 순</a></li>
-					</ol> --%>
 					
+					<span class="badge badge-info">PAGE ${ resultPage.currentPage}, TOTAL ${ resultPage.totalCount }</span>
 					
-					<%-- <br> <br> <br> <input type="hidden"
-						name="searchSorting" id="searchSorting"
-						value="${ search.searchSorting }"> --%>
-					<!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
-
+					<br><br>
 					<div class="row">
 						<c:set var="i" value="0" />
 						<c:forEach var="bookmark" items="${	list }">
 							<c:set var="i" value="${ i+1 }" />
 							<div class="col-md-4">
-								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 15rem;">
+								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 30rem;">
 									<div class="card-header">
 										<img src="../resources/images/marker_blue.png" height="12px"
-											align="middle">원글 작성자 : ${ bookmark.diary.nickname }<%-- &nbsp;&nbsp;${ diary.location } --%> <br>
+											align="middle">&nbsp; 원글 작성자 : ${ bookmark.diary.nickname }<%-- &nbsp;&nbsp;${ diary.location } --%> <br>
 										 <small>북마크 등록일자 : ${fn:substring(bookmark.bookmarkDate, 0, 10)}</small> 
 									</div>
 									<div class="card-body">
-
 										<div class="getDiary" id="${ bookmark.diary.diaryNo }">
-
-											<h5 class="card-title">제 목 : ${ bookmark.diary.title }</h5> 
+											<h5 class="card-title">${ bookmark.diary.title }</h5> 
+											<p class="card-text"><img src="${ bookmark.diary.thumbnail }" width="210px" height="210px">
 											<p class="card-text" id="content">
 											<c:out value='${bookmark.diary.content.replaceAll("\\\<.*?\\\>","")}' /> 
 											</p> 

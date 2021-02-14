@@ -417,7 +417,7 @@
 	<select  id="getTopViewDiaryList"  resultMap="diarySelectMap">
 	SELECT *
 	FROM
-	(SELECT diary_id, diary_addr, title, origin_nick, view_count
+	(SELECT diary_id, diary_addr, title, origin_nick, view_count, thumbnail
  	FROM DIARY 
  	ORDER BY view_count DESC 
 	)
@@ -428,7 +428,7 @@
 	<select  id="getTopBookmarkDiaryList"  resultMap="diarySelectMap">
 	SELECT *
 	FROM
-	(   SELECT d.diary_id, d.diary_addr, d.title, d.origin_nick,
+	(   SELECT d.diary_id, d.diary_addr, d.title, d.origin_nick, d.thumbnail,
       	(SELECT count(*)
        	FROM BOOKMARK
        	WHERE diary_id = d.diary_id) as bookmark_count

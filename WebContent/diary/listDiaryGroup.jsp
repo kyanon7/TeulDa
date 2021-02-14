@@ -88,7 +88,7 @@
 			<div class="col-md-9">
 
 					<div class="form-group">
-						<label class="col-form-label" for="inputDefault">원하는 기록을 묶어 그룹별로 보관할 수 있습니다.</label>
+						<label class="col-form-label" for="inputDefault">원하는 기록을 묶어 그룹별로 보관할 수 있습니다. <br>그룹 안에 속해있는 기록이 하나도 없을 시, 그룹 삭제가 가능합니다.</label>
 						<div class="row">
 							<div class="col-md-3">
 								<input type="text" class="form-control"
@@ -108,7 +108,7 @@
 
 
 							<div class="col-md-4">
-								<div class="card bg-light mb-3" style="max-width: 20rem;">
+								<div class="card bg-light mb-3" style="max-width: 20rem; height: 7rem;">
 									<div class="listDiaryByGroup" id="${ group.groupNo }">
 									<div class="card-header">
 										${ group.groupName eq 'default2' ? '그룹 미지정' : group.groupName }

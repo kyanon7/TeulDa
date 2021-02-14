@@ -177,7 +177,7 @@ $(function() {
 								</div>
     					</div> 
     					<div class="col-md-4">
-    						<img src="../resources/images/photos/1612502602096145025276_885042925594069_2502250546813722604_n.jpg" style="float:right;" width="200px" height="200px">
+    						<img src="${ diary.thumbnail }" style="float:right;" width="200px" height="200px">
     					</div>
     				</div>
   				</div>

@@ -16,7 +16,7 @@
 	
 		<style>
 		/* content 3줄 이상이면 자름 */
-		p {
+		#content {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			display: -webkit-box;
@@ -25,7 +25,10 @@
 			word-wrap: break-word;
 			line-height: 1.2em;
 			height: 3.5em;
-		/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+			/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+		}
+		.card-body {
+			overflow: auto;
 		}
 		</style>
 		<script>
@@ -85,11 +88,11 @@
 							<c:set var="i" value="${ i+1 }" />
 							<div class="col-md-4">
 								<div class="card bg-secondary mb-3"
-									style="max-width: 20rem; height: 15rem;">
+									style="max-width: 20rem; height: 30rem;">
 									<div class="card-header">
 										<img src="../resources/images/marker_blue.png" height="12px"
 											align="middle">&nbsp;&nbsp;${ diary.location } <br>
-										<small>${ diary.startDate } - ${ diary.endDate }</small>
+										<small>${ diary.startDate } - ${ diary.endDate }</small><br>
 										<span class="badge badge-info">복구
 											<input name="deleteDate" type="hidden" value="${ diary.deleteDate }">
 											<input name="diaryNo" type="hidden" value="${ diary.diaryNo }">
@@ -102,8 +105,8 @@
 
 										<div class="getDiary" id="${ diary.diaryNo }">
 											<h5 class="card-title">${ diary.title }</h5>
+											<p class="card-text"><img src="${ diary.thumbnail }" width="210px" height="210px">
 											<p class="card-text" id="content">
-												<%-- 									${ diary.content } --%>
 												<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
 											</p>
 										</div>
