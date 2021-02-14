@@ -43,6 +43,14 @@
 			});
 
 		});
+		
+		$(function() {
+
+			$("h5").on("click", function() { // 검색 버튼
+				self.location = "/diary/listMainRanking";
+			});
+
+		});
 
 		</script>
 
