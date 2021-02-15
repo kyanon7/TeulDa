@@ -100,10 +100,19 @@
 		
 		$(function () {
 			
+			// 제목, 여행 시작날짜, 여행 종료 날짜 조건 걸어줘서 널값이면 등록 안되게 함  
 			$("button:contains('등록')").on("click", function() {
-				alert("등록이 완료되었습니다!"); 
-				addDiary();
-			});
+				if ($("input[name='title']").val() == "") {
+					alert("제목은 반드시 입력하셔야 합니다!"); 
+				} else if ($("input[name='startDate']").val() == "") {
+					alert("여행 시작날짜를 반드시 입력하셔야 합니다!"); 
+				} else if ($("input[name='endDate']").val() == "") {
+					alert("여행 종료날짜를 반드시 입력하셔야 합니다!"); 
+				} else {
+					alert("등록이 완료되었습니다!"); 
+					addDiary();
+				}
+			}); 
 			
 			$("img[src='../resources/images/marker_blue.png']").on("click", function() { // 아이콘 사진 변경시 src 수정해주기 
 				history.go(-1);
