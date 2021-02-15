@@ -119,7 +119,7 @@
 		<h1 class="text-center">개인정보 수정</h1>
 	    
 	    <!-- form Start /////////////////////////////////////-->
-		<form class="form">
+		<form class="form" enctype="multipart/form-data">
 		
 		  <div class="form-group has-danger">
 		    <label for="email" class="col-form-label" for="inputInvalid">이메일</label>

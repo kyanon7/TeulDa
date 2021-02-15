@@ -161,22 +161,24 @@ public class UserController {
 		User user = userService.getUser(email);
 		// Model 과 View 연결
 		model.addAttribute("user", user);
-		
+		user.setProfilePhoto(path+user.getProfilePhoto());
 		return "forward:/user/updateUser.jsp";
 	}
 
 	@RequestMapping( value="updateUser", method=RequestMethod.POST )
-	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
+	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session, MultipartHttpServletRequest request) throws Exception{
 
+		
+	
+	
+		
 		System.out.println("/user/updateUser : POST");
 		//Business Logic
+		userService.uploadFile(user, path, request);
 		userService.updateUser(user);
 		
-		String sessionId=((User)session.getAttribute("user")).getEmail();
-		if(sessionId.equals(user.getEmail())){
-			user.setProfilePhoto(path+user.getProfilePhoto());
-			session.setAttribute("user", user);
-		}
+	
+
 		
 		return "redirect:/user/getUser?email="+user.getEmail();
 	}
