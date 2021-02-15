@@ -32,7 +32,6 @@ import com.teulda.common.Search;
 import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
 import com.teulda.service.user.UserService;
-//import com.teulda.service.diary.DiaryService;
 
 
 //==> 회원관리 Controller
@@ -112,32 +111,14 @@ public class UserController {
 	
 
 	@RequestMapping( value="getUser", method=RequestMethod.GET  )
-	public String getUser( @RequestParam(value="email") @ModelAttribute("search") Search search, String email , Model model, HttpSession session ) throws Exception {
+	public String getUser( @RequestParam(value="email") String email , Model model, HttpSession session ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		//Business Logic
 		User user = userService.getUser(email);
 		// Model 과 View 연결
-		user.setProfilePhoto(path+user.getProfilePhoto());
 		model.addAttribute("user", user);
-		
-		/*
-		 * /////////////////최근일기 if (search.getCurrentPage() == 0) {
-		 * search.setCurrentPage(1); } // JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 0번 ( 최근 작성 순 )
-		 * 으로 정렬되게 지정 if (search.getSearchSorting() == null) {
-		 * search.setSearchSorting("0"); }
-		 * 
-		 * Map<String, Object> map = diaryService.getMyDiaryList(search,
-		 * user.getNickname(), 'f'); Page resultPage = // 페이지 나누는 것을 추상화 & 캡슐화 한 Page
-		 * 클래스 이용 new Page(search.getCurrentPage(),
-		 * ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		 * 
-		 * // Model 과 View 연결 model.addAttribute("diaryList", map.get("diaryList")); //
-		 * 기록 model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음
-		 * model.addAttribute("search", search); // 검색 정보가 담겨있음
-		 * 
-		 * ///////////
-		 */		
+		user.setProfilePhoto(path+user.getProfilePhoto());
 		
 		if(((User) session.getAttribute("user")).getNickname() != null && user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/user/getMyUser.jsp";

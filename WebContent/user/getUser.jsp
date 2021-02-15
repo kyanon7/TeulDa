@@ -38,25 +38,6 @@
 					self.location = "/user/updateUser?email=${user.email}"
 				});
 		});*/
-
-		$(function() {
-
-
-			$(".breadcrumb-item").on("click", function() { // 정렬
-
-				// <li> 클릭 시 해당 value 값 input type text 에 넣기
-				$("#searchSorting").val($(this).attr('value'));
-				fncGetList(1); // currentpage : 1 
-			});
-
-			$(".getDiary").on("click",function() {
-				self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id');
-			});
-
-	
-
-
-		});		
 		
 		 
 		 
@@ -239,7 +220,7 @@
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
 	    
-	    <div class="select-img"><img src="${user.profilePhoto}" style="width: 90%;"/></div>
+	    <div class="select-img"><img src="${user.profilePhoto}" height="50px"/></div>
 	    
 	    <input type="hidden" name="targetNick" value="${user.nickname}" />
 	    <input type="hidden" name="nickname" value="${user.nickname}" />
@@ -272,97 +253,32 @@
 		
 		<hr/>
 		
-	<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">	
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>휴대전화번호</strong></div>
-			<div class="col-xs-8 col-md-4">${ !empty user.phone ? user.phone : ''}	</div>
+	
+	
+		
+
+		
+<!-- <c:set var="i" />
+	<c:if test="${i eq 0}">
+		<div class="form-group">
+	  		<div class="col-md-12 text-center ">
+	  			<button type="button" class="btn btn-outline-success">구독</button>
+	  			<button type="button"  class="btn btn-outline-danger">회원신고</button>
+	  		</div>
 		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>이 메 일</strong></div>
-			<div class="col-xs-8 col-md-4">${user.email}</div>
+		</c:if>
+
+	<c:set var="i" />
+	<c:if test="${i eq 1}">
+		<div class="form-group">
+	  		<div class="col-md-12 text-center ">
+	  			<button type="button" class="btn btn-outline-warning">구독 취소</button>
+	  			<a class="btn btn-outline-danger">회원신고</a>
+	  		</div>
 		</div>
-		
-		<hr/>
-	</c:if>
-		
-<!-- ///////////////////////////////////////////////////// -->
+		</c:if>
 
-
-	<%-- <div class="col-md-9">
-				<label class="col-form-label" for="inputDefault">기록 목록</label>
-				<br>
-			
-				<div class="row">
-					<div class="col-md-2">
-						<div class="form-group">
-						
-
-						</div>
-					</div>
-					
-				</div>
-
-				<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-				<input type="hidden" id="currentPage" name="currentPage" value="" />
-
-				<span class="badge badge-info">PAGE ${ resultPage.currentPage},
-					TOTAL ${ resultPage.totalCount }</span>
-				<ol class="breadcrumb" style="float: right;">
-					<li class="breadcrumb-item" value="0"><a
-						${ ! empty search.searchSorting && search.searchSorting==0 ? "style=font-weight:350;" : "" }>
-						최근 작성 순</a></li>
-					<li class="breadcrumb-item" value="1"><a
-						${ ! empty search.searchSorting && search.searchSorting==1 ? "style=font-weight:350;" : "" }>
-						최근 여행 순</a></li>
-					<li class="breadcrumb-item" value="2"><a
-						${ ! empty search.searchSorting && search.searchSorting==2 ? "style=font-weight:350;" : "" }>
-						오래된 여행 순</a></li>
-				</ol>
-				<br> <br> <br> <input type="hidden"
-					name="searchSorting" id="searchSorting"
-					value="${ search.searchSorting }">
-				<!-- <li> 클릭 시 해당 value 값 input type text 에 넣기  -->
-
-				<div class="row">
-					<c:set var="i" value="0" />
-					<c:forEach var="diary" items="${ diaryList }">
-						<c:set var="i" value="${ i+1 }" />
-						<div class="col-md-4">
-							<div class="card bg-light mb-3" style="max-width: 20rem; height: 30rem;">
-								<div class="card-header">
-									<img src="../resources/images/marker_blue.png" height="12px"
-										align="middle">&nbsp;&nbsp;${ diary.location } <br>
-									<small>${ diary.startDate } - ${ diary.endDate }</small>
-								</div>
-								<div class="card-body">
-									<div class="getDiary" id="${ diary.diaryNo }">
-										<h5 class="card-title">${ diary.title }</h5>
-										<p class="card-text"><img src="${ diary.thumbnail }" width="210px" height="210px">
-										<p class="card-text" id="content">
-											<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-
-					<!-- PageNavigation Start... -->
-					<jsp:include page="../common/pageNavigator.jsp" />
-					<!-- PageNavigation End... -->
-
-				</div>
-
-			</div>
-	 --%>
-		
-
-		
-
-		
+	-->
 	<div class="form-group">
 	  		<div class="col-md-12 text-center ">
 	  		</div>
