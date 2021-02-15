@@ -56,7 +56,7 @@ function fncGetList(currentPage) {
 	
 	$(function(){
 		$("a:contains('내 글 보기')").on("click", function(){
-			self.location = "/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}"
+			self.location = "/post/listPostBynickname?postCategory=6&nickname=${sessionScope.user.nickname}"
 		});
 	});
 	
@@ -117,7 +117,7 @@ function fncGetList(currentPage) {
 					<%-- 		<jsp:include page="../post/leftbar.jsp"/>
   				</div> --%>
 					<div class="list-group">
-						<a href="/post/listPost?postCategory=1" type="button"
+						<a href="/post/listPost?postCategory=6" type="button"
 							class="btn btn-info active">자유게시판</a>
 
 						<c:if test="${ !empty user }">
