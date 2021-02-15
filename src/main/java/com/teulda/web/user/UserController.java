@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.teulda.common.Group;
 import com.teulda.common.Page;
 import com.teulda.common.Search;
+import com.teulda.service.diary.DiaryService;
 import com.teulda.service.domain.Report;
 import com.teulda.service.domain.User;
 import com.teulda.service.user.UserService;
@@ -43,6 +44,10 @@ public class UserController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	@Autowired
+	@Qualifier("diaryServiceImpl")
+	private DiaryService diaryService;
 	//setter Method
 		
 	public UserController(){
@@ -111,18 +116,39 @@ public class UserController {
 	
 
 	@RequestMapping( value="getUser", method=RequestMethod.GET  )
-	public String getUser( @RequestParam(value="email") String email , Model model, HttpSession session ) throws Exception {
+	public String getUser( @RequestParam(value="email") String email , Model model, @ModelAttribute("search") Search search, HttpSession session ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		//Business Logic
-		User user = userService.getUser(email);
+		User user = userService.getUser(email);//user에 조회하려는 사람의 이메일 담음
+		
+		System.out.println("디버그"+user.getEmail());//조회하려는 사람
+		System.out.println("디버그2"+((User) session.getAttribute("user")).getNickname());//로그인한 사람
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 0번 ( 최근 작성 순 ) 으로 정렬되게 지정 
+		if (search.getSearchSorting() == null) {
+			search.setSearchSorting("0");
+		}
 		// Model 과 View 연결
 		model.addAttribute("user", user);
-		user.setProfilePhoto(path+user.getProfilePhoto());
+		user.setProfilePhoto(path+user.getProfilePhoto());//조회하려는 사람의 프로필 사진 딱히 안건드려도될듯
 		
 		if(((User) session.getAttribute("user")).getNickname() != null && user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+			//현재 로그인한사람과 조회하려는 사람이 같을때 sessionscope 둘다 마이리스트로 넣어주되 닉네임 변화구
+			/*
+			 * Map<String, Object> map = diaryService.getMyDiaryList(search,
+			 * user.getNickname(), 'f'); Page resultPage = // 페이지 나누는 것을 추상화 & 캡슐화 한 Page
+			 * 클래스 이용 new Page(search.getCurrentPage(),
+			 * ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+			 * 
+			 * // Model 과 View 연결 model.addAttribute("diaryList", map.get("diaryList")); //
+			 * 기록 model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음
+			 * model.addAttribute("search", search); // 검색 정보가 담겨있음
+			 */			
 			return "forward:/user/getMyUser.jsp";
-		}else {
+		}else {//현재 로그인한사람과 조회하려는 사람이 다를 때 user.getNickname()
 			return "forward:/user/getUser.jsp";
 		}
 	}
@@ -136,7 +162,7 @@ public class UserController {
 		// Model 과 View 연결
 		model.addAttribute("user", user);
 		System.out.println("디버그"+user.getNickname());//조회하려는 사람
-		System.out.println("디버그"+((User) session.getAttribute("user")));
+		System.out.println("디버그"+((User) session.getAttribute("user")));//현재 로그인한 사람
 		
 		user.setProfilePhoto(path+user.getProfilePhoto());
 		
@@ -216,6 +242,9 @@ public class UserController {
 		//Business Logic
 		User dbUser=userService.getUser(user.getEmail());
 		
+		if (dbUser == null) {
+			return "redirect:/user/loginError.jsp";
+		}
 		
 		
 		if( user.getPassword().equals(dbUser.getPassword())){
@@ -230,7 +259,7 @@ public class UserController {
 		}else {
 			//model.addAttribute("msg", "메세지");
 			//model.addAttribute("url", "/user/login.jsp");
-			return "redirect:/user/login.jsp";
+			return "redirect:/user/loginError.jsp";
 		}
 		
 

@@ -211,10 +211,10 @@
 		<span class="fileUpload btn btn-success">
 			<span class="upl" id="upload">Upload single file</span>
 			<input type="file" class="upload up" id="up" name="imageFile"/>
-		  </span><!-- btn-orange -->
-	   </div><!-- btn -->
-	   </div><!-- group -->
-	   </div><!-- form-group -->
+		  </span>
+	   </div>
+	   </div>
+	   </div>
 			</div>
 		  </div>
 		</div>     

@@ -234,7 +234,7 @@
 						        }; -->
 						    </script>
 					  
-					  <div class="form-group">
+					<!--   <div class="form-group"> -->
 					    <!-- <div class="text-center">
 					      <button type="button" class="btn btn-outline-danger">Google Login</button>
 					    </div>

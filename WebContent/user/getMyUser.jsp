@@ -25,6 +25,12 @@
     	 body >  div.container{ 
             margin-top: 50px;
         }
+        
+        body > div.select-img{ 
+             width: 100%;
+    height: 100%;
+    object-fit: cover
+        }
     </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -73,7 +79,9 @@
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
 	    
-	    <div class="select-img"><img src="${user.profilePhoto}" style="width: 90%;"/></div>
+	    <div class="box" style="background: #BDBDBD;">
+	    <div class="select-img"><img src="${user.profilePhoto}" style="width: 10%;"/></div>
+	    </div>
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>닉네임</strong></div>

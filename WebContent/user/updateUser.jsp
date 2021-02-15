@@ -79,7 +79,17 @@
 			var pw_confirm=$("input[name='password2']").val();
 			
 			if(name == null || name.length <1){
-				alert("이름은  반드시 입력하셔야 합니다.");
+				alert("이름은 반드시 입력하셔야 합니다.");
+				return;
+			}
+			
+			if(pw == null || password.length <1){
+				alert("패스워드는  반드시 입력하셔야 합니다.");
+				return;
+			}
+			
+			if(pw_confirm == null || password.length <1){
+				alert("비밀번호를 다시 한번 입력해주세요.");
 				return;
 			}
 			
@@ -147,7 +157,7 @@
 		
 		  <div class="form-group">
 		    <label for="password" class="col-form-label">비밀번호</label>
-		    <input type="password" class="form-control" id="password" name="password" placeholder="변경비밀번호">
+		    <input type="password" class="form-control" id="password" name="password" value="${user.password}">
 		  </div>
 		  
 		  <div class="form-group">
@@ -182,10 +192,10 @@
 		<span class="fileUpload btn btn-success">
 			<span class="upl" id="upload">Upload single file</span>
 			<input type="file" class="upload up" id="up" name="imageFile"/>
-		  </span><!-- btn-orange -->
-	   </div><!-- btn -->
-	   </div><!-- group -->
-	   </div><!-- form-group -->
+		  </span>
+	   </div>
+	   </div>
+	   </div>
 			</div>
 		  </div>
 		</div>     
