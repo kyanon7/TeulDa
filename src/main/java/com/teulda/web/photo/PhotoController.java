@@ -185,7 +185,7 @@ public class PhotoController {
         String photoAddr = mtfRequest.getParameter("photoAddr");
         System.out.println("photoAddr value : " + photoAddr);
 
-        String path = "/Users/tjcpji/git/TeulDa/WebContent/resources/images/photos/";
+        String path = "/Users/jungjoowon/album_photo/";
 
         Photo photo = new Photo();
         

@@ -145,7 +145,7 @@
 									</div>
 									<div class="card-body">
 										<h5 class="card-title" id ="${photo.photoNo}"></h5>
-										<img class="card-img-top" src="../resources/images/photos/${photo.photoName}"/>
+										<img class="card-img-top" src="/albumImage/${photo.photoName}"/>
 										<p class="card-text" id="content">등록일 : ${photo.photoDate }
 										<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
 										<input type="hidden" value="${ photo.photoNo }" style="float:right;"></p>
