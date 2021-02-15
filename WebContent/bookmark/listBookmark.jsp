@@ -48,7 +48,7 @@
 
 		$("#currentPage").val(currentPage);
 		$("form[name='detailForm']").attr("method", "POST").attr("action",
-				"/bookmark/listBookmark").submit();
+				"/bookmark/listBookmark?nickname=${sessionScope.user.nickname}").submit();
 
 	}
 
@@ -155,6 +155,7 @@
 							</div>
 						</c:forEach>
 
+						<input type="hidden" id="currentPage" name="currentPage" value="" />
 						<!-- PageNavigation Start... -->
 						<jsp:include page="../common/pageNavigator.jsp" />
 						<!-- PageNavigation End... -->
