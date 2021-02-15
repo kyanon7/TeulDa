@@ -62,7 +62,7 @@
 				.on(
 						"click",
 						function() {
-							self.location = "/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}"
+							self.location = "/post/listPostBynickname?postCategory=6&nickname=${sessionScope.user.nickname}"
 						});
 	});
 
