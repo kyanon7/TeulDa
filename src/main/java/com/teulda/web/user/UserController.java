@@ -137,15 +137,8 @@ public class UserController {
 		model.addAttribute("user", user);
 		System.out.println("디버그"+user.getNickname());//조회하려는 사람
 		System.out.println("디버그"+((User) session.getAttribute("user")));
-		/*
-		 * if(((User) session.getAttribute("user")).getNickname() != null &&
-		 * user.getNickname().equals(((User)
-		 * session.getAttribute("user")).getNickname())) { return
-		 * "forward:/user/getMyUser.jsp"; }else { return "forward:/user/getUser.jsp"; }
-		 */
 		
-		
-		//return "forward:/user/getUserNot.jsp";
+		user.setProfilePhoto(path+user.getProfilePhoto());
 		
 		if(((User) session.getAttribute("user")) != null && user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/user/getMyUser.jsp";
@@ -181,6 +174,7 @@ public class UserController {
 		
 		String sessionId=((User)session.getAttribute("user")).getEmail();
 		if(sessionId.equals(user.getEmail())){
+			user.setProfilePhoto(path+user.getProfilePhoto());
 			session.setAttribute("user", user);
 		}
 		

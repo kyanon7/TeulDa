@@ -85,8 +85,10 @@
 			user_addr				=	#{address:VARCHAR},
 			like_addr				=	#{likePlace:VARCHAR},
 			birth				=	#{birth:VARCHAR},
-			user_photo				=	#{profilePhoto:VARCHAR},
-			is_public				=	#{isPublic:VARCHAR},
+			<if test="profilePhoto != null and !profilePhoto.equals('')">
+				user_photo				=	#{profilePhoto:VARCHAR},
+			</if>
+			is_public				=	't',
 			status				=	#{status:VARCHAR},
 			role				=	#{role:VARCHAR}
 	   	</set>

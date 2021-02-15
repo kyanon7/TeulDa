@@ -199,16 +199,7 @@
 	
 	    
 
-    <!-- <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file" data-dpmaxz-eid="7">
-      <small class="form-text text-muted" id="fileHelp">프로필 사진 업로드</small>
-    </div> -->
    
-  <!--  <div class="form-group">
-      <label for="exampleInputFile">프로필 사진 등록</label>
-      <input multiple="multiple" type="file" class="form-control-file" name="profilePhoto" id="profilePhoto">
-    </div> -->
      
 	<div class="container-fullwidth">
 		<div class="row">
