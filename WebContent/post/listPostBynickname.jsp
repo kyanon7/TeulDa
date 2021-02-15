@@ -126,17 +126,17 @@ function fncGetList(currentPage) {
 							<br />
 						</c:if>
 							<a href="/post/listPostBynickname?postCategory=6&nickname=${sessionScope.user.nickname}"
-								class="list-group-item list-group-item-action" type="button">모든 게시물</a> 
+								class="list-group-item list-group-item-action" type="button">내가 작성한 모든 게시물</a> 
 							<a href="/post/listPostBynickname?postCategory=1&nickname=${sessionScope.user.nickname}"
-								class="list-group-item list-group-item-action" type="button">여행지 정보공유</a> 
+								class="list-group-item list-group-item-action" type="button">내가 작성한 여행지 정보공유</a> 
 							<a href="/post/listPostBynickname?postCategory=2&nickname=${sessionScope.user.nickname}"
-								class="list-group-item list-group-item-action " type="button">맛집 정보공유</a> 
+								class="list-group-item list-group-item-action " type="button">내가 작성한 맛집 정보공유</a> 
 							<a href="/post/listPostBynickname?postCategory=3&nickname=${sessionScope.user.nickname}"					
-								class="list-group-item list-group-item-action " type="button">숙소 정보공유</a>
+								class="list-group-item list-group-item-action " type="button">내가 작성한 숙소 정보공유</a>
 							 <a href="/post/listPostBynickname?postCategory=4&nickname=${sessionScope.user.nickname}"
-								class="list-group-item list-group-item-action " type="button">Q&A</a>
+								class="list-group-item list-group-item-action " type="button">내가 작성한 Q&A</a>
 							<a href="/post/listPostBynickname?postCategory=5&nickname=${sessionScope.user.nickname}"
-								class="list-group-item list-group-item-action " type="button">잡담</a>
+								class="list-group-item list-group-item-action " type="button">내가 작성한 잡담</a>
 					</div>
 				</div>
 
