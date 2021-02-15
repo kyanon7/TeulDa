@@ -111,7 +111,7 @@
   	    	<c:forEach var="diary" items="${ topViewDiaryList }">
   	    		<c:set var="i" value="${ i+1 }" />
   	    		<div class="col-md-4">
-					<div class="card bg-light mb-3" style="max-width: 20rem; height: 28rem;">
+					<div class="card bg-light mb-3" style="max-width: 20rem; height: 30rem;">
   						<div class="card-header">${ diary.nickname }</div>
   						<div class="getDiary" id="${ diary.diaryNo }">
  						<div class="card-body">
@@ -119,6 +119,7 @@
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
     						<h5 class="card-title">${ diary.title }</h5>
     						<p class="card-text"><img src="${ diary.thumbnail }" width="270px" height="270px"></p>
+ 				 			<small>조회수 ${ diary.viewCount }회</small>
  				 			</div>
  				 		</div>
 					</div>
@@ -133,7 +134,7 @@
   	    	<c:forEach var="diary" items="${ topBookmarkDiaryList }">
   	    		<c:set var="i" value="${ i+1 }" />
   	    		<div class="col-md-4">
-					<div class="card bg-light mb-3" style="max-width: 20rem; height: 28rem;">
+					<div class="card bg-light mb-3" style="max-width: 20rem; height: 30rem;">
   						<div class="card-header">${ diary.nickname }</div>
   						<div class="getDiary" id="${ diary.diaryNo }">
  							<div class="card-body">
@@ -141,6 +142,7 @@
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
     						<h5 class="card-title">${ diary.title }</h5>
     						<p class="card-text"><img src="${ diary.thumbnail }" width="276px" height="276px"></p>
+ 				 			<small>북마크 ${ diary.bookmarkCount }회</small>
  				 			</div>
  				 		</div>
 					</div>

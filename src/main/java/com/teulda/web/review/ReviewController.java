@@ -169,7 +169,7 @@ public class ReviewController {
 		}
 		
 		Map<String, Object> map = reviewService.getReviewList(search);
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), 10, 10);
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -190,7 +190,7 @@ public class ReviewController {
 		search.setPageSize(10);
 		
 		Map<String, Object> map = reviewService.getReviewList(search);
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), 10, 10);
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);

@@ -20,6 +20,7 @@
 		<result property="content"				column="content"			jdbcType="CLOB"  javaType="java.lang.String" />
 		<result property="thumbnail"			column="thumbnail"			jdbcType="VARCHAR" />
 		<result property="viewCount"			column="view_count"			jdbcType="NUMERIC" />
+		<result property="bookmarkCount"		column="bookmark_count"		jdbcType="NUMERIC" />
 		<result property="scrapCount"			column="scrap_count"		jdbcType="NUMERIC" />
 		<result property="deleteDate"			column="delete_date"		jdbcType="DATE" />
 		<result property="scrapNickname"		column="scrap_nick"			jdbcType="VARCHAR" />
@@ -419,6 +420,7 @@
 	FROM
 	(SELECT diary_id, diary_addr, title, origin_nick, view_count, thumbnail
  	FROM DIARY 
+ 	WHERE is_public = 't' AND delete_date is null 
  	ORDER BY view_count DESC 
 	)
 	WHERE ROWNUM &lt;= 9
@@ -433,6 +435,7 @@
        	FROM BOOKMARK
        	WHERE diary_id = d.diary_id) as bookmark_count
     	FROM diary d
+    	WHERE is_public = 't' AND delete_date is null 
     	ORDER BY bookmark_count DESC 
 	)
 	WHERE ROWNUM &lt;= 9
