@@ -187,7 +187,7 @@
 					<c:forEach var = "photo" items = "${ photoList }">
 						<c:set var="i" value="${ i+1 }" />
 						<div class="col-md-4">
-							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
+							<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 23rem;">
 								<div class="card-header" style="color:black">
 <%-- 									<img src="../resources/images/marker_blue.png" height="12px"
 										align="middle">&nbsp;&nbsp;${ diary.location } <br> --%>
@@ -196,7 +196,7 @@
 								</div>
 								<div class="card-body">
 									<%-- <h5 class="card-title" id ="${photo.photoNo}">${photo.photoName}</h5> --%>
-									<img class="card-img-top" src="../resources/images/photos/${photo.photoName}" alt=" "/>
+									<img class="card-img-top" src="/albumImage/${photo.photoName}" width="210px" height="210px"/>
 									<p class="card-text" id="content">삭제일 : ${photo.deleteDate}
 									<p class="card-text" id="updatePhotoStatus" style="text-align:right;"><small class="text-muted">사진복구</small>
 									<input type="hidden" value="${ photo.photoNo }" style="float:right;">

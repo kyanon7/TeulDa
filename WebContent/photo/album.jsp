@@ -38,11 +38,11 @@
 			  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
 			}
 			.card-img-top:hover {
-			  transform: scale(2.2);
-			  -webkit-transform: scale(2.2);
-			  -moz-transform: scale(2.2);
-			  -ms-transform: scale(2.2);
-			  -o-transform: scale(2.2);
+			  transform: scale(2.7);
+			  -webkit-transform: scale(2.7);
+			  -moz-transform: scale(2.7);
+			  -ms-transform: scale(2.7);
+			  -o-transform: scale(2.7);
 			  z-index: 4;
 			}
 			/* .card-body {width:325px; height:280px; overflow:hidden }   /* 부모를 벗어나지 않고 내부 이미지만 확대 */ */
@@ -96,7 +96,7 @@
 		
 		$(function(){
 			$("img[src='../resources/images/folder.png']").on("click", function() { 
-				window.open('/photo/selectPhotoGroup?photoNo='+ $(this).attr('id'),'그룹 선택','width=450, height=300, left=460, top=150');
+				window.open('/photo/selectPhotoGroup?photoNo='+$(this).attr('id'), "그룹 선택", "width=450, height=300, left=550, top=250");
 			});
 		});
 		
@@ -137,7 +137,7 @@
 						<c:forEach var = "photo" items = "${ photoList }">
 						<c:set var="i" value="${ i+1 }" />
 							<div class="col-md-4">
-								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 20rem;">
+								<div class="card bg-secondary mb-3" style="max-width: 20rem; height: 25em;">
 									<div class="card-header" style="color:black">
 										${photo.photoAddr}
 										<input type="hidden" id="updateGroupName" value="${photo.photoName}">
@@ -145,7 +145,7 @@
 									</div>
 									<div class="card-body">
 										<h5 class="card-title" id ="${photo.photoNo}"></h5>
-										<img class="card-img-top" src="/albumImage/${photo.photoName}"/>
+										<img class="card-img-top" src="/albumImage/${photo.photoName}" width="210px" height="210px"/>
 										<p class="card-text" id="content">등록일 : ${photo.photoDate }
 										<p class="card-text" style="text-align:right;"><small class="text-muted">삭제</small>
 										<input type="hidden" value="${ photo.photoNo }" style="float:right;"></p>
