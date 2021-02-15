@@ -208,7 +208,7 @@
 		SELECT
 		photo_id, photo_group_id, photo_name, photo_addr, latitude, longitude, photo_date, delete_date
 		FROM photo
-		WHERE photo_group_id IS NOT NULL AND delete_date IS NOT NULL
+		WHERE photo_group_id IS NOT NULL AND delete_date IS NOT NULL AND nickname = #{nickname}
 		ORDER BY delete_date DESC
 	</select>
 	
