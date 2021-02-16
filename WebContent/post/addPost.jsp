@@ -18,50 +18,47 @@
 		<!--  Summer note lite CDN  -->
 		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
    		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-   		
-  
-	<script>
-	$(document).ready(function() {
-		  $('#summernote').summernote({
-	    	placeholder: '게시글을 남겨주세요',
-	    	 height: 450,  
-	    	 width: 800,
-   		     minHeight: null,
-   		     maxHeight: null,
-   		     focus: true, 
-    	     lang : 'ko-KR'
-  	});
-});
-	function fncAddPost(){
-		
-		/* var postTitle = $("input[name:'postTitle']").val();	
-		var postCategory= $("select[name:'postCategory']").val();	
-	
-	
-		if(postCategory == null || postCategory.length<1){
-			alert("게시판 유형은 반드시 선택하여야 합니다.");
-			return;
-		}
-		if(postTtile == null || postTtile.length<1){
-			alert("제목은 반드시 입력하여야 합니다.");
-			return;
-		}   */
-	
-	$("form").attr("method","POST").attr("action","/post/addPost").submit();
-}
 
-		
-		$(function(){
-			$("button:contains('등록')").on("click", function(){
-				fncAddPost();
-			});
-			
-			$("button:contains('취소')").on("click", function(){
-				self.location = "/post/listPost?postCategory=1"
+
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({
+			placeholder : '게시글을 남겨주세요',
+			height : 450,
+			width : 800,
+			minHeight : null,
+			maxHeight : null,
+			focus : true,
+			lang : 'ko-KR'
 		});
 	});
 
+	$(function() {
+		
+		$("button:contains('취소')").on("click", function() {
+			self.location = "/post/listPost?postCategory=6"
+		});
+	});
 
+	function fncAddPost() {
+		$("form").attr("method", "POST").attr("action", "/post/addPost").submit();
+	}
+	
+	$(function() {
+
+		// 제목, 여행 시작날짜, 여행 종료 날짜 조건 걸어줘서 널값이면 등록 안되게 함  
+		$("button:contains('등록')").on("click", function() {
+			if ($("input[name='postTitle']").val() == "") {
+				alert("제목은 반드시 입력하셔야 합니다!");
+			} else if ($("#postCategory").val() == 0) {
+				alert("게시판 유형 반드시 선택하셔야 합니다!");
+			} else {
+				alert("등록이 완료되었습니다!");
+				fncAddPost();
+			}
+		});
+
+	});
 </script>
 </head>
 <body>
@@ -82,8 +79,8 @@
  			 <div class="col-md-8">
  			 	<form name="addPost">
  			 		<small class="form-text text-muted">게시판 유형</small>
-   					<select class="form-control" name="postCategory" style="width: 200px; height: 50px;">
-    				<option>게시판 유형</option>
+   					<select class="form-control" id="postCategory" name="postCategory" style="width: 200px; height: 50px;">
+    				<option value="0">게시판 유형</option>
    			  	    <option  value="1" >여행지 정보공유</option>
     				<option  value="2">맛집 정보공유</option>
       				<option  value="3">숙소 정보공유</option>
@@ -104,7 +101,7 @@
 				<!-- <input id="subBtn" type="button" value="등록" style="float: right;"/>
 				<input id="cancleBtn" type="button" value="취소" style="float: right;"/> -->
 				<br>
-				<button class="btn btn-info" type="submit">등록</button>
+				<button class="btn btn-info" type="button">등록</button>
 				<button class="btn btn-info" type="button">취소</button>
 				</div>
 				
