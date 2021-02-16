@@ -361,7 +361,7 @@
 	</update>
 	 
 	 
-	 	<select  id="getReportList"  parameterType="com.teulda.service.domain.Report"	resultMap="reportSelectMap">
+	 	<!--select  id="getReportList"  parameterType="com.teulda.service.domain.Report"	resultMap="reportSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT r.report_id, r.report_date, r.reason, r.reporter_nick, r.report_photo, r.target_nick, r.report_type
@@ -372,6 +372,18 @@
 												) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select-->
+	 
+	 
+	 	 	<select  id="getReportList"  parameterType="com.teulda.service.domain.Report"	resultMap="reportSelectMap">
+	  	SELECT *
+	  					FROM		(	SELECT r.report_id, r.report_date, r.reason, r.reporter_nick, r.report_photo, r.target_nick, r.report_type
+												    FROM report r, users u
+												    	WHERE
+       										(u.nickname = r.target_nick)
+												       
+												) inner_table
+						
 	 </select>
 	 
 	 

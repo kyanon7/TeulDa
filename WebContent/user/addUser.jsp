@@ -24,7 +24,7 @@
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 	
 	<!-- jQuery CDN -->
-		<<!-- script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
+		<!-- script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
 		
 		<!-- Bootstrap CDN -->
 	    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
@@ -38,10 +38,11 @@
             margin-top: 10px;
         }
         .select-img img {
-				max-width: 100%;
+				max-width: 10%;
 				max-height: auto;
 				display: block;
 				margin: auto;
+				border-radius: 70%;
 			}
         
     </style>
@@ -146,7 +147,7 @@
 <form data-dpmaxz-fid="4" enctype="multipart/form-data">
   <fieldset>
   
-  	<div class="select-img"><img src="" /></div>
+  	
   	<br/><br/>
 	<h1 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Join Our Site!</h1>
 	
@@ -218,6 +219,9 @@
 			</div>
 		  </div>
 		</div>     
+		
+		<label for="미리보기" class="col-form-label">미리보기</label>
+		<div class="select-img"><img src="" /></div>
      
       
    

@@ -26,11 +26,13 @@
             margin-top: 50px;
         }
         
-        div.select-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+   .select-img img {
+				max-width: 50%;
+				max-height: 50%;
+				display: block;
+				margin: auto;
+				border-radius: 50%;
+			}
     </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -56,7 +58,29 @@
 			});
 		 
 		 
-		 
+		$(function() {
+
+			$("button:contains('Search')").on("click", function() { // 검색 버튼
+				fncGetList(1); // currentpage : 1 
+			});
+
+			$(".breadcrumb-item").on("click", function() { // 정렬
+
+				// <li> 클릭 시 해당 value 값 input type text 에 넣기
+				$("#searchSorting").val($(this).attr('value'));
+				fncGetList(1); // currentpage : 1 
+			});
+
+			$(".getDiary").on("click",function() {
+				self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id') + "&status=own";
+			});
+
+			// 			$(".getProductSearch").on("click", function () { // 이미지 누르면 상품 보여지게 함
+			// 				self.location = "/product/getProduct?prodNo="+$(this).attr('id')+"&menu=search";
+			// 			});
+
+
+		});
 		 
 		 <%-- $(function() { --%>
 			 document.addEventListener('DOMContentLoaded', () => {
@@ -226,7 +250,12 @@
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
 	    
-	    <div class="select-img"><img src="${user.profilePhoto}" height="50px"/></div>
+	   <c:if test="${! empty user.profilePhoto && user.profilePhoto ne '/resources/images/review/null' }" > 
+	    <div class="select-img"><img src="${user.profilePhoto}" width="120px"  height="120px" /></div>
+	    </c:if>
+	    <c:if test="${  user.profilePhoto eq '/resources/images/review/null'}" > 
+	    <div class="select-img"><img src="../resources/images/icon.png"  height="120px"/></div>
+	    </c:if>
 	    
 	    <input type="hidden" name="targetNick" value="${user.nickname}" />
 	    <input type="hidden" name="nickname" value="${user.nickname}" />
@@ -258,8 +287,10 @@
 		</div>
 		
 		<hr/>
-		
-	<%-- <div class="row">
+
+<h3 class="text-left">가장 최근에 쓴 기록</h3>
+
+	 <div class="row">
 						<c:set var="i" value="0" />
 						<c:forEach var="diary" items="${ diaryList }">
 							<c:set var="i" value="${ i+1 }" />
@@ -284,35 +315,15 @@
 						</c:forEach>
 
 						<!-- PageNavigation Start... -->
-						<jsp:include page="../common/pageNavigator.jsp" />
+						<%-- <jsp:include page="../common/pageNavigator.jsp" /> --%>
 						<!-- PageNavigation End... -->
 
-					</div> --%>
+					</div> 
 	
 		
 
 		
-<!-- <c:set var="i" />
-	<c:if test="${i eq 0}">
-		<div class="form-group">
-	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-outline-success">구독</button>
-	  			<button type="button"  class="btn btn-outline-danger">회원신고</button>
-	  		</div>
-		</div>
-		</c:if>
 
-	<c:set var="i" />
-	<c:if test="${i eq 1}">
-		<div class="form-group">
-	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-outline-warning">구독 취소</button>
-	  			<a class="btn btn-outline-danger">회원신고</a>
-	  		</div>
-		</div>
-		</c:if>
-
-	-->
 	<div class="form-group">
 	  		<div class="col-md-12 text-center ">
 	  		</div>

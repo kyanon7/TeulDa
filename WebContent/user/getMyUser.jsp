@@ -26,11 +26,14 @@
             margin-top: 50px;
         }
         
-        body > div.select-img{ 
-             width: 100%;
-    height: 100%;
-    object-fit: cover
-        }
+   .select-img img {
+				max-width: 50%;
+				max-height: 50%;
+				display: block;
+				margin: auto;
+				border-radius: 50%;
+			}
+        
     </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -79,9 +82,14 @@
 	       <h2 class="text-left">${user.nickname}님의 공간</h2>
 	    </div>
 	    
-	    <div class="box" style="background: #BDBDBD;">
-	    <div class="select-img"><img src="${user.profilePhoto}" style="width: 10%;"/></div>
-	    </div>
+	    
+	   <c:if test="${! empty user.profilePhoto && user.profilePhoto ne '/resources/images/review/null' }" > 
+	    <div class="select-img"><img src="${user.profilePhoto}" width="120px"  height="120px" /></div>
+	    </c:if>
+	    <c:if test="${  user.profilePhoto eq '/resources/images/review/null'}" > 
+	    <div class="select-img"><img src="../resources/images/icon.png"  height="120px"/></div>
+	    </c:if>
+	  
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>닉네임</strong></div>
