@@ -26,6 +26,18 @@
             margin-top: 50px;
         }
         
+        #content {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* 라인수 */
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	line-height: 1.2em;
+	height: 3.5em;
+	/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+}
+        
    .select-img img {
 				max-width: 50%;
 				max-height: 50%;
@@ -262,28 +274,28 @@
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>닉네임</strong></div>
-			<div class="col-xs-8 col-md-4">${user.nickname}</div>
+			<div class="col-xs-8 col-md-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user.nickname}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>이 름</strong></div>
-			<div class="col-xs-8 col-md-4">${user.name}</div>
+			<div class="col-xs-8 col-md-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user.name}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>거주지</strong></div>
-			<div class="col-xs-8 col-md-4">${user.address}</div>
+			<div class="col-xs-8 col-md-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user.address}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>관심지역</strong></div>
-			<div class="col-xs-8 col-md-4">${user.likePlace}</div>
+			<div class="col-xs-8 col-md-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user.likePlace}</div>
 		</div>
 		
 		<hr/>
