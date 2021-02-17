@@ -78,7 +78,9 @@
     	<jsp:include page="/layout/toolbar.jsp"/>
 	
    	<!-- ToolBar End /////////////////////////////////////-->
-<div class="col-lg-10"><!-- 길이지정 -->
+<div class="container">
+<div class="row">
+<div class="col-xl-12">
 	
 	<input type="hidden" name="reportCount" value="${user.reportCount}" />
   <input type="hidden" name="reporterNick" value="${user.nickname}" />
@@ -129,9 +131,12 @@
    
     <button class="btn btn-primary" type="submit">Submit</button>
    
+   
   </fieldset>
-  
+  <br/>
 </form>
+</div>
+</div>
 </div>
 </div>
 </body>
