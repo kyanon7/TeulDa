@@ -139,10 +139,10 @@
  							<h5 class="card-title">
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
     					</div>
-    						<h5 class="card-title">${ diary.title }</h5>
     					<div class="text-card" id="title">
-    						<p class="card-text"><img src="${ diary.thumbnail }" width="270px" height="270px"></p>
+    						<h5 class="card-title">${ diary.title }</h5>
     					</div>
+    						<p class="card-text"><img src="${ diary.thumbnail }" width="270px" height="270px"></p>
  				 			<small>조회수 ${ diary.viewCount }회</small>
  				 			</div>
  				 		</div>
