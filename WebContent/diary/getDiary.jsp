@@ -20,6 +20,7 @@
 /* 		h5 { text-align: center; } */
 /* 		p  { text-align: center; } */
 		img[src$="../resources/images/user.png"] { display: block; margin: 0px auto; }
+		
 		</style>
 		
 		<script>

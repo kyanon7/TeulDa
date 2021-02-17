@@ -25,6 +25,29 @@
     	 body >  div.container{ 
             margin-top: 50px;
         }
+        
+    #content {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 3; /* 라인수 */
+		-webkit-box-orient: vertical;
+		word-wrap: break-word;
+		line-height: 1.2em;
+		height: 3.5em;
+		/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+	}
+	
+	#location {
+		overflow: hidden;
+		text-overflow: ellopsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 1; /* 라인수 */
+		-webkit-box-orient: vertical;
+		word-wrap: break-word;
+		line-height: 1.2em;
+		
+	}
     </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -279,12 +302,13 @@
 							<c:set var="i" value="${ i+1 }" />
 							<div class="col-md-4">
 								<div class="card bg-light mb-3" style="max-width: 20rem; height: 30rem;">
-									<div class="col-12 text-truncate">
+									
 									<div class="card-header">
-										<img src="../resources/images/marker_blue.png" height="12px"
-											align="middle">&nbsp;&nbsp;${ diary.location } <br>
+										<div class="text-card" id="location"><img src="../resources/images/marker_blue.png" height="12px"
+											align="middle">&nbsp;&nbsp;${ diary.location }</div>
 										<small>${ diary.startDate } - ${ diary.endDate }</small>
 									</div>
+									
 									<div class="card-body">
 										<div class="getDiary" id="${ diary.diaryNo }">
 											<h5 class="card-title">${ diary.title }</h5>
@@ -294,7 +318,7 @@
 											</p>
 										</div>
 									</div>
-									</div>
+									
 								</div>
 							</div>
 						</c:forEach>

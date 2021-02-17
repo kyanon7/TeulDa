@@ -27,6 +27,26 @@
 			height: 3.5em;
 			/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
 		}
+		
+		#title{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 1; /* 라인수 */
+			-webkit-box-orient: vertical;
+			word-wrap: break-word;
+			line-height: 1.2em;
+		}
+		
+		#location{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 1; /* 라인수 */
+			-webkit-box-orient: vertical;
+			word-wrap: break-word;
+			line-height: 1.2em;
+		}
 		.card-body {
 			overflow: auto;
 		}
@@ -77,24 +97,18 @@
 							<div class="col-md-4">
 								<div class="card bg-light mb-3" style="max-width: 20rem; height: 26rem;">
 									<div class="card-header">
-									<div class="col-12 text-truncate">
-										<img src="../resources/images/marker_blue.png" height="12px"
-											align="middle">&nbsp;&nbsp;${ diary.location } <br>
+										<div class="text-card" id="location"><img src="../resources/images/marker_blue.png" height="12px"
+											align="middle">&nbsp;&nbsp;${ diary.location }</div>
 										<small>${ diary.startDate } - ${ diary.endDate }</small>
 										<img src="../resources/images/folder.png" id="${ diary.diaryNo }" height="13px" align="middle" style="float:right;">
 									</div>
-									</div>
 									<div class="card-body">
 										<div class="getDiary" id="${ diary.diaryNo }">
-										<div class="col-12 text-truncate">
-											<h5 class="card-title">${ diary.title }</h5>
-										</div>
+											<h5 class="card-title" id="title">${ diary.title }</h5>
 											<p class="card-text"><img src="${ diary.thumbnail }" width="210px" height="210px">
-											<div class="col-12 text-truncate">
 											<p class="card-text" id="content">
 												<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
 											</p>
-											</div>
 										</div>
 									</div>
 								</div>

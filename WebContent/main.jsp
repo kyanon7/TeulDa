@@ -21,6 +21,26 @@
 		.card-body {
 			overflow: auto;
 		}
+		
+	#location {
+		overflow: hidden;
+		text-overflow: ellopsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 1; /* 라인수 */
+		-webkit-box-orient: vertical;
+		word-wrap: break-word;
+		line-height: 1.2em;
+	}	
+	
+	#title {
+		overflow: hidden;
+		text-overflow: ellopsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 1; /* 라인수 */
+		-webkit-box-orient: vertical;
+		word-wrap: break-word;
+		line-height: 1.2em;
+	}
 		</style>
 		<script>
 		$(function() {
@@ -115,12 +135,14 @@
   						<div class="card-header">${ diary.nickname }</div>
   						<div class="getDiary" id="${ diary.diaryNo }">
  						<div class="card-body">
- 						<div class="col-12 text-truncate">
+ 						<div class="text-card" id="location">
  							<h5 class="card-title">
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
-    						<h5 class="card-title">${ diary.title }</h5>
     					</div>
+    						<h5 class="card-title">${ diary.title }</h5>
+    					<div class="text-card" id="title">
     						<p class="card-text"><img src="${ diary.thumbnail }" width="270px" height="270px"></p>
+    					</div>
  				 			<small>조회수 ${ diary.viewCount }회</small>
  				 			</div>
  				 		</div>
@@ -140,9 +162,11 @@
   						<div class="card-header">${ diary.nickname }</div>
   						<div class="getDiary" id="${ diary.diaryNo }">
  							<div class="card-body">
- 						<div class="col-12 text-truncate">
+ 						<div class="text-card" id="location">
  							<h5 class="card-title">
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
+    						</div>
+    					<div class="text-card" id="title">
     						<h5 class="card-title">${ diary.title }</h5>
     					</div>
     						<p class="card-text"><img src="${ diary.thumbnail }" width="276px" height="276px"></p>
