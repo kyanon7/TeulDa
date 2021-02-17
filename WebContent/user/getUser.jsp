@@ -353,20 +353,8 @@
 						<%-- <jsp:include page="../common/pageNavigator.jsp" /> --%>
 						<!-- PageNavigation End... -->
 
-					</div> 
-	
-		
-
-		
-
-	
-		
-
-		
-
-		
+					</div>
 		<br/>
-		
  	</div>
  	<!--  화면구성 div Start /////////////////////////////////////-->
 

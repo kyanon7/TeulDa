@@ -261,41 +261,48 @@
 		<hr/>
 		
 
-		
-<!-- <c:set var="i" />
-	<c:if test="${i eq 0}">
 		<div class="form-group">
 	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-outline-success">구독</button>
-	  			<button type="button"  class="btn btn-outline-danger">회원신고</button>
-	  		</div>
-		</div>
-		</c:if>
-
-	<c:set var="i" />
-	<c:if test="${i eq 1}">
-		<div class="form-group">
-	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-outline-warning">구독 취소</button>
-	  			<a class="btn btn-outline-danger">회원신고</a>
-	  		</div>
-		</div>
-		</c:if>
-
-	-->
-	<div class="form-group">
-	  		<div class="col-md-12 text-center ">
+	  		<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
+			      <button type="button" class="btn btn-outline-primary">신고내역</button>
+      		</c:if>
 	  		</div>
 		</div>
 		
-		<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
-			      <button type="button" class="btn btn-outline-prime">신고내역</button>
-      	</c:if>
+		<br/><hr/><br/>
 		
+<h3 class="text-left">가장 최근에 쓴 기록</h3>
 
-		
+	 <div class="row">
+						<c:set var="i" value="0" />
+						<c:forEach var="diary" items="${ diaryList }">
+							<c:set var="i" value="${ i+1 }" />
+							<div class="col-md-4">
+								<div class="card bg-light mb-3" style="max-width: 20rem; height: 30rem;">
+									<div class="card-header">
+										<img src="../resources/images/marker_blue.png" height="12px"
+											align="middle">&nbsp;&nbsp;${ diary.location } <br>
+										<small>${ diary.startDate } - ${ diary.endDate }</small>
+									</div>
+									<div class="card-body">
+										<div class="getDiary" id="${ diary.diaryNo }">
+											<h5 class="card-title">${ diary.title }</h5>
+											<p class="card-text"><img src="${ diary.thumbnail }" width="210px" height="210px">
+											<p class="card-text" id="content">
+												<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+
+						<!-- PageNavigation Start... -->
+						<%-- <jsp:include page="../common/pageNavigator.jsp" /> --%>
+						<!-- PageNavigation End... -->
+
+					</div>
 		<br/>
-		
  	</div>
  	<!--  화면구성 div Start /////////////////////////////////////-->
 
