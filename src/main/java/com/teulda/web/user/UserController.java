@@ -146,7 +146,7 @@ public class UserController {
 
 			return "forward:/user/getMyUser.jsp";
 		}else {//현재 로그인한사람과 조회하려는 사람이 다를 때 user.getNickname()
-			search.setPageSize(9); // pageSize 지정 
+			search.setPageSize(6); // pageSize 지정 
 			model.addAttribute("diaryList", map.get("diaryList")); // 기록 
 			model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
 			model.addAttribute("search", search); // 검색 정보가 담겨있음 
@@ -156,7 +156,7 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="getUserNick", method=RequestMethod.GET  )
-	public String getUserNick( @RequestParam(value="nickname", required=false) String nickname , Model model, HttpSession session ) throws Exception {
+	public String getUserNick( @RequestParam(value="nickname", required=false) String nickname , Model model, HttpSession session, @ModelAttribute("search") Search search ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		//Business Logic
@@ -166,13 +166,37 @@ public class UserController {
 		System.out.println("디버그"+user.getNickname());//조회하려는 사람
 		System.out.println("디버그"+((User) session.getAttribute("user")));//현재 로그인한 사람
 		
-		user.setProfilePhoto(path+user.getProfilePhoto());
+
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		// JSP를 거치지 않고 URL을 통해 컨트롤러로 왔을 때 0번 ( 최근 작성 순 ) 으로 정렬되게 지정 
+		if (search.getSearchSorting() == null) {
+			search.setSearchSorting("0");
+		}
+	
+		search.setPageSize(10); // pageSize 지정 
+		
+		Map<String, Object> map = diaryService.getMyDiaryList(search, user.getNickname(), 'f');
+		Page resultPage	= // 페이지 나누는 것을 추상화 & 캡슐화 한 Page 클래스 이용 
+		new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		// Model 과 View 연결
+		model.addAttribute("user", user);
+		user.setProfilePhoto(path+user.getProfilePhoto());//조회하려는 사람의 프로필 사진 딱히 안건드려도될듯
+		
+
 		
 		if(((User) session.getAttribute("user")) != null && user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
 			return "forward:/user/getMyUser.jsp";
 		}if (((User) session.getAttribute("user")) == null ) {
 			return "forward:/user/getUserNot.jsp";
 		}if(((User) session.getAttribute("user")).getNickname() != null && !user.getNickname().equals(((User) session.getAttribute("user")).getNickname())) {
+			
+			search.setPageSize(6); // pageSize 지정 
+			model.addAttribute("diaryList", map.get("diaryList")); // 기록 
+			model.addAttribute("resultPage", resultPage); // 화면상의 페이지 정보가 다 담겨있음 
+			model.addAttribute("search", search); // 검색 정보가 담겨있음
+				
 			return "forward:/user/getUser.jsp";
 		}else
 			return "forward:/user/getUserNot.jsp";
