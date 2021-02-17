@@ -152,19 +152,26 @@
 						<c:forEach var="diary" items="${ diaryList }">
 							<c:set var="i" value="${ i+1 }" />
 							<div class="col-md-4">
-								<div class="card bg-light mb-3" style="max-width: 20rem; height: 30rem;">
+								<div class="card bg-light mb-3" style="max-width: 20rem; height: 26rem;">
 									<div class="card-header">
+									<div class="col-12 text-truncate">
 										<img src="../resources/images/marker_blue.png" height="12px"
 											align="middle">&nbsp;&nbsp;${ diary.location } <br>
 										<small>${ diary.startDate } - ${ diary.endDate }</small>
+										<img src="../resources/images/folder.png" id="${ diary.diaryNo }" height="13px" align="middle" style="float:right;">
+									</div>
 									</div>
 									<div class="card-body">
 										<div class="getDiary" id="${ diary.diaryNo }">
+										<div class="col-12 text-truncate">
 											<h5 class="card-title">${ diary.title }</h5>
+										</div>
 											<p class="card-text"><img src="${ diary.thumbnail }" width="210px" height="210px">
+											<div class="col-12 text-truncate">
 											<p class="card-text" id="content">
 												<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
 											</p>
+										</div>
 										</div>
 									</div>
 								</div>

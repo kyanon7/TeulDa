@@ -331,6 +331,7 @@
 							<c:set var="i" value="${ i+1 }" />
 							<div class="col-md-4">
 								<div class="card bg-light mb-3" style="max-width: 20rem; height: 30rem;">
+									<div class="col-12 text-truncate">
 									<div class="card-header">
 										<img src="../resources/images/marker_blue.png" height="12px"
 											align="middle">&nbsp;&nbsp;${ diary.location } <br>
@@ -344,6 +345,7 @@
 												<c:out value='${diary.content.replaceAll("\\\<.*?\\\>","")}' />
 											</p>
 										</div>
+									</div>
 									</div>
 								</div>
 							</div>
