@@ -178,7 +178,7 @@
 										<div class="text-card" id="location"><img src="../resources/images/marker_blue.png" height="12px"
 											align="middle">&nbsp;&nbsp;${ diary.location }</div>
 										<small>${ diary.startDate } - ${ diary.endDate }</small>
-										<img src="../resources/images/folder.png" id="${ diary.diaryNo }" height="13px" align="middle" style="float:right;">
+										<%-- <img src="../resources/images/folder.png" id="${ diary.diaryNo }" height="13px" align="middle" style="float:right;"> --%>
 									</div>
 									<div class="card-body">
 										<div class="getDiary" id="${ diary.diaryNo }">
