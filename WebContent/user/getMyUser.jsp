@@ -79,7 +79,7 @@
 	<form>
 		<input type="hidden" name="email" value="${user.email}" />
 		<div class="page-header">
-	       <h2 class="text-left">${user.nickname}님의 공간</h2>
+	       <h2 class="text-center">${user.nickname}님의 공간</h2><br/>
 	    </div>
 	    
 	    

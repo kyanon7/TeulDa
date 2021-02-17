@@ -39,7 +39,7 @@
 			});
 			
 			$("img[src='../resources/images/folder.png']").on("click", function() { 
-				window.open('/diary/selectDiaryGroup?diaryNo='+ $(this).attr('id'),'그룹 선택','width=450, height=300, left=460, top=150');
+				window.open('/diary/selectDiaryGroup?diaryNo='+ $(this).attr('id'),'그룹 선택','width=1200, height=450, left=460, top=150');
 			});
 
 		});

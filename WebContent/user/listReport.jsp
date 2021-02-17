@@ -115,6 +115,8 @@
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
+	<div class="row">
+	<div class="col-xl-12">
 	
 		<input type="hidden" name="targetNick" value="${targetNick}" />
 				<input type="hidden" name="nickname" value="${user.nickname}" />
@@ -192,7 +194,9 @@
 		<!-- PageNavigation End... -->
 		</div>
 
- 	</div>
+		</div>
+	</div>
+ 	
  	<!--  화면구성 div End /////////////////////////////////////-->
  	
  

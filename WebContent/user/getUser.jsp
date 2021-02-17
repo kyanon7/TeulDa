@@ -267,7 +267,7 @@
 		
 		
 		<div class="page-header">
-	       <h2 class="text-center">${user.nickname}님의 공간</h2>
+	       <h2 class="text-center">${user.nickname}님의 공간</h2></br/>
 	    </div>
 	    
 	   <c:if test="${! empty user.profilePhoto && user.profilePhoto ne '/resources/images/review/null' }" > 
@@ -310,9 +310,19 @@
 	  		<div class="col-xs-4 col-md-2 "><strong>관심지역</strong></div>
 			<div class="col-xs-8 col-md-4">${user.likePlace}</div>
 		</div>
-		
-		<hr/>
 
+		<hr/><br/>
+
+		<div class="form-group">
+	  		<div class="col-md-12 text-center ">
+	  		<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
+			      <button type="button" class="btn btn-outline-primary">신고내역</button>
+      		</c:if>
+	  		</div>
+		</div>
+		
+		<br/><hr/><br/>
+		
 <h3 class="text-left">가장 최근에 쓴 기록</h3>
 
 	 <div class="row">
@@ -349,14 +359,9 @@
 
 		
 
-	<div class="form-group">
-	  		<div class="col-md-12 text-center ">
-	  		</div>
-		</div>
+	
 		
-		<c:if test="${sessionScope.user.role eq '0'.charAt(0)}">
-			      <button type="button" class="btn btn-outline-prime">신고내역</button>
-      	</c:if>
+
 		
 
 		

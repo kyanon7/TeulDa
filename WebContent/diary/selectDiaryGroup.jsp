@@ -64,18 +64,25 @@
 	<body>
 
 	<div class="container">
-		<div class="row"> 
-			<div class="form-group">
-			<c:set var="i" value="0" />
-			<c:forEach var="group" items="${ diaryGroupList }">
-				<c:set var="i" value="${ i+1 }" />
-					<label class="form-check-label"> 
-					<input type="radio" class="form-check-input" name="optionsRadios" id="${ group.groupNo }" value="${ group.groupNo }"> 
-					${ group.groupName eq 'default2' ? '그룹 미지정' : group.groupName }
-					</label> <br>
-			</c:forEach>
-			</div>
-		</div>
+		 <div class="row"> 
+					<c:set var="i" value="0" />
+					<c:forEach var = "group" items = "${ diaryGroupList }">
+						<c:set var="i" value="${ i+1 }" />
+						<div class="col-xl-3">
+						<input type="radio" class="form-check-input" name="optionsRadios" id="${ group.groupNo }" value="${ group.groupNo }"> 
+							<div class="card bg-secondary mb-3" style="max-width: 20rem; max-height: 10rem;">
+								<div class="card-header" style="color:black">
+									<input type="hidden" id="updateGroupName" value="${group.groupName}">
+									<small style="">${group.groupDate}</small>
+								</div>
+								<div class="card-body">
+								<h6>${ group.groupName eq 'default2' ? '그룹 미지정' : group.groupName }</h6>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+			    </div>
 		
 		<button type="button" class="btn btn-primary btn-sm">그룹 이동</button>
 		<button type="button" class="btn btn-primary btn-sm" onclick="window.close()">취소</button>

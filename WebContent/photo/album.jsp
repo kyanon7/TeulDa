@@ -96,7 +96,7 @@
 		
 		$(function(){
 			$("img[src='../resources/images/folder.png']").on("click", function() { 
-				window.open('/photo/selectPhotoGroup?photoNo='+$(this).attr('id'), "그룹 선택", "width=450, height=300, left=550, top=250");
+				window.open('/photo/selectPhotoGroup?photoNo='+$(this).attr('id'), "그룹 선택", "width=1200, height=450, left=750, top=250");
 			});
 		});
 		
@@ -131,7 +131,7 @@
 		
 		<div class="col-md-9">
 			<div class="list-group">
-			<a href="#" class="list-group-item list-group-item-action active">주의!!) 사진 등록 시, 사진 이름이 한글일 경우 사진이 올라가지 않습니다.</a><br/><br/>
+			<a href="#" class="list-group-item list-group-item-action active">공지!!) 사진 등록이 되지 않을 경우 파일 이름이 한글이 아닌지 확인해 주시기 바랍니다!!</a><br/><br/>
 				<div class="row"> 
 					<c:set var="i" value="0" />
 						<c:forEach var = "photo" items = "${ photoList }">
