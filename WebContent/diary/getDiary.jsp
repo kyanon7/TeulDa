@@ -80,7 +80,6 @@
 			
 			$("span:contains('북마크 취소')").on("click", function () {
 				
-					alert("버튼눌림");
 					$.ajax({
 			         url : "/bookmark/rest/deleteBookmark",   
 			         type : "POST",
