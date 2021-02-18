@@ -465,7 +465,7 @@
 			AND diary_date BETWEEN #{start} AND #{end}
 		</when>
 		<otherwise>
-			AND diary_date &lt; #{start}
+			AND diary_date &lt; #{start} OR diary_date IN #{start}
 		</otherwise>
 	</choose>
 	AND is_public = 't'

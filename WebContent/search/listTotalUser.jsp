@@ -66,7 +66,7 @@
 			 $("li.breadcrumb-item").on("click", function() { // 정렬
 					// <li> 클릭 시 해당 value 값 input type text 에 넣기
 					$("#searchSorting").val($(this).attr('value'));
-					fncGetList();  
+					fncGetList(1);  
 				});
 		});
 		 
