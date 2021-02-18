@@ -26,7 +26,7 @@
 		overflow: hidden;
 		text-overflow: ellopsis;
 		display: -webkit-box;
-		-webkit-line-clamp: 1; /* 라인수 */
+		-webkit-line-clamp: 2; /* 라인수 */
 		-webkit-box-orient: vertical;
 		word-wrap: break-word;
 		line-height: 1.2em;
@@ -138,11 +138,11 @@
  						<div class="text-card" id="location">
  							<h5 class="card-title">
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
-    					</div>
+    					</div><br/>
+    					<p class="card-text"><img src="${ diary.thumbnail }" width="270px" height="270px"></p>
     					<div class="text-card" id="title">
     						<h5 class="card-title">${ diary.title }</h5>
     					</div>
-    						<p class="card-text"><img src="${ diary.thumbnail }" width="270px" height="270px"></p>
  				 			<small>조회수 ${ diary.viewCount }회</small>
  				 			</div>
  				 		</div>
@@ -165,11 +165,11 @@
  						<div class="text-card" id="location">
  							<h5 class="card-title">
  								<img src="../resources/images/marker_blue.png" height="11px" align="middle"><small>&nbsp; ${ diary.location }</small></h5>
-    						</div>
+    						</div><br/>
+    						<p class="card-text"><img src="${ diary.thumbnail }" width="276px" height="276px"></p>
     					<div class="text-card" id="title">
     						<h5 class="card-title">${ diary.title }</h5>
     					</div>
-    						<p class="card-text"><img src="${ diary.thumbnail }" width="276px" height="276px"></p>
  				 			<small>북마크 ${ diary.bookmarkCount }회</small>
  				 			</div>
  				 		</div>

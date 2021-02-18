@@ -115,7 +115,7 @@
 			});
 
 			$(".getDiary").on("click",function() {
-				self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id') + "&status=own";
+				self.location = "/diary/getDiary?diaryNo="+ $(this).attr('id');
 			});
 
 			// 			$(".getProductSearch").on("click", function () { // 이미지 누르면 상품 보여지게 함
