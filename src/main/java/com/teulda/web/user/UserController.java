@@ -383,10 +383,7 @@ public class UserController {
 		if (search.getSearchSorting() == null) {
 			search.setSearchSorting("0");
 		}
-		if (searchKeyword != null) {
-			search.setSearchCondition("0"); // 전체 검색 
-			search.setSearchKeyword(searchKeyword);
-		}
+
 		search.setPageSize(pageSize);
 		
 		// Business logic 수행
