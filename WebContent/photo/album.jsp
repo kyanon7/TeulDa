@@ -62,7 +62,7 @@
 		
 		$(function(){
 			$("input[type='submit']").on("click", function(){
-				alert("click")
+				/* alert("click") */
 				if(("#photoAddr").val() == null){
 					alert("주소를 입력해주세요.")
 				}
